@@ -1,0 +1,29 @@
+plugins{
+	id "java"
+	id "maven"
+}
+
+group 'org.springframework.social'
+version '1.0.0-SNAPSHOT'
+
+repositories {
+	jcenter()
+}
+
+ext {
+	springSocialVersion = "1.1.4.RELEASE"
+}
+
+dependencies {
+	testCompile group: 'junit', name: 'junit', version: '4.11'
+}
+
+allprojects {
+	dependencies {
+		compile(
+				[group: 'org.springframework.social',		name: 'spring-social-core',		version: "${springSocialVersion}"],
+				[ group: 'org.springframework.security', 	name: 'spring-security-core', 	version: '4.2.0.RELEASE'],
+				[group: "com.fasterxml.jackson.core",		name: "jackson-databind",		version: "2.2.2"]
+		)
+	}
+}
