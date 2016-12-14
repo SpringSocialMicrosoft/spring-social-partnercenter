@@ -4,7 +4,7 @@ import java.net.URI;
 
 public class CustomerUriProvider{
 
-	public static URI buildBetByIdUri(String tenantId){
+	public static URI buildCustomerUri(String tenantId){
 		return UriProvider.partnerCenterBuilder()
 				.pathSegment("v1", "customers", tenantId)
 				.build().toUri();

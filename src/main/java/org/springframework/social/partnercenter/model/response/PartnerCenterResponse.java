@@ -15,8 +15,6 @@ public class PartnerCenterResponse<T> {
 	@JsonProperty
 	private List<T> items;
 	@JsonProperty
-	private Map<String, Link> links;
-	@JsonProperty
 	private Map<String, String> attributes;
 
 	public int getTotal() {
@@ -34,15 +32,6 @@ public class PartnerCenterResponse<T> {
 
 	public PartnerCenterResponse setItems(List<T> items) {
 		this.items = items;
-		return this;
-	}
-
-	public Map<String, Link> getLinks() {
-		return links;
-	}
-
-	public PartnerCenterResponse setLinks(Map<String, Link> links) {
-		this.links = links;
 		return this;
 	}
 

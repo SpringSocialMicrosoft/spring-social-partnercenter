@@ -69,6 +69,10 @@ public class RestService {
 				responseType).getBody();
 	}
 
+	public void delete(URI uri){
+		restTemplate.delete(uri);
+	}
+
 	public static class RequestBuilder{
 		private HttpHeaders headers;
 		private RestService restService;

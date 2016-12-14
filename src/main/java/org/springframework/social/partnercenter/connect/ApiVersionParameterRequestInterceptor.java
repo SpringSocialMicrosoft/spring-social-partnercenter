@@ -29,7 +29,6 @@ public class ApiVersionParameterRequestInterceptor implements ClientHttpRequestI
 	@Override
 	public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution) throws IOException {
 		HttpRequestDecorator protectedResourceRequest = new HttpRequestDecorator(request);
-//		protectedResourceRequest.addParameter(parameterName, apiVersion);
 		protectedResourceRequest.getHeaders().set(parameterName, apiVersion);
 		return execution.execute(protectedResourceRequest, body);
 	}
