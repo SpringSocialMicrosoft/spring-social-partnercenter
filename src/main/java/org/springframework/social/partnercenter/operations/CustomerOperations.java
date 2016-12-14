@@ -17,7 +17,7 @@ public interface CustomerOperations {
     CustomerRelationshipRequest requestResellerRelationship();
     Customer getById(String tenantId);
 	List<Customer> getByCompanyNameOrDomain(int size, String filter);
-    List<Customer> getList(int size);
+	PartnerCenterResponse<Customer> getList(int size);
     BillingProfile getBillingProfile(String customerId);
     BillingProfile updateBillingProfile(String customerId, String etag, BillingProfile billingProfile);
     Subscription updateFriendlyName(String customerTenantId, String subscriptionId, String nickname);

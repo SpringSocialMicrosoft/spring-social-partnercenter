@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PartnerCenterResponse<T> {
-	@JsonProperty
+	@JsonProperty("totalCount")
 	private int total;
 	@JsonProperty
 	private List<T> items;
