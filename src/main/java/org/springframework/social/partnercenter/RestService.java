@@ -1,5 +1,7 @@
 package org.springframework.social.partnercenter;
 
+import static org.springframework.social.partnercenter.RestResponse.createResponse;
+
 import java.net.URI;
 import java.util.Collections;
 import java.util.Map;
@@ -21,52 +23,53 @@ public class RestService {
 		this.restTemplate = restTemplate;
 	}
 
-	public <T> T get(URI url, ParameterizedTypeReference<T> responseType) {
-		return restTemplate.exchange(url, HttpMethod.GET, null, responseType).getBody();
+	public <T> RestResponse<T> get(URI url, ParameterizedTypeReference<T> responseType) {
+		return createResponse(restTemplate.exchange(url, HttpMethod.GET, null, responseType));
 	}
 
-	public <T> T get(URI url, Class<T> responseType) {
+	public <T> RestResponse<T> get(URI url, Class<T> responseType) {
 		ResponseEntity<T> body = restTemplate.exchange(url, HttpMethod.GET, null, responseType);
-		return body.getBody();
+		return createResponse(body);
 
 	}
 
-	private  <T> T get(URI url, Class<T> responseType, Map<String, String> header) {
+	private  <T> RestResponse<T> get(URI url, Class<T> responseType, Map<String, String> header) {
 		ResponseEntity<T> body = restTemplate.exchange(url, HttpMethod.GET, new HttpEntity<>(header), responseType);
-		return body.getBody();
+		return createResponse(body);
 
 	}
 
-	public <T> T post(URI url, ParameterizedTypeReference<T> responseType) {
-		return restTemplate.exchange(url, HttpMethod.POST, HttpEntity.EMPTY, responseType).getBody();
+	public <T> RestResponse<T> post(URI url, ParameterizedTypeReference<T> responseType) {
+		return createResponse(restTemplate.exchange(url, HttpMethod.POST, HttpEntity.EMPTY, responseType));
 	}
 
-	public <T> T post(URI url, ParameterizedTypeReference<T> responseType, Map<String, String> headers) {
-		return restTemplate.exchange(url, HttpMethod.POST, new HttpEntity<Object>(headers), responseType).getBody();
+	public <T> RestResponse<T> post(URI url, ParameterizedTypeReference<T> responseType, Map<String, String> headers) {
+		return createResponse(restTemplate.exchange(url, HttpMethod.POST, new HttpEntity<Object>(headers), responseType));
 	}
 
-	public <T, R> R post(URI uri, T entity, Class<R> responseType) {
-		return restTemplate.exchange(
+	public <T, R> RestResponse<R> post(URI uri, T entity, Class<R> responseType) {
+		return createResponse(restTemplate.exchange(
 				uri,
 				HttpMethod.POST,
 				new HttpEntity<>(entity),
-				responseType).getBody();
+				responseType));
 	}
 
-	public <T, R> ResponseEntity<R> post(URI uri, HttpEntity<T> entity, Class<R> responseType) {
-		return restTemplate.exchange(
+	public <T, R> RestResponse<R> post(URI uri, HttpEntity<T> entity, Class<R> responseType) {
+		return createResponse(restTemplate.exchange(
 				uri,
 				HttpMethod.POST,
 				entity,
-				responseType);
+				responseType));
 	}
 
-	public <T, R> R put(URI uri, HttpEntity<T> entity, Class<R> responseType) {
-		return restTemplate.exchange(
+	public <T, R> RestResponse<R> put(URI uri, HttpEntity<T> entity, Class<R> responseType) {
+		ResponseEntity<R> exchange = restTemplate.exchange(
 				uri,
 				HttpMethod.PUT,
 				entity,
-				responseType).getBody();
+				responseType);
+		return createResponse(exchange);
 	}
 
 	public void delete(URI uri){
@@ -97,12 +100,12 @@ public class RestService {
 
 		public <T, R> R put(URI uri, T payload, Class<R> aClass){
 			HttpEntity<T> tHttpEntity = new HttpEntity<>(payload, headers);
-			return restService.put(uri, tHttpEntity, aClass);
+			return restService.put(uri, tHttpEntity, aClass).getBody();
 		}
 
-		public <T, R> ResponseEntity<R> post(URI uri, T payload, Class<R> aClass){
+		public <T, R> R post(URI uri, T payload, Class<R> aClass){
 			HttpEntity<T> tHttpEntity = new HttpEntity<>(payload, headers);
-			return restService.post(uri, tHttpEntity, aClass);
+			return restService.post(uri, tHttpEntity, aClass).getBody();
 		}
 	}
 }
