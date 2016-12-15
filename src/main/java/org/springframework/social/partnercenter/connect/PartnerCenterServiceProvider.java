@@ -2,7 +2,7 @@ package org.springframework.social.partnercenter.connect;
 
 import org.springframework.social.oauth2.AbstractOAuth2ServiceProvider;
 import org.springframework.social.partnercenter.PartnerCenter;
-import org.springframework.social.partnercenter.impl.PartnerCenterTemplate;
+import org.springframework.social.partnercenter.api.PartnerCenterTemplate;
 import org.springframework.social.partnercenter.oauth2.PartnerCenterOAuth2Template;
 
 public class PartnerCenterServiceProvider  extends AbstractOAuth2ServiceProvider<PartnerCenter> {

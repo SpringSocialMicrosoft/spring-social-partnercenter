@@ -18,7 +18,7 @@ import org.springframework.social.oauth2.AccessGrant;
 import org.springframework.social.oauth2.GrantType;
 import org.springframework.social.oauth2.OAuth2Operations;
 import org.springframework.social.oauth2.OAuth2Parameters;
-import org.springframework.social.partnercenter.uri.UriProvider;
+import org.springframework.social.partnercenter.api.uri.UriProvider;
 import org.springframework.social.support.ClientHttpRequestFactorySelector;
 import org.springframework.social.support.FormMapHttpMessageConverter;
 import org.springframework.util.Assert;

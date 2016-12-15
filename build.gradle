@@ -36,8 +36,8 @@ dependencies {
 }
 
 bintray {
-	user = ${bintrayUser}
-	key = ${bintrayKey}
+	user = bintrayUser
+	key = bintrayKey
 	publications = ['mavenJava']
 	pkg {
 		repo = 'spring-social-microsoft'

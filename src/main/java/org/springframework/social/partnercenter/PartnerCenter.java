@@ -1,9 +1,9 @@
 package org.springframework.social.partnercenter;
 
 import org.springframework.social.ApiBinding;
-import org.springframework.social.partnercenter.operations.CustomerOperations;
-import org.springframework.social.partnercenter.operations.OrderOperations;
-import org.springframework.social.partnercenter.operations.SubscriptionOperations;
+import org.springframework.social.partnercenter.api.customer.CustomerOperations;
+import org.springframework.social.partnercenter.api.order.OrderOperations;
+import org.springframework.social.partnercenter.api.order.SubscriptionOperations;
 
 public interface PartnerCenter extends ApiBinding {
 	String PROVIDER_ID = "partner-center";
