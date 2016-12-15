@@ -36,8 +36,8 @@ dependencies {
 }
 
 bintray {
-	user = bintrayUser
-	key = bintrayKey
+	user = "${bintrayUser}"
+	key = "${bintrayKey}"
 	publications = ['mavenJava']
 	pkg {
 		repo = 'spring-social-microsoft'
@@ -46,9 +46,9 @@ bintray {
 		licenses = ['Apache-2.0']
 		vcsUrl = 'https://github.com/paulsmelser/spring-social-partnercenter.git'
 		version {
-			name = '0.1.1'
+			name = '0.1.2'
 			released  = new Date()
-			vcsTag = 'release-0.1.1'
+			vcsTag = 'release-0.1.2'
 			publicDownloadNumbers = true
 		}
 	}
