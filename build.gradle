@@ -8,6 +8,7 @@ plugins {
 	id "java"
 	id "maven"
 	id 'maven-publish'
+	id "com.jfrog.bintray" version "1.7.3"
 	id 'pl.allegro.tech.build.axion-release' version '1.4.1'
 }
 
@@ -34,15 +35,34 @@ dependencies {
 	testCompile group: 'junit', name: 'junit', version: '4.11'
 }
 
+bintray {
+	user = "psmelser"
+	key = "43c87e5176c2b2f69b79f7dbd35bb5211244250b"
+	publications = ['mavenJava']
+	pkg {
+		repo = 'simple-mapper'
+		name = 'simple-mapper'
+		userOrg = 'psmelser'
+		licenses = ['Apache-2.0']
+		vcsUrl = 'https://github.com/paulsmelser/spring-social-partnercenter.git'
+		version {
+			name = '0.1.0'
+			released  = new Date()
+			vcsTag = 'release-0.1.0'
+			publicDownloadNumbers = true
+		}
+	}
+}
+
 publishing {
 	publications {
 		mavenJava(MavenPublication) {
-			version project.version
+			version scmVersion.version
 			from components.java
 		}
 	}
 	repositories{
 		maven {
-			url "file:///${System.properties['user.home']}/workspace/maven-repo/" }
+			url "http://dl.bintray.com/psmelser/spring-social-microsoft" }
 	}
 }

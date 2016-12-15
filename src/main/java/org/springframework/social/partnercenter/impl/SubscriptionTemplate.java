@@ -1,23 +1,18 @@
 package org.springframework.social.partnercenter.impl;
 
-import static java.util.Optional.ofNullable;
-
-import java.net.URI;
-import java.util.Optional;
-
 import org.springframework.social.partnercenter.PartnerCenter;
-import org.springframework.social.partnercenter.RestService;
-import org.springframework.social.partnercenter.operations.SubscriptionOperations;
+import org.springframework.social.partnercenter.RestResource;
 import org.springframework.social.partnercenter.model.order.Subscription;
-import org.springframework.social.partnercenter.uri.SubscriptionUriProvider;
+import org.springframework.social.partnercenter.model.response.GetSubscriptionsResponse;
+import org.springframework.social.partnercenter.operations.SubscriptionOperations;
 
 public class SubscriptionTemplate extends AbstractTemplate implements SubscriptionOperations {
 
-	private final RestService restService;
+	private final RestResource restResource;
 
-	public SubscriptionTemplate(RestService restService, boolean isAuthorized) {
+	public SubscriptionTemplate(RestResource restResource, boolean isAuthorized) {
 		super(isAuthorized);
-		this.restService = restService;
+		this.restResource = restResource;
 	}
 
 	@Override
@@ -26,9 +21,18 @@ public class SubscriptionTemplate extends AbstractTemplate implements Subscripti
 	}
 
 	@Override
-	public Optional<Subscription> getById(String customerTenantId, String id) {
-		URI uri = SubscriptionUriProvider.buildSubscriptionUri(customerTenantId, id);
+	public Subscription getById(String customerTenantId, String id) {
+		return restResource.request()
+				.pathSegment(customerTenantId, "subscriptions", id)
+				.get(Subscription.class)
+				.getBody();
+	}
 
-		return ofNullable(restService.get(uri, Subscription.class));
+	@Override
+	public GetSubscriptionsResponse getCustomersSubscriptions(String customerTenantId) {
+		return restResource.request()
+				.pathSegment(customerTenantId, "subscriptions")
+				.get(GetSubscriptionsResponse.class)
+				.getBody();
 	}
 }
