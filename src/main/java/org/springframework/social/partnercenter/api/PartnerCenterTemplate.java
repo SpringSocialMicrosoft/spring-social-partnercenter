@@ -2,6 +2,8 @@ package org.springframework.social.partnercenter.api;
 
 import org.springframework.social.oauth2.AbstractOAuth2ApiBinding;
 import org.springframework.social.partnercenter.api.customer.impl.CustomerTemplate;
+import org.springframework.social.partnercenter.api.order.OfferOperations;
+import org.springframework.social.partnercenter.api.order.impl.OfferTemplate;
 import org.springframework.social.partnercenter.api.order.impl.OrderTemplate;
 import org.springframework.social.partnercenter.api.order.impl.SubscriptionTemplate;
 import org.springframework.social.partnercenter.api.customer.CustomerOperations;
@@ -16,6 +18,7 @@ public class PartnerCenterTemplate  extends AbstractOAuth2ApiBinding implements 
 	private final SubscriptionOperations subscriptionOperations;
 	private final OrderOperations orderOperations;
 	private final CustomerOperations customerOperations;
+	private final OfferOperations offerOperations;
 
 	public PartnerCenterTemplate(String accessToken, String version) {
 		super(accessToken);
@@ -26,6 +29,8 @@ public class PartnerCenterTemplate  extends AbstractOAuth2ApiBinding implements 
 				UriProvider.partnerCenterCustomerApiBuilder().toUriString()), isAuthorized());
 		customerOperations = new CustomerTemplate(new RestResource(getRestTemplate(),
 				UriProvider.partnerCenterCustomerApiBuilder().toUriString()) ,isAuthorized());
+		offerOperations = new OfferTemplate(new RestResource(getRestTemplate(),
+				UriProvider.partnerCenterBuilder().pathSegment("v1", "offer").toUriString()), isAuthorized());
 
 	}
 
@@ -42,6 +47,11 @@ public class PartnerCenterTemplate  extends AbstractOAuth2ApiBinding implements 
 	@Override
 	public CustomerOperations getCustomerOperations() {
 		return customerOperations;
+	}
+
+	@Override
+	public OfferOperations getOfferOperations() {
+		return offerOperations;
 	}
 
 	private void addVersionInterceptor(String apiVersion) {

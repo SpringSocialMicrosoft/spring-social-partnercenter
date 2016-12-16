@@ -17,6 +17,7 @@ public class Subscription {
 	private String contractType;
 	private boolean autoRenewEnabled;
 	private String orderId;
+	private Map<String, Link> links;
 	private Map<String, String> attributes;
 
 	public String getId() {
@@ -115,6 +116,15 @@ public class Subscription {
 
 	public Subscription setOrderId(String orderId) {
 		this.orderId = orderId;
+		return this;
+	}
+
+	public Map<String, Link> getLinks() {
+		return links;
+	}
+
+	public Subscription setLinks(Map<String, Link> links) {
+		this.links = links;
 		return this;
 	}
 

@@ -8,17 +8,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Order {
-	@JsonProperty
 	private String id;
-	@JsonProperty
 	private String referenceCustomerId;
-	@JsonProperty
 	private List<LineItem> lineItems;
-	@JsonProperty
 	private String status;
-	@JsonProperty
 	private String creationDate;
-	@JsonProperty
 	private Map<String, String> attributes;
 
 	public String getId() {

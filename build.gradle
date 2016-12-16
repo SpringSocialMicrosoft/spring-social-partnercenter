@@ -46,9 +46,9 @@ bintray {
 		licenses = ['Apache-2.0']
 		vcsUrl = 'https://github.com/paulsmelser/spring-social-partnercenter.git'
 		version {
-			name = '0.1.2'
+			name = scmVersion.version
 			released  = new Date()
-			vcsTag = 'release-0.1.2'
+			vcsTag = scmVersion.tag
 			publicDownloadNumbers = true
 		}
 	}

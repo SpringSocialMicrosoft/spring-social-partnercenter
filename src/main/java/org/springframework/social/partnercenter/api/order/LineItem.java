@@ -2,6 +2,9 @@ package org.springframework.social.partnercenter.api.order;
 
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class LineItem {
 	private int lineItemNumber;
 	private String offerId;

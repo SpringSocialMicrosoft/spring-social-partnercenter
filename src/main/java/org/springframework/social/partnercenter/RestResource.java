@@ -67,6 +67,14 @@ public class RestResource {
 				responseType).getBody();
 	}
 
+	public <T, R> R patch(URI uri, HttpEntity<T> entity, Class<R> responseType) {
+		return restTemplate.exchange(
+				uri,
+				HttpMethod.PATCH,
+				entity,
+				responseType).getBody();
+	}
+
 	public <T, R> R put(URI uri, HttpEntity<T> entity, Class<R> responseType) {
 		return restTemplate.exchange(
 				uri,
@@ -128,7 +136,16 @@ public class RestResource {
 			return restResource.post(uriBuilder.build().toUri(), tHttpEntity, aClass);
 		}
 
+		public <T, R> R patch(T payload, Class<R> aClass){
+			HttpEntity<T> tHttpEntity = new HttpEntity<>(payload, headers);
+			return restResource.patch(uriBuilder.build().toUri(), tHttpEntity, aClass);
+		}
+
 		public <T> T get(Class<T> aClass){
+			return restResource.get(uriBuilder.build().toUri(), aClass);
+		}
+
+		public <T> T get(ParameterizedTypeReference<T> aClass){
 			return restResource.get(uriBuilder.build().toUri(), aClass);
 		}
 	}
