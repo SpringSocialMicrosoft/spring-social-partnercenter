@@ -1,8 +1,8 @@
 package org.springframework.social.partnercenter.api.billing.invoicing;
 
-import org.springframework.social.partnercenter.api.PartnerCenterPaginatedResponse;
+import org.springframework.social.partnercenter.api.PartnerCenterResponse;
 
 public interface InvoiceOperations {
-	PartnerCenterPaginatedResponse<Invoice> getInvoices();
+	PartnerCenterResponse<Invoice> getInvoices();
 	Invoice getById(String id);
 }
