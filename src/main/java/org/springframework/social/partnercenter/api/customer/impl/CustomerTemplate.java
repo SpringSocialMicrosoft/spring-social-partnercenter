@@ -20,7 +20,6 @@ import org.springframework.social.partnercenter.api.customer.response.CustomerRe
 import org.springframework.social.partnercenter.api.customer.response.GetRoleResponse;
 import org.springframework.social.partnercenter.api.PartnerCenterResponse;
 import org.springframework.social.partnercenter.api.customer.CustomerOperations;
-import org.springframework.social.partnercenter.api.uri.CustomerUriProvider;
 import org.springframework.social.partnercenter.api.uri.UriProvider;
 
 public class CustomerTemplate extends AbstractTemplate implements CustomerOperations {
@@ -43,7 +42,9 @@ public class CustomerTemplate extends AbstractTemplate implements CustomerOperat
 
 	@Override
 	public Customer getById(String tenantId) {
-		return restResource.get(CustomerUriProvider.buildCustomerUri(tenantId), Customer.class);
+		return restResource.request()
+				.pathSegment(tenantId)
+				.get(Customer.class);
 	}
 
 	@Override

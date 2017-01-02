@@ -1,5 +1,7 @@
 package org.springframework.social.partnercenter.api.uri;
 
+import java.net.URI;
+
 import org.springframework.web.util.UriComponentsBuilder;
 
 public class UriProvider {
