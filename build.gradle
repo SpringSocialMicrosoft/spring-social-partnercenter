@@ -41,7 +41,7 @@ bintray {
 	publications = ['mavenJava']
 	pkg {
 		repo = 'spring-social-microsoft'
-		name = 'spring-social-partnercenter'
+		name = project.name
 		userOrg = 'psmelser'
 		licenses = ['Apache-2.0']
 		vcsUrl = 'https://github.com/paulsmelser/spring-social-partnercenter.git'

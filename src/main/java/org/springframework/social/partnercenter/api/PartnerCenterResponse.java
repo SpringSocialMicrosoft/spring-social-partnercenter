@@ -1,4 +1,4 @@
-package org.springframework.social.partnercenter.api.customer.response;
+package org.springframework.social.partnercenter.api;
 
 import java.util.List;
 import java.util.Map;
@@ -37,7 +37,7 @@ public class PartnerCenterResponse<T> {
 		return attributes;
 	}
 
-	public PartnerCenterResponse setAttributes(Map<String, String> attributes) {
+public PartnerCenterResponse setAttributes(Map<String, String> attributes) {
 		this.attributes = attributes;
 		return this;
 	}

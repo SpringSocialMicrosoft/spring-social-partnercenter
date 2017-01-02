@@ -8,6 +8,9 @@ public interface SubscriptionOperations {
 	GetSubscriptionListResponse getSubscriptionsByOrderId(String customerId, String orderId);
 	GetSubscriptionListResponse getAddOnsForBySubscriptionId(String customerId, String subscriptionId);
 	Subscription updateSubscription(String customerId, String subscriptionId, Subscription subscription);
+	Subscription suspendSubscription(String customerId, String subscriptionId);
+	Subscription reactivateSubscription(String customerId, String subscriptionId);
+	Subscription updateSubscriptionQuantity(String customerId, String subscriptionId, int qty);
 	String getSubscriptionUpgrade(String customerId, String subscriptionId);
-	String upgradeSubscription(String customerId, String targetSubscription, Subscription target);
+	GetSubscriptionListResponse transitionSubscription(String customerId, String sourceSubscriptionId, Subscription targetSubscriptionId);
 }

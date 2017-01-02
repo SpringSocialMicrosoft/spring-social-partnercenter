@@ -26,7 +26,19 @@ public class UriProvider {
 		return UriComponentsBuilder.fromUriString(PARTNER_CENTER_URL);
 	}
 
-	public static UriComponentsBuilder partnerCenterCustomerApiBuilder(){
-		return UriComponentsBuilder.fromUriString(PARTNER_CENTER_URL).pathSegment("v1", "customers");
+	public static UriComponentsBuilder partnerCenterInvoiceUri(){
+		return partnerCenterBuilder().pathSegment("v1", "invoices");
+	}
+
+	public static UriComponentsBuilder partnerCenterPricingUri(){
+		return partnerCenterBuilder().pathSegment("v1", "ratecards", "azure");
+	}
+
+	public static UriComponentsBuilder partnerCenterOfferUri(){
+		return partnerCenterBuilder().pathSegment("v1", "offer");
+	}
+
+	public static UriComponentsBuilder partnerCenterCustomerUri(){
+		return partnerCenterBuilder().pathSegment("v1", "customers");
 	}
 }

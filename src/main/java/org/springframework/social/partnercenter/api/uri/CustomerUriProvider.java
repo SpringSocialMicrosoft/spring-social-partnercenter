@@ -11,18 +11,18 @@ public class CustomerUriProvider{
 	}
 
 	public static URI buildGetByCompanyNameOrDomainUri(int size, String filter){
-		return UriProvider.partnerCenterCustomerApiBuilder()
+		return UriProvider.partnerCenterCustomerUri()
 				.queryParam("size", size)
 				.queryParam("filter", filter)
 				.build().toUri();
 	}
 
 	public static URI buildGetListUri(int size){
-		return UriProvider.partnerCenterCustomerApiBuilder().queryParam("size", size).build().toUri();
+		return UriProvider.partnerCenterCustomerUri().queryParam("size", size).build().toUri();
 	}
 
 	public static URI buildBillingProfileUri(String customerId){
-		return UriProvider.partnerCenterCustomerApiBuilder()
+		return UriProvider.partnerCenterCustomerUri()
 				.pathSegment(customerId, "profiles", "billing")
 				.build().toUri();
 	}

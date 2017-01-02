@@ -6,7 +6,7 @@ import java.net.URI;
 import java.util.List;
 
 import org.springframework.social.partnercenter.PartnerCenter;
-import org.springframework.social.partnercenter.RestResource;
+import org.springframework.social.partnercenter.http.client.RestResource;
 import org.springframework.social.partnercenter.api.AbstractTemplate;
 import org.springframework.social.partnercenter.api.customer.BillingProfile;
 import org.springframework.social.partnercenter.api.customer.Customer;
@@ -18,7 +18,7 @@ import org.springframework.social.partnercenter.api.customer.request.UpdateUserP
 import org.springframework.social.partnercenter.api.customer.response.CustomerListResponse;
 import org.springframework.social.partnercenter.api.customer.response.CustomerRelationshipRequest;
 import org.springframework.social.partnercenter.api.customer.response.GetRoleResponse;
-import org.springframework.social.partnercenter.api.customer.response.PartnerCenterResponse;
+import org.springframework.social.partnercenter.api.PartnerCenterResponse;
 import org.springframework.social.partnercenter.api.customer.CustomerOperations;
 import org.springframework.social.partnercenter.api.uri.CustomerUriProvider;
 import org.springframework.social.partnercenter.api.uri.UriProvider;
@@ -111,7 +111,7 @@ public class CustomerTemplate extends AbstractTemplate implements CustomerOperat
 
 	@Override
 	public void deleteUser(String customerTenantId, String userId) {
-		URI usersUri = UriProvider.partnerCenterCustomerApiBuilder()
+		URI usersUri = UriProvider.partnerCenterCustomerUri()
 				.pathSegment(customerTenantId, "users", userId)
 				.build().toUri();
 		restResource.delete(usersUri);

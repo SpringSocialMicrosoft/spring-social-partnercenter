@@ -136,4 +136,9 @@ public class Subscription {
 		this.attributes = attributes;
 		return this;
 	}
+
+	public static class Status{
+		public static String SUSPENDED = "suspended";
+		public static String ACTIVE = "active";
+	}
 }

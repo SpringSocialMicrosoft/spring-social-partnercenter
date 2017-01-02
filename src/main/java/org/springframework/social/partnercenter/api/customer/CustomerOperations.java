@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.social.partnercenter.api.customer.request.CreateUserRequest;
 import org.springframework.social.partnercenter.api.customer.request.UpdateUserPasswordRequest;
 import org.springframework.social.partnercenter.api.customer.response.CustomerRelationshipRequest;
-import org.springframework.social.partnercenter.api.customer.response.PartnerCenterResponse;
+import org.springframework.social.partnercenter.api.PartnerCenterResponse;
 import org.springframework.social.partnercenter.api.order.Subscription;
 
 public interface CustomerOperations {

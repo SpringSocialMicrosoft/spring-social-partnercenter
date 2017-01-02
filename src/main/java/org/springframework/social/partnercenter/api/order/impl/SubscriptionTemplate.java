@@ -1,7 +1,11 @@
 package org.springframework.social.partnercenter.api.order.impl;
 
+import static org.springframework.social.partnercenter.api.order.Subscription.Status.ACTIVE;
+import static org.springframework.social.partnercenter.api.order.Subscription.Status.SUSPENDED;
+
 import org.springframework.social.partnercenter.PartnerCenter;
-import org.springframework.social.partnercenter.RestResource;
+import org.springframework.social.partnercenter.api.order.request.UpgradeSubscriptionRequest;
+import org.springframework.social.partnercenter.http.client.RestResource;
 import org.springframework.social.partnercenter.api.AbstractTemplate;
 import org.springframework.social.partnercenter.api.customer.response.GetSubscriptionListResponse;
 import org.springframework.social.partnercenter.api.order.Subscription;
@@ -59,12 +63,45 @@ public class SubscriptionTemplate extends AbstractTemplate implements Subscripti
 	}
 
 	@Override
-	public String getSubscriptionUpgrade(String customerId, String subscriptionId) {
-		return null;
+	public Subscription suspendSubscription(String customerId, String subscriptionId) {
+		Subscription subscription = getById(customerId, subscriptionId);
+		subscription.setStatus(SUSPENDED);
+		return updateSubscription(customerId, subscriptionId, subscription);
 	}
 
 	@Override
-	public String upgradeSubscription(String customerId, String targetSubscription, Subscription target) {
+	public Subscription reactivateSubscription(String customerId, String subscriptionId) {
+		Subscription subscription = getById(customerId, subscriptionId);
+		subscription.setStatus(ACTIVE);
+		return updateSubscription(customerId, subscriptionId, subscription);
+	}
+
+	@Override
+	public Subscription updateSubscriptionQuantity(String customerId, String subscriptionId, int qty) {
+		Subscription subscription = getById(customerId, subscriptionId);
+		subscription.setQuantity(String.valueOf(qty));
+		return updateSubscription(customerId, subscriptionId, subscription);
+	}
+	//TODO: Need to look into this one
+	@Override
+	public String getSubscriptionUpgrade(String customerId, String subscriptionId) {
 		return null;
+	}
+	//TODO: Need to look into this one
+	@Override
+	public GetSubscriptionListResponse transitionSubscription(String customerId, String sourceSubscriptionId, Subscription targetSubscription) {
+		Subscription subscription = restResource.request()
+				.pathSegment(customerId, SUBSCRIPTIONS, sourceSubscriptionId, "upgrades")
+				.get(Subscription.class);
+
+		UpgradeSubscriptionRequest request = UpgradeSubscriptionRequest.builder()
+				.setEligible(true)
+				.setTargetOffer(subscription)
+				.setQuantity(Integer.parseInt(subscription.getQuantity()))
+				.build();
+
+		return restResource.request()
+				.pathSegment(customerId, SUBSCRIPTIONS, targetSubscription.getId(), "upgrades")
+				.post(request, GetSubscriptionListResponse.class);
 	}
 }

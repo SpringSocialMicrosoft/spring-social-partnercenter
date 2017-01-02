@@ -1,23 +1,24 @@
-package org.springframework.social.partnercenter;
+package org.springframework.social.partnercenter.http.client;
 
 import static java.util.Collections.singletonList;
 
 import java.net.URI;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 public class RestResource {
 	private RestTemplate restTemplate;
 	private String resourceBaseUri;
+	private Logger log = Logger.getLogger(RestResource.class.getName());
 
 	public RequestBuilder request(){
 		return new RequestBuilder(this);
@@ -28,6 +29,7 @@ public class RestResource {
 
 	public RestResource(RestTemplate restTemplate, String resourceBaseUri) {
 		this.restTemplate = restTemplate;
+//		this.restTemplate.getInterceptors().add(new LoggingRequestInterceptor(log));
 		this.resourceBaseUri = resourceBaseUri;
 	}
 
@@ -149,4 +151,5 @@ public class RestResource {
 			return restResource.get(uriBuilder.build().toUri(), aClass);
 		}
 	}
+
 }

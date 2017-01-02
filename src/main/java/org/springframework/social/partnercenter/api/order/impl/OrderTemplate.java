@@ -2,7 +2,7 @@ package org.springframework.social.partnercenter.api.order.impl;
 
 import org.springframework.social.partnercenter.api.order.OrderOperations;
 import org.springframework.social.partnercenter.PartnerCenter;
-import org.springframework.social.partnercenter.RestResource;
+import org.springframework.social.partnercenter.http.client.RestResource;
 import org.springframework.social.partnercenter.api.AbstractTemplate;
 import org.springframework.social.partnercenter.api.order.Order;
 import org.springframework.social.partnercenter.api.order.request.CreateOrderRequest;

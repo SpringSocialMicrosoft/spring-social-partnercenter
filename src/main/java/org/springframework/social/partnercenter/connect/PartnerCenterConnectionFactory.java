@@ -1,5 +1,8 @@
 package org.springframework.social.partnercenter.connect;
 
+import java.util.Collection;
+
+import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.social.connect.ApiAdapter;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.support.OAuth2ConnectionFactory;
@@ -16,6 +19,10 @@ public class PartnerCenterConnectionFactory extends OAuth2ConnectionFactory<Part
 
 	public PartnerCenterConnectionFactory(String applicationId, String applicationSecret, String tenant, String apiVersion){
 		this(PartnerCenter.PROVIDER_ID, new PartnerCenterServiceProvider(applicationId, applicationSecret, tenant, apiVersion), new PartnerCenterApiAdapter());
+	}
+
+	public PartnerCenterConnectionFactory(String applicationId, String applicationSecret, String tenant, String apiVersion, Collection<ClientHttpRequestInterceptor> interceptors){
+		this(PartnerCenter.PROVIDER_ID, new PartnerCenterServiceProvider(applicationId, applicationSecret, tenant, apiVersion, interceptors), new PartnerCenterApiAdapter());
 	}
 
 	private PartnerCenterConnectionFactory(String providerId, OAuth2ServiceProvider<PartnerCenter> serviceProvider, ApiAdapter<PartnerCenter> apiAdapter) {
