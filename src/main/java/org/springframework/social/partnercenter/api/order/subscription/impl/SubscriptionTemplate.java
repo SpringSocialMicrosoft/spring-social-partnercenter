@@ -1,15 +1,15 @@
-package org.springframework.social.partnercenter.api.order.impl;
+package org.springframework.social.partnercenter.api.order.subscription.impl;
 
-import static org.springframework.social.partnercenter.api.order.Subscription.Status.ACTIVE;
-import static org.springframework.social.partnercenter.api.order.Subscription.Status.SUSPENDED;
+import static org.springframework.social.partnercenter.api.order.subscription.Subscription.Status.ACTIVE;
+import static org.springframework.social.partnercenter.api.order.subscription.Subscription.Status.SUSPENDED;
 
 import org.springframework.social.partnercenter.PartnerCenter;
 import org.springframework.social.partnercenter.api.order.request.UpgradeSubscriptionRequest;
 import org.springframework.social.partnercenter.http.client.RestResource;
 import org.springframework.social.partnercenter.api.AbstractTemplate;
 import org.springframework.social.partnercenter.api.customer.response.GetSubscriptionListResponse;
-import org.springframework.social.partnercenter.api.order.Subscription;
-import org.springframework.social.partnercenter.api.order.SubscriptionOperations;
+import org.springframework.social.partnercenter.api.order.subscription.Subscription;
+import org.springframework.social.partnercenter.api.order.subscription.SubscriptionOperations;
 
 public class SubscriptionTemplate extends AbstractTemplate implements SubscriptionOperations {
 

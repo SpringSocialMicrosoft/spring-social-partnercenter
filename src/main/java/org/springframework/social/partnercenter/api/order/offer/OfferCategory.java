@@ -1,4 +1,4 @@
-package org.springframework.social.partnercenter.api.order;
+package org.springframework.social.partnercenter.api.order.offer;
 
 import java.util.Map;
 

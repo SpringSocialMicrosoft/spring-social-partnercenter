@@ -8,7 +8,7 @@ public class AzureResourcePricing {
 	private String currency;
 	private boolean isTaxIncluded;
 	private List<PricingMeters> meters;
-	private OfferTerms offerTerms;
+	private List<OfferTerms> offerTerms;
 	private Map<String, String> attributes;
 
 	public String getLocale() {
@@ -47,11 +47,11 @@ public class AzureResourcePricing {
 		return this;
 	}
 
-	public OfferTerms getOfferTerms() {
+	public List<OfferTerms> getOfferTerms() {
 		return offerTerms;
 	}
 
-	public AzureResourcePricing setOfferTerms(OfferTerms offerTerms) {
+	public AzureResourcePricing setOfferTerms(List<OfferTerms> offerTerms) {
 		this.offerTerms = offerTerms;
 		return this;
 	}

@@ -1,4 +1,4 @@
-package org.springframework.social.partnercenter.api.order;
+package org.springframework.social.partnercenter.api.order.subscription;
 
 import org.springframework.social.partnercenter.api.customer.response.GetSubscriptionListResponse;
 

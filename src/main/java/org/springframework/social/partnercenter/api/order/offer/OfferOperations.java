@@ -1,4 +1,4 @@
-package org.springframework.social.partnercenter.api.order;
+package org.springframework.social.partnercenter.api.order.offer;
 
 import org.springframework.social.partnercenter.api.order.response.GetOfferCategoriesResponse;
 import org.springframework.social.partnercenter.api.order.response.OfferListResponse;

@@ -12,7 +12,7 @@ import org.springframework.social.partnercenter.api.customer.BillingProfile;
 import org.springframework.social.partnercenter.api.customer.Customer;
 import org.springframework.social.partnercenter.api.customer.Role;
 import org.springframework.social.partnercenter.api.customer.User;
-import org.springframework.social.partnercenter.api.order.Subscription;
+import org.springframework.social.partnercenter.api.order.subscription.Subscription;
 import org.springframework.social.partnercenter.api.customer.request.CreateUserRequest;
 import org.springframework.social.partnercenter.api.customer.request.UpdateUserPasswordRequest;
 import org.springframework.social.partnercenter.api.customer.response.CustomerListResponse;
@@ -57,12 +57,12 @@ public class CustomerTemplate extends AbstractTemplate implements CustomerOperat
 	}
 
 	@Override
-	public PartnerCenterResponse<Customer> getList(int size) {
+	public CustomerListResponse getList(int size) {
 		checkAuthorization();
 		return restResource.request()
 				.queryParam("size", size)
 				.get(CustomerListResponse.class);
-}
+	}
 
 	@Override
 	public BillingProfile getBillingProfile(String customerId) {

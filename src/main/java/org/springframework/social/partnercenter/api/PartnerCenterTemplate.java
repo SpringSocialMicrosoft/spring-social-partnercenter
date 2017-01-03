@@ -13,12 +13,12 @@ import org.springframework.social.partnercenter.api.billing.pricing.PricingOpera
 import org.springframework.social.partnercenter.api.billing.pricing.impl.PricingTemplate;
 import org.springframework.social.partnercenter.api.customer.CustomerOperations;
 import org.springframework.social.partnercenter.api.customer.impl.CustomerTemplate;
-import org.springframework.social.partnercenter.api.order.OfferOperations;
+import org.springframework.social.partnercenter.api.order.offer.OfferOperations;
 import org.springframework.social.partnercenter.api.order.OrderOperations;
-import org.springframework.social.partnercenter.api.order.SubscriptionOperations;
-import org.springframework.social.partnercenter.api.order.impl.OfferTemplate;
+import org.springframework.social.partnercenter.api.order.subscription.SubscriptionOperations;
+import org.springframework.social.partnercenter.api.order.offer.impl.OfferTemplate;
 import org.springframework.social.partnercenter.api.order.impl.OrderTemplate;
-import org.springframework.social.partnercenter.api.order.impl.SubscriptionTemplate;
+import org.springframework.social.partnercenter.api.order.subscription.impl.SubscriptionTemplate;
 import org.springframework.social.partnercenter.api.uri.UriProvider;
 import org.springframework.social.partnercenter.connect.ApiVersionParameterRequestInterceptor;
 import org.springframework.social.partnercenter.http.client.RestResource;

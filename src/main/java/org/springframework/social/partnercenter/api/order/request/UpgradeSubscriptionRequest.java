@@ -3,7 +3,7 @@ package org.springframework.social.partnercenter.api.order.request;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.social.partnercenter.api.order.Subscription;
+import org.springframework.social.partnercenter.api.order.subscription.Subscription;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;

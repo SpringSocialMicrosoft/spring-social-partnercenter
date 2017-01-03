@@ -10,9 +10,9 @@ public class Customer {
 
 	@JsonProperty("id")
 	private String id;
-	@JsonProperty("CompanyProfile")
+	@JsonProperty("companyProfile")
 	private CompanyProfile companyProfile;
-	@JsonProperty("BillingProfile")
+	@JsonProperty("billingProfile")
 	private BillingProfile billingProfile;
 	@JsonProperty("relationshipToPartner")
 	private String relationshipToPartner;

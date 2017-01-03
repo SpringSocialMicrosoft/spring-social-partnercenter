@@ -1,4 +1,4 @@
-package org.springframework.social.partnercenter.api.order;
+package org.springframework.social.partnercenter.api;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 public class Link {
 	private String uri;
 	private String method;
-	private List<String> headers;
+	private List<Header> headers;
 
 	public String getUri() {
 		return uri;
@@ -28,11 +28,11 @@ public class Link {
 		return this;
 	}
 
-	public List<String> getHeaders() {
+	public List<Header> getHeaders() {
 		return headers;
 	}
 
-	public Link setHeaders(List<String> headers) {
+	public Link setHeaders(List<Header> headers) {
 		this.headers = headers;
 		return this;
 	}

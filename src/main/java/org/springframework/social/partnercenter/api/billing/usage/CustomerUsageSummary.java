@@ -2,7 +2,7 @@ package org.springframework.social.partnercenter.api.billing.usage;
 
 import java.util.Map;
 
-import org.springframework.social.partnercenter.api.order.Link;
+import org.springframework.social.partnercenter.api.Link;
 
 public class CustomerUsageSummary {
 	private Budget budget;

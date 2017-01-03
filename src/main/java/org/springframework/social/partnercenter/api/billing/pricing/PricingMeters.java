@@ -3,6 +3,9 @@ package org.springframework.social.partnercenter.api.billing.pricing;
 import java.util.List;
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class PricingMeters {
 	private String id;
 	private String name;

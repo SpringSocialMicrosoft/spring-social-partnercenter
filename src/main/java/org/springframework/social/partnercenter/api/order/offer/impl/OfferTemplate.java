@@ -1,10 +1,10 @@
-package org.springframework.social.partnercenter.api.order.impl;
+package org.springframework.social.partnercenter.api.order.offer.impl;
 
 import org.springframework.social.partnercenter.PartnerCenter;
 import org.springframework.social.partnercenter.http.client.RestResource;
 import org.springframework.social.partnercenter.api.AbstractTemplate;
-import org.springframework.social.partnercenter.api.order.Offer;
-import org.springframework.social.partnercenter.api.order.OfferOperations;
+import org.springframework.social.partnercenter.api.order.offer.Offer;
+import org.springframework.social.partnercenter.api.order.offer.OfferOperations;
 import org.springframework.social.partnercenter.api.order.response.GetOfferCategoriesResponse;
 import org.springframework.social.partnercenter.api.order.response.OfferListResponse;
 import org.springframework.social.partnercenter.api.uri.UriProvider;

@@ -6,7 +6,7 @@ import org.springframework.social.partnercenter.api.customer.request.CreateUserR
 import org.springframework.social.partnercenter.api.customer.request.UpdateUserPasswordRequest;
 import org.springframework.social.partnercenter.api.customer.response.CustomerRelationshipRequest;
 import org.springframework.social.partnercenter.api.PartnerCenterResponse;
-import org.springframework.social.partnercenter.api.order.Subscription;
+import org.springframework.social.partnercenter.api.order.subscription.Subscription;
 
 public interface CustomerOperations {
 	Customer create(Customer customer);

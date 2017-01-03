@@ -1,6 +1,8 @@
-package org.springframework.social.partnercenter.api.order;
+package org.springframework.social.partnercenter.api.order.subscription;
 
 import java.util.Map;
+
+import org.springframework.social.partnercenter.api.Link;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 

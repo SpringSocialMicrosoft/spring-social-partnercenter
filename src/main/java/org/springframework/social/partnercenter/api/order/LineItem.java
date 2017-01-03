@@ -2,6 +2,8 @@ package org.springframework.social.partnercenter.api.order;
 
 import java.util.Map;
 
+import org.springframework.social.partnercenter.api.Link;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)

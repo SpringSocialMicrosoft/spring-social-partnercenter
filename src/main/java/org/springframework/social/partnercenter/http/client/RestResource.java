@@ -29,7 +29,6 @@ public class RestResource {
 
 	public RestResource(RestTemplate restTemplate, String resourceBaseUri) {
 		this.restTemplate = restTemplate;
-//		this.restTemplate.getInterceptors().add(new LoggingRequestInterceptor(log));
 		this.resourceBaseUri = resourceBaseUri;
 	}
 

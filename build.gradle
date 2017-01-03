@@ -1,6 +1,10 @@
 buildscript {
 	repositories {
 		jcenter()
+		mavenCentral()
+	}
+	dependencies {
+		classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.0-M3'
 	}
 }
 
@@ -12,9 +16,35 @@ plugins {
 	id 'pl.allegro.tech.build.axion-release' version '1.4.1'
 }
 
+apply plugin: 'org.junit.platform.gradle.plugin'
+
+junitPlatform {
+	platformVersion '1.0.0-M3'
+	filters {
+		engines {
+			 include 'junit-jupiter', 'junit-vintage'
+			 exclude 'custom-engine'
+		}
+		tags {
+			 include 'fast'
+			exclude 'slow'
+		}
+		// includeClassNamePattern '.*Test'
+	}
+	 enableStandardTestTask true
+	// reportsDir file('build/test-results/junit-platform') // this is the default
+	logManager 'org.apache.logging.log4j.jul.LogManager'
+}
+
 repositories {
 	mavenCentral()
 }
+
+ext.junit4Version        = '4.12'
+ext.junitVintageVersion  = '4.12.0-M3'
+ext.junitPlatformVersion = '1.0.0-M3'
+ext.junitJupiterVersion  = '5.0.0-M3'
+ext.log4jVersion         = '2.6.2'
 
 scmVersion {
 	tag {
@@ -31,8 +61,18 @@ dependencies {
 			[ group: 'org.springframework.security', 	name: 'spring-security-core', 	version: '4.2.0.RELEASE' ],
 			[ group: "com.fasterxml.jackson.core",		name: "jackson-databind",		version: "2.2.2" ]
 	)
+	compile group: 'commons-io', name: 'commons-io', version: '2.5'
 
-	testCompile group: 'junit', name: 'junit', version: '4.11'
+	// JUnit Jupiter API and TestEngine implementation
+	testCompile("org.junit.jupiter:junit-jupiter-api:${junitJupiterVersion}")
+	testRuntime("org.junit.jupiter:junit-jupiter-engine:${junitJupiterVersion}")
+
+	// If you also want to support JUnit 3 and JUnit 4 tests
+	testCompile("junit:junit:${junit4Version}")
+	testRuntime("org.junit.vintage:junit-vintage-engine:${junitVintageVersion}")
+
+	testRuntime("org.apache.logging.log4j:log4j-core:${log4jVersion}")
+	testRuntime("org.apache.logging.log4j:log4j-jul:${log4jVersion}")
 }
 
 bintray {

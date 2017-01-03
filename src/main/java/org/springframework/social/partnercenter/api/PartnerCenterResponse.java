@@ -11,12 +11,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class PartnerCenterResponse<T> {
 	@JsonProperty("totalCount")
 	private int total;
+	@JsonProperty("continuationToken")
+	private String continuationToken;
 	@JsonProperty
 	private List<T> items;
 	@JsonProperty
 	private Map<String, String> attributes;
 	@JsonProperty
-	private Map<String, String> links = new HashMap<>();
+	private Map<String, Link> links = new HashMap<>();
 
 	public int getTotal() {
 		return total;
@@ -45,12 +47,21 @@ public class PartnerCenterResponse<T> {
 		return this;
 	}
 
-	public Map<String, String> getLinks() {
+	public Map<String, Link> getLinks() {
 		return links;
 	}
 
-	public PartnerCenterResponse setLinks(Map<String, String> links) {
+	public PartnerCenterResponse setLinks(Map<String, Link> links) {
 		this.links = links;
+		return this;
+	}
+
+	public String getContinuationToken() {
+		return continuationToken;
+	}
+
+	public PartnerCenterResponse setContinuationToken(String continuationToken) {
+		this.continuationToken = continuationToken;
 		return this;
 	}
 }

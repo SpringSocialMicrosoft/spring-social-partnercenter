@@ -1,7 +1,10 @@
-package org.springframework.social.partnercenter.api.order;
+package org.springframework.social.partnercenter.api.order.offer;
 
 import java.util.List;
 import java.util.Map;
+
+import org.springframework.social.partnercenter.api.Link;
+import org.springframework.social.partnercenter.api.order.Product;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 

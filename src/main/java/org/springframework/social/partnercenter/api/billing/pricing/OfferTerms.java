@@ -2,8 +2,14 @@ package org.springframework.social.partnercenter.api.billing.pricing;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class OfferTerms {
+	@JsonProperty("name")
 	private String name;
+	@JsonProperty("discount")
 	private double discount;
 	private List<String> excludedMeterIds;
 	private String effectiveDate;

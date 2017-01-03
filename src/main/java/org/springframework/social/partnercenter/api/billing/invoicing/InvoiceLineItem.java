@@ -3,7 +3,7 @@ package org.springframework.social.partnercenter.api.billing.invoicing;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.social.partnercenter.api.order.Link;
+import org.springframework.social.partnercenter.api.Link;
 
 public class InvoiceLineItem {
 	private String invoiceLineItemType;
