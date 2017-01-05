@@ -6,6 +6,7 @@ import org.springframework.social.partnercenter.api.customer.request.CreateUserR
 import org.springframework.social.partnercenter.api.customer.request.UpdateUserPasswordRequest;
 import org.springframework.social.partnercenter.api.customer.response.CustomerRelationshipRequest;
 import org.springframework.social.partnercenter.api.PartnerCenterResponse;
+import org.springframework.social.partnercenter.api.customer.response.GetCompanyProfileResponse;
 import org.springframework.social.partnercenter.api.order.subscription.Subscription;
 
 public interface CustomerOperations {
@@ -15,6 +16,7 @@ public interface CustomerOperations {
 	List<Customer> getByCompanyNameOrDomain(int size, String filter);
 	PartnerCenterResponse<Customer> getList(int size);
     BillingProfile getBillingProfile(String customerId);
+	GetCompanyProfileResponse getCustomersCompanyProfile(String customerId);
     BillingProfile updateBillingProfile(String customerId, String etag, BillingProfile billingProfile);
     Subscription updateFriendlyName(String customerTenantId, String subscriptionId, String nickname);
 	User createUser(String customerTenantId, CreateUserRequest request);

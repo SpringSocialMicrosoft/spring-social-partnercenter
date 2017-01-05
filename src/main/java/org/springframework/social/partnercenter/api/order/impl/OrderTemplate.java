@@ -1,5 +1,7 @@
 package org.springframework.social.partnercenter.api.order.impl;
 
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.social.partnercenter.api.PartnerCenterResponse;
 import org.springframework.social.partnercenter.api.order.OrderOperations;
 import org.springframework.social.partnercenter.PartnerCenter;
 import org.springframework.social.partnercenter.http.client.RestResource;
@@ -13,6 +15,13 @@ public class OrderTemplate extends AbstractTemplate implements OrderOperations {
 	public OrderTemplate(RestResource restResource, boolean isAuthorized) {
 		super(isAuthorized);
 		this.restResource = restResource;
+	}
+
+	@Override
+	public PartnerCenterResponse<Order> getACustomersOrder(String customerId) {
+		return restResource.request()
+				.pathSegment(customerId, "orders")
+				.get(new ParameterizedTypeReference<PartnerCenterResponse<Order>>() {});
 	}
 
 	@Override

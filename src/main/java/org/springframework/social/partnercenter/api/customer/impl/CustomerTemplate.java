@@ -6,21 +6,22 @@ import java.net.URI;
 import java.util.List;
 
 import org.springframework.social.partnercenter.PartnerCenter;
-import org.springframework.social.partnercenter.http.client.RestResource;
 import org.springframework.social.partnercenter.api.AbstractTemplate;
+import org.springframework.social.partnercenter.api.PartnerCenterResponse;
 import org.springframework.social.partnercenter.api.customer.BillingProfile;
 import org.springframework.social.partnercenter.api.customer.Customer;
+import org.springframework.social.partnercenter.api.customer.CustomerOperations;
 import org.springframework.social.partnercenter.api.customer.Role;
 import org.springframework.social.partnercenter.api.customer.User;
-import org.springframework.social.partnercenter.api.order.subscription.Subscription;
 import org.springframework.social.partnercenter.api.customer.request.CreateUserRequest;
 import org.springframework.social.partnercenter.api.customer.request.UpdateUserPasswordRequest;
 import org.springframework.social.partnercenter.api.customer.response.CustomerListResponse;
 import org.springframework.social.partnercenter.api.customer.response.CustomerRelationshipRequest;
+import org.springframework.social.partnercenter.api.customer.response.GetCompanyProfileResponse;
 import org.springframework.social.partnercenter.api.customer.response.GetRoleResponse;
-import org.springframework.social.partnercenter.api.PartnerCenterResponse;
-import org.springframework.social.partnercenter.api.customer.CustomerOperations;
+import org.springframework.social.partnercenter.api.order.subscription.Subscription;
 import org.springframework.social.partnercenter.api.uri.UriProvider;
+import org.springframework.social.partnercenter.http.client.RestResource;
 
 public class CustomerTemplate extends AbstractTemplate implements CustomerOperations {
 	private RestResource restResource;
@@ -70,6 +71,13 @@ public class CustomerTemplate extends AbstractTemplate implements CustomerOperat
 		return restResource.request()
 				.pathSegment(customerId, "profiles", "billing")
 				.get(BillingProfile.class);
+	}
+
+	@Override
+	public GetCompanyProfileResponse getCustomersCompanyProfile(String customerId) {
+		return restResource.request()
+				.pathSegment(customerId)
+				.get(GetCompanyProfileResponse.class);
 	}
 
 	@Override

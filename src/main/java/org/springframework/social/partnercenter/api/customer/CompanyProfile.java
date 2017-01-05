@@ -3,18 +3,13 @@ package org.springframework.social.partnercenter.api.customer;
 import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class CompanyProfile {
 
-	@JsonProperty("TenantId")
 	private Object tenantId;
-	@JsonProperty("Domain")
 	private String domain;
-	@JsonProperty("CompanyName")
 	private Object companyName;
-	@JsonProperty("Attributes")
 	private Map<String, String> attributes;
 
 	public Object getTenantId() {

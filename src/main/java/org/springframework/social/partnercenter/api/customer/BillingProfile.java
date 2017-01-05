@@ -5,29 +5,19 @@ import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 
 public class BillingProfile {
 
-	@JsonProperty("Id")
 	private Object id;
-	@JsonProperty("FirstName")
 	private String firstName;
-	@JsonProperty("LastName")
 	private String lastName;
-	@JsonProperty("Email")
 	private String email;
-	@JsonProperty("Culture")
 	private String culture;
-	@JsonProperty("Language")
 	private String language;
-	@JsonProperty("CompanyName")
 	private String companyName;
-	@JsonProperty("DefaultAddress")
 	private Address address;
-	@JsonProperty("attributes")
 	private Map<String, String> attributes;
 	@JsonIgnore
 	private Map<String, Object> additionalProperties = new HashMap<String, Object>();

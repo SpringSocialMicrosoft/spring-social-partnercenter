@@ -6,7 +6,9 @@ import org.springframework.social.partnercenter.api.billing.invoicing.Invoice;
 import org.springframework.social.partnercenter.api.billing.pricing.AzureResourcePricing;
 import org.springframework.social.partnercenter.api.customer.Customer;
 import org.springframework.social.partnercenter.api.customer.CustomerOperations;
+import org.springframework.social.partnercenter.api.customer.response.GetCompanyProfileResponse;
 import org.springframework.social.partnercenter.api.customer.response.GetSubscriptionListResponse;
+import org.springframework.social.partnercenter.api.order.Order;
 import org.springframework.social.partnercenter.connect.PartnerCenterConnectionFactory;
 
 public class PartnerCenterTest {
@@ -19,10 +21,13 @@ public class PartnerCenterTest {
 		PartnerCenter partnerCenter = factory.createConnection().getApi();
 		CustomerOperations customerOperations = partnerCenter.getCustomerOperations();
 		PartnerCenterResponse<Customer> list = customerOperations.getList(100);
+		PartnerCenterResponse<Order> aCustomersOrder = partnerCenter.getOrderOperations().getACustomersOrder(list.getItems().get(1).getId());
+		GetCompanyProfileResponse customersCompanyProfile = partnerCenter.getCustomerOperations().getCustomersCompanyProfile(list.getItems().get(1).getId());
 		Customer customer = list.getItems().get(1);
 		PartnerCenterResponse<Invoice> invoices = partnerCenter.getInvoiceOperations().getInvoices();
 		AzureResourcePricing azurePricing = partnerCenter.getPricingOperations().getAzurePricing();
 //		CustomerUsageSummary usageSummary = partnerCenter.getUsageOperations().getUsageSummary(customer.getId());
+
 		GetSubscriptionListResponse customersSubscriptions = partnerCenter.getSubscriptionOperations().getCustomersSubscriptions(customer.getId());
 	}
 }
