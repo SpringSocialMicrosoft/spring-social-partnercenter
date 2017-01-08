@@ -25,6 +25,10 @@ public class PartnerCenterConnectionFactory extends OAuth2ConnectionFactory<Part
 		this(PartnerCenter.PROVIDER_ID, new PartnerCenterServiceProvider(applicationId, applicationSecret, tenant, apiVersion, interceptors), new PartnerCenterApiAdapter());
 	}
 
+	public PartnerCenterConnectionFactory(String applicationId, String applicationSecret, String tenant, Collection<ClientHttpRequestInterceptor> interceptors){
+		this(PartnerCenter.PROVIDER_ID, new PartnerCenterServiceProvider(applicationId, applicationSecret, tenant, interceptors), new PartnerCenterApiAdapter());
+	}
+
 	private PartnerCenterConnectionFactory(String providerId, OAuth2ServiceProvider<PartnerCenter> serviceProvider, ApiAdapter<PartnerCenter> apiAdapter) {
 		super(providerId, serviceProvider, apiAdapter);
 	}

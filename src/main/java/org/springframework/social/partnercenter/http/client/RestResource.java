@@ -149,6 +149,10 @@ public class RestResource {
 		public <T> T get(ParameterizedTypeReference<T> aClass){
 			return restResource.get(uriBuilder.build().toUri(), aClass);
 		}
+
+		public void delete(){
+			restResource.delete(uriBuilder.build().toUri());
+		}
 	}
 
 }

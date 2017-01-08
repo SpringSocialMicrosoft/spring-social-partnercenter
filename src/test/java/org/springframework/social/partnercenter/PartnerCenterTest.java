@@ -3,12 +3,12 @@ package org.springframework.social.partnercenter;
 import org.junit.jupiter.api.Test;
 import org.springframework.social.partnercenter.api.PartnerCenterResponse;
 import org.springframework.social.partnercenter.api.billing.invoicing.Invoice;
-import org.springframework.social.partnercenter.api.billing.pricing.AzureResourcePricing;
 import org.springframework.social.partnercenter.api.customer.Customer;
 import org.springframework.social.partnercenter.api.customer.CustomerOperations;
 import org.springframework.social.partnercenter.api.customer.response.GetCompanyProfileResponse;
 import org.springframework.social.partnercenter.api.customer.response.GetSubscriptionListResponse;
 import org.springframework.social.partnercenter.api.order.Order;
+import org.springframework.social.partnercenter.api.utilities.CountryInformation;
 import org.springframework.social.partnercenter.connect.PartnerCenterConnectionFactory;
 
 public class PartnerCenterTest {
@@ -25,7 +25,8 @@ public class PartnerCenterTest {
 		GetCompanyProfileResponse customersCompanyProfile = partnerCenter.getCustomerOperations().getCustomersCompanyProfile(list.getItems().get(1).getId());
 		Customer customer = list.getItems().get(1);
 		PartnerCenterResponse<Invoice> invoices = partnerCenter.getInvoiceOperations().getInvoices();
-		AzureResourcePricing azurePricing = partnerCenter.getPricingOperations().getAzurePricing();
+		Boolean domainAvailable = partnerCenter.getUtilityOperations().isDomainAvailable("oozieconsole");
+		CountryInformation us = partnerCenter.getUtilityOperations().getAddressFormattingRulesByMarket("us");
 //		CustomerUsageSummary usageSummary = partnerCenter.getUsageOperations().getUsageSummary(customer.getId());
 
 		GetSubscriptionListResponse customersSubscriptions = partnerCenter.getSubscriptionOperations().getCustomersSubscriptions(customer.getId());

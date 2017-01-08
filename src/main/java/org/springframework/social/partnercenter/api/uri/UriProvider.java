@@ -1,7 +1,5 @@
 package org.springframework.social.partnercenter.api.uri;
 
-import java.net.URI;
-
 import org.springframework.web.util.UriComponentsBuilder;
 
 public class UriProvider {
@@ -42,5 +40,9 @@ public class UriProvider {
 
 	public static UriComponentsBuilder partnerCenterCustomerUri(){
 		return partnerCenterBuilder().pathSegment("v1", "customers");
+	}
+
+	public static UriComponentsBuilder partnerCenterProfileUri(){
+		return partnerCenterBuilder().pathSegment("v1", "profiles");
 	}
 }

@@ -7,30 +7,19 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Address {
 
-	@JsonProperty("Country")
 	private String country;
-	@JsonProperty("Region")
 	private Object region;
-	@JsonProperty("City")
 	private String city;
-	@JsonProperty("State")
 	private String state;
-	@JsonProperty("AddressLine1")
 	private String addressLine1;
-	@JsonProperty("AddressLine2")
 	private Object addressLine2;
-	@JsonProperty("PostalCode")
 	private String postalCode;
-	@JsonProperty("FirstName")
 	private String firstName;
-	@JsonProperty("LastName")
 	private String lastName;
-	@JsonProperty("PhoneNumber")
 	private String phoneNumber;
 	@JsonIgnore
 	private Map<String, Object> additionalProperties = new HashMap<String, Object>();

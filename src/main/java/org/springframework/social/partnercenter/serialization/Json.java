@@ -18,8 +18,7 @@ public class Json {
 	public static <T> T fromJson(String jsonString, Class<T> targetClass){
 		try {
 			ObjectReader reader = objectMapper.reader(targetClass);
-			T value = reader.readValue(jsonString);
-			return value;
+			return reader.readValue(jsonString);
 
 		} catch (IOException e) {
 			throw new JsonSerializationException(e);

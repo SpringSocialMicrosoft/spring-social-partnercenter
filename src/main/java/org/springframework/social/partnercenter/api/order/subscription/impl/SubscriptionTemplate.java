@@ -3,7 +3,9 @@ package org.springframework.social.partnercenter.api.order.subscription.impl;
 import static org.springframework.social.partnercenter.api.order.subscription.Subscription.Status.ACTIVE;
 import static org.springframework.social.partnercenter.api.order.subscription.Subscription.Status.SUSPENDED;
 
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.social.partnercenter.PartnerCenter;
+import org.springframework.social.partnercenter.api.PartnerCenterResponse;
 import org.springframework.social.partnercenter.api.order.request.UpgradeSubscriptionRequest;
 import org.springframework.social.partnercenter.http.client.RestResource;
 import org.springframework.social.partnercenter.api.AbstractTemplate;
@@ -74,6 +76,16 @@ public class SubscriptionTemplate extends AbstractTemplate implements Subscripti
 		Subscription subscription = getById(customerId, subscriptionId);
 		subscription.setStatus(ACTIVE);
 		return updateSubscription(customerId, subscriptionId, subscription);
+	}
+
+	@Override
+	public PartnerCenterResponse<Subscription> getAllSubscriptionsForPartner(String customerId, String mpnId, int offset, int size) {
+		return restResource.request()
+				.pathSegment(customerId, SUBSCRIPTIONS)
+				.queryParam("mpn_id", mpnId)
+				.queryParam("offset", offset)
+				.queryParam("size", size)
+				.get(new ParameterizedTypeReference<PartnerCenterResponse<Subscription>>() {});
 	}
 
 	@Override
