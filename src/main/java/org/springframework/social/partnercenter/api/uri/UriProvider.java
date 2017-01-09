@@ -35,7 +35,7 @@ public class UriProvider {
 	}
 
 	public static UriComponentsBuilder partnerCenterOfferUri(){
-		return partnerCenterBuilder().pathSegment("v1", "offer");
+		return partnerCenterBuilder().pathSegment("v1", "offers");
 	}
 
 	public static UriComponentsBuilder partnerCenterCustomerUri(){

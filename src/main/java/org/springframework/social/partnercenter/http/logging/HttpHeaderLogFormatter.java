@@ -9,7 +9,7 @@ import java.util.Map;
 import org.springframework.http.HttpHeaders;
 import org.springframework.social.partnercenter.serialization.Json;
 
-public class HttpHeaderLogFormatter {
+class HttpHeaderLogFormatter {
 	String formatHeaderLogs(HttpHeaders headers){
 		StringBuilder log = new StringBuilder();
 		log.append(String.format("%nHTTP headers : "));

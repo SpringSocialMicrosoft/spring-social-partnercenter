@@ -7,27 +7,49 @@ import org.springframework.social.partnercenter.api.Link;
 import org.springframework.social.partnercenter.api.order.Product;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Offer {
+	@JsonProperty("id")
 	private String id;
+	@JsonProperty("name")
 	private String name;
+	@JsonProperty("description")
 	private String description;
+	@JsonProperty("minimumQuantity")
 	private int minimumQuantity;
+	@JsonProperty("maximumQuantity")
 	private double maximumQuantity;
+	@JsonProperty("rank")
 	private int rank;
+	@JsonProperty("uri")
 	private String uri;
+	@JsonProperty("locale")
 	private String locale;
+	@JsonProperty("country")
 	private String country;
+	@JsonProperty("category")
 	private OfferCategory category;
+	@JsonProperty("prerequisiteOffers")
 	private List<String> prerequisiteOffers;
+	@JsonProperty("isAddOn")
 	private boolean isAddOn;
+	@JsonProperty("hasAddOns")
+	private boolean hasAddOns;
+	@JsonProperty("isAvailableForPurchase")
 	private boolean isAvailableForPurchase;
+	@JsonProperty("billing")
 	private String billing;
+	@JsonProperty("isAutoRenewable")
 	private boolean isAutoRenewable;
+	@JsonProperty("product")
 	private Product product;
+	@JsonProperty("unitType")
 	private String unitType;
+	@JsonProperty("links")
 	private Map<String, Link> links;
+	@JsonProperty("attributes")
 	private Map<String, String> attributes;
 
 	public String getId() {
@@ -135,6 +157,15 @@ public class Offer {
 
 	public Offer setAddOn(boolean addOn) {
 		isAddOn = addOn;
+		return this;
+	}
+
+	public boolean isHasAddOns() {
+		return hasAddOns;
+	}
+
+	public Offer setHasAddOns(boolean hasAddOns) {
+		this.hasAddOns = hasAddOns;
 		return this;
 	}
 

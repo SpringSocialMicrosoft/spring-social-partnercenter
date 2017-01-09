@@ -23,7 +23,7 @@ public class Slf4jClientHttpResponseLogger implements ClientHttpResponseLogger {
 		buffer.append(String.format("Received HTTP response at %s response code  %s (%s) for %s request to URL : %s", dateTime.toString(), response.getStatusCode(), response.getStatusText(), request.getMethod(), request.getURI()));
 		buffer.append(httpHeaderLogFormatter.formatHeaderLogs(response.getHeaders()));
 		buffer.append(String.format("%n"));
-		String bodyLogString = httpBodyLogFormatter.createBodyLogString(response);
+		String bodyLogString = httpBodyLogFormatter.createResponseBodyLogString(response);
 		buffer.append(bodyLogString);
 		return buffer.toString();
 	}
