@@ -5,6 +5,7 @@ import static java.util.Collections.singletonList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.social.partnercenter.serialization.Json;
@@ -16,7 +17,7 @@ class HttpHeaderLogFormatter {
 		Map<String, List<String>> headersByName = new HashMap<>();
 		for (String headerName : headers.keySet()) {
 			List<String> headerValue = headers.get(headerName);
-			if ( headerName == "Authorization"){
+			if (Objects.equals(headerName, "Authorization")){
 				headersByName.put(headerName, singletonList("*"));
 			}
 			else {

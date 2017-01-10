@@ -35,7 +35,6 @@ dependencies {
 			[ group: "com.fasterxml.jackson.core",		name: "jackson-databind",		version: "2.2.2" ],
 			[ group: "com.github.tomakehurst",			name: "wiremock",				version: "2.4.1"]
 	)
-	compile group: 'commons-io', name: 'commons-io', version: '2.5'
 
 	testCompile("junit:junit:${junit4Version}")
 }
