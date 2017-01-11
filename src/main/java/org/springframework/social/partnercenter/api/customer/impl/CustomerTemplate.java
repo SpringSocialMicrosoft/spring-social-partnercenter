@@ -1,5 +1,7 @@
 package org.springframework.social.partnercenter.api.customer.impl;
 
+import static org.springframework.social.partnercenter.api.customer.request.Operator.STARTS_WITH;
+
 import java.net.URI;
 
 import org.springframework.core.ParameterizedTypeReference;
@@ -12,6 +14,8 @@ import org.springframework.social.partnercenter.api.customer.CustomerOperations;
 import org.springframework.social.partnercenter.api.customer.Role;
 import org.springframework.social.partnercenter.api.customer.User;
 import org.springframework.social.partnercenter.api.customer.request.CreateUserRequest;
+import org.springframework.social.partnercenter.api.customer.request.Filter;
+import org.springframework.social.partnercenter.api.customer.request.Operator;
 import org.springframework.social.partnercenter.api.customer.request.UpdateUserPasswordRequest;
 import org.springframework.social.partnercenter.api.customer.response.CustomerListResponse;
 import org.springframework.social.partnercenter.api.customer.response.CustomerRelationshipRequest;
@@ -20,6 +24,7 @@ import org.springframework.social.partnercenter.api.customer.response.GetRoleRes
 import org.springframework.social.partnercenter.api.order.subscription.Subscription;
 import org.springframework.social.partnercenter.api.uri.UriProvider;
 import org.springframework.social.partnercenter.http.client.RestResource;
+import org.springframework.social.partnercenter.serialization.Json;
 
 public class CustomerTemplate extends AbstractTemplate implements CustomerOperations {
 	private RestResource restResource;
@@ -47,17 +52,23 @@ public class CustomerTemplate extends AbstractTemplate implements CustomerOperat
 	}
 
 	@Override
-	public PartnerCenterResponse<Customer> getByCompanyNameOrDomain(int size, String filter) {
-		checkAuthorization();
+	public PartnerCenterResponse<Customer> getCompanyByDomain(int size, String domain) {
 		return restResource.request()
 				.queryParam("size", size)
-				.queryParam("filter", filter)
+				.queryParam("filter", Json.toJson(Filter.builder().field("Domain").operator(STARTS_WITH).value(domain).build()))
+				.get(new ParameterizedTypeReference<PartnerCenterResponse<Customer>>() {});
+	}
+
+	@Override
+	public PartnerCenterResponse<Customer> getCompanyByCompanyName(int size, String companyName) {
+		return restResource.request()
+				.queryParam("size", size)
+				.queryParam("filter", Json.toJson(Filter.builder().value(companyName).operator(STARTS_WITH).field("CompanyName").build()))
 				.get(new ParameterizedTypeReference<PartnerCenterResponse<Customer>>() {});
 	}
 
 	@Override
 	public CustomerListResponse getList(int size) {
-		checkAuthorization();
 		return restResource.request()
 				.queryParam("size", size)
 				.get(CustomerListResponse.class);
@@ -65,7 +76,6 @@ public class CustomerTemplate extends AbstractTemplate implements CustomerOperat
 
 	@Override
 	public BillingProfile getBillingProfile(String customerId) {
-		checkAuthorization();
 		return restResource.request()
 				.pathSegment(customerId, "profiles", "billing")
 				.get(BillingProfile.class);
@@ -80,7 +90,6 @@ public class CustomerTemplate extends AbstractTemplate implements CustomerOperat
 
 	@Override
 	public BillingProfile updateBillingProfile(String customerId, String etag, BillingProfile billingProfile) {
-		checkAuthorization();
 		return restResource.request()
 				.pathSegment(customerId, "profiles", "billing")
 				.header("If-Match", etag)

@@ -11,7 +11,8 @@ public interface CustomerOperations {
 	Customer create(Customer customer);
     CustomerRelationshipRequest requestResellerRelationship();
     Customer getById(String tenantId);
-	PartnerCenterResponse<Customer> getByCompanyNameOrDomain(int size, String filter);
+	PartnerCenterResponse<Customer> getCompanyByDomain(int size, String filter);
+	PartnerCenterResponse<Customer> getCompanyByCompanyName(int size, String filter);
 	PartnerCenterResponse<Customer> getList(int size);
     BillingProfile getBillingProfile(String customerId);
 	GetCompanyProfileResponse getCustomersCompanyProfile(String customerId);
