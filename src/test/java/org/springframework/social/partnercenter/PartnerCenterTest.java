@@ -1,12 +1,8 @@
 package org.springframework.social.partnercenter;
 
-import static org.springframework.social.partnercenter.api.customer.request.Operator.STARTS_WITH;
-
 import org.junit.Test;
 import org.springframework.social.partnercenter.api.PartnerCenterResponse;
 import org.springframework.social.partnercenter.api.customer.Customer;
-import org.springframework.social.partnercenter.api.customer.request.Filter;
-import org.springframework.social.partnercenter.api.customer.request.Operator;
 import org.springframework.social.partnercenter.api.order.response.OfferListResponse;
 import org.springframework.social.partnercenter.connect.PartnerCenterConnectionFactory;
 import org.springframework.social.partnercenter.http.logging.LogLevel;
@@ -24,7 +20,7 @@ public class PartnerCenterTest {
 		PartnerCenterResponse<Customer> list = partnerCenter.getCustomerOperations().getList(100);
 		Boolean domainAvailable = partnerCenter.getUtilityOperations().isDomainAvailable("stpitest2j5");
 		PartnerCenterResponse<Customer> byCompanyNameOrDomain = partnerCenter.getCustomerOperations()
-				.getByCompanyNameOrDomain(10, new Filter().setField("Domain").setOperator(STARTS_WITH).setValue("stpitest2j5"));
+				.getCompanyByDomain(10, "stpitest2j5");
 //		PartnerCenterResponse<Order> aCustomersOrder = partnerCenter.getOrderOperations().getACustomersOrder(list.getItems().get(1).getId());
 //		GetCompanyProfileResponse customersCompanyProfile = partnerCenter.getCustomerOperations().getCustomersCompanyProfile(list.getItems().get(1).getId());
 //		Customer customer = list.getItems().get(1);
