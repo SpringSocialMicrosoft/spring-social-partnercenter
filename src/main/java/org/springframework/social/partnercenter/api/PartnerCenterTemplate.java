@@ -84,11 +84,6 @@ public class PartnerCenterTemplate extends AbstractOAuth2ApiBinding implements P
 		interceptors.forEach(interceptor -> getRestTemplate().getInterceptors().add(interceptor));
 	}
 
-	public PartnerCenterTemplate(String accessToken, String version, Collection<ClientHttpRequestInterceptor> interceptors, ClientHttpRequestFactory requestFactory) {
-		this(accessToken, version);
-		interceptors.forEach(interceptor -> getRestTemplate().getInterceptors().add(interceptor));
-	}
-
 	@Override
 	protected void configureRestTemplate(RestTemplate restTemplate) {
 		restTemplate.setRequestFactory(new BufferingClientHttpRequestFactory(new SimpleClientHttpRequestFactory()));

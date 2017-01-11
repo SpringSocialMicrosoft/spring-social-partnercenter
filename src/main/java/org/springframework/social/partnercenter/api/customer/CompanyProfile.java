@@ -7,16 +7,16 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class CompanyProfile {
 
-	private Object tenantId;
+	private String tenantId;
 	private String domain;
-	private Object companyName;
+	private String companyName;
 	private Map<String, String> attributes;
 
-	public Object getTenantId() {
+	public String getTenantId() {
 		return tenantId;
 	}
 
-	public void setTenantId(Object tenantId) {
+	public void setTenantId(String tenantId) {
 		this.tenantId = tenantId;
 	}
 
@@ -28,11 +28,11 @@ public class CompanyProfile {
 		this.domain = domain;
 	}
 
-	public Object getCompanyName() {
+	public String getCompanyName() {
 		return companyName;
 	}
 
-	public void setCompanyName(Object companyName) {
+	public void setCompanyName(String companyName) {
 		this.companyName = companyName;
 	}
 

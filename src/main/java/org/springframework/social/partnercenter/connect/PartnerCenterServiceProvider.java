@@ -3,7 +3,6 @@ package org.springframework.social.partnercenter.connect;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 
-import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.social.oauth2.AbstractOAuth2ServiceProvider;
 import org.springframework.social.partnercenter.PartnerCenter;
@@ -14,7 +13,6 @@ public class PartnerCenterServiceProvider  extends AbstractOAuth2ServiceProvider
 	private final static String DEFAULT_API_VERSION = "v1";
 	private final String apiVersion;
 	private final Collection<ClientHttpRequestInterceptor> interceptors;
-	private ClientHttpRequestFactory clientHttpRequestFactory;
 
 	public PartnerCenterServiceProvider(String applicationId, String applicationSecret, String tenant){
 		super(new PartnerCenterOAuth2Template(applicationId, applicationSecret, tenant));
@@ -40,15 +38,8 @@ public class PartnerCenterServiceProvider  extends AbstractOAuth2ServiceProvider
 		this.interceptors = interceptors;
 	}
 
-	public PartnerCenterServiceProvider(String applicationId, String applicationSecret, String tenant, String apiVersion, Collection<ClientHttpRequestInterceptor> interceptors, ClientHttpRequestFactory requestFactory){
-		super(new PartnerCenterOAuth2Template(applicationId, applicationSecret, tenant));
-		this.apiVersion = apiVersion;
-		this.interceptors = interceptors;
-		this.clientHttpRequestFactory = requestFactory;
-	}
-
 	@Override
 	public PartnerCenter getApi(String accessToken) {
-		return new PartnerCenterTemplate(accessToken, apiVersion, interceptors, clientHttpRequestFactory);
+		return new PartnerCenterTemplate(accessToken, apiVersion, interceptors);
 	}
 }

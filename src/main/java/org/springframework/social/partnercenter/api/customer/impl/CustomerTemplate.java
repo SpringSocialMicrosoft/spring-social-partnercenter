@@ -1,10 +1,8 @@
 package org.springframework.social.partnercenter.api.customer.impl;
 
-import static java.util.Arrays.asList;
-
 import java.net.URI;
-import java.util.List;
 
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.social.partnercenter.PartnerCenter;
 import org.springframework.social.partnercenter.api.AbstractTemplate;
 import org.springframework.social.partnercenter.api.PartnerCenterResponse;
@@ -49,12 +47,12 @@ public class CustomerTemplate extends AbstractTemplate implements CustomerOperat
 	}
 
 	@Override
-	public List<Customer> getByCompanyNameOrDomain(int size, String filter) {
+	public PartnerCenterResponse<Customer> getByCompanyNameOrDomain(int size, String filter) {
 		checkAuthorization();
-		return asList(restResource.request()
+		return restResource.request()
 				.queryParam("size", size)
 				.queryParam("filter", filter)
-				.get(Customer[].class));
+				.get(new ParameterizedTypeReference<PartnerCenterResponse<Customer>>() {});
 	}
 
 	@Override

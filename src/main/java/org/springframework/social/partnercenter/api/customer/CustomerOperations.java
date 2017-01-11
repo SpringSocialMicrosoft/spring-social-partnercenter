@@ -1,11 +1,9 @@
 package org.springframework.social.partnercenter.api.customer;
 
-import java.util.List;
-
+import org.springframework.social.partnercenter.api.PartnerCenterResponse;
 import org.springframework.social.partnercenter.api.customer.request.CreateUserRequest;
 import org.springframework.social.partnercenter.api.customer.request.UpdateUserPasswordRequest;
 import org.springframework.social.partnercenter.api.customer.response.CustomerRelationshipRequest;
-import org.springframework.social.partnercenter.api.PartnerCenterResponse;
 import org.springframework.social.partnercenter.api.customer.response.GetCompanyProfileResponse;
 import org.springframework.social.partnercenter.api.order.subscription.Subscription;
 
@@ -13,7 +11,7 @@ public interface CustomerOperations {
 	Customer create(Customer customer);
     CustomerRelationshipRequest requestResellerRelationship();
     Customer getById(String tenantId);
-	List<Customer> getByCompanyNameOrDomain(int size, String filter);
+	PartnerCenterResponse<Customer> getByCompanyNameOrDomain(int size, String filter);
 	PartnerCenterResponse<Customer> getList(int size);
     BillingProfile getBillingProfile(String customerId);
 	GetCompanyProfileResponse getCustomersCompanyProfile(String customerId);
