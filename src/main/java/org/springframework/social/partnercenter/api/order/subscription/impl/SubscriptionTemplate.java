@@ -91,7 +91,7 @@ public class SubscriptionTemplate extends AbstractTemplate implements Subscripti
 	@Override
 	public Subscription updateSubscriptionQuantity(String customerId, String subscriptionId, int qty) {
 		Subscription subscription = getById(customerId, subscriptionId);
-		subscription.setQuantity(String.valueOf(qty));
+		subscription.setQuantity(qty);
 		return updateSubscription(customerId, subscriptionId, subscription);
 	}
 	//TODO: Need to look into this one
@@ -109,7 +109,7 @@ public class SubscriptionTemplate extends AbstractTemplate implements Subscripti
 		UpgradeSubscriptionRequest request = UpgradeSubscriptionRequest.builder()
 				.setEligible(true)
 				.setTargetOffer(subscription)
-				.setQuantity(Integer.parseInt(subscription.getQuantity()))
+				.setQuantity(subscription.getQuantity())
 				.build();
 
 		return restResource.request()
