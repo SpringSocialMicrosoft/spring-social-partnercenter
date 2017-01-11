@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 public class Subscription {
 	private String id;
 	private String friendlyName;
-	private String quantity;
+	private int quantity;
 	private String creationDate;
 	private String effectiveStartDate;
 	private String commitmentEndDate;
@@ -40,11 +40,11 @@ public class Subscription {
 		return this;
 	}
 
-	public String getQuantity() {
+	public int getQuantity() {
 		return quantity;
 	}
 
-	public Subscription setQuantity(String quantity) {
+	public Subscription setQuantity(int quantity) {
 		this.quantity = quantity;
 		return this;
 	}
