@@ -86,7 +86,9 @@ public class PartnerCenterTemplate extends AbstractOAuth2ApiBinding implements P
 
 	@Override
 	protected void configureRestTemplate(RestTemplate restTemplate) {
-		restTemplate.setRequestFactory(new BufferingClientHttpRequestFactory(new SimpleClientHttpRequestFactory()));
+		ClientHttpRequestFactory factory = restTemplate.getRequestFactory();
+		BufferingClientHttpRequestFactory requestFactory = new BufferingClientHttpRequestFactory(factory);
+		restTemplate.setRequestFactory(requestFactory);
 	}
 
 	@Override

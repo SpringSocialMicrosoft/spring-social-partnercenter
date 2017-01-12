@@ -50,7 +50,7 @@ bintray {
 	pkg {
 		repo = 'spring-social-microsoft'
 		name = project.name
-		userOrg = 'psmelser'
+		userOrg = 'springsocialmicrosoft'
 		licenses = ['Apache-2.0']
 		vcsUrl = 'https://github.com/SpringSocialMicrosoft/spring-social-partnercenter.git'
 		version {

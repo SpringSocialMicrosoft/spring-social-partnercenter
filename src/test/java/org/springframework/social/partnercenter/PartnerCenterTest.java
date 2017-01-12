@@ -34,6 +34,7 @@ public class PartnerCenterTest {
 		GetSubscriptionListResponse customersSubscriptions = partnerCenter.getSubscriptionOperations().getCustomersSubscriptions(customer.getId());
 		partnerCenter.enableSlf4j(LogLevel.INFO);
 		Subscription byId = partnerCenter.getSubscriptionOperations().getById(customer.getId(), customersSubscriptions.getItems().get(0).getId());
+		partnerCenter.getSubscriptionOperations().updateSubscriptionQuantity(customer.getId(), byId.getId(), 15);
 		OfferListResponse addOnOffersForOffer = partnerCenter.getOfferOperations()
 				.getAddOnOffersForOffer("1E51E973-0BB4-4358-8202-C417F8239BC0", "US");
 	}

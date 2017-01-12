@@ -5,13 +5,13 @@ import static org.springframework.social.partnercenter.api.order.subscription.Su
 
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.social.partnercenter.PartnerCenter;
-import org.springframework.social.partnercenter.api.PartnerCenterResponse;
-import org.springframework.social.partnercenter.api.order.request.UpgradeSubscriptionRequest;
-import org.springframework.social.partnercenter.http.client.RestResource;
 import org.springframework.social.partnercenter.api.AbstractTemplate;
+import org.springframework.social.partnercenter.api.PartnerCenterResponse;
 import org.springframework.social.partnercenter.api.customer.response.GetSubscriptionListResponse;
+import org.springframework.social.partnercenter.api.order.request.UpgradeSubscriptionRequest;
 import org.springframework.social.partnercenter.api.order.subscription.Subscription;
 import org.springframework.social.partnercenter.api.order.subscription.SubscriptionOperations;
+import org.springframework.social.partnercenter.http.client.RestResource;
 
 public class SubscriptionTemplate extends AbstractTemplate implements SubscriptionOperations {
 
