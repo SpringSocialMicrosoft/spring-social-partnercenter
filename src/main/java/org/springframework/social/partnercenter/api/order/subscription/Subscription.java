@@ -9,13 +9,17 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Subscription {
 	private String id;
+	private String offerId;
+	private String offerName;
 	private String friendlyName;
 	private int quantity;
+	private String unitType;
 	private String creationDate;
 	private String effectiveStartDate;
 	private String commitmentEndDate;
 	private String status;
 	private String billingType;
+	private String billingCycle;
 	private String contractType;
 	private boolean autoRenewEnabled;
 	private String orderId;
@@ -28,6 +32,24 @@ public class Subscription {
 
 	public Subscription setId(String id) {
 		this.id = id;
+		return this;
+	}
+
+	public String getOfferId() {
+		return offerId;
+	}
+
+	public Subscription setOfferId(String offerId) {
+		this.offerId = offerId;
+		return this;
+	}
+
+	public String getOfferName() {
+		return offerName;
+	}
+
+	public Subscription setOfferName(String offerName) {
+		this.offerName = offerName;
 		return this;
 	}
 
@@ -46,6 +68,15 @@ public class Subscription {
 
 	public Subscription setQuantity(int quantity) {
 		this.quantity = quantity;
+		return this;
+	}
+
+	public String getUnitType() {
+		return unitType;
+	}
+
+	public Subscription setUnitType(String unitType) {
+		this.unitType = unitType;
 		return this;
 	}
 
@@ -91,6 +122,15 @@ public class Subscription {
 
 	public Subscription setBillingType(String billingType) {
 		this.billingType = billingType;
+		return this;
+	}
+
+	public String getBillingCycle() {
+		return billingCycle;
+	}
+
+	public Subscription setBillingCycle(String billingCycle) {
+		this.billingCycle = billingCycle;
 		return this;
 	}
 

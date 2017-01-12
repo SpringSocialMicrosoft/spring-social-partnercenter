@@ -38,7 +38,8 @@ dependencies {
 
 	testCompile(
 			[ group: "junit",							name: "junit",					version: "${junit4Version}"],
-			[ group: "com.github.tomakehurst",			name: "wiremock",				version: "2.4.1"]
+			[ group: "com.github.tomakehurst",			name: "wiremock",				version: "2.4.1"],
+			[ group: 'org.assertj', 					name: 'assertj-core', 			version: '3.6.1']
 	)
 }
 
@@ -51,7 +52,7 @@ bintray {
 		name = project.name
 		userOrg = 'psmelser'
 		licenses = ['Apache-2.0']
-		vcsUrl = 'https://github.com/paulsmelser/spring-social-partnercenter.git'
+		vcsUrl = 'https://github.com/SpringSocialMicrosoft/spring-social-partnercenter.git'
 		version {
 			name = scmVersion.version
 			released  = new Date()
@@ -70,6 +71,6 @@ publishing {
 	}
 	repositories{
 		maven {
-			url "https://dl.bintray.com/psmelser/spring-social-microsoft" }
+			url "https://dl.bintray.com/springsocialmicrosoft/spring-social-microsoft/" }
 	}
 }

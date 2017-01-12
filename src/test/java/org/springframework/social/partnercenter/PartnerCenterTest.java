@@ -2,11 +2,15 @@ package org.springframework.social.partnercenter;
 
 import org.junit.Test;
 import org.springframework.social.partnercenter.api.PartnerCenterResponse;
+import org.springframework.social.partnercenter.api.billing.invoicing.Invoice;
 import org.springframework.social.partnercenter.api.customer.Customer;
+import org.springframework.social.partnercenter.api.customer.response.GetCompanyProfileResponse;
+import org.springframework.social.partnercenter.api.customer.response.GetSubscriptionListResponse;
+import org.springframework.social.partnercenter.api.order.Order;
 import org.springframework.social.partnercenter.api.order.response.OfferListResponse;
+import org.springframework.social.partnercenter.api.order.subscription.Subscription;
 import org.springframework.social.partnercenter.connect.PartnerCenterConnectionFactory;
 import org.springframework.social.partnercenter.http.logging.LogLevel;
-import org.springframework.social.partnercenter.serialization.Json;
 
 public class PartnerCenterTest {
 
@@ -21,16 +25,16 @@ public class PartnerCenterTest {
 		Boolean domainAvailable = partnerCenter.getUtilityOperations().isDomainAvailable("stpitest2j5");
 		PartnerCenterResponse<Customer> byCompanyNameOrDomain = partnerCenter.getCustomerOperations()
 				.getCompanyByDomain(10, "stpitest2j5");
-//		PartnerCenterResponse<Order> aCustomersOrder = partnerCenter.getOrderOperations().getACustomersOrder(list.getItems().get(1).getId());
-//		GetCompanyProfileResponse customersCompanyProfile = partnerCenter.getCustomerOperations().getCustomersCompanyProfile(list.getItems().get(1).getId());
-//		Customer customer = list.getItems().get(1);
-//		PartnerCenterResponse<Invoice> invoices = partnerCenter.getInvoiceOperations().getInvoices();
+		PartnerCenterResponse<Order> aCustomersOrder = partnerCenter.getOrderOperations().getACustomersOrder(list.getItems().get(1).getId());
+		GetCompanyProfileResponse customersCompanyProfile = partnerCenter.getCustomerOperations().getCustomersCompanyProfile(list.getItems().get(1).getId());
+		Customer customer = list.getItems().get(1);
+		PartnerCenterResponse<Invoice> invoices = partnerCenter.getInvoiceOperations().getInvoices();
 //		CountryInformation us = partnerCenter.getUtilityOperations().getAddressFormattingRulesByMarket("us");
 //		CustomerUsageSummary usageSummary = partnerCenter.getUsageOperations().getUsageSummary(customer.getId());
-//		GetSubscriptionListResponse customersSubscriptions = partnerCenter.getSubscriptionOperations().getCustomersSubscriptions(customer.getId());
+		GetSubscriptionListResponse customersSubscriptions = partnerCenter.getSubscriptionOperations().getCustomersSubscriptions(customer.getId());
 		partnerCenter.enableSlf4j(LogLevel.INFO);
+		Subscription byId = partnerCenter.getSubscriptionOperations().getById(customer.getId(), customersSubscriptions.getItems().get(0).getId());
 		OfferListResponse addOnOffersForOffer = partnerCenter.getOfferOperations()
 				.getAddOnOffersForOffer("1E51E973-0BB4-4358-8202-C417F8239BC0", "US");
-		System.out.println(Json.toJson(addOnOffersForOffer.getItems()));
 	}
 }
