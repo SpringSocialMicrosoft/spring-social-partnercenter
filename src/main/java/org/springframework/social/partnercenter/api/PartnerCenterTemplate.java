@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.client.BufferingClientHttpRequestFactory;
 import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.social.oauth2.AbstractOAuth2ApiBinding;
 import org.springframework.social.partnercenter.PartnerCenter;
@@ -86,7 +87,7 @@ public class PartnerCenterTemplate extends AbstractOAuth2ApiBinding implements P
 
 	@Override
 	protected void configureRestTemplate(RestTemplate restTemplate) {
-		ClientHttpRequestFactory factory = restTemplate.getRequestFactory();
+		HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory();
 		BufferingClientHttpRequestFactory requestFactory = new BufferingClientHttpRequestFactory(factory);
 		restTemplate.setRequestFactory(requestFactory);
 	}
