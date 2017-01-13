@@ -1,5 +1,6 @@
 package org.springframework.social.partnercenter.api.order.request;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class CreateOrderRequestLineItem {
@@ -16,35 +17,72 @@ public class CreateOrderRequestLineItem {
 		return lineItemNumber;
 	}
 
-	public CreateOrderRequestLineItem setLineItemNumber(int lineItemNumber) {
+	public void setLineItemNumber(int lineItemNumber) {
 		this.lineItemNumber = lineItemNumber;
-		return this;
 	}
 
 	public String getOfferId() {
 		return offerId;
 	}
 
-	public CreateOrderRequestLineItem setOfferId(String offerId) {
+	public void setOfferId(String offerId) {
 		this.offerId = offerId;
-		return this;
 	}
 
 	public String getFriendlyName() {
 		return friendlyName;
 	}
 
-	public CreateOrderRequestLineItem setFriendlyName(String friendlyName) {
+	public void setFriendlyName(String friendlyName) {
 		this.friendlyName = friendlyName;
-		return this;
 	}
 
 	public String getQuantity() {
 		return quantity;
 	}
 
-	public CreateOrderRequestLineItem setQuantity(String quantity) {
+	public void setQuantity(String quantity) {
 		this.quantity = quantity;
-		return this;
+	}
+
+	@JsonIgnore
+	public CreateOrderRequestLineItemBuilder builder(){
+		return new CreateOrderRequestLineItemBuilder();
+	}
+
+	public static class CreateOrderRequestLineItemBuilder{
+		private int lineItemNumber;
+		private String offerId;
+		private String friendlyName;
+		private String quantity;
+
+		public CreateOrderRequestLineItemBuilder lineItemNumber(int lineItemNumber) {
+			this.lineItemNumber = lineItemNumber;
+			return this;
+		}
+
+		public CreateOrderRequestLineItemBuilder offerId(String offerId) {
+			this.offerId = offerId;
+			return this;
+		}
+
+		public CreateOrderRequestLineItemBuilder friendlyName(String friendlyName) {
+			this.friendlyName = friendlyName;
+			return this;
+		}
+
+		public CreateOrderRequestLineItemBuilder quantity(String quantity) {
+			this.quantity = quantity;
+			return this;
+		}
+
+		public CreateOrderRequestLineItem build(){
+			CreateOrderRequestLineItem createOrderRequestLineItem = new CreateOrderRequestLineItem();
+			createOrderRequestLineItem.setLineItemNumber(lineItemNumber);
+			createOrderRequestLineItem.setFriendlyName(friendlyName);
+			createOrderRequestLineItem.setOfferId(offerId);
+			createOrderRequestLineItem.setQuantity(quantity);
+			return createOrderRequestLineItem;
+		}
 	}
 }

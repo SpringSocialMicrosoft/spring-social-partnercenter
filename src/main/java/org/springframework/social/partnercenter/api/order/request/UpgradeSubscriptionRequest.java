@@ -18,8 +18,8 @@ public class UpgradeSubscriptionRequest {
 	private Map<String, String> attributes;
 
 	@JsonIgnore
-	public static Builder builder(){
-		return new Builder();
+	public static UpgradeSubscriptionRequestBuilder builder(){
+		return new UpgradeSubscriptionRequestBuilder();
 	}
 	public Subscription getTargetOffer() {
 		return targetOffer;
@@ -75,39 +75,39 @@ public class UpgradeSubscriptionRequest {
 		return this;
 	}
 
-	public static class Builder{
+	public static class UpgradeSubscriptionRequestBuilder {
 		UpgradeSubscriptionRequest upgradeSubscriptionRequest;
 
-		public Builder(){
+		public UpgradeSubscriptionRequestBuilder(){
 			upgradeSubscriptionRequest = new UpgradeSubscriptionRequest();
 		}
 
-		public Builder setTargetOffer(Subscription targetOffer) {
+		public UpgradeSubscriptionRequestBuilder setTargetOffer(Subscription targetOffer) {
 			upgradeSubscriptionRequest.setTargetOffer(targetOffer);
 			return this;
 		}
 
-		public Builder setUpgradeType(int upgradeType) {
+		public UpgradeSubscriptionRequestBuilder setUpgradeType(int upgradeType) {
 			upgradeSubscriptionRequest.setUpgradeType(upgradeType);
 			return this;
 		}
 
-		public Builder setEligible(boolean eligible) {
+		public UpgradeSubscriptionRequestBuilder setEligible(boolean eligible) {
 			upgradeSubscriptionRequest.setEligible(eligible);
 			return this;
 		}
 
-		public Builder setQuantity(int quantity) {
+		public UpgradeSubscriptionRequestBuilder setQuantity(int quantity) {
 			upgradeSubscriptionRequest.setQuantity(quantity);
 			return this;
 		}
 
-		public Builder setUpgradeErrors(List<String> upgradeErrors) {
+		public UpgradeSubscriptionRequestBuilder setUpgradeErrors(List<String> upgradeErrors) {
 			upgradeSubscriptionRequest.setUpgradeErrors(upgradeErrors);
 			return this;
 		}
 
-		public Builder setAttributes(Map<String, String> attributes) {
+		public UpgradeSubscriptionRequestBuilder setAttributes(Map<String, String> attributes) {
 			upgradeSubscriptionRequest.setAttributes(attributes);
 			return this;
 		}
