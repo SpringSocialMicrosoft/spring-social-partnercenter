@@ -71,21 +71,30 @@ publishing {
 			version scmVersion.version
 			groupId group
 			artifactId 'spring-social-microsoft-partnercenter'
-
 			pom.withXml {
-				asNode().appendNode('description', "A provider extension for Spring Social to enable connectivity with Microsoft and an API binding for Microsoft's Partner Center API.")
-				asNode().appendNode('name', "spring-social-microsoft-partnercenter")
-				asNode().appendNode("url", "https://github.com/SpringSocialMicrosoft/spring-social-partnercenter")
-				asNode().appendNode("licenses",
-						asNode().appendNode("license",
-								asNode().appendNode("name", "The Apache License, Version 2.0")
-										.appendNode("url", "http://www.apache.org/licenses/LICENSE-2.0.txt")))
-				asNode().appendNode("developers",
-						asNode().appendNode("developer",
-								asNode().appendNode("name", "Paul Smelser")
-										.appendNode("email", "paul.smelser@gmail.com")
-										.appendNode("organization", "SpringSocialMicrosoft")
-										.appentNode("organizationUrl", "https://github.com/SpringSocialMicrosoft")))
+				asNode().children().last() + {
+					resolveStrategy = Closure.DELEGATE_FIRST
+					name 'spring-social-microsoft-partnercenter'
+					description 'A provider extension for Spring Social to enable connectivity with Microsoft and an API binding for Microsoft\'s Partner Center API.'
+					url "https://github.com/SpringSocialMicrosoft/spring-social-partnercenter"
+					scm {
+						url "https://github.com/SpringSocialMicrosoft/spring-social-partnercenter.git"
+					}
+					licenses {
+						license {
+							name 'The Apache Software License, Version 2.0'
+							url 'http://www.apache.org/license/LICENSE-2.0.txt'
+							distribution 'repo'
+						}
+					}
+					developers {
+						developer {
+							id 'psmelser'
+							name 'Paul Smelser'
+							email 'paul.smelser@gmail.com'
+						}
+					}
+				}
 			}
 
 			from components.java
