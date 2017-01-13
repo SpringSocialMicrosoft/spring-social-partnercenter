@@ -17,7 +17,11 @@ repositories {
 	mavenCentral()
 }
 
-ext.junit4Version        = '4.12'
+ext{
+	junit4Version = '4.12'
+	bintrayKeyValue = bintrayKey != null ? bintrayKey : "placeholder"
+	bintrayUserValue = bintrayUser != null ? bintrayUser : "placeholder"
+}
 
 scmVersion {
 	tag {
@@ -47,8 +51,8 @@ dependencies {
 }
 
 bintray {
-	user = "${bintrayUser}"
-	key = "${bintrayKey}"
+	user = "${bintrayUserValue}"
+	key = "${bintrayKeyValue}"
 	publications = ['mavenJava']
 	pkg {
 		repo = 'spring-social-microsoft'
