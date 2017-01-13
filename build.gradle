@@ -25,7 +25,7 @@ scmVersion {
 	}
 	ignoreUncommittedChanges = true
 }
-group 'org.springframework.social'
+group 'io.github.springsocialmicrosoft'
 version = scmVersion.version
 
 dependencies {
@@ -69,6 +69,14 @@ publishing {
 	publications {
 		mavenJava(MavenPublication) {
 			version scmVersion.version
+			groupId group
+			artifactId 'spring-social-microsoft-partnercenter'
+
+			pom.withXml {
+				asNode().appendNode('description',
+						"A provider extension for Spring Social to enable connectivity with Microsoft and an API binding for Microsoft's Partner Center API.")
+			}
+
 			from components.java
 		}
 	}
