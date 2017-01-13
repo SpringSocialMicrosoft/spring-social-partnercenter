@@ -75,6 +75,18 @@ publishing {
 			pom.withXml {
 				asNode().appendNode('description',
 						"A provider extension for Spring Social to enable connectivity with Microsoft and an API binding for Microsoft's Partner Center API.")
+				.appendNode('name', "spring-social-microsoft-partnercenter")
+				.appendNode("url", "https://github.com/SpringSocialMicrosoft/spring-social-partnercenter")
+				.appendNode("licenses",
+						asNode().appendNode("license",
+								asNode().appendNode("name", "The Apache License, Version 2.0")
+										.appendNode("url", "http://www.apache.org/licenses/LICENSE-2.0.txt")))
+				.appendNode("developers",
+						asNode().appendNode("developer",
+								asNode().appendNode("name", "Paul Smelser")
+										.appendNode("email", "paul.smelser@gmail.com")
+										.appendNode("organization", "SpringSocialMicrosoft")
+										.appentNode("organizationUrl", "https://github.com/SpringSocialMicrosoft")))
 			}
 
 			from components.java
