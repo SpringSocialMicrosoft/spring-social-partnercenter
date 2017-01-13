@@ -213,6 +213,7 @@ public class PartnerCenterOAuth2Template implements OAuth2Operations {
 	 * For example, if the access token response is given as form-encoded, this method should be overridden to call RestTemplate.postForObject() asking for the response to be bound to a MultiValueMap (whose contents can then be used to create an AccessGrant).
 	 * @param accessTokenUrl the URL of the provider's access token endpoint.
 	 * @param parameters the parameters to post to the access token endpoint.
+     * @param headers http headers to be sent with access request
 	 * @return the access grant.
 	 */
 	@SuppressWarnings("unchecked")
@@ -254,6 +255,7 @@ public class PartnerCenterOAuth2Template implements OAuth2Operations {
 	 * @param scope the scope of the access token
 	 * @param refreshToken a refresh token value received from the provider
 	 * @param expiresIn the time (in seconds) remaining before the access token expires.
+	 * @param idToken JWT for user
 	 * @param response all parameters from the response received in the access token exchange.
 	 * @return an {@link AccessGrant}
 	 */

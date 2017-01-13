@@ -17,6 +17,7 @@ public class MultiTenantConnectionFactoryRegistry {
 	/**
 	 * Add a {@link ConnectionFactory} to this registry.
 	 * @param connectionFactory the connection factory
+	 * @param tenant the tenant to register the connection under
 	 */
 	public void addConnectionFactory(String tenant, ConnectionFactory<?> connectionFactory) {
 		if (connectionFactories.containsKey(buildKey(tenant, connectionFactory.getProviderId()))) {
