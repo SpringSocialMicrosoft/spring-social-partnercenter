@@ -27,7 +27,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
-public class PartnerCenterOAuth2Template implements OAuth2Operations {
+public class PartnerCenterAuthorizationTemplate implements OAuth2Operations {
 
 	private final String clientId;
 
@@ -49,7 +49,7 @@ public class PartnerCenterOAuth2Template implements OAuth2Operations {
 	 * @param applicationSecret the application secret
 	 * @param tenant the reseller domain
 	 */
-	public PartnerCenterOAuth2Template(String applicationId, String applicationSecret, String tenant){
+	public PartnerCenterAuthorizationTemplate(String applicationId, String applicationSecret, String tenant){
 		this(applicationId, applicationSecret, UriProvider.buildPartnerCenterOAuth2Uri(tenant), null,  UriProvider.buildPartnerCenterTokenUri());
 	}
 
@@ -61,7 +61,7 @@ public class PartnerCenterOAuth2Template implements OAuth2Operations {
 	 * @param authenticateUrl the URL to redirect to when doing authentication via authorization code grant
 	 * @param accessTokenUrl the URL at which an authorization code, refresh token, or user credentials may be exchanged for an access token
 	 */
-	private PartnerCenterOAuth2Template(String clientId, String clientSecret, String authorizeUrl, String authenticateUrl, String accessTokenUrl) {
+	private PartnerCenterAuthorizationTemplate(String clientId, String clientSecret, String authorizeUrl, String authenticateUrl, String accessTokenUrl) {
 		Assert.notNull(clientId, "The clientId property cannot be null");
 		Assert.notNull(clientSecret, "The clientSecret property cannot be null");
 		Assert.notNull(authorizeUrl, "The authorizeUrl property cannot be null");
@@ -150,21 +150,13 @@ public class PartnerCenterOAuth2Template implements OAuth2Operations {
 	@Deprecated
 	public AccessGrant refreshAccess(String refreshToken, String scope, MultiValueMap<String, String> additionalParameters) {
 		additionalParameters.set("scope", scope);
-		return refreshAccess(refreshToken, additionalParameters);
+		AzureADSecurityToken azureADSecurityToken = postForADToken();
+		return exchangeForAccess(azureADSecurityToken.getAccessToken(), additionalParameters);
 	}
 
 	public AccessGrant refreshAccess(String refreshToken, MultiValueMap<String, String> additionalParameters) {
-		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-		if (useParametersForClientAuthentication) {
-			params.set("client_id", clientId);
-			params.set("client_secret", clientSecret);
-		}
-		params.set("refresh_token", refreshToken);
-		params.set("grant_type", "refresh_token");
-		if (additionalParameters != null) {
-			params.putAll(additionalParameters);
-		}
-		return postForAccessGrant(accessTokenUrl, params);
+		AzureADSecurityToken azureADSecurityToken = postForADToken();
+		return exchangeForAccess(azureADSecurityToken.getAccessToken(), additionalParameters);
 	}
 
 	public AccessGrant authenticateClient() {
