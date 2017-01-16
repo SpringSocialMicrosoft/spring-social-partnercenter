@@ -1,19 +1,22 @@
 package org.springframework.social.partnercenter.api.order.request;
 
+import static java.util.Objects.nonNull;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class CreateOrderRequestLineItem {
-	@JsonProperty("LineItemNumber")
-	private int lineItemNumber;
-	@JsonProperty("OfferId")
+	private Integer lineItemNumber;
 	private String offerId;
-	@JsonProperty("FriendlyName")
+	private String parentSubscriptionId;
 	private String friendlyName;
-	@JsonProperty("Quantity")
-	private String quantity;
+	private Integer quantity;
 
-	public int getLineItemNumber() {
+	public Integer getLineItemNumber() {
 		return lineItemNumber;
 	}
 
@@ -29,6 +32,14 @@ public class CreateOrderRequestLineItem {
 		this.offerId = offerId;
 	}
 
+	public String getParentSubscriptionId() {
+		return parentSubscriptionId;
+	}
+
+	public void setParentSubscriptionId(String parentSubscriptionId) {
+		this.parentSubscriptionId = parentSubscriptionId;
+	}
+
 	public String getFriendlyName() {
 		return friendlyName;
 	}
@@ -37,26 +48,57 @@ public class CreateOrderRequestLineItem {
 		this.friendlyName = friendlyName;
 	}
 
-	public String getQuantity() {
+	public int getQuantity() {
 		return quantity;
 	}
 
-	public void setQuantity(String quantity) {
+	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
 
 	@JsonIgnore
-	public CreateOrderRequestLineItemBuilder builder(){
+	public static CreateOrderRequestLineItemBuilder lineItemBuilder(){
 		return new CreateOrderRequestLineItemBuilder();
 	}
 
-	public static class CreateOrderRequestLineItemBuilder{
-		private int lineItemNumber;
-		private String offerId;
-		private String friendlyName;
-		private String quantity;
+	@JsonIgnore
+	public static LineItemListBuilder lineItemListBuilder(){
+		return new LineItemListBuilder();
+	}
 
-		public CreateOrderRequestLineItemBuilder lineItemNumber(int lineItemNumber) {
+	public static class LineItemListBuilder{
+		List<CreateOrderRequestLineItem> lineItems;
+
+		public LineItemListBuilder() {
+			this.lineItems = new ArrayList<>();
+		}
+
+		public LineItemListBuilder addLineItem(CreateOrderRequestLineItemBuilder builder){
+			CreateOrderRequestLineItem build = builder.build();
+			build.setLineItemNumber(builder.lineItemNumber != null ? build.getLineItemNumber() : calculateNextIndex());
+			lineItems.add(build);
+			return this;
+		}
+
+		private int calculateNextIndex(){
+			return lineItems.stream()
+					.mapToInt(CreateOrderRequestLineItem::getLineItemNumber)
+					.max().orElse(-1) + 1;
+		}
+
+		public List<CreateOrderRequestLineItem> build(){
+			return lineItems;
+		}
+	}
+
+	public static class CreateOrderRequestLineItemBuilder{
+		private Integer lineItemNumber;
+		private String offerId;
+		private String parentSubscriptionId;
+		private String friendlyName;
+		private int quantity;
+
+		public CreateOrderRequestLineItemBuilder lineItemNumber(Integer lineItemNumber) {
 			this.lineItemNumber = lineItemNumber;
 			return this;
 		}
@@ -71,17 +113,25 @@ public class CreateOrderRequestLineItem {
 			return this;
 		}
 
-		public CreateOrderRequestLineItemBuilder quantity(String quantity) {
+		public CreateOrderRequestLineItemBuilder quantity(int quantity) {
 			this.quantity = quantity;
+			return this;
+		}
+
+		public CreateOrderRequestLineItemBuilder parentSubscriptionId(String parentSubscriptionId) {
+			this.parentSubscriptionId = parentSubscriptionId;
 			return this;
 		}
 
 		public CreateOrderRequestLineItem build(){
 			CreateOrderRequestLineItem createOrderRequestLineItem = new CreateOrderRequestLineItem();
-			createOrderRequestLineItem.setLineItemNumber(lineItemNumber);
 			createOrderRequestLineItem.setFriendlyName(friendlyName);
 			createOrderRequestLineItem.setOfferId(offerId);
+			createOrderRequestLineItem.setParentSubscriptionId(parentSubscriptionId);
 			createOrderRequestLineItem.setQuantity(quantity);
+			if (nonNull(lineItemNumber)) {
+				createOrderRequestLineItem.setLineItemNumber(lineItemNumber);
+			}
 			return createOrderRequestLineItem;
 		}
 	}

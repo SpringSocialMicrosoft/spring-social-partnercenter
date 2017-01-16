@@ -21,6 +21,7 @@ public class UpgradeSubscriptionRequest {
 	public static UpgradeSubscriptionRequestBuilder builder(){
 		return new UpgradeSubscriptionRequestBuilder();
 	}
+
 	public Subscription getTargetOffer() {
 		return targetOffer;
 	}

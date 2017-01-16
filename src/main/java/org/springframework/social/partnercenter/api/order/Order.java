@@ -3,8 +3,8 @@ package org.springframework.social.partnercenter.api.order;
 import java.util.List;
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Order {
@@ -67,5 +67,11 @@ public class Order {
 	public Order setAttributes(Map<String, String> attributes) {
 		this.attributes = attributes;
 		return this;
+	}
+
+	@JsonIgnore
+	public void addLineItem(LineItem lineItem){
+		lineItem.setLineItemNumber(getLineItems().stream().mapToInt(LineItem::getLineItemNumber).max().orElse(-1) + 1);
+		this.getLineItems().add(lineItem);
 	}
 }

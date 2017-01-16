@@ -3,42 +3,67 @@ package org.springframework.social.partnercenter.connect;
 import java.util.Collection;
 
 import org.springframework.http.client.ClientHttpRequestInterceptor;
+import org.springframework.retry.support.RetryTemplate;
 import org.springframework.social.connect.ApiAdapter;
 import org.springframework.social.connect.Connection;
-import org.springframework.social.connect.support.OAuth2ConnectionFactory;
+import org.springframework.social.connect.ConnectionData;
 import org.springframework.social.oauth2.AccessGrant;
-import org.springframework.social.oauth2.OAuth2ServiceProvider;
 import org.springframework.social.partnercenter.PartnerCenter;
-import org.springframework.social.partnercenter.oauth2.PartnerCenterOAuth2Template;
+import org.springframework.social.partnercenter.oauth2.PartnerCenterAuthorizationTemplate;
 
-public class PartnerCenterConnectionFactory extends OAuth2ConnectionFactory<PartnerCenter> {
+public class PartnerCenterConnectionFactory extends BasePartnerCenterConnectionFactory {
 
 	public PartnerCenterConnectionFactory(String applicationId, String applicationSecret, String tenant){
 		this(PartnerCenter.PROVIDER_ID, new PartnerCenterServiceProvider(applicationId, applicationSecret, tenant), new PartnerCenterApiAdapter());
+	}
+	public PartnerCenterConnectionFactory(String applicationId, String applicationSecret, String tenant, RetryTemplate retryTemplate){
+		this(PartnerCenter.PROVIDER_ID, new PartnerCenterServiceProvider(applicationId, applicationSecret, tenant, retryTemplate), new PartnerCenterApiAdapter());
 	}
 
 	public PartnerCenterConnectionFactory(String applicationId, String applicationSecret, String tenant, String apiVersion){
 		this(PartnerCenter.PROVIDER_ID, new PartnerCenterServiceProvider(applicationId, applicationSecret, tenant, apiVersion), new PartnerCenterApiAdapter());
 	}
 
+	public PartnerCenterConnectionFactory(String applicationId, String applicationSecret, String tenant, String apiVersion, RetryTemplate retryTemplate){
+		this(PartnerCenter.PROVIDER_ID, new PartnerCenterServiceProvider(applicationId, applicationSecret, tenant, apiVersion, retryTemplate), new PartnerCenterApiAdapter());
+	}
+
 	public PartnerCenterConnectionFactory(String applicationId, String applicationSecret, String tenant, String apiVersion, Collection<ClientHttpRequestInterceptor> interceptors){
 		this(PartnerCenter.PROVIDER_ID, new PartnerCenterServiceProvider(applicationId, applicationSecret, tenant, apiVersion, interceptors), new PartnerCenterApiAdapter());
+	}
+
+	public PartnerCenterConnectionFactory(String applicationId, String applicationSecret, String tenant, String apiVersion, Collection<ClientHttpRequestInterceptor> interceptors, RetryTemplate retryTemplate){
+		this(PartnerCenter.PROVIDER_ID, new PartnerCenterServiceProvider(applicationId, applicationSecret, tenant, apiVersion, interceptors, retryTemplate), new PartnerCenterApiAdapter());
 	}
 
 	public PartnerCenterConnectionFactory(String applicationId, String applicationSecret, String tenant, Collection<ClientHttpRequestInterceptor> interceptors){
 		this(PartnerCenter.PROVIDER_ID, new PartnerCenterServiceProvider(applicationId, applicationSecret, tenant, interceptors), new PartnerCenterApiAdapter());
 	}
 
-	private PartnerCenterConnectionFactory(String providerId, OAuth2ServiceProvider<PartnerCenter> serviceProvider, ApiAdapter<PartnerCenter> apiAdapter) {
+	public PartnerCenterConnectionFactory(String applicationId, String applicationSecret, String tenant, Collection<ClientHttpRequestInterceptor> interceptors, RetryTemplate retryTemplate){
+		this(PartnerCenter.PROVIDER_ID, new PartnerCenterServiceProvider(applicationId, applicationSecret, tenant, interceptors, retryTemplate), new PartnerCenterApiAdapter());
+	}
+
+	private PartnerCenterConnectionFactory(String providerId, PartnerCenterServiceProvider serviceProvider, ApiAdapter<PartnerCenter> apiAdapter) {
 		super(providerId, serviceProvider, apiAdapter);
 	}
 
-	public Connection<PartnerCenter> createConnection(){
+	public PartnerCenterConnection createConnection(){
 		AccessGrant accessGrant = getPartnerCenterOAuth2Operations().exchangeForAccess();
-		return createConnection(accessGrant);
+		return (PartnerCenterConnection) createConnection(accessGrant);
 	}
 
-	private PartnerCenterOAuth2Template getPartnerCenterOAuth2Operations() {
-		return (PartnerCenterOAuth2Template) getOAuthOperations();
+	@Override
+	public Connection<PartnerCenter> createConnection(AccessGrant accessGrant) {
+		return super.createConnection(accessGrant);
+	}
+
+	@Override
+	public Connection<PartnerCenter> createConnection(ConnectionData data) {
+		return super.createConnection(data);
+	}
+
+	private PartnerCenterAuthorizationTemplate getPartnerCenterOAuth2Operations() {
+		return (PartnerCenterAuthorizationTemplate) getOAuthOperations();
 	}
 }

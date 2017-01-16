@@ -1,5 +1,6 @@
 package org.springframework.social.partnercenter.api.order.request;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -41,13 +42,13 @@ public class CreateOrderRequest {
 		return this;
 	}
 
-	public static CreateOrderRequestBuilder builder(){
+	public static CreateOrderRequestBuilder createOrderRequestBuilder(){
 		return new CreateOrderRequestBuilder();
 	}
 
 	public static class CreateOrderRequestBuilder{
 		private String referenceCustomerId;
-		private List<CreateOrderRequestLineItem> lineItems;
+		private List<CreateOrderRequestLineItem> lineItems = new ArrayList<>();
 		private Map<String, String> attributes;
 
 		public CreateOrderRequestBuilder referenceCustomerId(String referenceCustomerId) {
@@ -58,6 +59,18 @@ public class CreateOrderRequest {
 		public CreateOrderRequestBuilder lineItems(List<CreateOrderRequestLineItem> lineItems) {
 			this.lineItems = lineItems;
 			return this;
+		}
+
+		public CreateOrderRequestBuilder addLineItem(CreateOrderRequestLineItem lineItem){
+			lineItem.setLineItemNumber(lineItem.getLineItemNumber() != null ? lineItem.getLineItemNumber() : calculateNextIndex());
+			lineItems.add(lineItem);
+			return this;
+		}
+
+		private int calculateNextIndex(){
+			return lineItems.stream()
+					.mapToInt(CreateOrderRequestLineItem::getLineItemNumber)
+					.max().orElse(-1) + 1;
 		}
 
 		public CreateOrderRequestBuilder attributes(Map<String, String> attributes) {

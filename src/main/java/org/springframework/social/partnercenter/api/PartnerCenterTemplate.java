@@ -1,13 +1,15 @@
 package org.springframework.social.partnercenter.api;
 
+import static java.util.Objects.nonNull;
+
 import java.util.Collection;
+import java.util.Objects;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.client.BufferingClientHttpRequestFactory;
-import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
-import org.springframework.http.client.SimpleClientHttpRequestFactory;
+import org.springframework.retry.support.RetryTemplate;
 import org.springframework.social.oauth2.AbstractOAuth2ApiBinding;
 import org.springframework.social.partnercenter.PartnerCenter;
 import org.springframework.social.partnercenter.api.billing.invoicing.InvoiceOperations;
@@ -30,6 +32,9 @@ import org.springframework.social.partnercenter.api.uri.UriProvider;
 import org.springframework.social.partnercenter.api.utilities.UtilityOperations;
 import org.springframework.social.partnercenter.api.utilities.impl.UtilityTemplate;
 import org.springframework.social.partnercenter.connect.ApiVersionParameterRequestInterceptor;
+import org.springframework.social.partnercenter.http.client.RetryRestResource;
+import org.springframework.social.partnercenter.http.client.retry.ExponentialRetryBuilder;
+import org.springframework.social.partnercenter.http.client.retry.RetryService;
 import org.springframework.social.partnercenter.http.logging.LogLevel;
 import org.springframework.social.partnercenter.http.logging.LoggingRequestInterceptor;
 import org.springframework.social.partnercenter.http.client.RestResource;
@@ -48,41 +53,55 @@ public class PartnerCenterTemplate extends AbstractOAuth2ApiBinding implements P
 	private final UtilityOperations utilityOperations;
 
 	private PartnerCenterTemplate(String accessToken, String version) {
+		this(null, accessToken, version);
+	}
+
+	private PartnerCenterTemplate(RetryTemplate retryTemplate, String accessToken, String version){
 		super(accessToken);
 		addVersionInterceptor(version);
+		subscriptionOperations = new SubscriptionTemplate(createRestResource(
+				UriProvider.partnerCenterCustomerUri().toUriString(), retryTemplate),
+				isAuthorized());
 
-		subscriptionOperations = new SubscriptionTemplate(new RestResource(getRestTemplate(),
-				UriProvider.partnerCenterCustomerUri().toUriString()), isAuthorized());
+		orderOperations = new OrderTemplate(createRestResource(
+				UriProvider.partnerCenterCustomerUri().toUriString(), retryTemplate), isAuthorized());
 
-		orderOperations = new OrderTemplate(new RestResource(getRestTemplate(),
-				UriProvider.partnerCenterCustomerUri().toUriString()), isAuthorized());
+		customerOperations = new CustomerTemplate(createRestResource(
+				UriProvider.partnerCenterCustomerUri().toUriString(), retryTemplate) ,isAuthorized());
 
-		customerOperations = new CustomerTemplate(new RestResource(getRestTemplate(),
-				UriProvider.partnerCenterCustomerUri().toUriString()) ,isAuthorized());
+		offerOperations = new OfferTemplate(createRestResource(
+				UriProvider.partnerCenterOfferUri().toUriString(), retryTemplate), isAuthorized());
 
-		offerOperations = new OfferTemplate(new RestResource(getRestTemplate(),
-				UriProvider.partnerCenterOfferUri().toUriString()), isAuthorized());
+		usageOperations = new UsageTemplate(createRestResource(
+				UriProvider.partnerCenterCustomerUri().toUriString(), retryTemplate), isAuthorized());
 
-		usageOperations = new UsageTemplate(new RestResource(getRestTemplate(),
-				UriProvider.partnerCenterCustomerUri().toUriString()), isAuthorized());
+		pricingOperations = new PricingTemplate(createRestResource(
+				UriProvider.partnerCenterPricingUri().toUriString(), retryTemplate), isAuthorized());
 
-		pricingOperations = new PricingTemplate(new RestResource(getRestTemplate(),
-				UriProvider.partnerCenterPricingUri().toUriString()), isAuthorized());
+		invoiceOperations = new InvoiceTemplate(createRestResource(
+				UriProvider.partnerCenterInvoiceUri().toUriString(), retryTemplate), isAuthorized());
 
-		invoiceOperations = new InvoiceTemplate(new RestResource(getRestTemplate(),
-						UriProvider.partnerCenterInvoiceUri().toUriString()), isAuthorized());
+		profileOperations = new ProfileTemplate(createRestResource(
+				UriProvider.partnerCenterProfileUri().toUriString(), retryTemplate), isAuthorized());
 
-		profileOperations = new ProfileTemplate(new RestResource(getRestTemplate(),
-				UriProvider.partnerCenterProfileUri().toUriString()), isAuthorized());
-
-		utilityOperations = new UtilityTemplate(new RestResource(getRestTemplate(),
-				UriProvider.partnerCenterBuilder().pathSegment("v1").toUriString()), isAuthorized());
-
+		utilityOperations = new UtilityTemplate(createRestResource(
+				UriProvider.partnerCenterBuilder().pathSegment("v1").toUriString(), retryTemplate), isAuthorized());
 	}
 
 	public PartnerCenterTemplate(String accessToken, String version, Collection<ClientHttpRequestInterceptor> interceptors) {
-		this(accessToken, version);
+		this(null, accessToken, version, interceptors);
+	}
+
+	public PartnerCenterTemplate(RetryTemplate retryTemplate, String accessToken, String version, Collection<ClientHttpRequestInterceptor> interceptors) {
+		this(retryTemplate, accessToken, version);
 		interceptors.forEach(interceptor -> getRestTemplate().getInterceptors().add(interceptor));
+	}
+
+	private RestResource createRestResource(String baseUri, RetryTemplate retryTemplate){
+		if(nonNull(retryTemplate)){
+			return new RetryRestResource(getRestTemplate(), baseUri, new RetryService(retryTemplate));
+		}
+		return new RestResource(getRestTemplate(), baseUri);
 	}
 
 	@Override

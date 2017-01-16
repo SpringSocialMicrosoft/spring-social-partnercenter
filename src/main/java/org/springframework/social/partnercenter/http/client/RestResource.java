@@ -3,9 +3,7 @@ package org.springframework.social.partnercenter.http.client;
 import static java.util.Collections.singletonList;
 
 import java.net.URI;
-import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
 
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
@@ -13,18 +11,20 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponentsBuilder;
 
 public class RestResource {
 	private RestTemplate restTemplate;
 	private String resourceBaseUri;
-	private Logger log = Logger.getLogger(RestResource.class.getName());
 
-	public RequestBuilder request(){
-		return new RequestBuilder(this);
+	public HttpRequestBuilder request(){
+		return new HttpRequestBuilder(this, this.resourceBaseUri);
 	}
-	public RequestBuilder request(MediaType mediaType){
-		return new RequestBuilder(this).header(HttpHeaders.CONTENT_TYPE, singletonList(mediaType.toString()));
+	public HttpRequestBuilder request(MediaType mediaType){
+		return new HttpRequestBuilder(this, this.resourceBaseUri).header(HttpHeaders.CONTENT_TYPE, singletonList(mediaType.toString()));
+	}
+
+	protected RestTemplate getRestTemplate() {
+		return restTemplate;
 	}
 
 	public RestResource(RestTemplate restTemplate, String resourceBaseUri) {
@@ -33,126 +33,56 @@ public class RestResource {
 	}
 
 	public <T> T get(URI url, ParameterizedTypeReference<T> responseType) {
-		return restTemplate.exchange(url, HttpMethod.GET, null, responseType).getBody();
+		return execute(url, HttpMethod.GET, null, responseType);
 	}
 
 	public <T> T get(URI url, Class<T> responseType) {
-		return restTemplate.exchange(url, HttpMethod.GET, null, responseType).getBody();
+		return execute(url, HttpMethod.GET, null, responseType);
 	}
 
 	private  <T> T get(URI url, Class<T> responseType, Map<String, String> header) {
-		return restTemplate.exchange(url, HttpMethod.GET, new HttpEntity<>(header), responseType).getBody();
+		return execute(url, HttpMethod.GET, new HttpEntity<>(header), responseType);
 	}
 
 	public <T> T post(URI url, ParameterizedTypeReference<T> responseType) {
-		return restTemplate.exchange(url, HttpMethod.POST, HttpEntity.EMPTY, responseType).getBody();
+		return execute(url, HttpMethod.POST, HttpEntity.EMPTY, responseType);
 	}
 
 	public <T> T post(URI url, ParameterizedTypeReference<T> responseType, Map<String, String> headers) {
-		return restTemplate.exchange(url, HttpMethod.POST, new HttpEntity<Object>(headers), responseType).getBody();
+		return execute(url, HttpMethod.POST, new HttpEntity<Object>(headers), responseType);
 	}
 
 	public <T, R> R post(URI uri, T entity, Class<R> responseType) {
-		return restTemplate.exchange(
-				uri,
-				HttpMethod.POST,
-				new HttpEntity<>(entity),
-				responseType).getBody();
+		return execute(uri, HttpMethod.POST, new HttpEntity<>(entity), responseType);
 	}
 
 	public <T, R> R post(URI uri, HttpEntity<T> entity, Class<R> responseType) {
-		return restTemplate.exchange(
-				uri,
-				HttpMethod.POST,
-				entity,
-				responseType).getBody();
+		return execute(uri, HttpMethod.POST, entity, responseType);
 	}
 
 	public <T, R> R patch(URI uri, HttpEntity<T> entity, Class<R> responseType) {
-		return restTemplate.exchange(
-				uri,
-				HttpMethod.PATCH,
-				entity,
-				responseType).getBody();
+		return execute(uri, HttpMethod.PATCH, entity, responseType);
 	}
 
 	public <T, R> R put(URI uri, HttpEntity<T> entity, Class<R> responseType) {
-		return restTemplate.exchange(
-				uri,
-				HttpMethod.PUT,
-				entity,
-				responseType).getBody();
+		return execute(uri, HttpMethod.PUT, entity, responseType);
 	}
 
 	public void delete(URI uri){
 		restTemplate.delete(uri);
 	}
 
-	public static class RequestBuilder{
-		private HttpHeaders headers;
-		private RestResource restResource;
-		private UriComponentsBuilder uriBuilder;
+	public <T, R> R execute(URI uri, HttpMethod httpMethod, HttpEntity<T> entity, Class<R> responseType){
 
-		private RequestBuilder(RestResource restResource){
-			this.headers = new HttpHeaders();
-			this.restResource = restResource;
-			this.uriBuilder = UriComponentsBuilder.fromUriString(restResource.resourceBaseUri);
-		}
-		public static RequestBuilder createNew(RestResource service){
-			return new RequestBuilder(service);
-		}
+		return restTemplate.exchange(
+				uri, httpMethod, entity, responseType
+		).getBody();
+	}
 
-		public RequestBuilder header(String key, List<String> value){
-			headers.put(key, value);
-			return this;
-		}
-
-		public RequestBuilder header(String key, String value){
-			headers.put(key, singletonList(value));
-			return this;
-		}
-
-		public RequestBuilder pathSegment(String ... pathSegments){
-			uriBuilder.pathSegment(pathSegments);
-			return this;
-		}
-
-		public RequestBuilder queryParam(String name, Object... values){
-			uriBuilder.queryParam(name, values);
-			return this;
-		}
-
-		public RequestBuilder path(String path){
-			uriBuilder.path(path);
-			return this;
-		}
-
-		public <T, R> R put(T payload, Class<R> aClass){
-			HttpEntity<T> tHttpEntity = new HttpEntity<>(payload, headers);
-			return restResource.put(uriBuilder.build().toUri(), tHttpEntity, aClass);
-		}
-
-		public <T, R> R post(T payload, Class<R> aClass){
-			HttpEntity<T> tHttpEntity = new HttpEntity<>(payload, headers);
-			return restResource.post(uriBuilder.build().toUri(), tHttpEntity, aClass);
-		}
-
-		public <T, R> R patch(T payload, Class<R> aClass){
-			HttpEntity<T> tHttpEntity = new HttpEntity<>(payload, headers);
-			return restResource.patch(uriBuilder.build().toUri(), tHttpEntity, aClass);
-		}
-
-		public <T> T get(Class<T> aClass){
-			return restResource.get(uriBuilder.build().toUri(), aClass);
-		}
-
-		public <T> T get(ParameterizedTypeReference<T> aClass){
-			return restResource.get(uriBuilder.build().toUri(), aClass);
-		}
-
-		public void delete(){
-			restResource.delete(uriBuilder.build().toUri());
-		}
+	public <T, R> R execute(URI uri, HttpMethod httpMethod, HttpEntity<T> entity, ParameterizedTypeReference<R> responseType){
+		return restTemplate.exchange(
+				uri, httpMethod, entity, responseType
+		).getBody();
 	}
 
 }
