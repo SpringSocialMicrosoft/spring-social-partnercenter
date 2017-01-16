@@ -1,15 +1,22 @@
 package org.springframework.social.partnercenter.http.client.retry;
 
+import static java.util.Objects.nonNull;
+
 import org.springframework.retry.backoff.BackOffPolicy;
 import org.springframework.retry.backoff.ExponentialBackOffPolicy;
 import org.springframework.retry.policy.SimpleRetryPolicy;
 import org.springframework.retry.support.RetryTemplate;
 
 public class ExponentialRetryBuilder implements RetryBuilder {
-	private int maxAttempts;
-	private int initialInterval;
-	private double multiplier;
-	private int maxInterval;
+	private final static int DEFAULT_MAX_ATTEMPTS = 5;
+	private final static int DEFAULT_INITIAL_INTERVAL= 200;
+	private final static double DEFAULT_MULTIPLIER = 2.0;
+	private final static int DEFAULT_MAX_INTERVAL = 1500;
+
+	private Integer maxAttempts;
+	private Integer initialInterval;
+	private Double multiplier;
+	private Integer maxInterval;
 
 	public ExponentialRetryBuilder maxAttempts(int maxAttempts) {
 		this.maxAttempts = maxAttempts;
@@ -37,8 +44,11 @@ public class ExponentialRetryBuilder implements RetryBuilder {
 	@Override
 	public RetryTemplate build() {
 		RetryTemplate template = new RetryTemplate();
-		template.setBackOffPolicy(buildBackoffPolicy(initialInterval, multiplier, maxInterval));
-		template.setRetryPolicy(buildRetryPolicy(maxAttempts));
+		template.setBackOffPolicy(buildBackoffPolicy(
+				nonNull(initialInterval) ? initialInterval : DEFAULT_INITIAL_INTERVAL,
+				nonNull(multiplier) ? multiplier : DEFAULT_MULTIPLIER,
+				nonNull(maxInterval) ? maxInterval : DEFAULT_MAX_INTERVAL));
+		template.setRetryPolicy(buildRetryPolicy(nonNull(maxAttempts) ? maxAttempts : DEFAULT_MAX_ATTEMPTS));
 		return template;
 	}
 
