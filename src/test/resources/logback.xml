@@ -1,35 +1,14 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-	<!-- Propagate Logback log levels into JUL to maintain SLF4JBridgeHandler performance -->
-	<contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
-		<resetJUL>true</resetJUL>
-	</contextListener>
 
 	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<!-- encoders are assigned the type
+			 ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
 		<encoder>
-			<pattern>%date{ISO8601} [ thread=%thread ][ level=%level ][ test=%X{test.classname} ][ logger=%logger{1} ]: %message%n</pattern>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
 		</encoder>
 	</appender>
 
-	<root level="INFO">
+	<root level="info">
 		<appender-ref ref="STDOUT" />
 	</root>
-
-	<!-- Reduce the amount of Wicket logs for Tests -->
-	<logger name="org.apache.wicket" level="WARN" />
-
-	<!-- Reduce logs of various internal services generating many logs -->
-	<logger name="com.appdirect.backend.webhook.service.WebhookNotificationServiceImpl" level="WARN" />
-	<logger name="com.appdirect.backend.webhook.service.WebhookTriggerListener" level="WARN" />
-	<logger name="com.appdirect.backend.activity.service.ActivityServiceImpl" level="WARN" />
-
-	<!-- Some test will create 200 applications that will trigger indexation that the test instance of elasticserch cannot handle, we ignore the error logs -->
-	<logger name="com.appdirect.backend.search.core.ElasticSearchWorkQueueImpl" level="OFF" />
-
-	<logger name="com.appdirect.wicket.common.pages.BaseWebPage" level="ERROR" />
-
-	<!-- TODO Remove when integration testing with swsisscom is done -->
-	<logger name="com.appdirect.backend.api.custom.swisscom.client" level="DEBUG">
-	</logger>
-
 </configuration>

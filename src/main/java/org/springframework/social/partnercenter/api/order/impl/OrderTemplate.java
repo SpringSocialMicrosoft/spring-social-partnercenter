@@ -32,6 +32,13 @@ public class OrderTemplate extends AbstractTemplate implements OrderOperations {
 	}
 
 	@Override
+	public Order createAddOnOrder(String customerId, String orderId, CreateOrderRequest order) {
+		return restResource.request()
+				.pathSegment(customerId, "orders", orderId)
+				.patch(order, Order.class);
+	}
+
+	@Override
 	public Order createOrder(String customerId, CreateOrderRequest request) {
 		return restResource.request()
 				.pathSegment(customerId, "orders")

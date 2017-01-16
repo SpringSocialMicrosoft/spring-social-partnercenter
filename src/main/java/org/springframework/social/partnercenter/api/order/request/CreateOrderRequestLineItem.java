@@ -10,16 +10,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class CreateOrderRequestLineItem {
-	@JsonProperty("LineItemNumber")
-	private int lineItemNumber;
-	@JsonProperty("OfferId")
+	private Integer lineItemNumber;
 	private String offerId;
-	@JsonProperty("FriendlyName")
+	private String parentSubscriptionId;
 	private String friendlyName;
-	@JsonProperty("Quantity")
-	private int quantity;
+	private Integer quantity;
 
-	public int getLineItemNumber() {
+	public Integer getLineItemNumber() {
 		return lineItemNumber;
 	}
 
@@ -33,6 +30,14 @@ public class CreateOrderRequestLineItem {
 
 	public void setOfferId(String offerId) {
 		this.offerId = offerId;
+	}
+
+	public String getParentSubscriptionId() {
+		return parentSubscriptionId;
+	}
+
+	public void setParentSubscriptionId(String parentSubscriptionId) {
+		this.parentSubscriptionId = parentSubscriptionId;
 	}
 
 	public String getFriendlyName() {
@@ -89,6 +94,7 @@ public class CreateOrderRequestLineItem {
 	public static class CreateOrderRequestLineItemBuilder{
 		private Integer lineItemNumber;
 		private String offerId;
+		private String parentSubscriptionId;
 		private String friendlyName;
 		private int quantity;
 
@@ -112,10 +118,16 @@ public class CreateOrderRequestLineItem {
 			return this;
 		}
 
+		public CreateOrderRequestLineItemBuilder parentSubscriptionId(String parentSubscriptionId) {
+			this.parentSubscriptionId = parentSubscriptionId;
+			return this;
+		}
+
 		public CreateOrderRequestLineItem build(){
 			CreateOrderRequestLineItem createOrderRequestLineItem = new CreateOrderRequestLineItem();
 			createOrderRequestLineItem.setFriendlyName(friendlyName);
 			createOrderRequestLineItem.setOfferId(offerId);
+			createOrderRequestLineItem.setParentSubscriptionId(parentSubscriptionId);
 			createOrderRequestLineItem.setQuantity(quantity);
 			if (nonNull(lineItemNumber)) {
 				createOrderRequestLineItem.setLineItemNumber(lineItemNumber);
