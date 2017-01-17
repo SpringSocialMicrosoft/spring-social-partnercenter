@@ -18,7 +18,7 @@ public class OrderTemplate extends AbstractTemplate implements OrderOperations {
 	}
 
 	@Override
-	public PartnerCenterResponse<Order> getACustomersOrder(String customerId) {
+	public PartnerCenterResponse<Order> getACustomersOrders(String customerId) {
 		return restResource.request()
 				.pathSegment(customerId, "orders")
 				.get(new ParameterizedTypeReference<PartnerCenterResponse<Order>>() {});

@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 
-public class BillingProfile {
+public class CustomerBillingProfile {
 
 	private Object id;
 	private String firstName;
@@ -17,7 +17,7 @@ public class BillingProfile {
 	private String culture;
 	private String language;
 	private String companyName;
-	private Address address;
+	private Address defaultAddress;
 	private Map<String, String> attributes;
 	@JsonIgnore
 	private Map<String, Object> additionalProperties = new HashMap<String, Object>();
@@ -78,12 +78,12 @@ public class BillingProfile {
 		this.companyName = companyName;
 	}
 
-	public Address getAddress() {
-		return address;
+	public Address getDefaultAddress() {
+		return defaultAddress;
 	}
 
-	public void setAddress(Address address) {
-		this.address = address;
+	public void setDefaultAddress(Address defaultAddress) {
+		this.defaultAddress = defaultAddress;
 	}
 
 	public Map<String, String> getAttributes() {

@@ -1,10 +1,7 @@
 package org.springframework.social.partnercenter.api.customer;
 
 import org.springframework.social.partnercenter.api.PartnerCenterResponse;
-import org.springframework.social.partnercenter.api.customer.request.CreateUserRequest;
-import org.springframework.social.partnercenter.api.customer.request.UpdateUserPasswordRequest;
 import org.springframework.social.partnercenter.api.customer.response.CustomerRelationshipRequest;
-import org.springframework.social.partnercenter.api.customer.response.GetCompanyProfileResponse;
 import org.springframework.social.partnercenter.api.order.subscription.Subscription;
 
 public interface CustomerOperations {
@@ -14,16 +11,8 @@ public interface CustomerOperations {
 	PartnerCenterResponse<Customer> getCompanyByDomain(int size, String filter);
 	PartnerCenterResponse<Customer> getCompanyByCompanyName(int size, String filter);
 	PartnerCenterResponse<Customer> getList(int size);
-    BillingProfile getBillingProfile(String customerId);
-	GetCompanyProfileResponse getCustomersCompanyProfile(String customerId);
-    BillingProfile updateBillingProfile(String customerId, String etag, BillingProfile billingProfile);
+    CustomerBillingProfile getBillingProfile(String customerId);
+	CompanyProfile getCustomersCompanyProfile(String customerId);
+    CustomerBillingProfile updateBillingProfile(String customerId, String etag, CustomerBillingProfile billingProfile);
     Subscription updateFriendlyName(String customerTenantId, String subscriptionId, String nickname);
-	User createUser(String customerTenantId, CreateUserRequest request);
-	User createUser(String customerTenantId, CreateUserRequest request, String userId);
-	void deleteUser(String customerTenantId, String userId);
-	User getUser(String customerTenantId, String userId);
-	User updateUserPassword(String customerTenantId, String userId, UpdateUserPasswordRequest request);
-	PartnerCenterResponse<Role> getUserRoles(String customerTenantId, String userId);
-	PartnerCenterResponse<Role> getAllRoles(String customerTenantId);
-	PartnerCenterResponse<Role> getRolesByRoleId(String customerTenantId, String RoleId);
 }

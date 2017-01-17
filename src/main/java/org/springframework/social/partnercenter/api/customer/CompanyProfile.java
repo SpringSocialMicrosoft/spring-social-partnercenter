@@ -10,6 +10,7 @@ public class CompanyProfile {
 	private String tenantId;
 	private String domain;
 	private String companyName;
+	private Address address;
 	private Map<String, String> attributes;
 
 	public String getTenantId() {
@@ -34,6 +35,14 @@ public class CompanyProfile {
 
 	public void setCompanyName(String companyName) {
 		this.companyName = companyName;
+	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 
 	public Map<String, String> getAttributes() {
