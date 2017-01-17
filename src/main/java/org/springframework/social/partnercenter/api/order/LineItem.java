@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 public class LineItem {
 	private int lineItemNumber;
 	private String offerId;
+	private String subscriptionId;
 	private String friendlyName;
 	private int quantity;
 	private Map<String, Link> links;
@@ -30,6 +31,14 @@ public class LineItem {
 	public LineItem setOfferId(String offerId) {
 		this.offerId = offerId;
 		return this;
+	}
+
+	public String getSubscriptionId() {
+		return subscriptionId;
+	}
+
+	public void setSubscriptionId(String subscriptionId) {
+		this.subscriptionId = subscriptionId;
 	}
 
 	public String getFriendlyName() {
