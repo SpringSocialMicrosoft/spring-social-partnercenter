@@ -13,7 +13,7 @@ public class Customer {
 	@JsonProperty("companyProfile")
 	private CompanyProfile companyProfile;
 	@JsonProperty("billingProfile")
-	private BillingProfile billingProfile;
+	private CustomerBillingProfile billingProfile;
 	@JsonProperty("relationshipToPartner")
 	private String relationshipToPartner;
 	@JsonProperty("userCredentials")
@@ -37,11 +37,11 @@ public class Customer {
 		this.companyProfile = companyProfile;
 	}
 
-	public BillingProfile getBillingProfile() {
+	public CustomerBillingProfile getBillingProfile() {
 		return billingProfile;
 	}
 
-	public void setBillingProfile(BillingProfile billingProfile) {
+	public void setBillingProfile(CustomerBillingProfile billingProfile) {
 		this.billingProfile = billingProfile;
 	}
 

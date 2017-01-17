@@ -4,14 +4,14 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.social.partnercenter.api.Link;
-import org.springframework.social.partnercenter.api.customer.BillingProfile;
+import org.springframework.social.partnercenter.api.customer.CustomerBillingProfile;
 import org.springframework.social.partnercenter.api.customer.CompanyProfile;
 
 	public class GetCompanyProfileResponse {
 	private String id;
 	private String commerceId;
 	private CompanyProfile companyProfile;
-	private BillingProfile billingProfile;
+	private CustomerBillingProfile billingProfile;
 	private String relationshipToPartner;
 	private boolean allowDelegatedAccess;
 	private List<String> customDomains;
@@ -45,11 +45,11 @@ import org.springframework.social.partnercenter.api.customer.CompanyProfile;
 		return this;
 	}
 
-	public BillingProfile getBillingProfile() {
+	public CustomerBillingProfile getBillingProfile() {
 		return billingProfile;
 	}
 
-	public GetCompanyProfileResponse setBillingProfile(BillingProfile billingProfile) {
+	public GetCompanyProfileResponse setBillingProfile(CustomerBillingProfile billingProfile) {
 		this.billingProfile = billingProfile;
 		return this;
 	}

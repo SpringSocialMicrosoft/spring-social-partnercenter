@@ -20,6 +20,8 @@ import org.springframework.social.partnercenter.api.billing.pricing.PricingOpera
 import org.springframework.social.partnercenter.api.billing.pricing.impl.PricingTemplate;
 import org.springframework.social.partnercenter.api.customer.CustomerOperations;
 import org.springframework.social.partnercenter.api.customer.impl.CustomerTemplate;
+import org.springframework.social.partnercenter.api.customer.user.UserOperations;
+import org.springframework.social.partnercenter.api.customer.user.impl.UserTemplate;
 import org.springframework.social.partnercenter.api.order.offer.OfferOperations;
 import org.springframework.social.partnercenter.api.order.OrderOperations;
 import org.springframework.social.partnercenter.api.order.subscription.SubscriptionOperations;
@@ -51,6 +53,7 @@ public class PartnerCenterTemplate extends AbstractOAuth2ApiBinding implements P
 	private final InvoiceOperations invoiceOperations;
 	private final ProfileOperations profileOperations;
 	private final UtilityOperations utilityOperations;
+	private final UserOperations userOperations;
 
 	private PartnerCenterTemplate(String accessToken, String version) {
 		this(null, accessToken, version);
@@ -86,6 +89,9 @@ public class PartnerCenterTemplate extends AbstractOAuth2ApiBinding implements P
 
 		utilityOperations = new UtilityTemplate(createRestResource(
 				UriProvider.partnerCenterBuilder().pathSegment("v1").toUriString(), retryTemplate), isAuthorized());
+
+		userOperations = new UserTemplate(createRestResource(
+				UriProvider.partnerCenterCustomerUri().toUriString(), retryTemplate), isAuthorized());
 	}
 
 	public PartnerCenterTemplate(String accessToken, String version, Collection<ClientHttpRequestInterceptor> interceptors) {
@@ -153,6 +159,11 @@ public class PartnerCenterTemplate extends AbstractOAuth2ApiBinding implements P
 	@Override
 	public UtilityOperations getUtilityOperations() {
 		return utilityOperations;
+	}
+
+	@Override
+	public UserOperations getUserOperations() {
+		return userOperations;
 	}
 
 	@Override

@@ -5,6 +5,7 @@ import org.springframework.social.partnercenter.api.billing.invoicing.InvoiceOpe
 import org.springframework.social.partnercenter.api.billing.usage.UsageOperations;
 import org.springframework.social.partnercenter.api.billing.pricing.PricingOperations;
 import org.springframework.social.partnercenter.api.customer.CustomerOperations;
+import org.springframework.social.partnercenter.api.customer.user.UserOperations;
 import org.springframework.social.partnercenter.api.order.offer.OfferOperations;
 import org.springframework.social.partnercenter.api.order.OrderOperations;
 import org.springframework.social.partnercenter.api.order.subscription.SubscriptionOperations;
@@ -23,5 +24,6 @@ public interface PartnerCenter extends ApiBinding {
 	InvoiceOperations getInvoiceOperations();
 	ProfileOperations getProfileOperations();
 	UtilityOperations getUtilityOperations();
+	UserOperations getUserOperations();
 	void enableSlf4j(LogLevel level);
 }
