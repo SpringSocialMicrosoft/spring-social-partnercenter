@@ -9,7 +9,7 @@ public class UserCredentials {
 	@JsonProperty("userName")
 	private String userName;
 	@JsonProperty("password")
-	private Password password;
+	private String password;
 
 	public String getUserName() {
 		return userName;
@@ -19,11 +19,11 @@ public class UserCredentials {
 		this.userName = userName;
 	}
 
-	public Password getPassword() {
+	public String getPassword() {
 		return password;
 	}
 
-	public void setPassword(Password password) {
+	public void setPassword(String password) {
 		this.password = password;
 	}
 
