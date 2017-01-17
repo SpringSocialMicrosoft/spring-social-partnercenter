@@ -163,7 +163,7 @@ public class PartnerCenterTemplate extends AbstractOAuth2ApiBinding implements P
 
 	@Override
 	public UserOperations getUserOperations() {
-		return null;
+		return userOperations;
 	}
 
 	@Override
