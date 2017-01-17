@@ -36,7 +36,9 @@ public class CustomerTemplate extends AbstractTemplate implements CustomerOperat
 
 	@Override
 	public Customer create(Customer customer) {
-		return null;
+		return restResource.request()
+				.pathSegment("customers")
+				.post(customer, Customer.class);
 	}
 
 	@Override
