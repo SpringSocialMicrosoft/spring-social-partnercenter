@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.social.partnercenter.PartnerCenter;
 import org.springframework.social.partnercenter.api.AbstractTemplate;
 import org.springframework.social.partnercenter.api.PartnerCenterResponse;
-import org.springframework.social.partnercenter.api.customer.response.GetSubscriptionListListResponse;
+import org.springframework.social.partnercenter.api.customer.response.GetSubscriptionListResponse;
 import org.springframework.social.partnercenter.api.order.request.UpgradeSubscriptionRequest;
 import org.springframework.social.partnercenter.api.order.subscription.Subscription;
 import org.springframework.social.partnercenter.api.order.subscription.SubscriptionOperations;
@@ -37,25 +37,25 @@ public class SubscriptionTemplate extends AbstractTemplate implements Subscripti
 	}
 
 	@Override
-	public ResponseEntity<GetSubscriptionListListResponse> getCustomersSubscriptions(String customerId) {
+	public ResponseEntity<GetSubscriptionListResponse> getCustomersSubscriptions(String customerId) {
 		return restResource.request()
 				.pathSegment(customerId, SUBSCRIPTIONS)
-				.get(GetSubscriptionListListResponse.class);
+				.get(GetSubscriptionListResponse.class);
 	}
 
 	@Override
-	public ResponseEntity<GetSubscriptionListListResponse> getSubscriptionsByOrderId(String customerId, String orderId) {
+	public ResponseEntity<GetSubscriptionListResponse> getSubscriptionsByOrderId(String customerId, String orderId) {
 		return restResource.request()
 				.pathSegment(customerId, SUBSCRIPTIONS)
 				.queryParam("order_id", orderId)
-				.get(GetSubscriptionListListResponse.class);
+				.get(GetSubscriptionListResponse.class);
 	}
 
 	@Override
-	public ResponseEntity<GetSubscriptionListListResponse> getAddOnsForBySubscriptionId(String customerId, String subscriptionId) {
+	public ResponseEntity<GetSubscriptionListResponse> getAddOnsForBySubscriptionId(String customerId, String subscriptionId) {
 		return restResource.request()
 				.pathSegment(customerId, SUBSCRIPTIONS, subscriptionId, "addons")
-				.get(GetSubscriptionListListResponse.class);
+				.get(GetSubscriptionListResponse.class);
 	}
 
 	@Override
@@ -102,7 +102,7 @@ public class SubscriptionTemplate extends AbstractTemplate implements Subscripti
 //	}
 	//TODO: Need to look into this one
 	@Override
-	public ResponseEntity<GetSubscriptionListListResponse> transitionSubscription(String customerId, String sourceSubscriptionId, Subscription targetSubscription) {
+	public ResponseEntity<GetSubscriptionListResponse> transitionSubscription(String customerId, String sourceSubscriptionId, Subscription targetSubscription) {
 		ResponseEntity<Subscription> subscription = restResource.request()
 				.pathSegment(customerId, SUBSCRIPTIONS, sourceSubscriptionId, "upgrades")
 				.get(Subscription.class);
@@ -115,6 +115,6 @@ public class SubscriptionTemplate extends AbstractTemplate implements Subscripti
 
 		return restResource.request()
 				.pathSegment(customerId, SUBSCRIPTIONS, targetSubscription.getId(), "upgrades")
-				.post(request, GetSubscriptionListListResponse.class);
+				.post(request, GetSubscriptionListResponse.class);
 	}
 }

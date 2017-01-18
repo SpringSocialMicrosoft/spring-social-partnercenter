@@ -1,6 +1,13 @@
 package org.springframework.social.partnercenter.http.logging;
 
 import static java.util.Arrays.asList;
+import static org.springframework.http.HttpStatus.ACCEPTED;
+import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.HttpStatus.NON_AUTHORITATIVE_INFORMATION;
+import static org.springframework.http.HttpStatus.NO_CONTENT;
+import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.http.HttpStatus.PARTIAL_CONTENT;
+import static org.springframework.http.HttpStatus.RESET_CONTENT;
 
 import java.io.IOException;
 import java.time.Instant;
@@ -13,7 +20,7 @@ import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.ClientHttpResponse;
 
 public class LoggingRequestInterceptor implements ClientHttpRequestInterceptor {
-	private static final List<HttpStatus> DEFAULT_EXPECTED_HTTP_STATUS = asList(HttpStatus.OK, HttpStatus.NOT_FOUND);
+	private static final List<HttpStatus> DEFAULT_EXPECTED_HTTP_STATUS = asList(OK, CREATED, ACCEPTED, NO_CONTENT);
 	private final HttpRequestResponseLogger logger;
 
 	public LoggingRequestInterceptor(HttpRequestResponseLogger httpRequestResponseLogger){

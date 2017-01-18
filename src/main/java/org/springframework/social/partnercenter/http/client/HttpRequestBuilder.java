@@ -73,15 +73,16 @@ public class HttpRequestBuilder {
 	}
 
 	public <T> ResponseEntity<T> get(Class<T> aClass){
-		return restResource.get(uriBuilder.build().toUri(), aClass);
+		HttpEntity<T> tHttpEntity = new HttpEntity<>(headers);
+		return restResource.get(uriBuilder.build().toUri(), aClass, headers);
 	}
 
 	public <T> ResponseEntity<T> get(ParameterizedTypeReference<T> aClass){
-		return restResource.get(uriBuilder.build().toUri(), aClass);
+		return restResource.get(uriBuilder.build().toUri(), aClass, headers);
 	}
 
 	public ResponseEntity delete(){
-		return restResource.delete(uriBuilder.build().toUri(), new HttpEntity(headers));
+		return restResource.delete(uriBuilder.build().toUri(), headers);
 	}
 
 	private void addMicrosoftTrackingHeaders() {

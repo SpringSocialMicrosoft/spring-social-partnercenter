@@ -40,12 +40,15 @@ public class RestResource {
 	<T> ResponseEntity<T> get(URI url, ParameterizedTypeReference<T> responseType) {
 		return execute(url, HttpMethod.GET, null, responseType);
 	}
+	<T> ResponseEntity<T> get(URI url, ParameterizedTypeReference<T> responseType, HttpHeaders headers) {
+		return execute(url, HttpMethod.GET, new HttpEntity<>(headers), responseType);
+	}
 
 	<T> ResponseEntity<T> get(URI url, Class<T> responseType) {
 		return execute(url, HttpMethod.GET, null, responseType);
 	}
 
-	<T> ResponseEntity<T> get(URI url, Class<T> responseType, Map<String, String> header) {
+	<T> ResponseEntity<T> get(URI url, Class<T> responseType, HttpHeaders header) {
 		return execute(url, HttpMethod.GET, new HttpEntity<>(header), responseType);
 	}
 
@@ -53,7 +56,7 @@ public class RestResource {
 		return execute(url, HttpMethod.POST, HttpEntity.EMPTY, responseType);
 	}
 
-	<T> ResponseEntity<T> post(URI url, ParameterizedTypeReference<T> responseType, Map<String, String> headers) {
+	<T> ResponseEntity<T> post(URI url, ParameterizedTypeReference<T> responseType, HttpHeaders headers) {
 		return execute(url, HttpMethod.POST, new HttpEntity<Object>(headers), responseType);
 	}
 
@@ -73,8 +76,8 @@ public class RestResource {
 		return execute(uri, HttpMethod.PUT, entity, responseType);
 	}
 
-	public ResponseEntity delete(URI uri, HttpEntity entity){
-		return restTemplate.exchange(uri, HttpMethod.DELETE, entity, String.class);
+	public ResponseEntity delete(URI uri, HttpHeaders headers){
+		return restTemplate.exchange(uri, HttpMethod.DELETE, new HttpEntity<>(headers), String.class);
 	}
 
 	public <T, R> ResponseEntity<R> execute(URI uri, HttpMethod httpMethod, HttpEntity<T> entity, Class<R> responseType){
