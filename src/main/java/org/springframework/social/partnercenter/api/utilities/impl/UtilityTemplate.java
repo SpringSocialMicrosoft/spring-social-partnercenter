@@ -1,5 +1,6 @@
 package org.springframework.social.partnercenter.api.utilities.impl;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.social.partnercenter.PartnerCenter;
 import org.springframework.social.partnercenter.api.AbstractTemplate;
 import org.springframework.social.partnercenter.api.utilities.CountryInformation;
@@ -20,22 +21,22 @@ public class UtilityTemplate extends AbstractTemplate implements UtilityOperatio
 	}
 
 	@Override
-	public CountryInformation getAddressFormattingRulesByMarket(String isoCodeId) {
+	public ResponseEntity<CountryInformation> getAddressFormattingRulesByMarket(String isoCodeId) {
 		return restResource.request()
 				.pathSegment("countryvalidationrules", isoCodeId)
 				.get(CountryInformation.class);
 	}
 
 	@Override
-	public Boolean isDomainAvailable(String domainId) {
+	public ResponseEntity<Boolean> isDomainAvailable(String domainId) {
 		return restResource.request()
 				.pathSegment("validations", "checkdomainavailability", domainId)
 				.get(Boolean.class);
 	}
 
 	@Override
-	public void deleteCustomer(String customerId) {
-		restResource.request()
+	public ResponseEntity deleteCustomer(String customerId) {
+		return restResource.request()
 				.pathSegment("customers", customerId)
 				.delete();
 	}

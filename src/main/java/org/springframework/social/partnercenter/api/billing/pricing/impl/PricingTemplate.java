@@ -1,5 +1,6 @@
 package org.springframework.social.partnercenter.api.billing.pricing.impl;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.social.partnercenter.PartnerCenter;
 import org.springframework.social.partnercenter.api.AbstractTemplate;
 import org.springframework.social.partnercenter.api.billing.pricing.AzureResourcePricing;
@@ -15,13 +16,13 @@ public class PricingTemplate extends AbstractTemplate implements PricingOperatio
 	}
 
 	@Override
-	public AzureResourcePricing getAzurePricing() {
+	public ResponseEntity<AzureResourcePricing> getAzurePricing() {
 		return restResource.request()
 				.get(AzureResourcePricing.class);
 	}
 
 	@Override
-	public AzureResourcePricing getAzurePricing(String currency, String region) {
+	public ResponseEntity<AzureResourcePricing> getAzurePricing(String currency, String region) {
 		return restResource.request()
 				.queryParam("currency", currency)
 				.queryParam("region", region)

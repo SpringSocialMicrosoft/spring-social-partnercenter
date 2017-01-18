@@ -1,6 +1,7 @@
 package org.springframework.social.partnercenter.api.billing.invoicing.impl;
 
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.ResponseEntity;
 import org.springframework.social.partnercenter.PartnerCenter;
 import org.springframework.social.partnercenter.api.AbstractTemplate;
 import org.springframework.social.partnercenter.api.PartnerCenterResponse;
@@ -17,13 +18,13 @@ public class InvoiceTemplate extends AbstractTemplate implements InvoiceOperatio
 	}
 
 	@Override
-	public PartnerCenterResponse<Invoice> getInvoices() {
+	public ResponseEntity<PartnerCenterResponse<Invoice>> getInvoices() {
 		return restResource.request()
 				.get(new ParameterizedTypeReference<PartnerCenterResponse<Invoice>>() {});
 	}
 
 	@Override
-	public Invoice getById(String id) {
+	public ResponseEntity<Invoice> getById(String id) {
 		return restResource.request()
 				.pathSegment(id)
 				.get(Invoice.class);

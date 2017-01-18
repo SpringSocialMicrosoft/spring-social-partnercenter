@@ -1,13 +1,13 @@
 package org.springframework.social.partnercenter.api.order.offer.impl;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.social.partnercenter.PartnerCenter;
 import org.springframework.social.partnercenter.http.client.RestResource;
 import org.springframework.social.partnercenter.api.AbstractTemplate;
 import org.springframework.social.partnercenter.api.order.offer.Offer;
 import org.springframework.social.partnercenter.api.order.offer.OfferOperations;
-import org.springframework.social.partnercenter.api.order.response.GetOfferCategoriesResponse;
+import org.springframework.social.partnercenter.api.order.response.GetOfferCategoriesListResponse;
 import org.springframework.social.partnercenter.api.order.response.OfferListResponse;
-import org.springframework.social.partnercenter.api.uri.UriProvider;
 
 public class OfferTemplate extends AbstractTemplate implements OfferOperations{
 	private static final String COUNTRY = "country";
@@ -19,23 +19,21 @@ public class OfferTemplate extends AbstractTemplate implements OfferOperations{
 	}
 
 	@Override
-	public GetOfferCategoriesResponse getOfferCategories(String countryId) {
-		return restResource.get(UriProvider.partnerCenterBuilder()
-				.pathSegment("v1", "offercategories")
+	public ResponseEntity<GetOfferCategoriesListResponse> getOfferCategories(String countryId) {
+		return restResource.request().pathSegment("v1", "offercategories")
 				.queryParam(COUNTRY, countryId)
-				.build().toUri(),
-				GetOfferCategoriesResponse.class);
+				.get(GetOfferCategoriesListResponse.class);
 	}
 
 	@Override
-	public OfferListResponse getOffersForMarket(String countryId) {
+	public ResponseEntity<OfferListResponse> getOffersForMarket(String countryId) {
 		return restResource.request()
 				.queryParam(COUNTRY, countryId)
 				.get(OfferListResponse.class);
 	}
 
 	@Override
-	public Offer getOfferById(String offerId, String countryId) {
+	public ResponseEntity<Offer> getOfferById(String offerId, String countryId) {
 		return restResource.request()
 				.pathSegment(offerId)
 				.queryParam(COUNTRY, countryId)
@@ -43,7 +41,7 @@ public class OfferTemplate extends AbstractTemplate implements OfferOperations{
 	}
 
 	@Override
-	public OfferListResponse getAddOnOffersForOffer(String offerId, String countryId) {
+	public ResponseEntity<OfferListResponse> getAddOnOffersForOffer(String offerId, String countryId) {
 		return restResource.request()
 				.pathSegment(offerId, "addons")
 				.queryParam(COUNTRY, countryId)

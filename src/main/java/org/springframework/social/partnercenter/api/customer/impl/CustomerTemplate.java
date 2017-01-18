@@ -3,6 +3,7 @@ package org.springframework.social.partnercenter.api.customer.impl;
 import static org.springframework.social.partnercenter.api.customer.request.Operator.STARTS_WITH;
 
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.ResponseEntity;
 import org.springframework.social.partnercenter.PartnerCenter;
 import org.springframework.social.partnercenter.api.AbstractTemplate;
 import org.springframework.social.partnercenter.api.PartnerCenterResponse;
@@ -26,25 +27,25 @@ public class CustomerTemplate extends AbstractTemplate implements CustomerOperat
 	}
 
 	@Override
-	public Customer create(Customer customer) {
+	public ResponseEntity<Customer> create(Customer customer) {
 		return restResource.request()
 				.post(customer, Customer.class);
 	}
 
 	@Override
-	public CustomerRelationshipRequest requestResellerRelationship() {
+	public ResponseEntity<CustomerRelationshipRequest> requestResellerRelationship() {
 		return null;
 	}
 
 	@Override
-	public Customer getById(String tenantId) {
+	public ResponseEntity<Customer> getById(String tenantId) {
 		return restResource.request()
 				.pathSegment(tenantId)
 				.get(Customer.class);
 	}
 
 	@Override
-	public PartnerCenterResponse<Customer> getCompanyByDomain(int size, String domain) {
+	public ResponseEntity<PartnerCenterResponse<Customer>> getCompanyByDomain(int size, String domain) {
 		return restResource.request()
 				.queryParam("size", size)
 				.queryParam("filter", Json.toJson(Filter.builder().field("Domain").operator(STARTS_WITH).value(domain).build()))
@@ -52,7 +53,7 @@ public class CustomerTemplate extends AbstractTemplate implements CustomerOperat
 	}
 
 	@Override
-	public PartnerCenterResponse<Customer> getCompanyByCompanyName(int size, String companyName) {
+	public ResponseEntity<PartnerCenterResponse<Customer>> getCompanyByCompanyName(int size, String companyName) {
 		return restResource.request()
 				.queryParam("size", size)
 				.queryParam("filter", Json.toJson(Filter.builder().value(companyName).operator(STARTS_WITH).field("CompanyName").build()))
@@ -60,44 +61,44 @@ public class CustomerTemplate extends AbstractTemplate implements CustomerOperat
 	}
 
 	@Override
-	public CustomerListResponse getList(int size) {
+	public ResponseEntity<CustomerListResponse> getList(int size) {
 		return restResource.request()
 				.queryParam("size", size)
 				.get(CustomerListResponse.class);
 	}
 
 	@Override
-	public CustomerBillingProfile getBillingProfile(String customerId) {
+	public ResponseEntity<CustomerBillingProfile> getBillingProfile(String customerId) {
 		return restResource.request()
 				.pathSegment(customerId, "profiles", "billing")
 				.get(CustomerBillingProfile.class);
 	}
 
 	@Override
-	public CompanyProfile getCustomersCompanyProfile(String customerId) {
+	public ResponseEntity<CompanyProfile> getCustomersCompanyProfile(String customerId) {
 		return restResource.request()
 				.pathSegment(customerId, "profiles", "profiles")
 				.get(CompanyProfile.class);
 	}
 
 	@Override
-	public CustomerBillingProfile updateBillingProfile(String customerId, String etag, CustomerBillingProfile billingProfile) {
-		return restResource.request()
+	public ResponseEntity<CustomerBillingProfile> updateBillingProfile(String customerId, String etag, CustomerBillingProfile billingProfile) {
+		return  restResource.request()
 				.pathSegment(customerId, "profiles", "billing")
 				.header("If-Match", etag)
 				.put(billingProfile, CustomerBillingProfile.class);
 	}
 
 	@Override
-	public Subscription updateFriendlyName(String customerTenantId, String subscriptionId, String nickname) {
-		Subscription subscription = getPartnerCenterSubscription(customerTenantId, subscriptionId);
-		subscription.setFriendlyName(nickname);
+	public ResponseEntity<Subscription> updateFriendlyName(String customerTenantId, String subscriptionId, String nickname) {
+		ResponseEntity<Subscription> subscription = getPartnerCenterSubscription(customerTenantId, subscriptionId);
+		subscription.getBody().setFriendlyName(nickname);
 		return restResource.request()
 				.pathSegment(customerTenantId, "subscriptions", subscriptionId)
 				.post(subscription, Subscription.class);
 	}
 
-	private Subscription getPartnerCenterSubscription(String customerTenantId, String subscriptionId) {
+	private ResponseEntity<Subscription> getPartnerCenterSubscription(String customerTenantId, String subscriptionId) {
 		return restResource.request()
 				.pathSegment(customerTenantId, "subscriptions", subscriptionId)
 				.get(Subscription.class);

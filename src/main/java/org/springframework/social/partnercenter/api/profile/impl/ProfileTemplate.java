@@ -1,5 +1,6 @@
 package org.springframework.social.partnercenter.api.profile.impl;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.social.partnercenter.PartnerCenter;
 import org.springframework.social.partnercenter.api.AbstractTemplate;
 import org.springframework.social.partnercenter.api.profile.BillingProfile;
@@ -20,70 +21,70 @@ public class ProfileTemplate extends AbstractTemplate implements ProfileOperatio
 	}
 
 	@Override
-	public LegalBusinessProfile getLegalBusinessProfile() {
+	public ResponseEntity<LegalBusinessProfile> getLegalBusinessProfile() {
 		return restResource.request()
 				.pathSegment("legalbusiness")
 				.get(LegalBusinessProfile.class);
 	}
 
 	@Override
-	public LegalBusinessProfile updateLegalBusinessProfile(LegalBusinessProfile legalBusinessProfile) {
+	public ResponseEntity<LegalBusinessProfile> updateLegalBusinessProfile(LegalBusinessProfile legalBusinessProfile) {
 		return restResource.request()
 				.pathSegment("legalbusiness")
 				.put(legalBusinessProfile, LegalBusinessProfile.class);
 	}
 
 	@Override
-	public OrganizationProfile getOrganizationProfile() {
+	public ResponseEntity<OrganizationProfile> getOrganizationProfile() {
 		return restResource.request()
 				.pathSegment("organization")
 				.get(OrganizationProfile.class);
 	}
 
 	@Override
-	public OrganizationProfile updateOrganizationProfile(OrganizationProfile organizationProfile) {
+	public ResponseEntity<OrganizationProfile> updateOrganizationProfile(OrganizationProfile organizationProfile) {
 		return restResource.request()
 				.pathSegment("organization")
 				.put(organizationProfile, OrganizationProfile.class);
 	}
 
 	@Override
-	public BillingProfile getPartnerBillingProfile() {
+	public ResponseEntity<BillingProfile> getPartnerBillingProfile() {
 		return restResource.request()
 				.pathSegment("billing")
 				.get(BillingProfile.class);
 	}
 
 	@Override
-	public BillingProfile updatePartnerBillingProfile(BillingProfile billingProfile) {
+	public ResponseEntity<BillingProfile> updatePartnerBillingProfile(BillingProfile billingProfile) {
 		return restResource.request()
 				.pathSegment("billing")
 				.put(billingProfile, BillingProfile.class);
 	}
 
 	@Override
-	public MPNProfile getMPNProfile() {
+	public ResponseEntity<MPNProfile> getMPNProfile() {
 		return restResource.request()
 				.pathSegment("mpn")
 				.get(MPNProfile.class);
 	}
 
 	@Override
-	public SupportProfile getSupportProfile() {
+	public ResponseEntity<SupportProfile> getSupportProfile() {
 		return restResource.request()
 				.pathSegment("support")
 				.get(SupportProfile.class);
 	}
 
 	@Override
-	public SupportProfile updateSupportProfile(SupportProfile supportProfile) {
+	public ResponseEntity<SupportProfile> updateSupportProfile(SupportProfile supportProfile) {
 		return restResource.request()
 				.pathSegment("support")
 				.put(supportProfile, SupportProfile.class);
 	}
 
 	@Override
-	public Partner getPartner(String mpnId) {
+	public ResponseEntity<Partner> getPartner(String mpnId) {
 		return restResource.request()
 				.pathSegment("mpn")
 				.queryParam("mpnId", mpnId)
