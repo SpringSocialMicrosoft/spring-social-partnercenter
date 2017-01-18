@@ -1,7 +1,9 @@
 package org.springframework.social.partnercenter.api.utilities;
 
+import org.springframework.http.ResponseEntity;
+
 public interface UtilityOperations {
-	CountryInformation getAddressFormattingRulesByMarket(String isoCodeId);
-	Boolean isDomainAvailable(String domainId);
-	void deleteCustomer(String customerId);
+	ResponseEntity<CountryInformation> getAddressFormattingRulesByMarket(String isoCodeId);
+	ResponseEntity<Boolean> isDomainAvailable(String domainId);
+	ResponseEntity deleteCustomer(String customerId);
 }

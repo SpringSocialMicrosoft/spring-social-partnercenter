@@ -20,7 +20,7 @@ public class PartnerCenterApiAdapter implements ApiAdapter<PartnerCenter>{
 
 	@Override
 	public UserProfile fetchUserProfile(PartnerCenter api) {
-		LegalBusinessProfile legalBusinessProfile = api.getProfileOperations().getLegalBusinessProfile();
+		LegalBusinessProfile legalBusinessProfile = api.getProfileOperations().getLegalBusinessProfile().getBody();
 		return new UserProfileBuilder()
 				.setEmail(legalBusinessProfile.getPrimaryContact().getEmail())
 				.setFirstName(legalBusinessProfile.getPrimaryContact().getFirstName())

@@ -6,6 +6,7 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.ResponseEntity;
 import org.springframework.social.partnercenter.PartnerCenter;
 import org.springframework.social.partnercenter.api.AbstractTemplate;
 import org.springframework.social.partnercenter.api.PartnerCenterResponse;
@@ -25,22 +26,22 @@ public class UsageTemplate extends AbstractTemplate implements UsageOperations {
 	}
 
 	@Override
-	public PartnerCenterResponse<UtilizationRecord> getUtilizationRecords(String customerId, String subscriptionId, ZonedDateTime startDateTime, ZonedDateTime endDateTime) {
+	public ResponseEntity<PartnerCenterResponse<UtilizationRecord>> getUtilizationRecords(String customerId, String subscriptionId, ZonedDateTime startDateTime, ZonedDateTime endDateTime) {
 		return getUtilizationRecords(customerId, subscriptionId, startDateTime, endDateTime, DAILY, true, 1000);
 	}
 
 	@Override
-	public PartnerCenterResponse<UtilizationRecord> getUtilizationRecords(String customerId, String subscriptionId, ZonedDateTime startDateTime, ZonedDateTime endDateTime, UtilizationRecord.Granularity granularity) {
+	public ResponseEntity<PartnerCenterResponse<UtilizationRecord>> getUtilizationRecords(String customerId, String subscriptionId, ZonedDateTime startDateTime, ZonedDateTime endDateTime, UtilizationRecord.Granularity granularity) {
 		return getUtilizationRecords(customerId, subscriptionId, startDateTime, endDateTime, granularity, true, 1000);
 	}
 
 	@Override
-	public PartnerCenterResponse<UtilizationRecord> getUtilizationRecords(String customerId, String subscriptionId, ZonedDateTime startDateTime, ZonedDateTime endDateTime, UtilizationRecord.Granularity granularity, boolean showDetails) {
+	public ResponseEntity<PartnerCenterResponse<UtilizationRecord>> getUtilizationRecords(String customerId, String subscriptionId, ZonedDateTime startDateTime, ZonedDateTime endDateTime, UtilizationRecord.Granularity granularity, boolean showDetails) {
 		return getUtilizationRecords(customerId, subscriptionId, startDateTime, endDateTime, granularity, showDetails, 1000);
 	}
 
 	@Override
-	public PartnerCenterResponse<UtilizationRecord> getUtilizationRecords(String customerId, String subscriptionId, ZonedDateTime startDateTime, ZonedDateTime endDateTime, UtilizationRecord.Granularity granularity, boolean showDetails, int size) {
+	public ResponseEntity<PartnerCenterResponse<UtilizationRecord>> getUtilizationRecords(String customerId, String subscriptionId, ZonedDateTime startDateTime, ZonedDateTime endDateTime, UtilizationRecord.Granularity granularity, boolean showDetails, int size) {
 		return restResource.request()
 				.pathSegment(customerId, SUBSCRIPTIONS, subscriptionId, "utilizations", "azure")
 				.queryParam("start_time", startDateTime.format(DateTimeFormatter.ISO_DATE_TIME))
@@ -52,34 +53,34 @@ public class UsageTemplate extends AbstractTemplate implements UsageOperations {
 	}
 
 	@Override
-	public PartnerCenterResponse<UtilizationRecord> getUtilizationRecords(String customerId, String subscriptionId, ZonedDateTime startDateTime, ZonedDateTime endDateTime, UtilizationRecord.Granularity granularity, int size) {
+	public ResponseEntity<PartnerCenterResponse<UtilizationRecord>> getUtilizationRecords(String customerId, String subscriptionId, ZonedDateTime startDateTime, ZonedDateTime endDateTime, UtilizationRecord.Granularity granularity, int size) {
 		return getUtilizationRecords(customerId, subscriptionId, startDateTime, endDateTime, granularity, true, size);
 	}
 
 	@Override
-	public PartnerCenterResponse<UtilizationRecord> getUtilizationRecords(String customerId, String subscriptionId, ZonedDateTime startDateTime, ZonedDateTime endDateTime, boolean showDetails, int size) {
+	public ResponseEntity<PartnerCenterResponse<UtilizationRecord>> getUtilizationRecords(String customerId, String subscriptionId, ZonedDateTime startDateTime, ZonedDateTime endDateTime, boolean showDetails, int size) {
 		return getUtilizationRecords(customerId, subscriptionId, startDateTime, endDateTime, DAILY, showDetails, size);
 	}
 
 	@Override
-	public PartnerCenterResponse<UtilizationRecord> getUtilizationRecords(String customerId, String subscriptionId, ZonedDateTime startDateTime, ZonedDateTime endDateTime, boolean showDetails) {
+	public ResponseEntity<PartnerCenterResponse<UtilizationRecord>> getUtilizationRecords(String customerId, String subscriptionId, ZonedDateTime startDateTime, ZonedDateTime endDateTime, boolean showDetails) {
 		return getUtilizationRecords(customerId, subscriptionId, startDateTime, endDateTime, DAILY, showDetails, 1000);
 	}
 
 	@Override
-	public PartnerCenterResponse<UtilizationRecord> getUtilizationRecords(String customerId, String subscriptionId, ZonedDateTime startDateTime, ZonedDateTime endDateTime, int size) {
+	public ResponseEntity<PartnerCenterResponse<UtilizationRecord>> getUtilizationRecords(String customerId, String subscriptionId, ZonedDateTime startDateTime, ZonedDateTime endDateTime, int size) {
 		return getUtilizationRecords(customerId, subscriptionId, startDateTime, endDateTime, DAILY, true, size);
 	}
 
 	@Override
-	public CustomerUsageSummary getUsageSummary(String customerId) {
+	public ResponseEntity<CustomerUsageSummary> getUsageSummary(String customerId) {
 		return restResource.request()
 				.pathSegment(customerId, "usagesummary")
 				.get(CustomerUsageSummary.class);
 	}
 
 	@Override
-	public PartnerCenterResponse<AzureResourceMonthlyUsageRecord> getSubscriptionResourceUsageInformation(String customerId, String subscriptionId) {
+	public ResponseEntity<PartnerCenterResponse<AzureResourceMonthlyUsageRecord>> getSubscriptionResourceUsageInformation(String customerId, String subscriptionId) {
 		return restResource.request()
 				.pathSegment(customerId, SUBSCRIPTIONS, subscriptionId, "usagerecords", "resources")
 				.get(new ParameterizedTypeReference<PartnerCenterResponse<AzureResourceMonthlyUsageRecord>>() {});

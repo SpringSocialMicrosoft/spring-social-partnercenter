@@ -1,25 +1,26 @@
 package org.springframework.social.partnercenter.api.customer.user;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.social.partnercenter.api.PartnerCenterResponse;
-import org.springframework.social.partnercenter.api.customer.Role;
 import org.springframework.social.partnercenter.api.customer.User;
 import org.springframework.social.partnercenter.api.customer.request.CreateUserRequest;
 import org.springframework.social.partnercenter.api.customer.request.UpdateUserPasswordRequest;
+import org.springframework.social.partnercenter.api.customer.response.GetRoleListResponse;
 import org.springframework.social.partnercenter.api.customer.user.request.AssignLicensesToUserRequest;
 import org.springframework.social.partnercenter.api.customer.user.request.CreateUserAccountsForCustomerRequest;
 
 public interface UserOperations {
-	void assignLicensesToUser(String customerId, String userId, AssignLicensesToUserRequest request);
+	ResponseEntity<String> assignLicensesToUser(String customerId, String userId, AssignLicensesToUserRequest request);
 
-	User createUser(String customerTenantId, CreateUserRequest request);
-	User createUser(String customerTenantId, CreateUserRequest request, String userId);
-	void deleteUser(String customerTenantId, String userId);
-	User getUser(String customerTenantId, String userId);
-	User updateUserPassword(String customerTenantId, String userId, UpdateUserPasswordRequest request);
-	PartnerCenterResponse<Role> getUserRoles(String customerTenantId, String userId);
-	PartnerCenterResponse<Role> getAllRoles(String customerTenantId);
-	PartnerCenterResponse<Role> getRolesByRoleId(String customerTenantId, String RoleId);
-	PartnerCenterResponse<License> getLicensesAssignToAUser(String customerTenantId, String userId);
-	CustomerUser createUserAccountsForCustomer(String customerTenantId, CreateUserAccountsForCustomerRequest request);
-	void deleteUserAccountsForCustomer(String customerTenantId);
+	ResponseEntity<User> createUser(String customerTenantId, CreateUserRequest request);
+	ResponseEntity<User> createUser(String customerTenantId, CreateUserRequest request, String userId);
+	ResponseEntity deleteUser(String customerTenantId, String userId);
+	ResponseEntity<User> getUser(String customerTenantId, String userId);
+	ResponseEntity<User> updateUserPassword(String customerTenantId, String userId, UpdateUserPasswordRequest request);
+	ResponseEntity<GetRoleListResponse> getUserRoles(String customerTenantId, String userId);
+	ResponseEntity<GetRoleListResponse> getAllRoles(String customerTenantId);
+	ResponseEntity<GetRoleListResponse> getRolesByRoleId(String customerTenantId, String RoleId);
+	ResponseEntity<PartnerCenterResponse<License>> getLicensesAssignToAUser(String customerTenantId, String userId);
+	ResponseEntity<CustomerUser> createUserAccountsForCustomer(String customerTenantId, CreateUserAccountsForCustomerRequest request);
+	ResponseEntity deleteUserAccountsForCustomer(String customerTenantId);
 }

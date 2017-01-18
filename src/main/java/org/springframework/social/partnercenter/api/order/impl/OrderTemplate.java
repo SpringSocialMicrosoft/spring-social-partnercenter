@@ -1,6 +1,7 @@
 package org.springframework.social.partnercenter.api.order.impl;
 
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.ResponseEntity;
 import org.springframework.social.partnercenter.api.PartnerCenterResponse;
 import org.springframework.social.partnercenter.api.order.OrderOperations;
 import org.springframework.social.partnercenter.PartnerCenter;
@@ -18,28 +19,28 @@ public class OrderTemplate extends AbstractTemplate implements OrderOperations {
 	}
 
 	@Override
-	public PartnerCenterResponse<Order> getACustomersOrders(String customerId) {
+	public ResponseEntity<PartnerCenterResponse<Order>> getACustomersOrders(String customerId) {
 		return restResource.request()
 				.pathSegment(customerId, "orders")
 				.get(new ParameterizedTypeReference<PartnerCenterResponse<Order>>() {});
 	}
 
 	@Override
-	public Order getById(String customerId, String orderId) {
+	public ResponseEntity<Order> getById(String customerId, String orderId) {
 		return restResource.request()
 				.pathSegment(customerId, "orders", orderId)
 				.get(Order.class);
 	}
 
 	@Override
-	public Order createAddOnOrder(String customerId, String orderId, CreateOrderRequest order) {
+	public ResponseEntity<Order> createAddOnOrder(String customerId, String orderId, CreateOrderRequest order) {
 		return restResource.request()
 				.pathSegment(customerId, "orders", orderId)
 				.patch(order, Order.class);
 	}
 
 	@Override
-	public Order createOrder(String customerId, CreateOrderRequest request) {
+	public ResponseEntity<Order> createOrder(String customerId, CreateOrderRequest request) {
 		return restResource.request()
 				.pathSegment(customerId, "orders")
 				.post(request, Order.class);
