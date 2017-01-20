@@ -99,7 +99,7 @@ public class SubscriptionTemplate extends AbstractTemplate implements Subscripti
 	}
 
 	@Override
-	public ResponseEntity<PartnerCenterResponse<Upgrade>> getAvailableSubscriptionTransitions(String customerId, String subscriptionId) {
+	public ResponseEntity<PartnerCenterResponse<Upgrade>> getAvailableUpgrades(String customerId, String subscriptionId) {
 		return restResource.request()
 				.pathSegment(customerId, SUBSCRIPTIONS, subscriptionId, "upgrades")
 				.get(new ParameterizedTypeReference<PartnerCenterResponse<Upgrade>>() {});

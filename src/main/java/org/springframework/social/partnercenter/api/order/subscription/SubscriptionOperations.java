@@ -16,6 +16,6 @@ public interface SubscriptionOperations {
 	ResponseEntity<Subscription> reactivateSubscription(String customerId, String subscriptionId);
 	ResponseEntity<PartnerCenterResponse<Subscription>> getAllSubscriptionsForPartner(String customerId, String mpnId, int offset, int size);
 	ResponseEntity<Subscription> updateSubscriptionQuantity(String customerId, String subscriptionId, int qty);
-	ResponseEntity<PartnerCenterResponse<Upgrade>> getAvailableSubscriptionTransitions(String customerId, String subscriptionId);
+	ResponseEntity<PartnerCenterResponse<Upgrade>> getAvailableUpgrades(String customerId, String subscriptionId);
 	ResponseEntity<UpgradeResult> upgradeSubscription(String customerId, String sourceSubscriptionId, Upgrade targetSubscriptionId);
 }
