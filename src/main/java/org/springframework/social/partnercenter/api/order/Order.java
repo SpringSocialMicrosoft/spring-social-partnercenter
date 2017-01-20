@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 public class Order {
 	private String id;
 	private String referenceCustomerId;
-	private List<LineItem> lineItems;
+	private List<OrderLineItem> lineItems;
 	private String status;
 	private String creationDate;
 	private Map<String, String> attributes;
@@ -33,11 +33,11 @@ public class Order {
 		return this;
 	}
 
-	public List<LineItem> getLineItems() {
+	public List<OrderLineItem> getLineItems() {
 		return lineItems;
 	}
 
-	public Order setLineItems(List<LineItem> lineItems) {
+	public Order setLineItems(List<OrderLineItem> lineItems) {
 		this.lineItems = lineItems;
 		return this;
 	}
@@ -70,8 +70,8 @@ public class Order {
 	}
 
 	@JsonIgnore
-	public void addLineItem(LineItem lineItem){
-		lineItem.setLineItemNumber(getLineItems().stream().mapToInt(LineItem::getLineItemNumber).max().orElse(-1) + 1);
+	public void addLineItem(OrderLineItem lineItem){
+		lineItem.setLineItemNumber(getLineItems().stream().mapToInt(OrderLineItem::getLineItemNumber).max().orElse(-1) + 1);
 		this.getLineItems().add(lineItem);
 	}
 }

@@ -8,7 +8,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-public class LineItemListBuilderTest {
+public class OrderLineItemListBuilderTest {
 
 	@Test
 	public void build_whenLineItemListBuilderIdUsed_theCorrectLineItemsAreCreated() {

@@ -5,12 +5,12 @@ import java.util.Map;
 
 import org.springframework.social.partnercenter.api.Link;
 import org.springframework.social.partnercenter.api.customer.CustomerBillingProfile;
-import org.springframework.social.partnercenter.api.customer.CompanyProfile;
+import org.springframework.social.partnercenter.api.customer.CustomerCompanyProfile;
 
 	public class GetCompanyProfileResponse {
 	private String id;
 	private String commerceId;
-	private CompanyProfile companyProfile;
+	private CustomerCompanyProfile companyProfile;
 	private CustomerBillingProfile billingProfile;
 	private String relationshipToPartner;
 	private boolean allowDelegatedAccess;
@@ -36,11 +36,11 @@ import org.springframework.social.partnercenter.api.customer.CompanyProfile;
 		return this;
 	}
 
-	public CompanyProfile getCompanyProfile() {
+	public CustomerCompanyProfile getCompanyProfile() {
 		return companyProfile;
 	}
 
-	public GetCompanyProfileResponse setCompanyProfile(CompanyProfile companyProfile) {
+	public GetCompanyProfileResponse setCompanyProfile(CustomerCompanyProfile companyProfile) {
 		this.companyProfile = companyProfile;
 		return this;
 	}

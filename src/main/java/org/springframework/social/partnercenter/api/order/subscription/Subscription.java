@@ -17,7 +17,7 @@ public class Subscription {
 	private String creationDate;
 	private String effectiveStartDate;
 	private String commitmentEndDate;
-	private String status;
+	private SubscriptionStatus status;
 	private String billingType;
 	private String billingCycle;
 	private String contractType;
@@ -107,11 +107,11 @@ public class Subscription {
 		return this;
 	}
 
-	public String getStatus() {
+	public SubscriptionStatus getStatus() {
 		return status;
 	}
 
-	public Subscription setStatus(String status) {
+	public Subscription setStatus(SubscriptionStatus status) {
 		this.status = status;
 		return this;
 	}
@@ -179,8 +179,136 @@ public class Subscription {
 		return this;
 	}
 
-	public static class Status{
-		public static String SUSPENDED = "suspended";
-		public static String ACTIVE = "active";
+	public static SubscriptionBuilder builder(){
+		return new SubscriptionBuilder();
+	}
+
+	public static class SubscriptionBuilder{
+		private String id;
+		private String offerId;
+		private String offerName;
+		private String friendlyName;
+		private int quantity;
+		private String unitType;
+		private String creationDate;
+		private String effectiveStartDate;
+		private String commitmentEndDate;
+		private SubscriptionStatus status;
+		private String billingType;
+		private String billingCycle;
+		private String contractType;
+		private boolean autoRenewEnabled;
+		private String orderId;
+		private Map<String, Link> links;
+		private Map<String, String> attributes;
+
+		public SubscriptionBuilder id(String id) {
+			this.id = id;
+			return this;
+		}
+
+		public SubscriptionBuilder offerId(String offerId) {
+			this.offerId = offerId;
+			return this;
+		}
+
+		public SubscriptionBuilder offerName(String offerName) {
+			this.offerName = offerName;
+			return this;
+		}
+
+		public SubscriptionBuilder friendlyName(String friendlyName) {
+			this.friendlyName = friendlyName;
+			return this;
+		}
+
+		public SubscriptionBuilder quantity(int quantity) {
+			this.quantity = quantity;
+			return this;
+		}
+
+		public SubscriptionBuilder unitType(String unitType) {
+			this.unitType = unitType;
+			return this;
+		}
+
+		public SubscriptionBuilder creationDate(String creationDate) {
+			this.creationDate = creationDate;
+			return this;
+		}
+
+		public SubscriptionBuilder effectiveStartDate(String effectiveStartDate) {
+			this.effectiveStartDate = effectiveStartDate;
+			return this;
+		}
+
+		public SubscriptionBuilder commitmentEndDate(String commitmentEndDate) {
+			this.commitmentEndDate = commitmentEndDate;
+			return this;
+		}
+
+		public SubscriptionBuilder status(SubscriptionStatus status) {
+			this.status = status;
+			return this;
+		}
+
+		public SubscriptionBuilder billingType(String billingType) {
+			this.billingType = billingType;
+			return this;
+		}
+
+		public SubscriptionBuilder billingCycle(String billingCycle) {
+			this.billingCycle = billingCycle;
+			return this;
+		}
+
+		public SubscriptionBuilder contractType(String contractType) {
+			this.contractType = contractType;
+			return this;
+		}
+
+		public SubscriptionBuilder autoRenewEnabled(boolean autoRenewEnabled) {
+			this.autoRenewEnabled = autoRenewEnabled;
+			return this;
+		}
+
+		public SubscriptionBuilder orderId(String orderId) {
+			this.orderId = orderId;
+			return this;
+		}
+
+		public SubscriptionBuilder links(Map<String, Link> links) {
+			this.links = links;
+			return this;
+		}
+
+		public SubscriptionBuilder attributes(Map<String, String> attributes) {
+			this.attributes = attributes;
+			return this;
+		}
+
+		public Subscription build(){
+			Subscription subscription = new Subscription();
+			subscription.setId(id);
+			subscription.setContractType(contractType);
+			subscription.setStatus(status);
+			subscription.setLinks(links);
+			subscription.setAttributes(attributes);
+			subscription.setOfferId(offerId);
+			subscription.setOrderId(orderId);
+			subscription.setAutoRenewEnabled(autoRenewEnabled);
+			subscription.setBillingCycle(billingCycle);
+			subscription.setBillingType(billingType);
+			subscription.setContractType(contractType);
+			subscription.setCommitmentEndDate(commitmentEndDate);
+			subscription.setEffectiveStartDate(effectiveStartDate);
+			subscription.setCreationDate(creationDate);
+			subscription.setFriendlyName(friendlyName);
+			subscription.setOfferName(offerName);
+			subscription.setQuantity(quantity);
+			subscription.setUnitType(unitType);
+
+			return subscription;
+		}
 	}
 }

@@ -1,17 +1,18 @@
 package org.springframework.social.partnercenter.api.order.subscription.impl;
 
-import static org.springframework.social.partnercenter.api.order.subscription.Subscription.Status.ACTIVE;
-import static org.springframework.social.partnercenter.api.order.subscription.Subscription.Status.SUSPENDED;
+import static org.springframework.social.partnercenter.api.order.subscription.SubscriptionStatus.ACTIVE;
+import static org.springframework.social.partnercenter.api.order.subscription.SubscriptionStatus.SUSPENDED;
 
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.ResponseEntity;
 import org.springframework.social.partnercenter.PartnerCenter;
 import org.springframework.social.partnercenter.api.AbstractTemplate;
 import org.springframework.social.partnercenter.api.PartnerCenterResponse;
-import org.springframework.social.partnercenter.api.customer.response.GetSubscriptionListResponse;
-import org.springframework.social.partnercenter.api.order.request.UpgradeSubscriptionRequest;
+import org.springframework.social.partnercenter.api.customer.response.SubscriptionListResponse;
 import org.springframework.social.partnercenter.api.order.subscription.Subscription;
 import org.springframework.social.partnercenter.api.order.subscription.SubscriptionOperations;
+import org.springframework.social.partnercenter.api.order.subscription.upgrade.Upgrade;
+import org.springframework.social.partnercenter.api.order.subscription.upgrade.UpgradeResult;
 import org.springframework.social.partnercenter.http.client.RestResource;
 
 public class SubscriptionTemplate extends AbstractTemplate implements SubscriptionOperations {
@@ -37,25 +38,25 @@ public class SubscriptionTemplate extends AbstractTemplate implements Subscripti
 	}
 
 	@Override
-	public ResponseEntity<GetSubscriptionListResponse> getCustomersSubscriptions(String customerId) {
+	public ResponseEntity<SubscriptionListResponse> getCustomersSubscriptions(String customerId) {
 		return restResource.request()
 				.pathSegment(customerId, SUBSCRIPTIONS)
-				.get(GetSubscriptionListResponse.class);
+				.get(SubscriptionListResponse.class);
 	}
 
 	@Override
-	public ResponseEntity<GetSubscriptionListResponse> getSubscriptionsByOrderId(String customerId, String orderId) {
+	public ResponseEntity<SubscriptionListResponse> getSubscriptionsByOrderId(String customerId, String orderId) {
 		return restResource.request()
 				.pathSegment(customerId, SUBSCRIPTIONS)
 				.queryParam("order_id", orderId)
-				.get(GetSubscriptionListResponse.class);
+				.get(SubscriptionListResponse.class);
 	}
 
 	@Override
-	public ResponseEntity<GetSubscriptionListResponse> getAddOnsForBySubscriptionId(String customerId, String subscriptionId) {
+	public ResponseEntity<SubscriptionListResponse> getAddOnsForBySubscriptionId(String customerId, String subscriptionId) {
 		return restResource.request()
 				.pathSegment(customerId, SUBSCRIPTIONS, subscriptionId, "addons")
-				.get(GetSubscriptionListResponse.class);
+				.get(SubscriptionListResponse.class);
 	}
 
 	@Override
@@ -86,7 +87,8 @@ public class SubscriptionTemplate extends AbstractTemplate implements Subscripti
 				.queryParam("mpn_id", mpnId)
 				.queryParam("offset", offset)
 				.queryParam("size", size)
-				.get(new ParameterizedTypeReference<PartnerCenterResponse<Subscription>>() {});
+				.get(new ParameterizedTypeReference<PartnerCenterResponse<Subscription>>() {
+				});
 	}
 
 	@Override
@@ -95,26 +97,18 @@ public class SubscriptionTemplate extends AbstractTemplate implements Subscripti
 		subscription.getBody().setQuantity(qty);
 		return updateSubscription(customerId, subscriptionId, subscription.getBody());
 	}
-	//TODO: Need to look into this one
-//	@Override
-//	public ResponseEntity<String> getSubscriptionUpgrade(String customerId, String subscriptionId) {
-//		return null;
-//	}
-	//TODO: Need to look into this one
+
 	@Override
-	public ResponseEntity<GetSubscriptionListResponse> transitionSubscription(String customerId, String sourceSubscriptionId, Subscription targetSubscription) {
-		ResponseEntity<Subscription> subscription = restResource.request()
-				.pathSegment(customerId, SUBSCRIPTIONS, sourceSubscriptionId, "upgrades")
-				.get(Subscription.class);
-
-		UpgradeSubscriptionRequest request = UpgradeSubscriptionRequest.builder()
-				.setEligible(true)
-				.setTargetOffer(subscription.getBody())
-				.setQuantity(subscription.getBody().getQuantity())
-				.build();
-
+	public ResponseEntity<PartnerCenterResponse<Upgrade>> getAvailableSubscriptionTransitions(String customerId, String subscriptionId) {
 		return restResource.request()
-				.pathSegment(customerId, SUBSCRIPTIONS, targetSubscription.getId(), "upgrades")
-				.post(request, GetSubscriptionListResponse.class);
+				.pathSegment(customerId, SUBSCRIPTIONS, subscriptionId, "upgrades")
+				.get(new ParameterizedTypeReference<PartnerCenterResponse<Upgrade>>() {});
+	}
+
+	@Override
+	public ResponseEntity<UpgradeResult> upgradeSubscription(String customerId, String sourceSubscriptionId, Upgrade targetSubscription) {
+		return restResource.request()
+				.pathSegment(customerId, SUBSCRIPTIONS, sourceSubscriptionId, "upgrades")
+				.post(targetSubscription, UpgradeResult.class);
 	}
 }
