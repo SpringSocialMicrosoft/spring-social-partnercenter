@@ -10,6 +10,8 @@ public class Customer {
 
 	@JsonProperty("id")
 	private String id;
+	@JsonProperty("commerceId")
+	private String commerceId;
 	@JsonProperty("companyProfile")
 	private CustomerCompanyProfile companyProfile;
 	@JsonProperty("billingProfile")
@@ -27,6 +29,14 @@ public class Customer {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getCommerceId() {
+		return commerceId;
+	}
+
+	public void setCommerceId(String commerceId) {
+		this.commerceId = commerceId;
 	}
 
 	public CustomerCompanyProfile getCompanyProfile() {

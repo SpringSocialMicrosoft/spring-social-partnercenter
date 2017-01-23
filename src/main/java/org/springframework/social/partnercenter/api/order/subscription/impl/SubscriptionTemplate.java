@@ -106,9 +106,9 @@ public class SubscriptionTemplate extends AbstractTemplate implements Subscripti
 	}
 
 	@Override
-	public ResponseEntity<UpgradeResult> upgradeSubscription(String customerId, String sourceSubscriptionId, Upgrade targetSubscription) {
+	public ResponseEntity<UpgradeResult> upgradeSubscription(String customerId, String sourceSubscriptionId, Upgrade upgrade) {
 		return restResource.request()
 				.pathSegment(customerId, SUBSCRIPTIONS, sourceSubscriptionId, "upgrades")
-				.post(targetSubscription, UpgradeResult.class);
+				.post(upgrade, UpgradeResult.class);
 	}
 }
