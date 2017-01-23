@@ -8,7 +8,7 @@ import org.springframework.social.partnercenter.PartnerCenter;
 import org.springframework.social.partnercenter.api.AbstractTemplate;
 import org.springframework.social.partnercenter.api.PartnerCenterResponse;
 import org.springframework.social.partnercenter.api.customer.CustomerBillingProfile;
-import org.springframework.social.partnercenter.api.customer.CompanyProfile;
+import org.springframework.social.partnercenter.api.customer.CustomerCompanyProfile;
 import org.springframework.social.partnercenter.api.customer.Customer;
 import org.springframework.social.partnercenter.api.customer.CustomerOperations;
 import org.springframework.social.partnercenter.api.customer.request.Filter;
@@ -75,10 +75,10 @@ public class CustomerTemplate extends AbstractTemplate implements CustomerOperat
 	}
 
 	@Override
-	public ResponseEntity<CompanyProfile> getCustomersCompanyProfile(String customerId) {
+	public ResponseEntity<CustomerCompanyProfile> getCustomersCompanyProfile(String customerId) {
 		return restResource.request()
 				.pathSegment(customerId, "profiles", "profiles")
-				.get(CompanyProfile.class);
+				.get(CustomerCompanyProfile.class);
 	}
 
 	@Override

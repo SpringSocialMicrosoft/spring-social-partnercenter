@@ -10,12 +10,14 @@ public class Customer {
 
 	@JsonProperty("id")
 	private String id;
+	@JsonProperty("commerceId")
+	private String commerceId;
 	@JsonProperty("companyProfile")
-	private CompanyProfile companyProfile;
+	private CustomerCompanyProfile companyProfile;
 	@JsonProperty("billingProfile")
 	private CustomerBillingProfile billingProfile;
 	@JsonProperty("relationshipToPartner")
-	private String relationshipToPartner;
+	private CustomerPartnerRelationship relationshipToPartner;
 	@JsonProperty("userCredentials")
 	private UserCredentials userCredentials;
 	@JsonProperty("attributes")
@@ -29,11 +31,19 @@ public class Customer {
 		this.id = id;
 	}
 
-	public CompanyProfile getCompanyProfile() {
+	public String getCommerceId() {
+		return commerceId;
+	}
+
+	public void setCommerceId(String commerceId) {
+		this.commerceId = commerceId;
+	}
+
+	public CustomerCompanyProfile getCompanyProfile() {
 		return companyProfile;
 	}
 
-	public void setCompanyProfile(CompanyProfile companyProfile) {
+	public void setCompanyProfile(CustomerCompanyProfile companyProfile) {
 		this.companyProfile = companyProfile;
 	}
 
@@ -45,11 +55,11 @@ public class Customer {
 		this.billingProfile = billingProfile;
 	}
 
-	public String getRelationshipToPartner() {
+	public CustomerPartnerRelationship getRelationshipToPartner() {
 		return relationshipToPartner;
 	}
 
-	public void setRelationshipToPartner(String relationshipToPartner) {
+	public void setRelationshipToPartner(CustomerPartnerRelationship relationshipToPartner) {
 		this.relationshipToPartner = relationshipToPartner;
 	}
 

@@ -1,5 +1,6 @@
 package org.springframework.social.partnercenter.api.order.offer;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -18,9 +19,9 @@ public class Offer {
 	@JsonProperty("description")
 	private String description;
 	@JsonProperty("minimumQuantity")
-	private int minimumQuantity;
+	private BigDecimal minimumQuantity;
 	@JsonProperty("maximumQuantity")
-	private double maximumQuantity;
+	private BigDecimal maximumQuantity;
 	@JsonProperty("rank")
 	private int rank;
 	@JsonProperty("uri")
@@ -79,20 +80,20 @@ public class Offer {
 		return this;
 	}
 
-	public int getMinimumQuantity() {
+	public BigDecimal getMinimumQuantity() {
 		return minimumQuantity;
 	}
 
-	public Offer setMinimumQuantity(int minimumQuantity) {
+	public Offer setMinimumQuantity(BigDecimal minimumQuantity) {
 		this.minimumQuantity = minimumQuantity;
 		return this;
 	}
 
-	public double getMaximumQuantity() {
+	public BigDecimal getMaximumQuantity() {
 		return maximumQuantity;
 	}
 
-	public Offer setMaximumQuantity(double maximumQuantity) {
+	public Offer setMaximumQuantity(BigDecimal maximumQuantity) {
 		this.maximumQuantity = maximumQuantity;
 		return this;
 	}

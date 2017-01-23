@@ -7,7 +7,7 @@ import org.springframework.social.partnercenter.api.Link;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class LineItem {
+public class OrderLineItem {
 	private int lineItemNumber;
 	private String offerId;
 	private String subscriptionId;
@@ -19,7 +19,7 @@ public class LineItem {
 		return lineItemNumber;
 	}
 
-	public LineItem setLineItemNumber(int lineItemNumber) {
+	public OrderLineItem setLineItemNumber(int lineItemNumber) {
 		this.lineItemNumber = lineItemNumber;
 		return this;
 	}
@@ -28,7 +28,7 @@ public class LineItem {
 		return offerId;
 	}
 
-	public LineItem setOfferId(String offerId) {
+	public OrderLineItem setOfferId(String offerId) {
 		this.offerId = offerId;
 		return this;
 	}
@@ -45,7 +45,7 @@ public class LineItem {
 		return friendlyName;
 	}
 
-	public LineItem setFriendlyName(String friendlyName) {
+	public OrderLineItem setFriendlyName(String friendlyName) {
 		this.friendlyName = friendlyName;
 		return this;
 	}
@@ -54,7 +54,7 @@ public class LineItem {
 		return quantity;
 	}
 
-	public LineItem setQuantity(int quantity) {
+	public OrderLineItem setQuantity(int quantity) {
 		this.quantity = quantity;
 		return this;
 	}
@@ -63,7 +63,7 @@ public class LineItem {
 		return links;
 	}
 
-	public LineItem setLinks(Map<String, Link> links) {
+	public OrderLineItem setLinks(Map<String, Link> links) {
 		this.links = links;
 		return this;
 	}
@@ -104,8 +104,8 @@ public class LineItem {
 			return this;
 		}
 
-		public LineItem build(){
-			LineItem lineItem = new LineItem();
+		public OrderLineItem build(){
+			OrderLineItem lineItem = new OrderLineItem();
 			lineItem.setLineItemNumber(lineItemNumber);
 			lineItem.setFriendlyName(friendlyName);
 			lineItem.setLinks(links);
