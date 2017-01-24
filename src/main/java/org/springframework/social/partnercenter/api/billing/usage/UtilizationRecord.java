@@ -11,18 +11,4 @@ public class UtilizationRecord {
 	private InfoFields infoFields;
 	private Map<String, String> attributes;
 
-
-	public enum Granularity{
-		DAILY("daily"), HOURLY("hourly");
-
-		private String value;
-
-		public String value() {
-			return value;
-		}
-
-		private Granularity(String value){
-			this.value = value;
-		}
-	}
 }
