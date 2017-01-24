@@ -6,7 +6,7 @@ import java.util.Map;
 public class UpgradeResult {
 	private String sourceSubscriptionId;
 	private String targetSubscriptionId;
-	private int upgradeType;
+	private UpgradeType upgradeType;
 	private List<UpgradeError> upgradeErrors;
 	private List<String> licenseErrors;
 	private Map<String, String> attributes;
@@ -27,11 +27,11 @@ public class UpgradeResult {
 		this.targetSubscriptionId = targetSubscriptionId;
 	}
 
-	public int getUpgradeType() {
+	public UpgradeType getUpgradeType() {
 		return upgradeType;
 	}
 
-	public void setUpgradeType(int upgradeType) {
+	public void setUpgradeType(UpgradeType upgradeType) {
 		this.upgradeType = upgradeType;
 	}
 

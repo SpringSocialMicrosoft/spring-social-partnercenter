@@ -232,4 +232,157 @@ public class Offer {
 		this.attributes = attributes;
 		return this;
 	}
+
+	public static OfferBuilder builder(){
+		return new OfferBuilder();
+	}
+
+	public static class OfferBuilder{
+		private Offer offer = new Offer();
+		private String id;
+		private String name;
+		private String description;
+		private BigDecimal minimumQuantity;
+		private BigDecimal maximumQuantity;
+		private int rank;
+		private String uri;
+		private String locale;
+		private String country;
+		private OfferCategory category;
+		private List<String> prerequisiteOffers;
+		private boolean isAddOn;
+		private boolean hasAddOns;
+		private boolean isAvailableForPurchase;
+		private String billing;
+		private boolean isAutoRenewable;
+		private Product product;
+		private String unitType;
+		private Map<String, Link> links;
+		private Map<String, String> attributes;
+
+		public Offer build(){
+			Offer offer = new Offer();
+			offer.setAttributes(attributes);
+			offer.setId(id);
+			offer.setName(name);
+			offer.setDescription(description);
+			offer.setMinimumQuantity(minimumQuantity);
+			offer.setMaximumQuantity(maximumQuantity);
+			offer.setRank(rank);
+			offer.setUri(uri);
+			offer.setLinks(links);
+			offer.setLocale(locale);
+			offer.setCountry(country);
+			offer.setCategory(category);
+			offer.setPrerequisiteOffers(prerequisiteOffers);
+			offer.setAddOn(isAddOn);
+			offer.setHasAddOns(hasAddOns);
+			offer.setAvailableForPurchase(isAvailableForPurchase);
+			offer.setBilling(billing);
+			offer.setAutoRenewable(isAutoRenewable);
+			offer.setProduct(product);
+			offer.setUnitType(unitType);
+
+			return offer;
+		}
+		public OfferBuilder id(String id) {
+			this.id = id;
+			return this;
+		}
+
+		public OfferBuilder name(String name) {
+			this.name = name;
+			return this;
+		}
+
+		public OfferBuilder description(String description) {
+			this.description = description;
+			return this;
+		}
+
+		public OfferBuilder minimumQuantity(BigDecimal minimumQuantity) {
+			this.minimumQuantity = minimumQuantity;
+			return this;
+		}
+
+		public OfferBuilder maximumQuantity(BigDecimal maximumQuantity) {
+			this.maximumQuantity = maximumQuantity;
+			return this;
+		}
+
+		public OfferBuilder rank(int rank) {
+			this.rank = rank;
+			return this;
+		}
+
+		public OfferBuilder uri(String uri) {
+			this.uri = uri;
+			return this;
+		}
+
+		public OfferBuilder locale(String locale) {
+			this.locale = locale;
+			return this;
+		}
+
+		public OfferBuilder country(String country) {
+			this.country = country;
+			return this;
+		}
+
+		public OfferBuilder category(OfferCategory category) {
+			this.category = category;
+			return this;
+		}
+
+		public OfferBuilder prerequisiteOffers(List<String> prerequisiteOffers) {
+			this.prerequisiteOffers = prerequisiteOffers;
+			return this;
+		}
+
+		public OfferBuilder addOn(boolean addOn) {
+			isAddOn = addOn;
+			return this;
+		}
+
+		public OfferBuilder hasAddOns(boolean hasAddOns) {
+			this.hasAddOns = hasAddOns;
+			return this;
+		}
+
+		public OfferBuilder availableForPurchase(boolean availableForPurchase) {
+			isAvailableForPurchase = availableForPurchase;
+			return this;
+		}
+
+		public OfferBuilder billing(String billing) {
+			this.billing = billing;
+			return this;
+		}
+
+		public OfferBuilder autoRenewable(boolean autoRenewable) {
+			isAutoRenewable = autoRenewable;
+			return this;
+		}
+
+		public OfferBuilder product(Product product) {
+			this.product = product;
+			return this;
+		}
+
+		public OfferBuilder unitType(String unitType) {
+			this.unitType = unitType;
+			return this;
+		}
+
+		public OfferBuilder links(Map<String, Link> links) {
+			this.links = links;
+			return this;
+		}
+
+		public OfferBuilder attributes(Map<String, String> attributes) {
+			this.attributes = attributes;
+			return this;
+		}
+	}
 }

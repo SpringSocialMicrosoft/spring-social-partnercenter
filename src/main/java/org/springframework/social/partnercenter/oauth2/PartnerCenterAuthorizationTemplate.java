@@ -1,11 +1,14 @@
 package org.springframework.social.partnercenter.oauth2;
 
+import static java.util.Optional.ofNullable;
+import static org.springframework.util.Assert.notNull;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -21,7 +24,6 @@ import org.springframework.social.oauth2.OAuth2Parameters;
 import org.springframework.social.partnercenter.api.uri.UriProvider;
 import org.springframework.social.support.ClientHttpRequestFactorySelector;
 import org.springframework.social.support.FormMapHttpMessageConverter;
-import org.springframework.util.Assert;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.util.StringUtils;
@@ -62,18 +64,15 @@ public class PartnerCenterAuthorizationTemplate implements OAuth2Operations {
 	 * @param accessTokenUrl the URL at which an authorization code, refresh token, or user credentials may be exchanged for an access token
 	 */
 	private PartnerCenterAuthorizationTemplate(String clientId, String clientSecret, String authorizeUrl, String authenticateUrl, String accessTokenUrl) {
-		Assert.notNull(clientId, "The clientId property cannot be null");
-		Assert.notNull(clientSecret, "The clientSecret property cannot be null");
-		Assert.notNull(authorizeUrl, "The authorizeUrl property cannot be null");
-		Assert.notNull(accessTokenUrl, "The accessTokenUrl property cannot be null");
+		notNull(clientId, "The clientId property cannot be null");
+		notNull(clientSecret, "The clientSecret property cannot be null");
+		notNull(authorizeUrl, "The authorizeUrl property cannot be null");
+		notNull(accessTokenUrl, "The accessTokenUrl property cannot be null");
 		this.clientId = clientId;
 		this.clientSecret = clientSecret;
 		this.authorizeUrl = authorizeUrl;
-		if (authenticateUrl != null) {
-			this.authenticateUrl = authenticateUrl;
-		} else {
-			this.authenticateUrl = null;
-		}
+		this.useParametersForClientAuthentication = true;
+		this.authenticateUrl = authenticateUrl;
 		this.accessTokenUrl = accessTokenUrl;
 	}
 
@@ -91,7 +90,7 @@ public class PartnerCenterAuthorizationTemplate implements OAuth2Operations {
 	 * @param requestFactory the request factory used by the underlying RestTemplate
 	 */
 	public void setRequestFactory(ClientHttpRequestFactory requestFactory) {
-		Assert.notNull(requestFactory, "The requestFactory property cannot be null");
+		notNull(requestFactory, "The requestFactory property cannot be null");
 		getRestTemplate().setRequestFactory(requestFactory);
 	}
 
@@ -104,7 +103,7 @@ public class PartnerCenterAuthorizationTemplate implements OAuth2Operations {
 	}
 
 	public String buildAuthenticateUrl(OAuth2Parameters parameters) {
-		return authenticateUrl != null ? buildAuthUrl(authenticateUrl, GrantType.AUTHORIZATION_CODE, parameters) : buildAuthorizeUrl(GrantType.AUTHORIZATION_CODE, parameters);
+		return authenticateUrl != null ? buildAuthUrl(authenticateUrl, GrantType.IMPLICIT_GRANT, parameters) : buildAuthorizeUrl(GrantType.IMPLICIT_GRANT, parameters);
 	}
 
 	public String buildAuthenticateUrl(GrantType grantType, OAuth2Parameters parameters) {
@@ -138,13 +137,16 @@ public class PartnerCenterAuthorizationTemplate implements OAuth2Operations {
 			params.set("client_id", clientId);
 			params.set("client_secret", clientSecret);
 		}
-		params.set("username", username);
-		params.set("password", password);
+		params.set("username", formEncode(username));
+		params.set("password", formEncode(password));
+		params.set("resource", UriProvider.PARTNER_CENTER_URL);
+		params.set("scope", "openid");
 		params.set("grant_type", "password");
-		if (additionalParameters != null) {
-			params.putAll(additionalParameters);
-		}
-		return postForAccessGrant(accessTokenUrl, params);
+
+		ofNullable(additionalParameters).ifPresent(additionalParameterMap ->
+				additionalParameterMap.forEach((s, strings) -> params.put(s, strings.stream().map(this::formEncode).collect(Collectors.toList()))));
+
+		return postForAccessGrant(authorizeUrl, params);
 	}
 
 	@Deprecated
@@ -269,23 +271,24 @@ public class PartnerCenterAuthorizationTemplate implements OAuth2Operations {
 	// internal helpers
 
 	private String buildAuthUrl(String baseAuthUrl, GrantType grantType, OAuth2Parameters parameters) {
+
 		StringBuilder authUrl = new StringBuilder(baseAuthUrl);
-		if (grantType == GrantType.AUTHORIZATION_CODE) {
-			authUrl.append('&').append("response_type").append('=').append("code");
-		} else if (grantType == GrantType.IMPLICIT_GRANT) {
-			authUrl.append('&').append("response_type").append('=').append("token");
-		}
-		for (Iterator<Map.Entry<String, List<String>>> additionalParams = parameters.entrySet().iterator(); additionalParams.hasNext();) {
-			Map.Entry<String, List<String>> param = additionalParams.next();
-			String name = formEncode(param.getKey());
-			for (Iterator<String> values = param.getValue().iterator(); values.hasNext();) {
-				authUrl.append('&').append(name);
-				String value = values.next();
-				if (StringUtils.hasLength(value)) {
-					authUrl.append('=').append(formEncode(value));
+		authUrl.append('?').append("grant_type").append('=').append(convertGrantType(grantType).asString());
+		authUrl.append('&').append("client_id").append('=').append(clientId);
+		authUrl.append('&').append("client_secret").append('=').append(clientSecret);
+		authUrl.append('&').append("resource").append('=').append(UriProvider.GRAPH_URL);
+		ofNullable(parameters).ifPresent(params -> {
+			for (Map.Entry<String, List<String>> param : params.entrySet()) {
+				String name = formEncode(param.getKey());
+				for (String s : param.getValue()) {
+					authUrl.append('&').append(name);
+					if (StringUtils.hasLength(s)) {
+						authUrl.append('=').append(formEncode(s));
+					}
 				}
 			}
-		}
+		});
+
 		return authUrl.toString();
 	}
 
@@ -310,5 +313,9 @@ public class PartnerCenterAuthorizationTemplate implements OAuth2Operations {
 		} catch (NumberFormatException e) {
 			return null;
 		}
+	}
+
+	private PartnerCenterGrantType convertGrantType(GrantType grantType){
+		return grantType.equals(GrantType.AUTHORIZATION_CODE) ? PartnerCenterGrantType.JWT_TOKEN : PartnerCenterGrantType.CLIENT_CREDENTIALS;
 	}
 }
