@@ -11,6 +11,7 @@ public class Subscription {
 	private String id;
 	private String offerId;
 	private String offerName;
+	private String partnerId;
 	private String friendlyName;
 	private int quantity;
 	private String unitType;
@@ -50,6 +51,15 @@ public class Subscription {
 
 	public Subscription setOfferName(String offerName) {
 		this.offerName = offerName;
+		return this;
+	}
+
+	public String getPartnerId() {
+		return partnerId;
+	}
+
+	public Subscription setPartnerId(String partnerId) {
+		this.partnerId = partnerId;
 		return this;
 	}
 
@@ -187,6 +197,7 @@ public class Subscription {
 		private String id;
 		private String offerId;
 		private String offerName;
+		private String partnerId;
 		private String friendlyName;
 		private int quantity;
 		private String unitType;
@@ -214,6 +225,11 @@ public class Subscription {
 
 		public SubscriptionBuilder offerName(String offerName) {
 			this.offerName = offerName;
+			return this;
+		}
+
+		public SubscriptionBuilder partnerId(String partnerId) {
+			this.partnerId = partnerId;
 			return this;
 		}
 
@@ -306,6 +322,7 @@ public class Subscription {
 			subscription.setFriendlyName(friendlyName);
 			subscription.setOfferName(offerName);
 			subscription.setQuantity(quantity);
+			subscription.setPartnerId(partnerId);
 			subscription.setUnitType(unitType);
 
 			return subscription;
