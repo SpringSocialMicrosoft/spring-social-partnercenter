@@ -75,6 +75,7 @@ public class OrderLineItem {
 	public static class LineItemBuilder{
 		private int lineItemNumber;
 		private String offerId;
+		private String subscriptionId;
 		private String friendlyName;
 		private int quantity;
 		private Map<String, Link> links;
@@ -86,6 +87,11 @@ public class OrderLineItem {
 
 		public LineItemBuilder offerId(String offerId) {
 			this.offerId = offerId;
+			return this;
+		}
+
+		public LineItemBuilder subscriptionId(String subscriptionId) {
+			this.subscriptionId = subscriptionId;
 			return this;
 		}
 
@@ -109,6 +115,7 @@ public class OrderLineItem {
 			lineItem.setLineItemNumber(lineItemNumber);
 			lineItem.setFriendlyName(friendlyName);
 			lineItem.setLinks(links);
+			lineItem.setSubscriptionId(subscriptionId);
 			lineItem.setOfferId(offerId);
 			lineItem.setQuantity(quantity);
 			return lineItem;
