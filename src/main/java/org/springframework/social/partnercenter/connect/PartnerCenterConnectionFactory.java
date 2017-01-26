@@ -8,7 +8,9 @@ import org.springframework.social.connect.ApiAdapter;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionData;
 import org.springframework.social.oauth2.AccessGrant;
+import org.springframework.social.oauth2.OAuth2Parameters;
 import org.springframework.social.partnercenter.PartnerCenter;
+import org.springframework.social.partnercenter.connect.admin.PartnerCenterAdminConnection;
 import org.springframework.social.partnercenter.oauth2.PartnerCenterAuthorizationTemplate;
 
 public class PartnerCenterConnectionFactory extends BasePartnerCenterConnectionFactory {
@@ -51,6 +53,12 @@ public class PartnerCenterConnectionFactory extends BasePartnerCenterConnectionF
 	public PartnerCenterConnection createConnection(){
 		AccessGrant accessGrant = getPartnerCenterOAuth2Operations().exchangeForAccess();
 		return (PartnerCenterConnection) createConnection(accessGrant);
+	}
+
+	public PartnerCenterAdminConnection createConnection(String username, String password){
+		AccessGrant accessGrant = getPartnerCenterOAuth2Operations().exchangeCredentialsForAccess(username, password, new OAuth2Parameters());
+		return new PartnerCenterAdminConnection(getProviderId(), extractProviderUserId(accessGrant), username, password, accessGrant.getAccessToken(),
+				accessGrant.getExpireTime(), getPartnerCenterServiceProvider(), getApiAdapter());
 	}
 
 	@Override

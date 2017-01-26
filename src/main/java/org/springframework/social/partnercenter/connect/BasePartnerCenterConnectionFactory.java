@@ -63,7 +63,7 @@ public class BasePartnerCenterConnectionFactory extends ConnectionFactory<Partne
 
 	// internal helpers
 
-	private PartnerCenterServiceProvider getPartnerCenterServiceProvider() {
+	PartnerCenterServiceProvider getPartnerCenterServiceProvider() {
 		return (PartnerCenterServiceProvider) getServiceProvider();
 	}
 

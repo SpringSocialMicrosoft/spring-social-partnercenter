@@ -8,6 +8,8 @@ import org.springframework.retry.support.RetryTemplate;
 import org.springframework.social.oauth2.AbstractOAuth2ServiceProvider;
 import org.springframework.social.partnercenter.PartnerCenter;
 import org.springframework.social.partnercenter.api.PartnerCenterTemplate;
+import org.springframework.social.partnercenter.api.admin.PartnerCenterAdmin;
+import org.springframework.social.partnercenter.api.admin.PartnerCenterAdminTemplate;
 import org.springframework.social.partnercenter.oauth2.PartnerCenterAuthorizationTemplate;
 
 public class PartnerCenterServiceProvider  extends AbstractOAuth2ServiceProvider<PartnerCenter> {
@@ -70,5 +72,9 @@ public class PartnerCenterServiceProvider  extends AbstractOAuth2ServiceProvider
 	@Override
 	public PartnerCenter getApi(String accessToken) {
 		return new PartnerCenterTemplate(retryTemplate, accessToken, apiVersion, interceptors);
+	}
+
+	public PartnerCenterAdmin getAdminApi(String accessToken){
+		return new PartnerCenterAdminTemplate(retryTemplate, accessToken, apiVersion, interceptors);
 	}
 }
