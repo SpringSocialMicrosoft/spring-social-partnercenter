@@ -97,7 +97,7 @@ public class MultiTenantConnectionFactoryRegistryTest {
 	}
 
 	private PartnerCenterConnectionFactory createTestConnectionFactory() {
-		return new PartnerCenterConnectionFactory("applicationId", "applicationSecret", "tenant");
+		return new PartnerCenterConnectionFactory("applicationId", "applicationSecret", "clientSecret", "tenant");
 	}
 
 

@@ -13,7 +13,6 @@ public interface CustomerOperations {
 	ResponseEntity<PartnerCenterResponse<Customer>> getCompanyByDomain(int size, String filter);
 	ResponseEntity<PartnerCenterResponse<Customer>> getCompanyByCompanyName(int size, String filter);
 	ResponseEntity<CustomerListResponse> getList(int size);
-    ResponseEntity<CustomerBillingProfile> getBillingProfile(String customerId);
 	ResponseEntity<CustomerCompanyProfile> getCustomersCompanyProfile(String customerId);
     ResponseEntity<CustomerBillingProfile> updateBillingProfile(String customerId, String etag, CustomerBillingProfile billingProfile);
     ResponseEntity<Subscription> updateFriendlyName(String customerTenantId, String subscriptionId, String nickname);

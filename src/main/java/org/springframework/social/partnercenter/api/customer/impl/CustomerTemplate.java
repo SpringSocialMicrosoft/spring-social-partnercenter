@@ -68,13 +68,6 @@ public class CustomerTemplate extends AbstractTemplate implements CustomerOperat
 	}
 
 	@Override
-	public ResponseEntity<CustomerBillingProfile> getBillingProfile(String customerId) {
-		return restResource.request()
-				.pathSegment(customerId, "profiles", "billing")
-				.get(CustomerBillingProfile.class);
-	}
-
-	@Override
 	public ResponseEntity<CustomerCompanyProfile> getCustomersCompanyProfile(String customerId) {
 		return restResource.request()
 				.pathSegment(customerId, "profiles", "profiles")

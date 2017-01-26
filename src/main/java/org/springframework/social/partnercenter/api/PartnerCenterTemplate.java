@@ -55,11 +55,11 @@ public class PartnerCenterTemplate extends AbstractOAuth2ApiBinding implements P
 	private final UtilityOperations utilityOperations;
 	private final UserOperations userOperations;
 
-	private PartnerCenterTemplate(String accessToken, String version) {
+	protected PartnerCenterTemplate(String accessToken, String version) {
 		this(null, accessToken, version);
 	}
 
-	private PartnerCenterTemplate(RetryTemplate retryTemplate, String accessToken, String version){
+	protected PartnerCenterTemplate(RetryTemplate retryTemplate, String accessToken, String version){
 		super(accessToken);
 		addVersionInterceptor(version);
 		subscriptionOperations = new SubscriptionTemplate(createRestResource(
