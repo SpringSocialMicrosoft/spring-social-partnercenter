@@ -1,6 +1,5 @@
-package org.springframework.social.partnercenter.api.admin;
+package org.springframework.social.partnercenter;
 
-import org.springframework.social.partnercenter.PartnerCenter;
 import org.springframework.social.partnercenter.api.admin.customer.AdminCustomerOperations;
 
 public interface PartnerCenterAdmin extends PartnerCenter {

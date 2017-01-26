@@ -8,7 +8,7 @@ import org.springframework.retry.support.RetryTemplate;
 import org.springframework.social.oauth2.AbstractOAuth2ServiceProvider;
 import org.springframework.social.partnercenter.PartnerCenter;
 import org.springframework.social.partnercenter.api.PartnerCenterTemplate;
-import org.springframework.social.partnercenter.api.admin.PartnerCenterAdmin;
+import org.springframework.social.partnercenter.PartnerCenterAdmin;
 import org.springframework.social.partnercenter.api.admin.PartnerCenterAdminTemplate;
 import org.springframework.social.partnercenter.oauth2.PartnerCenterAuthorizationTemplate;
 

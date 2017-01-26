@@ -6,6 +6,7 @@ import java.util.Collection;
 
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.retry.support.RetryTemplate;
+import org.springframework.social.partnercenter.PartnerCenterAdmin;
 import org.springframework.social.partnercenter.api.PartnerCenterTemplate;
 import org.springframework.social.partnercenter.api.admin.customer.AdminCustomerOperations;
 import org.springframework.social.partnercenter.api.admin.customer.impl.AdminCustomerTemplate;
@@ -14,7 +15,7 @@ import org.springframework.social.partnercenter.http.client.RestResource;
 import org.springframework.social.partnercenter.http.client.RetryRestResource;
 import org.springframework.social.partnercenter.http.client.retry.RetryService;
 
-public class PartnerCenterAdminTemplate extends PartnerCenterTemplate implements PartnerCenterAdmin{
+public class PartnerCenterAdminTemplate extends PartnerCenterTemplate implements PartnerCenterAdmin {
 	private final AdminCustomerOperations adminCustomerOperations;
 
 	private PartnerCenterAdminTemplate(String accessToken, String version) {

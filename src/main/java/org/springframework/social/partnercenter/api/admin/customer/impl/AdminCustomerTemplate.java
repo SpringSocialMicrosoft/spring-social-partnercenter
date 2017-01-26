@@ -2,7 +2,7 @@ package org.springframework.social.partnercenter.api.admin.customer.impl;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.social.partnercenter.api.AbstractTemplate;
-import org.springframework.social.partnercenter.api.admin.PartnerCenterAdmin;
+import org.springframework.social.partnercenter.PartnerCenterAdmin;
 import org.springframework.social.partnercenter.api.admin.customer.AdminCustomerOperations;
 import org.springframework.social.partnercenter.api.customer.CustomerBillingProfile;
 import org.springframework.social.partnercenter.http.client.RestResource;

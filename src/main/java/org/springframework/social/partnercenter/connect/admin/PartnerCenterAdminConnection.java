@@ -10,7 +10,7 @@ import org.springframework.social.connect.ApiAdapter;
 import org.springframework.social.oauth2.AccessGrant;
 import org.springframework.social.oauth2.OAuth2Parameters;
 import org.springframework.social.partnercenter.PartnerCenter;
-import org.springframework.social.partnercenter.api.admin.PartnerCenterAdmin;
+import org.springframework.social.partnercenter.PartnerCenterAdmin;
 import org.springframework.social.partnercenter.connect.PartnerCenterConnection;
 import org.springframework.social.partnercenter.connect.PartnerCenterServiceProvider;
 
