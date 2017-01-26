@@ -67,8 +67,9 @@ public class PartnerCenterAuthorizationTemplate implements OAuth2Operations {
 	 * @param accessTokenUrl the URL at which an authorization code, refresh token, or user credentials may be exchanged for an access token
 	 */
 	private PartnerCenterAuthorizationTemplate(String applicationId, String applicationSecret, String clientId, String authorizeUrl, String authenticateUrl, String accessTokenUrl) {
-		notNull(applicationId, "The clientId property cannot be null");
-		notNull(applicationSecret, "The clientSecret property cannot be null");
+		notNull(applicationId, "The applicationId property cannot be null");
+		notNull(applicationSecret, "The applicationSecret property cannot be null");
+		notNull(clientId, "The clientId property cannot be null");
 		notNull(authorizeUrl, "The authorizeUrl property cannot be null");
 		notNull(accessTokenUrl, "The accessTokenUrl property cannot be null");
 		this.applicationId = applicationId;
