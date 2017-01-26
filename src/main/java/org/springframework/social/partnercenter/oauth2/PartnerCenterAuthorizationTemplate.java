@@ -31,9 +31,11 @@ import org.springframework.web.client.RestTemplate;
 
 public class PartnerCenterAuthorizationTemplate implements OAuth2Operations {
 
+	private final String applicationId;
+
 	private final String clientId;
 
-	private final String clientSecret;
+	private final String applicationSecret;
 
 	private final String accessTokenUrl;
 
@@ -49,27 +51,29 @@ public class PartnerCenterAuthorizationTemplate implements OAuth2Operations {
 	 * Constructs an OAuth2Template for a given set of client credentials.
 	 * @param applicationId the application ID
 	 * @param applicationSecret the application secret
-	 * @param tenant the reseller domain
+	 * @param domain the reseller domain
+	 * @param clientId The client id for login with credentials
 	 */
-	public PartnerCenterAuthorizationTemplate(String applicationId, String applicationSecret, String tenant){
-		this(applicationId, applicationSecret, UriProvider.buildPartnerCenterOAuth2Uri(tenant), null,  UriProvider.buildPartnerCenterTokenUri());
+	public PartnerCenterAuthorizationTemplate(String applicationId, String applicationSecret, String clientId, String domain){
+		this(applicationId, applicationSecret, clientId, UriProvider.buildPartnerCenterOAuth2Uri(domain), null,  UriProvider.buildPartnerCenterTokenUri());
 	}
 
 	/**
 	 * Constructs an OAuth2Template for a given set of client credentials.
-	 * @param clientId the client ID
-	 * @param clientSecret the client secret
+	 * @param applicationId the client ID
+	 * @param applicationSecret the client secret
 	 * @param authorizeUrl the base URL to redirect to when doing authorization code or implicit grant authorization
 	 * @param authenticateUrl the URL to redirect to when doing authentication via authorization code grant
 	 * @param accessTokenUrl the URL at which an authorization code, refresh token, or user credentials may be exchanged for an access token
 	 */
-	private PartnerCenterAuthorizationTemplate(String clientId, String clientSecret, String authorizeUrl, String authenticateUrl, String accessTokenUrl) {
-		notNull(clientId, "The clientId property cannot be null");
-		notNull(clientSecret, "The clientSecret property cannot be null");
+	private PartnerCenterAuthorizationTemplate(String applicationId, String applicationSecret, String clientId, String authorizeUrl, String authenticateUrl, String accessTokenUrl) {
+		notNull(applicationId, "The clientId property cannot be null");
+		notNull(applicationSecret, "The clientSecret property cannot be null");
 		notNull(authorizeUrl, "The authorizeUrl property cannot be null");
 		notNull(accessTokenUrl, "The accessTokenUrl property cannot be null");
+		this.applicationId = applicationId;
+		this.applicationSecret = applicationSecret;
 		this.clientId = clientId;
-		this.clientSecret = clientSecret;
 		this.authorizeUrl = authorizeUrl;
 		this.useParametersForClientAuthentication = true;
 		this.authenticateUrl = authenticateUrl;
@@ -135,16 +139,15 @@ public class PartnerCenterAuthorizationTemplate implements OAuth2Operations {
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
 		if (useParametersForClientAuthentication) {
 			params.set("client_id", clientId);
-			params.set("client_secret", clientSecret);
 		}
-		params.set("username", formEncode(username));
-		params.set("password", formEncode(password));
+		params.set("username", username);
+		params.set("password", password);
 		params.set("resource", UriProvider.PARTNER_CENTER_URL);
 		params.set("scope", "openid");
-		params.set("grant_type", "password");
+		params.set("grant_type", PartnerCenterGrantType.PASSWORD.asString());
 
 		ofNullable(additionalParameters).ifPresent(additionalParameterMap ->
-				additionalParameterMap.forEach((s, strings) -> params.put(s, strings.stream().map(this::formEncode).collect(Collectors.toList()))));
+				additionalParameterMap.forEach(params::put));
 
 		return postForAccessGrant(authorizeUrl, params);
 	}
@@ -168,8 +171,8 @@ public class PartnerCenterAuthorizationTemplate implements OAuth2Operations {
 	public AccessGrant authenticateClient(String scope) {
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
 		if (useParametersForClientAuthentication) {
-			params.set("client_id", clientId);
-			params.set("client_secret", clientSecret);
+			params.set("client_id", applicationId);
+			params.set("client_secret", applicationSecret);
 		}
 		params.set("grant_type", "client_credentials");
 		if (scope != null) {
@@ -230,14 +233,17 @@ public class PartnerCenterAuthorizationTemplate implements OAuth2Operations {
 	 */
 	@SuppressWarnings("unchecked")
 	protected AccessGrant postForAccessGrant(String accessTokenUrl, MultiValueMap<String, String> parameters) {
-		return extractAccessGrant(getRestTemplate().postForObject(accessTokenUrl, parameters, Map.class));
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+
+		return extractAccessGrant(getRestTemplate().postForObject(accessTokenUrl, new HttpEntity<>(parameters, headers), Map.class));
 	}
 
 	private AzureADSecurityToken postForADToken(){
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
 		params.set("grant_type", PartnerCenterGrantType.CLIENT_CREDENTIALS.asString());
-		params.set("client_id", clientId);
-		params.set("client_secret", clientSecret);
+		params.set("client_id", applicationId);
+		params.set("client_secret", applicationSecret);
 		params.set("resource", UriProvider.GRAPH_URL);
 		return getRestTemplate().postForObject(authorizeUrl, params, AzureADSecurityToken.class);
 	}
@@ -274,8 +280,8 @@ public class PartnerCenterAuthorizationTemplate implements OAuth2Operations {
 
 		StringBuilder authUrl = new StringBuilder(baseAuthUrl);
 		authUrl.append('?').append("grant_type").append('=').append(convertGrantType(grantType).asString());
-		authUrl.append('&').append("client_id").append('=').append(clientId);
-		authUrl.append('&').append("client_secret").append('=').append(clientSecret);
+		authUrl.append('&').append("client_id").append('=').append(applicationId);
+		authUrl.append('&').append("client_secret").append('=').append(applicationSecret);
 		authUrl.append('&').append("resource").append('=').append(UriProvider.GRAPH_URL);
 		ofNullable(parameters).ifPresent(params -> {
 			for (Map.Entry<String, List<String>> param : params.entrySet()) {
