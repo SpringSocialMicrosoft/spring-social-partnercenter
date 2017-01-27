@@ -18,7 +18,6 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.social.oauth2.AccessGrant;
 import org.springframework.social.oauth2.GrantType;
 import org.springframework.social.partnercenter.api.uri.UriProvider;
-import org.springframework.social.partnercenter.oauth2.PartnerCenterAccessGrant;
 import org.springframework.social.support.ClientHttpRequestFactorySelector;
 import org.springframework.social.support.FormMapHttpMessageConverter;
 import org.springframework.util.LinkedMultiValueMap;
