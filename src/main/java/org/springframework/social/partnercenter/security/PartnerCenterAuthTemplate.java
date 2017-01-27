@@ -19,7 +19,6 @@ import org.springframework.social.oauth2.AccessGrant;
 import org.springframework.social.oauth2.GrantType;
 import org.springframework.social.partnercenter.api.uri.UriProvider;
 import org.springframework.social.partnercenter.oauth2.PartnerCenterAccessGrant;
-import org.springframework.social.partnercenter.oauth2.PartnerCenterGrantType;
 import org.springframework.social.support.ClientHttpRequestFactorySelector;
 import org.springframework.social.support.FormMapHttpMessageConverter;
 import org.springframework.util.LinkedMultiValueMap;
@@ -69,8 +68,8 @@ public class PartnerCenterAuthTemplate implements PartnerCenterAuthOperations {
 
 	@Override
 	public AccessGrant exchangeForAccess(){
-		AzureAccessGrant azureAccessGrant = postForADToken();
-		return exchangeForAccess(azureAccessGrant.getAccessToken(), null);
+		AzureADSecurityToken azureADSecurityToken = postForADToken();
+		return exchangeForAccess(azureADSecurityToken.getAccessToken(), null);
 	}
 
 	@Override
@@ -133,8 +132,8 @@ public class PartnerCenterAuthTemplate implements PartnerCenterAuthOperations {
 
 	@Override
 	public AccessGrant refreshAccess(MultiValueMap<String, String> additionalParameters) {
-		AzureAccessGrant azureAccessGrant = postForADToken();
-		return exchangeForAccess(azureAccessGrant.getAccessToken(), additionalParameters);
+		AzureADSecurityToken azureADSecurityToken = postForADToken();
+		return exchangeForAccess(azureADSecurityToken.getAccessToken(), additionalParameters);
 	}
 
 	/**
@@ -175,13 +174,13 @@ public class PartnerCenterAuthTemplate implements PartnerCenterAuthOperations {
 		return extractAccessGrant(getRestTemplate().postForObject(accessTokenUrl, new HttpEntity<>(parameters, headers), Map.class));
 	}
 
-	private AzureAccessGrant postForADToken(){
+	private AzureADSecurityToken postForADToken(){
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
 		params.set("grant_type", PartnerCenterGrantType.CLIENT_CREDENTIALS.asString());
 		params.set("client_id", applicationId);
 		params.set("client_secret", applicationSecret);
 		params.set("resource", UriProvider.GRAPH_URL);
-		return getRestTemplate().postForObject(authorizeUrl, params, AzureAccessGrant.class);
+		return getRestTemplate().postForObject(authorizeUrl, params, AzureADSecurityToken.class);
 	}
 
 	/**
