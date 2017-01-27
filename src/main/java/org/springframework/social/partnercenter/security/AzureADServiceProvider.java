@@ -9,7 +9,7 @@ public interface AzureADServiceProvider<T> extends ServiceProvider<T>{
 	 * The result of the OAuth dance is an access token that can be used to obtain a {@link #getApi(String) API binding}.
 	 * @return an {@link OAuth2Operations} for carrying out the "OAuth dance" with this provider.
 	 */
-	PartnerCenterAuthOperations getPartnerCenterAuthOperations();
+	AzureADAuthOperations getAzureADAuthOperations();
 
 	/**
 	 * Returns an API interface allowing the client application to access protected resources on behalf of a user.

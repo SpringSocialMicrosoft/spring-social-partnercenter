@@ -72,7 +72,7 @@ public class PartnerCenterConnection extends AbstractConnection<PartnerCenter> {
 
 	public void refresh() {
 		synchronized (getMonitor()) {
-			AccessGrant accessGrant = serviceProvider.getPartnerCenterAuthOperations().refreshAccess(null);
+			AccessGrant accessGrant = serviceProvider.getAzureADAuthOperations().refreshAccess(null);
 			initAccessTokens(accessGrant.getAccessToken(), accessGrant.getExpireTime());
 			initApi();
 		}

@@ -18,51 +18,51 @@ public class PartnerCenterServiceProvider extends AbstractAzureADServiceProvider
 	private RetryTemplate retryTemplate;
 
 	public PartnerCenterServiceProvider(String applicationId, String applicationSecret, String clientId, String domain){
-		super(new PartnerCenterAuthTemplate(applicationId, applicationSecret, clientId, domain));
+		super(new AzureADAuthTemplate(applicationId, applicationSecret, clientId, domain));
 		apiVersion = DEFAULT_API_VERSION;
 		this.interceptors = new LinkedHashSet<>();
 	}
 	public PartnerCenterServiceProvider(String applicationId, String applicationSecret, String clientId, String domain, RetryTemplate retryTemplate){
-		super(new PartnerCenterAuthTemplate(applicationId, applicationSecret, clientId, domain));
+		super(new AzureADAuthTemplate(applicationId, applicationSecret, clientId, domain));
 		apiVersion = DEFAULT_API_VERSION;
 		this.retryTemplate = retryTemplate;
 		this.interceptors = new LinkedHashSet<>();
 	}
 
 	public PartnerCenterServiceProvider(String applicationId, String applicationSecret, String clientId, String domain, String apiVersion){
-		super(new PartnerCenterAuthTemplate(applicationId, applicationSecret, clientId, domain));
+		super(new AzureADAuthTemplate(applicationId, applicationSecret, clientId, domain));
 		this.apiVersion = apiVersion;
 		this.interceptors = new LinkedHashSet<>();
 	}
 
 	public PartnerCenterServiceProvider(String applicationId, String applicationSecret, String clientId, String domain, String apiVersion, RetryTemplate retryTemplate){
-		super(new PartnerCenterAuthTemplate(applicationId, applicationSecret, clientId, domain));
+		super(new AzureADAuthTemplate(applicationId, applicationSecret, clientId, domain));
 		this.apiVersion = apiVersion;
 		this.interceptors = new LinkedHashSet<>();
 		this.retryTemplate = retryTemplate;
 	}
 
 	public PartnerCenterServiceProvider(String applicationId, String applicationSecret, String clientId, String domain, Collection<ClientHttpRequestInterceptor> interceptors){
-		super(new PartnerCenterAuthTemplate(applicationId, applicationSecret, clientId, domain));
+		super(new AzureADAuthTemplate(applicationId, applicationSecret, clientId, domain));
 		this.apiVersion = DEFAULT_API_VERSION;
 		this.interceptors = interceptors;
 	}
 
 	public PartnerCenterServiceProvider(String applicationId, String applicationSecret, String clientId, String domain, Collection<ClientHttpRequestInterceptor> interceptors, RetryTemplate retryTemplate){
-		super(new PartnerCenterAuthTemplate(applicationId, applicationSecret, clientId, domain));
+		super(new AzureADAuthTemplate(applicationId, applicationSecret, clientId, domain));
 		this.apiVersion = DEFAULT_API_VERSION;
 		this.retryTemplate = retryTemplate;
 		this.interceptors = interceptors;
 	}
 
 	public PartnerCenterServiceProvider(String applicationId, String applicationSecret, String clientId, String domain, String apiVersion, Collection<ClientHttpRequestInterceptor> interceptors){
-		super(new PartnerCenterAuthTemplate(applicationId, applicationSecret, clientId, domain));
+		super(new AzureADAuthTemplate(applicationId, applicationSecret, clientId, domain));
 		this.apiVersion = apiVersion;
 		this.interceptors = interceptors;
 	}
 
 	public PartnerCenterServiceProvider(String applicationId, String applicationSecret, String clientId, String domain, String apiVersion, Collection<ClientHttpRequestInterceptor> interceptors, RetryTemplate retryTemplate){
-		super(new PartnerCenterAuthTemplate(applicationId, applicationSecret, clientId, domain));
+		super(new AzureADAuthTemplate(applicationId, applicationSecret, clientId, domain));
 		this.apiVersion = apiVersion;
 		this.retryTemplate = retryTemplate;
 		this.interceptors = interceptors;

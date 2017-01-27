@@ -8,7 +8,7 @@ import org.springframework.social.connect.support.OAuth2ConnectionFactory;
 import org.springframework.social.oauth2.AccessGrant;
 import org.springframework.social.oauth2.OAuth2Operations;
 import org.springframework.social.partnercenter.PartnerCenter;
-import org.springframework.social.partnercenter.security.PartnerCenterAuthOperations;
+import org.springframework.social.partnercenter.security.AzureADAuthOperations;
 import org.springframework.social.partnercenter.security.PartnerCenterServiceProvider;
 
 public class BasePartnerCenterConnectionFactory extends ConnectionFactory<PartnerCenter> {
@@ -24,11 +24,11 @@ public class BasePartnerCenterConnectionFactory extends ConnectionFactory<Partne
 	}
 
 	/**
-	 * Get the ServiceProvider's {@link PartnerCenterAuthOperations} that allows the client application to conduct the OAuth2 flow with the provider.
+	 * Get the ServiceProvider's {@link AzureADAuthOperations} that allows the client application to conduct the OAuth2 flow with the provider.
 	 * @return an OAuth2Operations
 	 */
-	public PartnerCenterAuthOperations getAuthOperations() {
-		return getPartnerCenterServiceProvider().getPartnerCenterAuthOperations();
+	public AzureADAuthOperations getAuthOperations() {
+		return getPartnerCenterServiceProvider().getAzureADAuthOperations();
 	}
 
 	/**

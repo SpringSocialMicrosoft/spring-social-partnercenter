@@ -42,7 +42,7 @@ public class PartnerCenterAdminConnection extends AbstractConnection<PartnerCent
 
 	public void refresh() {
 		synchronized (getMonitor()) {
-			AccessGrant accessGrant = serviceProvider.getPartnerCenterAuthOperations().exchangeCredentialsForAccess(username, password, new OAuth2Parameters());
+			AccessGrant accessGrant = serviceProvider.getAzureADAuthOperations().exchangeCredentialsForAccess(username, password, new OAuth2Parameters());
 			initAccessAttributes(accessGrant.getAccessToken(), accessGrant.getExpireTime(), this.username, this.password);
 			initApi();
 		}
