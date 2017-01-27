@@ -1,4 +1,4 @@
-package org.springframework.social.partnercenter.oauth2;
+package org.springframework.social.partnercenter.security;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

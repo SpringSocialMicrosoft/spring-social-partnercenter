@@ -6,6 +6,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import org.junit.Test;
 import org.springframework.social.connect.ConnectionFactory;
 import org.springframework.social.partnercenter.PartnerCenter;
+import org.springframework.social.partnercenter.connect.support.MultiTenantConnectionFactoryRegistry;
 
 public class MultiTenantConnectionFactoryRegistryTest {
 

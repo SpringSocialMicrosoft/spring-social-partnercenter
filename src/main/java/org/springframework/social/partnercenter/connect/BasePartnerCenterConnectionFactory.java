@@ -8,6 +8,8 @@ import org.springframework.social.connect.support.OAuth2ConnectionFactory;
 import org.springframework.social.oauth2.AccessGrant;
 import org.springframework.social.oauth2.OAuth2Operations;
 import org.springframework.social.partnercenter.PartnerCenter;
+import org.springframework.social.partnercenter.security.AzureADAuthOperations;
+import org.springframework.social.partnercenter.security.PartnerCenterServiceProvider;
 
 public class BasePartnerCenterConnectionFactory extends ConnectionFactory<PartnerCenter> {
 
@@ -22,22 +24,22 @@ public class BasePartnerCenterConnectionFactory extends ConnectionFactory<Partne
 	}
 
 	/**
-	 * Get the ServiceProvider's {@link OAuth2Operations} that allows the client application to conduct the OAuth2 flow with the provider.
+	 * Get the ServiceProvider's {@link AzureADAuthOperations} that allows the client application to conduct the OAuth2 flow with the provider.
 	 * @return an OAuth2Operations
 	 */
-	public OAuth2Operations getOAuthOperations() {
-		return getPartnerCenterServiceProvider().getOAuthOperations();
+	public AzureADAuthOperations getAuthOperations() {
+		return getPartnerCenterServiceProvider().getAzureADAuthOperations();
 	}
 
 	/**
-	 * Create a OAuth2-based {@link Connection} from the {@link AccessGrant} returned after {@link #getOAuthOperations() completing the OAuth2 flow}.
+	 * Create a OAuth2-based {@link Connection} from the {@link AccessGrant} returned after {@link #getAuthOperations() completing the OAuth2 flow}.
 	 * @param accessGrant the access grant
 	 * @return the new service provider connection
 	 * @see OAuth2Operations#exchangeForAccess(String, String, org.springframework.util.MultiValueMap)
 	 */
 	public Connection<PartnerCenter> createConnection(AccessGrant accessGrant) {
 		return new PartnerCenterConnection(getProviderId(), extractProviderUserId(accessGrant), accessGrant.getAccessToken(),
-				accessGrant.getRefreshToken(), accessGrant.getExpireTime(), getPartnerCenterServiceProvider(), getApiAdapter());
+				accessGrant.getExpireTime(), getPartnerCenterServiceProvider(), getApiAdapter());
 	}
 
 	/**
@@ -57,7 +59,7 @@ public class BasePartnerCenterConnectionFactory extends ConnectionFactory<Partne
 	 * @param accessGrant an AccessGrant from which to extract the provider ID
 	 * @return the pvodier ID, if available
 	 */
-	protected String extractProviderUserId(AccessGrant accessGrant) {
+	String extractProviderUserId(AccessGrant accessGrant) {
 		return null;
 	}
 

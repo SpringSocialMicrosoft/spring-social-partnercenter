@@ -1,4 +1,4 @@
-package org.springframework.social.partnercenter.oauth2;
+package org.springframework.social.partnercenter.security;
 
 public enum PartnerCenterGrantType {
 	CLIENT_CREDENTIALS("client_credentials"),
