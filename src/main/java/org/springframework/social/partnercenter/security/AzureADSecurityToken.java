@@ -2,7 +2,7 @@ package org.springframework.social.partnercenter.security;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class AzureAccessGrant {
+public class AzureADSecurityToken {
 	@JsonProperty("token_type")
 	private String tokenType;
 	@JsonProperty("expires_in")
@@ -22,7 +22,7 @@ public class AzureAccessGrant {
 		return tokenType;
 	}
 
-	public AzureAccessGrant setTokenType(String tokenType) {
+	public AzureADSecurityToken setTokenType(String tokenType) {
 		this.tokenType = tokenType;
 		return this;
 	}
@@ -31,7 +31,7 @@ public class AzureAccessGrant {
 		return expiresIn;
 	}
 
-	public AzureAccessGrant setExpiresIn(String expiresIn) {
+	public AzureADSecurityToken setExpiresIn(String expiresIn) {
 		this.expiresIn = expiresIn;
 		return this;
 	}
@@ -40,7 +40,7 @@ public class AzureAccessGrant {
 		return extExpiresIn;
 	}
 
-	public AzureAccessGrant setExtExpiresIn(String extExpiresIn) {
+	public AzureADSecurityToken setExtExpiresIn(String extExpiresIn) {
 		this.extExpiresIn = extExpiresIn;
 		return this;
 	}
@@ -49,7 +49,7 @@ public class AzureAccessGrant {
 		return expiresOn;
 	}
 
-	public AzureAccessGrant setExpiresOn(String expiresOn) {
+	public AzureADSecurityToken setExpiresOn(String expiresOn) {
 		this.expiresOn = expiresOn;
 		return this;
 	}
@@ -58,7 +58,7 @@ public class AzureAccessGrant {
 		return notBefore;
 	}
 
-	public AzureAccessGrant setNotBefore(String notBefore) {
+	public AzureADSecurityToken setNotBefore(String notBefore) {
 		this.notBefore = notBefore;
 		return this;
 	}
@@ -67,7 +67,7 @@ public class AzureAccessGrant {
 		return resource;
 	}
 
-	public AzureAccessGrant setResource(String resource) {
+	public AzureADSecurityToken setResource(String resource) {
 		this.resource = resource;
 		return this;
 	}
@@ -76,7 +76,7 @@ public class AzureAccessGrant {
 		return accessToken;
 	}
 
-	public AzureAccessGrant setAccessToken(String accessToken) {
+	public AzureADSecurityToken setAccessToken(String accessToken) {
 		this.accessToken = accessToken;
 		return this;
 	}
