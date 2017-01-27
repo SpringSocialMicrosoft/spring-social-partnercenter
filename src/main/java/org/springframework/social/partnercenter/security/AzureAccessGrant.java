@@ -1,8 +1,8 @@
-package org.springframework.social.partnercenter.oauth2;
+package org.springframework.social.partnercenter.security;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class AzureADSecurityToken {
+public class AzureAccessGrant {
 	@JsonProperty("token_type")
 	private String tokenType;
 	@JsonProperty("expires_in")
@@ -22,7 +22,7 @@ public class AzureADSecurityToken {
 		return tokenType;
 	}
 
-	public AzureADSecurityToken setTokenType(String tokenType) {
+	public AzureAccessGrant setTokenType(String tokenType) {
 		this.tokenType = tokenType;
 		return this;
 	}
@@ -31,7 +31,7 @@ public class AzureADSecurityToken {
 		return expiresIn;
 	}
 
-	public AzureADSecurityToken setExpiresIn(String expiresIn) {
+	public AzureAccessGrant setExpiresIn(String expiresIn) {
 		this.expiresIn = expiresIn;
 		return this;
 	}
@@ -40,7 +40,7 @@ public class AzureADSecurityToken {
 		return extExpiresIn;
 	}
 
-	public AzureADSecurityToken setExtExpiresIn(String extExpiresIn) {
+	public AzureAccessGrant setExtExpiresIn(String extExpiresIn) {
 		this.extExpiresIn = extExpiresIn;
 		return this;
 	}
@@ -49,7 +49,7 @@ public class AzureADSecurityToken {
 		return expiresOn;
 	}
 
-	public AzureADSecurityToken setExpiresOn(String expiresOn) {
+	public AzureAccessGrant setExpiresOn(String expiresOn) {
 		this.expiresOn = expiresOn;
 		return this;
 	}
@@ -58,7 +58,7 @@ public class AzureADSecurityToken {
 		return notBefore;
 	}
 
-	public AzureADSecurityToken setNotBefore(String notBefore) {
+	public AzureAccessGrant setNotBefore(String notBefore) {
 		this.notBefore = notBefore;
 		return this;
 	}
@@ -67,7 +67,7 @@ public class AzureADSecurityToken {
 		return resource;
 	}
 
-	public AzureADSecurityToken setResource(String resource) {
+	public AzureAccessGrant setResource(String resource) {
 		this.resource = resource;
 		return this;
 	}
@@ -76,7 +76,7 @@ public class AzureADSecurityToken {
 		return accessToken;
 	}
 
-	public AzureADSecurityToken setAccessToken(String accessToken) {
+	public AzureAccessGrant setAccessToken(String accessToken) {
 		this.accessToken = accessToken;
 		return this;
 	}

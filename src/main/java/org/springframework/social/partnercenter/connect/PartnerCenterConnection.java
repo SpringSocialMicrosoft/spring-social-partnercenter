@@ -12,50 +12,43 @@ import org.springframework.social.connect.ApiAdapter;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionData;
 import org.springframework.social.connect.support.AbstractConnection;
-import org.springframework.social.connect.support.OAuth2Connection;
 import org.springframework.social.oauth2.AccessGrant;
-import org.springframework.social.oauth2.OAuth2ServiceProvider;
 import org.springframework.social.partnercenter.PartnerCenter;
+import org.springframework.social.partnercenter.security.PartnerCenterServiceProvider;
 
 public class PartnerCenterConnection extends AbstractConnection<PartnerCenter> {
 	private static final long serialVersionUID = 4057584084077577480L;
 
 	private transient final PartnerCenterServiceProvider serviceProvider;
-
 	private String accessToken;
-
-	private String refreshToken;
-
 	private Long expireTime;
-
 	private transient PartnerCenter api;
-
 	private transient PartnerCenter apiProxy;
 
 	/**
-	 * Creates a new {@link OAuth2Connection} from a access grant response.
-	 * Designed to be called to establish a new {@link OAuth2Connection} after receiving an access grant successfully.
-	 * The providerUserId may be null in this case: if so, this constructor will try to resolve it using the service API obtained from the {@link OAuth2ServiceProvider}.
+	 * Creates a new {@link PartnerCenterConnection} from a access grant response.
+	 * Designed to be called to establish a new {@link PartnerCenterConnection} after receiving an access grant successfully.
+	 * The providerUserId may be null in this case: if so, this constructor will try to resolve it using the service API obtained from
+	 * the {@link PartnerCenterServiceProvider}.
 	 * @param providerId the provider id e.g. "facebook".
 	 * @param providerUserId the provider user id (may be null if not returned as part of the access grant)
 	 * @param accessToken the granted access token
-	 * @param refreshToken the granted refresh token
 	 * @param expireTime the access token expiration time
 	 * @param serviceProvider the OAuth2-based ServiceProvider
 	 * @param apiAdapter the ApiAdapter for the ServiceProvider
 	 */
-	public PartnerCenterConnection(String providerId, String providerUserId, String accessToken, String refreshToken, Long expireTime,
-							PartnerCenterServiceProvider serviceProvider, ApiAdapter<PartnerCenter> apiAdapter) {
+	public PartnerCenterConnection(String providerId, String providerUserId, String accessToken, Long expireTime,
+								   PartnerCenterServiceProvider serviceProvider, ApiAdapter<PartnerCenter> apiAdapter) {
 		super(apiAdapter);
 		this.serviceProvider = serviceProvider;
-		initAccessTokens(accessToken, refreshToken, expireTime);
+		initAccessTokens(accessToken, expireTime);
 		initApi();
 		initApiProxy();
 		initKey(providerId, providerUserId);
 	}
 
 	/**
-	 * Creates a new {@link OAuth2Connection} from the data provided.
+	 * Creates a new {@link PartnerCenterConnection} from the data provided.
 	 * Designed to be called when re-constituting an existing {@link Connection} from {@link ConnectionData}.
 	 * @param data the data holding the state of this connection
 	 * @param serviceProvider the OAuth2-based ServiceProvider
@@ -64,7 +57,7 @@ public class PartnerCenterConnection extends AbstractConnection<PartnerCenter> {
 	public PartnerCenterConnection(ConnectionData data, PartnerCenterServiceProvider serviceProvider, ApiAdapter<PartnerCenter> apiAdapter) {
 		super(data, apiAdapter);
 		this.serviceProvider = serviceProvider;
-		initAccessTokens(data.getAccessToken(), data.getRefreshToken(), data.getExpireTime());
+		initAccessTokens(data.getAccessToken(), data.getExpireTime());
 		initApi();
 		initApiProxy();
 	}
@@ -79,8 +72,8 @@ public class PartnerCenterConnection extends AbstractConnection<PartnerCenter> {
 
 	public void refresh() {
 		synchronized (getMonitor()) {
-			AccessGrant accessGrant = serviceProvider.getOAuthOperations().refreshAccess(refreshToken, null);
-			initAccessTokens(accessGrant.getAccessToken(), accessGrant.getRefreshToken(), accessGrant.getExpireTime());
+			AccessGrant accessGrant = serviceProvider.getPartnerCenterAuthOperations().refreshAccess(null);
+			initAccessTokens(accessGrant.getAccessToken(), accessGrant.getExpireTime());
 			initApi();
 		}
 	}
@@ -97,15 +90,15 @@ public class PartnerCenterConnection extends AbstractConnection<PartnerCenter> {
 
 	public ConnectionData createData() {
 		synchronized (getMonitor()) {
-			return new ConnectionData(getKey().getProviderId(), getKey().getProviderUserId(), getDisplayName(), getProfileUrl(), getImageUrl(), accessToken, null, refreshToken, expireTime);
+			return new ConnectionData(getKey().getProviderId(), getKey().getProviderUserId(), getDisplayName(), getProfileUrl(), getImageUrl(),
+					accessToken, null, null, expireTime);
 		}
 	}
 
 	// internal helpers
 
-	private void initAccessTokens(String accessToken, String refreshToken, Long expireTime) {
+	private void initAccessTokens(String accessToken, Long expireTime) {
 		this.accessToken = accessToken;
-		this.refreshToken = refreshToken;
 		this.expireTime = expireTime;
 	}
 
@@ -144,7 +137,6 @@ public class PartnerCenterConnection extends AbstractConnection<PartnerCenter> {
 		int result = super.hashCode();
 		result = prime * result + ((accessToken == null) ? 0 : accessToken.hashCode());
 		result = prime * result + ((expireTime == null) ? 0 : expireTime.hashCode());
-		result = prime * result + ((refreshToken == null) ? 0 : refreshToken.hashCode());
 		return result;
 	}
 
@@ -164,9 +156,6 @@ public class PartnerCenterConnection extends AbstractConnection<PartnerCenter> {
 			if (other.expireTime != null) return false;
 		} else if (!expireTime.equals(other.expireTime)) return false;
 
-		if (refreshToken == null) {
-			if (other.refreshToken != null) return false;
-		} else if (!refreshToken.equals(other.refreshToken)) return false;
 
 		return true;
 	}

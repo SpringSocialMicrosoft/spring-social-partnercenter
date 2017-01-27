@@ -13,7 +13,7 @@ import org.springframework.social.oauth2.AccessGrant;
 import org.springframework.social.oauth2.OAuth2Parameters;
 import org.springframework.social.partnercenter.PartnerCenter;
 import org.springframework.social.partnercenter.PartnerCenterAdmin;
-import org.springframework.social.partnercenter.connect.PartnerCenterServiceProvider;
+import org.springframework.social.partnercenter.security.PartnerCenterServiceProvider;
 
 public class PartnerCenterAdminConnection extends AbstractConnection<PartnerCenter> {
 
@@ -30,7 +30,7 @@ public class PartnerCenterAdminConnection extends AbstractConnection<PartnerCent
 	public PartnerCenterAdminConnection(String providerId, String providerUserId, String username, String password, String accessToken, Long expireTime, PartnerCenterServiceProvider serviceProvider, ApiAdapter<PartnerCenter> apiAdapter) {
 		super(apiAdapter);
 		this.serviceProvider = serviceProvider;
-		initAccessTokens(accessToken, expireTime, username, password);
+		initAccessAttributes(accessToken, expireTime, username, password);
 		initApi();
 		initApiProxy();
 		initKey(providerId, providerUserId);
@@ -42,8 +42,8 @@ public class PartnerCenterAdminConnection extends AbstractConnection<PartnerCent
 
 	public void refresh() {
 		synchronized (getMonitor()) {
-			AccessGrant accessGrant = serviceProvider.getOAuthOperations().exchangeCredentialsForAccess(username, password, new OAuth2Parameters());
-			initAccessTokens(accessGrant.getAccessToken(), accessGrant.getExpireTime(), this.username, this.password);
+			AccessGrant accessGrant = serviceProvider.getPartnerCenterAuthOperations().exchangeCredentialsForAccess(username, password, new OAuth2Parameters());
+			initAccessAttributes(accessGrant.getAccessToken(), accessGrant.getExpireTime(), this.username, this.password);
 			initApi();
 		}
 	}
@@ -72,7 +72,7 @@ public class PartnerCenterAdminConnection extends AbstractConnection<PartnerCent
 		}
 	}
 
-	private void initAccessTokens(String accessToken, Long expireTime, String username, String password) {
+	private void initAccessAttributes(String accessToken, Long expireTime, String username, String password) {
 		this.accessToken = accessToken;
 		this.expireTime = expireTime;
 		this.username = username;

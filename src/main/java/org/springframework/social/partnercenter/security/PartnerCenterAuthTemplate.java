@@ -1,4 +1,4 @@
-package org.springframework.social.partnercenter.oauth2;
+package org.springframework.social.partnercenter.security;
 
 import static java.util.Optional.ofNullable;
 import static org.springframework.util.Assert.notNull;
@@ -6,7 +6,6 @@ import static org.springframework.util.Assert.notNull;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.http.HttpEntity;
@@ -18,33 +17,22 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.social.oauth2.AccessGrant;
 import org.springframework.social.oauth2.GrantType;
-import org.springframework.social.oauth2.OAuth2Operations;
-import org.springframework.social.oauth2.OAuth2Parameters;
 import org.springframework.social.partnercenter.api.uri.UriProvider;
-import org.springframework.social.partnercenter.security.AzureAccessGrant;
+import org.springframework.social.partnercenter.oauth2.PartnerCenterAccessGrant;
+import org.springframework.social.partnercenter.oauth2.PartnerCenterGrantType;
 import org.springframework.social.support.ClientHttpRequestFactorySelector;
 import org.springframework.social.support.FormMapHttpMessageConverter;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
-public class PartnerCenterAuthorizationTemplate implements OAuth2Operations {
-
+public class PartnerCenterAuthTemplate implements PartnerCenterAuthOperations {
 	private final String applicationId;
-
 	private final String clientId;
-
 	private final String applicationSecret;
-
 	private final String accessTokenUrl;
-
 	private final String authorizeUrl;
-
-	private String authenticateUrl;
-
 	private RestTemplate restTemplate;
-
 	private boolean useParametersForClientAuthentication;
 
 	/**
@@ -54,8 +42,8 @@ public class PartnerCenterAuthorizationTemplate implements OAuth2Operations {
 	 * @param domain the reseller domain
 	 * @param clientId The client id for login with credentials
 	 */
-	public PartnerCenterAuthorizationTemplate(String applicationId, String applicationSecret, String clientId, String domain){
-		this(applicationId, applicationSecret, clientId, UriProvider.buildPartnerCenterOAuth2Uri(domain), null,  UriProvider.buildPartnerCenterTokenUri());
+	public PartnerCenterAuthTemplate(String applicationId, String applicationSecret, String clientId, String domain){
+		this(applicationId, applicationSecret, clientId, UriProvider.buildPartnerCenterOAuth2Uri(domain), UriProvider.buildPartnerCenterTokenUri());
 	}
 
 	/**
@@ -63,10 +51,9 @@ public class PartnerCenterAuthorizationTemplate implements OAuth2Operations {
 	 * @param applicationId the client ID
 	 * @param applicationSecret the client secret
 	 * @param authorizeUrl the base URL to redirect to when doing authorization code or implicit grant authorization
-	 * @param authenticateUrl the URL to redirect to when doing authentication via authorization code grant
 	 * @param accessTokenUrl the URL at which an authorization code, refresh token, or user credentials may be exchanged for an access token
 	 */
-	private PartnerCenterAuthorizationTemplate(String applicationId, String applicationSecret, String clientId, String authorizeUrl, String authenticateUrl, String accessTokenUrl) {
+	private PartnerCenterAuthTemplate(String applicationId, String applicationSecret, String clientId, String authorizeUrl, String accessTokenUrl) {
 		notNull(applicationId, "The applicationId property cannot be null");
 		notNull(applicationSecret, "The applicationSecret property cannot be null");
 		notNull(clientId, "The clientId property cannot be null");
@@ -77,54 +64,17 @@ public class PartnerCenterAuthorizationTemplate implements OAuth2Operations {
 		this.clientId = clientId;
 		this.authorizeUrl = authorizeUrl;
 		this.useParametersForClientAuthentication = true;
-		this.authenticateUrl = authenticateUrl;
 		this.accessTokenUrl = accessTokenUrl;
 	}
 
-	/**
-	 * Set to true to pass client credentials to the provider as parameters instead of using HTTP Basic authentication.
-	 * @param useParametersForClientAuthentication true if the client credentials should be passed as parameters; false if passed via HTTP Basic
-	 */
-	public void setUseParametersForClientAuthentication(boolean useParametersForClientAuthentication) {
-		this.useParametersForClientAuthentication = useParametersForClientAuthentication;
-	}
-
-	/**
-	 * Set the request factory on the underlying RestTemplate.
-	 * This can be used to plug in a different HttpClient to do things like configure custom SSL settings.
-	 * @param requestFactory the request factory used by the underlying RestTemplate
-	 */
-	public void setRequestFactory(ClientHttpRequestFactory requestFactory) {
-		notNull(requestFactory, "The requestFactory property cannot be null");
-		getRestTemplate().setRequestFactory(requestFactory);
-	}
-
-	public String buildAuthorizeUrl(OAuth2Parameters parameters) {
-		return buildAuthUrl(authorizeUrl, GrantType.AUTHORIZATION_CODE, parameters);
-	}
-
-	public String buildAuthorizeUrl(GrantType grantType, OAuth2Parameters parameters) {
-		return buildAuthUrl(authorizeUrl, grantType, parameters);
-	}
-
-	public String buildAuthenticateUrl(OAuth2Parameters parameters) {
-		return authenticateUrl != null ? buildAuthUrl(authenticateUrl, GrantType.IMPLICIT_GRANT, parameters) : buildAuthorizeUrl(GrantType.IMPLICIT_GRANT, parameters);
-	}
-
-	public String buildAuthenticateUrl(GrantType grantType, OAuth2Parameters parameters) {
-		return authenticateUrl != null ? buildAuthUrl(authenticateUrl, grantType, parameters) : buildAuthorizeUrl(grantType, parameters);
-	}
-
+	@Override
 	public AccessGrant exchangeForAccess(){
 		AzureAccessGrant azureAccessGrant = postForADToken();
 		return exchangeForAccess(azureAccessGrant.getAccessToken(), null);
 	}
 
+	@Override
 	public AccessGrant exchangeForAccess(String authorizationCode, MultiValueMap<String, String> additionalParameters) {
-		return exchangeForAccess(authorizationCode, null, additionalParameters);
-	}
-
-	public AccessGrant exchangeForAccess(String authorizationCode, String tenant, MultiValueMap<String, String> additionalParameters) {
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("Authorization", "Bearer "  + authorizationCode);
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
@@ -134,55 +84,6 @@ public class PartnerCenterAuthorizationTemplate implements OAuth2Operations {
 		}
 		return postForAccessGrant(accessTokenUrl, headers, params);
 	}
-
-
-	public AccessGrant exchangeCredentialsForAccess(String username, String password, MultiValueMap<String, String> additionalParameters) {
-		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-		if (useParametersForClientAuthentication) {
-			params.set("client_id", clientId);
-		}
-		params.set("username", username);
-		params.set("password", password);
-		params.set("resource", UriProvider.PARTNER_CENTER_URL);
-		params.set("scope", "openid");
-		params.set("grant_type", PartnerCenterGrantType.PASSWORD.asString());
-
-		ofNullable(additionalParameters).ifPresent(additionalParameterMap ->
-				additionalParameterMap.forEach(params::put));
-
-		return postForAccessGrant(authorizeUrl, params);
-	}
-
-	@Deprecated
-	public AccessGrant refreshAccess(String refreshToken, String scope, MultiValueMap<String, String> additionalParameters) {
-		additionalParameters.set("scope", scope);
-		AzureAccessGrant azureAccessGrant = postForADToken();
-		return exchangeForAccess(azureAccessGrant.getAccessToken(), additionalParameters);
-	}
-
-	public AccessGrant refreshAccess(String refreshToken, MultiValueMap<String, String> additionalParameters) {
-		AzureAccessGrant azureAccessGrant = postForADToken();
-		return exchangeForAccess(azureAccessGrant.getAccessToken(), additionalParameters);
-	}
-
-	public AccessGrant authenticateClient() {
-		return authenticateClient(null);
-	}
-
-	public AccessGrant authenticateClient(String scope) {
-		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-		if (useParametersForClientAuthentication) {
-			params.set("client_id", applicationId);
-			params.set("client_secret", applicationSecret);
-		}
-		params.set("grant_type", "client_credentials");
-		if (scope != null) {
-			params.set("scope", scope);
-		}
-		return postForAccessGrant(accessTokenUrl, params);
-	}
-
-	// subclassing hooks
 
 	/**
 	 * Creates the {@link RestTemplate} used to communicate with the provider's OAuth 2 API.
@@ -202,6 +103,40 @@ public class PartnerCenterAuthorizationTemplate implements OAuth2Operations {
 		return restTemplate;
 	}
 
+
+	protected RestTemplate getRestTemplate() {
+		// Lazily create RestTemplate to make sure all parameters have had a chance to be set.
+		// Can't do this InitializingBean.afterPropertiesSet() because it will often be created directly and not as a bean.
+		if (restTemplate == null) {
+			restTemplate = createRestTemplate();
+		}
+		return restTemplate;
+	}
+
+	@Override
+	public AccessGrant exchangeCredentialsForAccess(String username, String password, MultiValueMap<String, String> additionalParameters) {
+		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+		if (useParametersForClientAuthentication) {
+			params.set("client_id", clientId);
+		}
+		params.set("username", username);
+		params.set("password", password);
+		params.set("resource", UriProvider.PARTNER_CENTER_URL);
+		params.set("scope", "openid");
+		params.set("grant_type", PartnerCenterGrantType.PASSWORD.asString());
+
+		ofNullable(additionalParameters).ifPresent(additionalParameterMap ->
+				additionalParameterMap.forEach(params::put));
+
+		return postForAccessGrant(authorizeUrl, params);
+	}
+
+	@Override
+	public AccessGrant refreshAccess(MultiValueMap<String, String> additionalParameters) {
+		AzureAccessGrant azureAccessGrant = postForADToken();
+		return exchangeForAccess(azureAccessGrant.getAccessToken(), additionalParameters);
+	}
+
 	/**
 	 * Posts the request for an access grant to the provider.
 	 * The default implementation uses RestTemplate to request the access token and expects a JSON response to be bound to a Map. The information in the Map will be used to create an {@link AccessGrant}.
@@ -211,7 +146,7 @@ public class PartnerCenterAuthorizationTemplate implements OAuth2Operations {
 	 * For example, if the access token response is given as form-encoded, this method should be overridden to call RestTemplate.postForObject() asking for the response to be bound to a MultiValueMap (whose contents can then be used to create an AccessGrant).
 	 * @param accessTokenUrl the URL of the provider's access token endpoint.
 	 * @param parameters the parameters to post to the access token endpoint.
-     * @param headers http headers to be sent with access request
+	 * @param headers http headers to be sent with access request
 	 * @return the access grant.
 	 */
 	@SuppressWarnings("unchecked")
@@ -264,39 +199,8 @@ public class PartnerCenterAuthorizationTemplate implements OAuth2Operations {
 		return new PartnerCenterAccessGrant(accessToken, scope, refreshToken, idToken, expiresIn);
 	}
 
-	// testing hooks
-
-	protected RestTemplate getRestTemplate() {
-		// Lazily create RestTemplate to make sure all parameters have had a chance to be set.
-		// Can't do this InitializingBean.afterPropertiesSet() because it will often be created directly and not as a bean.
-		if (restTemplate == null) {
-			restTemplate = createRestTemplate();
-		}
-		return restTemplate;
-	}
-
-	// internal helpers
-
-	private String buildAuthUrl(String baseAuthUrl, GrantType grantType, OAuth2Parameters parameters) {
-
-		StringBuilder authUrl = new StringBuilder(baseAuthUrl);
-		authUrl.append('?').append("grant_type").append('=').append(convertGrantType(grantType).asString());
-		authUrl.append('&').append("client_id").append('=').append(applicationId);
-		authUrl.append('&').append("client_secret").append('=').append(applicationSecret);
-		authUrl.append('&').append("resource").append('=').append(UriProvider.GRAPH_URL);
-		ofNullable(parameters).ifPresent(params -> {
-			for (Map.Entry<String, List<String>> param : params.entrySet()) {
-				String name = formEncode(param.getKey());
-				for (String s : param.getValue()) {
-					authUrl.append('&').append(name);
-					if (StringUtils.hasLength(s)) {
-						authUrl.append('=').append(formEncode(s));
-					}
-				}
-			}
-		});
-
-		return authUrl.toString();
+	private AccessGrant extractAccessGrant(Map<String, Object> result) {
+		return createAccessGrant((String) result.get("access_token"), (String) result.get("scope"), (String) result.get("refresh_token"), getIntegerValue(result, "expires_in"), (String) result.get("id_token"), result);
 	}
 
 	private String formEncode(String data) {
@@ -307,10 +211,6 @@ public class PartnerCenterAuthorizationTemplate implements OAuth2Operations {
 			// should not happen, UTF-8 is always supported
 			throw new IllegalStateException(ex);
 		}
-	}
-
-	private AccessGrant extractAccessGrant(Map<String, Object> result) {
-		return createAccessGrant((String) result.get("access_token"), (String) result.get("scope"), (String) result.get("refresh_token"), getIntegerValue(result, "expires_in"), (String) result.get("id_token"), result);
 	}
 
 	// Retrieves object from map into an Integer, regardless of the object's actual type. Allows for flexibility in object type (eg, "3600" vs 3600).
@@ -326,3 +226,5 @@ public class PartnerCenterAuthorizationTemplate implements OAuth2Operations {
 		return grantType.equals(GrantType.AUTHORIZATION_CODE) ? PartnerCenterGrantType.JWT_TOKEN : PartnerCenterGrantType.CLIENT_CREDENTIALS;
 	}
 }
+
+

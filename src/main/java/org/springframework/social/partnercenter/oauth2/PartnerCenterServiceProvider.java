@@ -1,4 +1,4 @@
-package org.springframework.social.partnercenter.connect;
+package org.springframework.social.partnercenter.oauth2;
 
 import java.util.Collection;
 import java.util.LinkedHashSet;
