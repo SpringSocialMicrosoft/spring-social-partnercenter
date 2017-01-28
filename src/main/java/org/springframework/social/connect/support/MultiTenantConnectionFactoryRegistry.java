@@ -1,4 +1,4 @@
-package org.springframework.social.partnercenter.connect;
+package org.springframework.social.connect.support;
 
 import java.util.HashMap;
 import java.util.HashSet;
