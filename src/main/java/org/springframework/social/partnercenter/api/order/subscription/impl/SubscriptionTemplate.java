@@ -7,6 +7,7 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.ResponseEntity;
 import org.springframework.social.partnercenter.PartnerCenter;
 import org.springframework.social.partnercenter.api.AbstractTemplate;
+import org.springframework.social.partnercenter.api.PagingResourceTemplate;
 import org.springframework.social.partnercenter.api.PartnerCenterResponse;
 import org.springframework.social.partnercenter.api.customer.response.SubscriptionListResponse;
 import org.springframework.social.partnercenter.api.order.subscription.Subscription;
@@ -15,13 +16,13 @@ import org.springframework.social.partnercenter.api.order.subscription.upgrade.U
 import org.springframework.social.partnercenter.api.order.subscription.upgrade.UpgradeResult;
 import org.springframework.social.partnercenter.http.client.RestResource;
 
-public class SubscriptionTemplate extends AbstractTemplate implements SubscriptionOperations {
+public class SubscriptionTemplate extends PagingResourceTemplate<Subscription> implements SubscriptionOperations {
 
 	private static final String SUBSCRIPTIONS = "subscriptions";
 	private final RestResource restResource;
 
 	public SubscriptionTemplate(RestResource restResource, boolean isAuthorized) {
-		super(isAuthorized);
+		super(restResource, isAuthorized);
 		this.restResource = restResource;
 	}
 

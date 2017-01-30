@@ -10,8 +10,6 @@ import org.springframework.social.partnercenter.api.customer.user.request.Assign
 import org.springframework.social.partnercenter.api.customer.user.request.CreateUserAccountsForCustomerRequest;
 
 public interface UserOperations {
-	ResponseEntity<String> assignLicensesToUser(String customerId, String userId, AssignLicensesToUserRequest request);
-
 	ResponseEntity<User> createUser(String customerTenantId, CreateUserRequest request);
 	ResponseEntity<User> createUser(String customerTenantId, CreateUserRequest request, String userId);
 	ResponseEntity deleteUser(String customerTenantId, String userId);
@@ -20,7 +18,5 @@ public interface UserOperations {
 	ResponseEntity<GetRoleListResponse> getUserRoles(String customerTenantId, String userId);
 	ResponseEntity<GetRoleListResponse> getAllRoles(String customerTenantId);
 	ResponseEntity<GetRoleListResponse> getRolesByRoleId(String customerTenantId, String RoleId);
-	ResponseEntity<PartnerCenterResponse<License>> getLicensesAssignToAUser(String customerTenantId, String userId);
-	ResponseEntity<CustomerUser> createUserAccountsForCustomer(String customerTenantId, CreateUserAccountsForCustomerRequest request);
-	ResponseEntity deleteUserAccountsForCustomer(String customerTenantId);
+
 }

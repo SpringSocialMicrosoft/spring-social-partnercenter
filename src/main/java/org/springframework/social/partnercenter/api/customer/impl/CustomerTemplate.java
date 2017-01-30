@@ -1,11 +1,13 @@
 package org.springframework.social.partnercenter.api.customer.impl;
 
 import static org.springframework.social.partnercenter.api.customer.request.Operator.STARTS_WITH;
+import static org.springframework.social.partnercenter.http.PartnerCenterHttpHeaders.MS_CONTINUATION_TOKEN;
 
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.ResponseEntity;
 import org.springframework.social.partnercenter.PartnerCenter;
 import org.springframework.social.partnercenter.api.AbstractTemplate;
+import org.springframework.social.partnercenter.api.PagingResourceTemplate;
 import org.springframework.social.partnercenter.api.PartnerCenterResponse;
 import org.springframework.social.partnercenter.api.customer.CustomerBillingProfile;
 import org.springframework.social.partnercenter.api.customer.CustomerCompanyProfile;
@@ -18,11 +20,11 @@ import org.springframework.social.partnercenter.api.order.subscription.Subscript
 import org.springframework.social.partnercenter.http.client.RestResource;
 import org.springframework.social.partnercenter.serialization.Json;
 
-public class CustomerTemplate extends AbstractTemplate implements CustomerOperations {
+public class CustomerTemplate extends PagingResourceTemplate<Customer> implements CustomerOperations {
 	private RestResource restResource;
 
 	public CustomerTemplate(RestResource restResource, boolean isAuthorized) {
-		super(isAuthorized);
+		super(restResource, isAuthorized);
 		this.restResource = restResource;
 	}
 
@@ -89,6 +91,14 @@ public class CustomerTemplate extends AbstractTemplate implements CustomerOperat
 		return restResource.request()
 				.pathSegment(customerTenantId, "subscriptions", subscriptionId)
 				.post(subscription, Subscription.class);
+	}
+
+	@Override
+	public ResponseEntity<PartnerCenterResponse<Customer>> next(String continuationToken) {
+		return restResource.request()
+				.header(MS_CONTINUATION_TOKEN, continuationToken)
+				.queryParam("seekOperation", "Next")
+				.get(new ParameterizedTypeReference<PartnerCenterResponse<Customer>>() {});
 	}
 
 	private ResponseEntity<Subscription> getPartnerCenterSubscription(String customerTenantId, String subscriptionId) {

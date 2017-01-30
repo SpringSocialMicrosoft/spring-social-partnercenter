@@ -7,26 +7,24 @@ import java.util.UUID;
 
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.social.partnercenter.http.PartnerCenterHttpHeaders;
 import org.springframework.web.util.UriComponentsBuilder;
 
 public class HttpRequestBuilder {
-	public static final String MS_REQUEST_ID_HEADER_NAME = "MS-RequestId";
-	public static final String MS_CORRELATION_ID_HEADER_NAME = "MS-CorrelationId";
-	private HttpHeaders headers;
+	private PartnerCenterHttpHeaders headers;
 	private RestResource restResource;
 	private UriComponentsBuilder uriBuilder;
 
 	HttpRequestBuilder(RestResource restResource, String resourceBaseUri, String msRequestId, String msCorrelationId){
-		this.headers = new HttpHeaders();
+		this.headers = new PartnerCenterHttpHeaders();
 		addMicrosoftTrackingHeaders(msRequestId, msCorrelationId);
 		this.restResource = restResource;
 		this.uriBuilder = UriComponentsBuilder.fromUriString(resourceBaseUri);
 	}
 
 	HttpRequestBuilder(RestResource restResource, String resourceBaseUri){
-		this.headers = new HttpHeaders();
+		this.headers = new PartnerCenterHttpHeaders();
 		addMicrosoftTrackingHeaders();
 		this.restResource = restResource;
 		this.uriBuilder = UriComponentsBuilder.fromUriString(resourceBaseUri);
@@ -73,7 +71,6 @@ public class HttpRequestBuilder {
 	}
 
 	public <T> ResponseEntity<T> get(Class<T> aClass){
-		HttpEntity<T> tHttpEntity = new HttpEntity<>(headers);
 		return restResource.get(uriBuilder.build().toUri(), aClass, headers);
 	}
 
@@ -86,11 +83,11 @@ public class HttpRequestBuilder {
 	}
 
 	private void addMicrosoftTrackingHeaders() {
-		headers.set(MS_REQUEST_ID_HEADER_NAME, UUID.randomUUID().toString());
-		headers.set(MS_CORRELATION_ID_HEADER_NAME, UUID.randomUUID().toString());
+		headers.setMsRequestId(UUID.randomUUID().toString());
+		headers.setMsCorrelationId(UUID.randomUUID().toString());
 	}
 	private void addMicrosoftTrackingHeaders(String msRequestId, String msCorrelationId) {
-		headers.set(MS_REQUEST_ID_HEADER_NAME, msRequestId);
-		headers.set(MS_CORRELATION_ID_HEADER_NAME, msCorrelationId);
+		headers.setMsRequestId(msRequestId);
+		headers.setMsCorrelationId(msCorrelationId);
 	}
 }

@@ -1,12 +1,13 @@
 package org.springframework.social.partnercenter.api.customer;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.social.partnercenter.api.PagingResourceOperations;
 import org.springframework.social.partnercenter.api.PartnerCenterResponse;
 import org.springframework.social.partnercenter.api.customer.response.CustomerListResponse;
 import org.springframework.social.partnercenter.api.customer.response.CustomerRelationshipRequest;
 import org.springframework.social.partnercenter.api.order.subscription.Subscription;
 
-public interface CustomerOperations {
+public interface CustomerOperations extends PagingResourceOperations<Customer>{
 	ResponseEntity<Customer> create(Customer customer);
 	ResponseEntity<CustomerRelationshipRequest> requestResellerRelationship();
     ResponseEntity<Customer> getById(String tenantId);
@@ -16,4 +17,5 @@ public interface CustomerOperations {
 	ResponseEntity<CustomerCompanyProfile> getCustomersCompanyProfile(String customerId);
     ResponseEntity<CustomerBillingProfile> updateBillingProfile(String customerId, String etag, CustomerBillingProfile billingProfile);
     ResponseEntity<Subscription> updateFriendlyName(String customerTenantId, String subscriptionId, String nickname);
+	ResponseEntity<PartnerCenterResponse<Customer>> next(String continuationToken);
 }
