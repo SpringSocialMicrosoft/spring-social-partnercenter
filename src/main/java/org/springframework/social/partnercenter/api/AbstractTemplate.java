@@ -9,7 +9,7 @@ public abstract class AbstractTemplate {
 		this.isAuthorized = isAuthorized;
 		checkAuthorization();
 	}
-	public void checkAuthorization(){
+	private void checkAuthorization(){
 		if (!isAuthorized) {
 			throw new MissingAuthorizationException(getProviderId());
 		}

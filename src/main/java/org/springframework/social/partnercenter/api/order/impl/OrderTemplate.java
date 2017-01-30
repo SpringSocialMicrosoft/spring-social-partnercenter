@@ -2,6 +2,7 @@ package org.springframework.social.partnercenter.api.order.impl;
 
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.ResponseEntity;
+import org.springframework.social.partnercenter.api.PagingResourceTemplate;
 import org.springframework.social.partnercenter.api.PartnerCenterResponse;
 import org.springframework.social.partnercenter.api.order.OrderOperations;
 import org.springframework.social.partnercenter.PartnerCenter;
@@ -10,11 +11,11 @@ import org.springframework.social.partnercenter.api.AbstractTemplate;
 import org.springframework.social.partnercenter.api.order.Order;
 import org.springframework.social.partnercenter.api.order.request.CreateOrderRequest;
 
-public class OrderTemplate extends AbstractTemplate implements OrderOperations {
+public class OrderTemplate extends PagingResourceTemplate<Order> implements OrderOperations {
 	private final RestResource restResource;
 
 	public OrderTemplate(RestResource restResource, boolean isAuthorized) {
-		super(isAuthorized);
+		super(restResource, isAuthorized);
 		this.restResource = restResource;
 	}
 

@@ -8,7 +8,7 @@ import org.springframework.retry.support.RetryTemplate;
 import org.springframework.social.partnercenter.PartnerCenter;
 import org.springframework.social.partnercenter.PartnerCenterAdmin;
 import org.springframework.social.partnercenter.api.PartnerCenterTemplate;
-import org.springframework.social.partnercenter.api.admin.PartnerCenterAdminTemplate;
+import org.springframework.social.partnercenter.api.PartnerCenterAdminTemplate;
 
 public class PartnerCenterServiceProvider extends AbstractAzureADServiceProvider<PartnerCenter>{
 
