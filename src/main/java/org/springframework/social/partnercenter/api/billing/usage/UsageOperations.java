@@ -3,9 +3,10 @@ package org.springframework.social.partnercenter.api.billing.usage;
 import java.time.ZonedDateTime;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.social.partnercenter.api.PagingResourceOperations;
 import org.springframework.social.partnercenter.api.PartnerCenterResponse;
 
-public interface UsageOperations {
+public interface UsageOperations extends PagingResourceOperations<UtilizationRecord>{
 
 	ResponseEntity<PartnerCenterResponse<UtilizationRecord>> getUtilizationRecords(String customerId, String subscriptionId, ZonedDateTime startDateTime, ZonedDateTime endDateTime);
 	ResponseEntity<PartnerCenterResponse<UtilizationRecord>> getUtilizationRecords(String customerId, String subscriptionId, ZonedDateTime startDateTime, ZonedDateTime endDateTime, Granularity granularity);

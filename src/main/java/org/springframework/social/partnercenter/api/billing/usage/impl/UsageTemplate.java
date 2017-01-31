@@ -8,21 +8,21 @@ import java.time.format.DateTimeFormatter;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.ResponseEntity;
 import org.springframework.social.partnercenter.PartnerCenter;
-import org.springframework.social.partnercenter.api.AbstractTemplate;
+import org.springframework.social.partnercenter.api.PagingResourceTemplate;
 import org.springframework.social.partnercenter.api.PartnerCenterResponse;
 import org.springframework.social.partnercenter.api.billing.usage.AzureResourceMonthlyUsageRecord;
+import org.springframework.social.partnercenter.api.billing.usage.CustomerUsageSummary;
 import org.springframework.social.partnercenter.api.billing.usage.Granularity;
 import org.springframework.social.partnercenter.api.billing.usage.UsageOperations;
-import org.springframework.social.partnercenter.api.billing.usage.CustomerUsageSummary;
 import org.springframework.social.partnercenter.api.billing.usage.UtilizationRecord;
 import org.springframework.social.partnercenter.http.client.RestResource;
 
-public class UsageTemplate extends AbstractTemplate implements UsageOperations {
+public class UsageTemplate extends PagingResourceTemplate<UtilizationRecord> implements UsageOperations {
 	public static final String SUBSCRIPTIONS = "subscriptions";
 	private RestResource restResource;
 
 	public UsageTemplate(RestResource restResource, boolean isAuthorized) {
-		super(isAuthorized);
+		super(restResource, isAuthorized);
 		this.restResource = restResource;
 	}
 

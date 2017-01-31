@@ -17,5 +17,4 @@ public interface CustomerOperations extends PagingResourceOperations<Customer>{
 	ResponseEntity<CustomerCompanyProfile> getCustomersCompanyProfile(String customerId);
     ResponseEntity<CustomerBillingProfile> updateBillingProfile(String customerId, String etag, CustomerBillingProfile billingProfile);
     ResponseEntity<Subscription> updateFriendlyName(String customerTenantId, String subscriptionId, String nickname);
-	ResponseEntity<PartnerCenterResponse<Customer>> next(String continuationToken);
 }
