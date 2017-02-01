@@ -1,9 +1,10 @@
 package org.springframework.social.partnercenter.api.billing.usage.impl;
 
+import static java.time.ZoneOffset.UTC;
 import static org.springframework.social.partnercenter.api.billing.usage.Granularity.DAILY;
+import static org.springframework.social.partnercenter.time.PartnerCenterTimeFormater.PARTNER_CENTER_ISO_INSTANT;
 
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.ResponseEntity;
@@ -27,26 +28,26 @@ public class UsageTemplate extends PagingResourceTemplate<UtilizationRecord> imp
 	}
 
 	@Override
-	public ResponseEntity<PartnerCenterResponse<UtilizationRecord>> getUtilizationRecords(String customerId, String subscriptionId, ZonedDateTime startDateTime, ZonedDateTime endDateTime) {
+	public ResponseEntity<PartnerCenterResponse<UtilizationRecord>> getUtilizationRecords(String customerId, String subscriptionId, LocalDateTime startDateTime, LocalDateTime endDateTime) {
 		return getUtilizationRecords(customerId, subscriptionId, startDateTime, endDateTime, DAILY, true, 1000);
 	}
 
 	@Override
-	public ResponseEntity<PartnerCenterResponse<UtilizationRecord>> getUtilizationRecords(String customerId, String subscriptionId, ZonedDateTime startDateTime, ZonedDateTime endDateTime, Granularity granularity) {
+	public ResponseEntity<PartnerCenterResponse<UtilizationRecord>> getUtilizationRecords(String customerId, String subscriptionId, LocalDateTime startDateTime, LocalDateTime endDateTime, Granularity granularity) {
 		return getUtilizationRecords(customerId, subscriptionId, startDateTime, endDateTime, granularity, true, 1000);
 	}
 
 	@Override
-	public ResponseEntity<PartnerCenterResponse<UtilizationRecord>> getUtilizationRecords(String customerId, String subscriptionId, ZonedDateTime startDateTime, ZonedDateTime endDateTime, Granularity granularity, boolean showDetails) {
+	public ResponseEntity<PartnerCenterResponse<UtilizationRecord>> getUtilizationRecords(String customerId, String subscriptionId, LocalDateTime startDateTime, LocalDateTime endDateTime, Granularity granularity, boolean showDetails) {
 		return getUtilizationRecords(customerId, subscriptionId, startDateTime, endDateTime, granularity, showDetails, 1000);
 	}
 
 	@Override
-	public ResponseEntity<PartnerCenterResponse<UtilizationRecord>> getUtilizationRecords(String customerId, String subscriptionId, ZonedDateTime startDateTime, ZonedDateTime endDateTime, Granularity granularity, boolean showDetails, int size) {
+	public ResponseEntity<PartnerCenterResponse<UtilizationRecord>> getUtilizationRecords(String customerId, String subscriptionId, LocalDateTime startDateTime, LocalDateTime endDateTime, Granularity granularity, boolean showDetails, int size) {
 		return restResource.request()
 				.pathSegment(customerId, SUBSCRIPTIONS, subscriptionId, "utilizations", "azure")
-				.queryParam("start_time", startDateTime.format(DateTimeFormatter.ISO_DATE_TIME))
-				.queryParam("end_time", endDateTime.format(DateTimeFormatter.ISO_DATE_TIME))
+				.queryParam("start_time", startDateTime.atZone(UTC).format(PARTNER_CENTER_ISO_INSTANT))
+				.queryParam("end_time", endDateTime.atZone(UTC).format(PARTNER_CENTER_ISO_INSTANT))
 				.queryParam("granularity", granularity.jsonValue())
 				.queryParam("show_details", showDetails)
 				.queryParam("size", size)
@@ -54,22 +55,22 @@ public class UsageTemplate extends PagingResourceTemplate<UtilizationRecord> imp
 	}
 
 	@Override
-	public ResponseEntity<PartnerCenterResponse<UtilizationRecord>> getUtilizationRecords(String customerId, String subscriptionId, ZonedDateTime startDateTime, ZonedDateTime endDateTime, Granularity granularity, int size) {
+	public ResponseEntity<PartnerCenterResponse<UtilizationRecord>> getUtilizationRecords(String customerId, String subscriptionId, LocalDateTime startDateTime, LocalDateTime endDateTime, Granularity granularity, int size) {
 		return getUtilizationRecords(customerId, subscriptionId, startDateTime, endDateTime, granularity, true, size);
 	}
 
 	@Override
-	public ResponseEntity<PartnerCenterResponse<UtilizationRecord>> getUtilizationRecords(String customerId, String subscriptionId, ZonedDateTime startDateTime, ZonedDateTime endDateTime, boolean showDetails, int size) {
+	public ResponseEntity<PartnerCenterResponse<UtilizationRecord>> getUtilizationRecords(String customerId, String subscriptionId, LocalDateTime startDateTime, LocalDateTime endDateTime, boolean showDetails, int size) {
 		return getUtilizationRecords(customerId, subscriptionId, startDateTime, endDateTime, DAILY, showDetails, size);
 	}
 
 	@Override
-	public ResponseEntity<PartnerCenterResponse<UtilizationRecord>> getUtilizationRecords(String customerId, String subscriptionId, ZonedDateTime startDateTime, ZonedDateTime endDateTime, boolean showDetails) {
+	public ResponseEntity<PartnerCenterResponse<UtilizationRecord>> getUtilizationRecords(String customerId, String subscriptionId, LocalDateTime startDateTime, LocalDateTime endDateTime, boolean showDetails) {
 		return getUtilizationRecords(customerId, subscriptionId, startDateTime, endDateTime, DAILY, showDetails, 1000);
 	}
 
 	@Override
-	public ResponseEntity<PartnerCenterResponse<UtilizationRecord>> getUtilizationRecords(String customerId, String subscriptionId, ZonedDateTime startDateTime, ZonedDateTime endDateTime, int size) {
+	public ResponseEntity<PartnerCenterResponse<UtilizationRecord>> getUtilizationRecords(String customerId, String subscriptionId, LocalDateTime startDateTime, LocalDateTime endDateTime, int size) {
 		return getUtilizationRecords(customerId, subscriptionId, startDateTime, endDateTime, DAILY, true, size);
 	}
 
