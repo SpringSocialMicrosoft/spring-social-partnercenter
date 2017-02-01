@@ -1,10 +1,10 @@
 package org.springframework.social.partnercenter.api.billing.usage.impl;
 
-import static java.time.ZoneOffset.UTC;
+import static java.time.ZoneId.systemDefault;
 import static org.springframework.social.partnercenter.api.billing.usage.Granularity.DAILY;
-import static org.springframework.social.partnercenter.time.PartnerCenterTimeFormater.PARTNER_CENTER_ISO_INSTANT;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.ResponseEntity;
@@ -46,8 +46,8 @@ public class UsageTemplate extends PagingResourceTemplate<UtilizationRecord> imp
 	public ResponseEntity<PartnerCenterResponse<UtilizationRecord>> getUtilizationRecords(String customerId, String subscriptionId, LocalDateTime startDateTime, LocalDateTime endDateTime, Granularity granularity, boolean showDetails, int size) {
 		return restResource.request()
 				.pathSegment(customerId, SUBSCRIPTIONS, subscriptionId, "utilizations", "azure")
-				.queryParam("start_time", startDateTime.atZone(UTC).format(PARTNER_CENTER_ISO_INSTANT))
-				.queryParam("end_time", endDateTime.atZone(UTC).format(PARTNER_CENTER_ISO_INSTANT))
+				.queryParam("start_time", startDateTime.atZone(systemDefault()).format(DateTimeFormatter.ISO_INSTANT).replace("T", " "))
+				.queryParam("end_time", endDateTime.atZone(systemDefault()).format(DateTimeFormatter.ISO_INSTANT).replace("T", " "))
 				.queryParam("granularity", granularity.jsonValue())
 				.queryParam("show_details", showDetails)
 				.queryParam("size", size)
@@ -92,4 +92,5 @@ public class UsageTemplate extends PagingResourceTemplate<UtilizationRecord> imp
 	protected String getProviderId() {
 		return PartnerCenter.PROVIDER_ID;
 	}
+
 }
