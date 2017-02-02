@@ -15,62 +15,55 @@ public class UtilizationRecord {
 		return usageStartTime;
 	}
 
-	public UtilizationRecord usageStartTime(String usageStartTime) {
+	public void setUsageStartTime(String usageStartTime) {
 		this.usageStartTime = usageStartTime;
-		return this;
 	}
 
 	public String getUsageEndTime() {
 		return usageEndTime;
 	}
 
-	public UtilizationRecord usageEndTime(String usageEndTime) {
+	public void setUsageEndTime(String usageEndTime) {
 		this.usageEndTime = usageEndTime;
-		return this;
 	}
 
 	public AzureResource getResource() {
 		return resource;
 	}
 
-	public UtilizationRecord resource(AzureResource resource) {
+	public void setResource(AzureResource resource) {
 		this.resource = resource;
-		return this;
 	}
 
 	public double getQuantity() {
 		return quantity;
 	}
 
-	public UtilizationRecord quantity(double quantity) {
+	public void setQuantity(double quantity) {
 		this.quantity = quantity;
-		return this;
 	}
 
 	public String getUnit() {
 		return unit;
 	}
 
-	public UtilizationRecord unit(String unit) {
+	public void setUnit(String unit) {
 		this.unit = unit;
-		return this;
 	}
 
 	public InfoFields getInfoFields() {
 		return infoFields;
 	}
 
-	public UtilizationRecord infoFields(InfoFields infoFields) {
+	public void setInfoFields(InfoFields infoFields) {
 		this.infoFields = infoFields;
-		return this;
 	}
 
 	public Map<String, String> getAttributes() {
 		return attributes;
 	}
 
-	public UtilizationRecord attributes(Map<String, String> attributes) {
+	public void setAttributes(Map<String, String> attributes) {
 		this.attributes = attributes;
-		return this;
 	}
 }
