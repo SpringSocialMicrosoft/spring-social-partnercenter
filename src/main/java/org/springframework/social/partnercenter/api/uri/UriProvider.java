@@ -3,12 +3,12 @@ package org.springframework.social.partnercenter.api.uri;
 import org.springframework.web.util.UriComponentsBuilder;
 
 public class UriProvider {
-	public static String OAUTH_HOST = "https://login.windows.net";
-	public static String GRAPH_URL = "https://graph.windows.net";
-	public static String PARTNER_CENTER_URL = "https://api.partnercenter.microsoft.com";
+	public static String AUTHORITY = "https://login.microsoftonline.de";
+	public static String RESOURCE_URL = "https://api.partnercenter.microsoft.com";
+	public static String PARTNER_SERVICE_API_ROOT = "https://api.partnercenter.microsoft.com";
 
 	public static String buildPartnerCenterOAuth2Uri(String tenantId){
-		return UriComponentsBuilder.fromUriString(OAUTH_HOST)
+		return UriComponentsBuilder.fromUriString(AUTHORITY)
 				.pathSegment(tenantId)
 				.pathSegment("oauth2")
 				.pathSegment("token")
@@ -17,13 +17,13 @@ public class UriProvider {
 	}
 
 	public static String buildPartnerCenterTokenUri(){
-		return UriComponentsBuilder.fromUriString(PARTNER_CENTER_URL)
+		return UriComponentsBuilder.fromUriString(PARTNER_SERVICE_API_ROOT)
 				.pathSegment("generatetoken")
 				.build().toString();
 	}
 
 	public static UriComponentsBuilder partnerCenterBuilder(){
-		return UriComponentsBuilder.fromUriString(PARTNER_CENTER_URL);
+		return UriComponentsBuilder.fromUriString(PARTNER_SERVICE_API_ROOT);
 	}
 
 	public static UriComponentsBuilder partnerCenterInvoiceUri(){

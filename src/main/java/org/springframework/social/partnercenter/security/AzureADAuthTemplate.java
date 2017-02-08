@@ -28,8 +28,8 @@ public class AzureADAuthTemplate implements AzureADAuthOperations {
 	private final String applicationId;
 	private final String clientId;
 	private final String applicationSecret;
-	private final String accessTokenUrl;
-	private final String authorizeUrl;
+	private String accessTokenUrl;
+	private String authorizeUrl;
 	private RestTemplate restTemplate;
 	private boolean useParametersForClientAuthentication;
 
@@ -119,7 +119,7 @@ public class AzureADAuthTemplate implements AzureADAuthOperations {
 		}
 		params.set("username", username);
 		params.set("password", password);
-		params.set("resource", UriProvider.PARTNER_CENTER_URL);
+		params.set("resource", UriProvider.PARTNER_SERVICE_API_ROOT);
 		params.set("scope", "openid");
 		params.set("grant_type", PartnerCenterGrantType.PASSWORD.asString());
 
@@ -178,7 +178,7 @@ public class AzureADAuthTemplate implements AzureADAuthOperations {
 		params.set("grant_type", PartnerCenterGrantType.CLIENT_CREDENTIALS.asString());
 		params.set("client_id", applicationId);
 		params.set("client_secret", applicationSecret);
-		params.set("resource", UriProvider.GRAPH_URL);
+		params.set("resource", UriProvider.RESOURCE_URL);
 		return getRestTemplate().postForObject(authorizeUrl, params, AzureADSecurityToken.class);
 	}
 
