@@ -6,10 +6,8 @@ import static org.springframework.social.partnercenter.api.order.subscription.Su
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.ResponseEntity;
 import org.springframework.social.partnercenter.PartnerCenter;
-import org.springframework.social.partnercenter.api.AbstractTemplate;
 import org.springframework.social.partnercenter.api.PagingResourceTemplate;
 import org.springframework.social.partnercenter.api.PartnerCenterResponse;
-import org.springframework.social.partnercenter.api.customer.response.SubscriptionListResponse;
 import org.springframework.social.partnercenter.api.order.subscription.Subscription;
 import org.springframework.social.partnercenter.api.order.subscription.SubscriptionOperations;
 import org.springframework.social.partnercenter.api.order.subscription.upgrade.Upgrade;
@@ -39,25 +37,28 @@ public class SubscriptionTemplate extends PagingResourceTemplate<Subscription> i
 	}
 
 	@Override
-	public ResponseEntity<SubscriptionListResponse> getCustomersSubscriptions(String customerId) {
+	public ResponseEntity<PartnerCenterResponse<Subscription>> getCustomersSubscriptions(String customerId) {
 		return restResource.request()
 				.pathSegment(customerId, SUBSCRIPTIONS)
-				.get(SubscriptionListResponse.class);
+				.get(new ParameterizedTypeReference<PartnerCenterResponse<Subscription>>(){
+				});
 	}
 
 	@Override
-	public ResponseEntity<SubscriptionListResponse> getSubscriptionsByOrderId(String customerId, String orderId) {
+	public ResponseEntity<PartnerCenterResponse<Subscription>> getSubscriptionsByOrderId(String customerId, String orderId) {
 		return restResource.request()
 				.pathSegment(customerId, SUBSCRIPTIONS)
 				.queryParam("order_id", orderId)
-				.get(SubscriptionListResponse.class);
+				.get(new ParameterizedTypeReference<PartnerCenterResponse<Subscription>>(){
+				});
 	}
 
 	@Override
-	public ResponseEntity<SubscriptionListResponse> getAddOnsForBySubscriptionId(String customerId, String subscriptionId) {
+	public ResponseEntity<PartnerCenterResponse<Subscription>> getAddOnsForBySubscriptionId(String customerId, String subscriptionId) {
 		return restResource.request()
 				.pathSegment(customerId, SUBSCRIPTIONS, subscriptionId, "addons")
-				.get(SubscriptionListResponse.class);
+				.get(new ParameterizedTypeReference<PartnerCenterResponse<Subscription>>(){
+				});
 	}
 
 	@Override

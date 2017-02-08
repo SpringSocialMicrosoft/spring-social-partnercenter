@@ -3,15 +3,14 @@ package org.springframework.social.partnercenter.api.order.subscription;
 import org.springframework.http.ResponseEntity;
 import org.springframework.social.partnercenter.api.PagingResourceOperations;
 import org.springframework.social.partnercenter.api.PartnerCenterResponse;
-import org.springframework.social.partnercenter.api.customer.response.SubscriptionListResponse;
 import org.springframework.social.partnercenter.api.order.subscription.upgrade.Upgrade;
 import org.springframework.social.partnercenter.api.order.subscription.upgrade.UpgradeResult;
 
 public interface SubscriptionOperations extends PagingResourceOperations<Subscription>{
 	ResponseEntity<Subscription> getById(String resellerCid, String id);
-	ResponseEntity<SubscriptionListResponse> getCustomersSubscriptions(String customerId);
-	ResponseEntity<SubscriptionListResponse> getSubscriptionsByOrderId(String customerId, String orderId);
-	ResponseEntity<SubscriptionListResponse> getAddOnsForBySubscriptionId(String customerId, String subscriptionId);
+	ResponseEntity<PartnerCenterResponse<Subscription>> getCustomersSubscriptions(String customerId);
+	ResponseEntity<PartnerCenterResponse<Subscription>> getSubscriptionsByOrderId(String customerId, String orderId);
+	ResponseEntity<PartnerCenterResponse<Subscription>> getAddOnsForBySubscriptionId(String customerId, String subscriptionId);
 	ResponseEntity<Subscription> updateSubscription(String customerId, String subscriptionId, Subscription subscription);
 	ResponseEntity<Subscription> suspendSubscription(String customerId, String subscriptionId);
 	ResponseEntity<Subscription> reactivateSubscription(String customerId, String subscriptionId);
