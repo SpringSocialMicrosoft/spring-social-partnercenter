@@ -3,7 +3,7 @@ package org.springframework.social.partnercenter.api.uri;
 import org.springframework.web.util.UriComponentsBuilder;
 
 public class UriProvider {
-	public static final UriProvider DEFAULT_URL_PROVIDER = UriProvider.DE;
+	public static final UriProvider DEFAULT_URL_PROVIDER = UriProvider.US;
 	public static final UriProvider US = builder()
 			.authority("https://login.windows.net")
 			.partnerServiceApiRoot("https://api.partnercenter.microsoft.com")
