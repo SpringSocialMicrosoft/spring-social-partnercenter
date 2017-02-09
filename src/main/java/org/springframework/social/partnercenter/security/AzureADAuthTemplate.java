@@ -1,6 +1,7 @@
 package org.springframework.social.partnercenter.security;
 
 import static java.util.Optional.ofNullable;
+import static org.springframework.social.partnercenter.api.uri.UriProvider.DEFAULT_URL_PROVIDER;
 import static org.springframework.util.Assert.notNull;
 
 import java.io.UnsupportedEncodingException;
@@ -67,7 +68,7 @@ public class AzureADAuthTemplate implements AzureADAuthOperations {
 				applicationSecret,
 				clientId,
 				domain,
-				UriProvider.US);
+				DEFAULT_URL_PROVIDER);
 	}
 
 	/**
@@ -81,7 +82,7 @@ public class AzureADAuthTemplate implements AzureADAuthOperations {
 		notNull(applicationSecret, "The applicationSecret property cannot be null");
 		notNull(clientId, "The clientId property cannot be null");
 		notNull(domain, "The authorizeUrl property cannot be null");
-		this.uriProvider = ofNullable(uriProvider).orElse(UriProvider.US);
+		this.uriProvider = ofNullable(uriProvider).orElse(DEFAULT_URL_PROVIDER);
 		this.applicationId = applicationId;
 		this.applicationSecret = applicationSecret;
 		this.clientId = clientId;
