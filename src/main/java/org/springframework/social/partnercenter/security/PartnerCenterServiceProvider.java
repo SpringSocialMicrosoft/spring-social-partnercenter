@@ -1,5 +1,7 @@
 package org.springframework.social.partnercenter.security;
 
+import static org.springframework.social.partnercenter.api.uri.UriProvider.DEFAULT_URL_PROVIDER;
+
 import java.util.Collection;
 import java.util.LinkedHashSet;
 
@@ -20,9 +22,9 @@ public class PartnerCenterServiceProvider extends AbstractAzureADServiceProvider
 	private final UriProvider uriProvider;
 
 	public PartnerCenterServiceProvider(String applicationId, String applicationSecret, String clientId, String domain){
-		super(new AzureADAuthTemplate(applicationId, applicationSecret, clientId, domain, UriProvider.US));
+		super(new AzureADAuthTemplate(applicationId, applicationSecret, clientId, domain, DEFAULT_URL_PROVIDER));
 		apiVersion = DEFAULT_API_VERSION;
-		this.uriProvider = UriProvider.US;
+		this.uriProvider = DEFAULT_URL_PROVIDER;
 		this.interceptors = new LinkedHashSet<>();
 	}
 
@@ -44,7 +46,7 @@ public class PartnerCenterServiceProvider extends AbstractAzureADServiceProvider
 	public PartnerCenterServiceProvider(String applicationId, String applicationSecret, String clientId, String domain, RetryTemplate retryTemplate){
 		super(new AzureADAuthTemplate(applicationId, applicationSecret, clientId, domain));
 		apiVersion = DEFAULT_API_VERSION;
-		uriProvider = UriProvider.US;
+		uriProvider = DEFAULT_URL_PROVIDER;
 		this.retryTemplate = retryTemplate;
 		this.interceptors = new LinkedHashSet<>();
 	}
