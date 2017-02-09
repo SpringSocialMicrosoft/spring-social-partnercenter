@@ -18,32 +18,41 @@ public class PartnerCenterConnectionFactory extends BasePartnerCenterConnectionF
 	public PartnerCenterConnectionFactory(String applicationId, String applicationSecret, String clientId, String tenant){
 		this(PartnerCenter.PROVIDER_ID, new PartnerCenterServiceProvider(applicationId, applicationSecret, clientId, tenant), new PartnerCenterApiAdapter());
 	}
+
+	public PartnerCenterConnectionFactory(String applicationId, String applicationSecret, String clientId, String tenant, String authority, String resourceUrl, String partnerServiceApiRoot){
+		this(PartnerCenter.PROVIDER_ID, new PartnerCenterServiceProvider(applicationId, applicationSecret, clientId, tenant, authority, resourceUrl, partnerServiceApiRoot), new PartnerCenterApiAdapter());
+	}
+
+	public PartnerCenterConnectionFactory(String applicationId, String applicationSecret, String clientId, String tenant, RetryTemplate retryTemplate, String authority, String resourceUrl, String partnerServiceApiRoot){
+		this(PartnerCenter.PROVIDER_ID, new PartnerCenterServiceProvider(applicationId, applicationSecret, clientId, tenant, retryTemplate, authority, resourceUrl, partnerServiceApiRoot), new PartnerCenterApiAdapter());
+	}
+
 	public PartnerCenterConnectionFactory(String applicationId, String applicationSecret, String clientId, String tenant, RetryTemplate retryTemplate){
 		this(PartnerCenter.PROVIDER_ID, new PartnerCenterServiceProvider(applicationId, applicationSecret, clientId, tenant, retryTemplate), new PartnerCenterApiAdapter());
 	}
 
-	public PartnerCenterConnectionFactory(String applicationId, String applicationSecret, String clientId, String tenant, String apiVersion){
-		this(PartnerCenter.PROVIDER_ID, new PartnerCenterServiceProvider(applicationId, applicationSecret, clientId, tenant, apiVersion), new PartnerCenterApiAdapter());
+	public PartnerCenterConnectionFactory(String applicationId, String applicationSecret, String clientId, String tenant, String apiVersion, String authority, String resourceUrl, String partnerServiceApiRoot){
+		this(PartnerCenter.PROVIDER_ID, new PartnerCenterServiceProvider(applicationId, applicationSecret, clientId, tenant, apiVersion, authority, resourceUrl, partnerServiceApiRoot), new PartnerCenterApiAdapter());
 	}
 
-	public PartnerCenterConnectionFactory(String applicationId, String applicationSecret, String clientId, String tenant, String apiVersion, RetryTemplate retryTemplate){
-		this(PartnerCenter.PROVIDER_ID, new PartnerCenterServiceProvider(applicationId, applicationSecret, clientId, tenant, apiVersion, retryTemplate), new PartnerCenterApiAdapter());
+	public PartnerCenterConnectionFactory(String applicationId, String applicationSecret, String clientId, String tenant, String apiVersion, RetryTemplate retryTemplate, String authority, String resourceUrl, String partnerServiceApiRoot){
+		this(PartnerCenter.PROVIDER_ID, new PartnerCenterServiceProvider(applicationId, applicationSecret, clientId, tenant, apiVersion, retryTemplate, authority, resourceUrl, partnerServiceApiRoot), new PartnerCenterApiAdapter());
 	}
 
-	public PartnerCenterConnectionFactory(String applicationId, String applicationSecret, String clientId, String tenant, String apiVersion, Collection<ClientHttpRequestInterceptor> interceptors){
-		this(PartnerCenter.PROVIDER_ID, new PartnerCenterServiceProvider(applicationId, applicationSecret, clientId, tenant, apiVersion, interceptors), new PartnerCenterApiAdapter());
+	public PartnerCenterConnectionFactory(String applicationId, String applicationSecret, String clientId, String tenant, String apiVersion, Collection<ClientHttpRequestInterceptor> interceptors, String authority, String resourceUrl, String partnerServiceApiRoot){
+		this(PartnerCenter.PROVIDER_ID, new PartnerCenterServiceProvider(applicationId, applicationSecret, clientId, tenant, apiVersion, interceptors, authority, resourceUrl, partnerServiceApiRoot), new PartnerCenterApiAdapter());
 	}
 
-	public PartnerCenterConnectionFactory(String applicationId, String applicationSecret, String clientId, String tenant, String apiVersion, Collection<ClientHttpRequestInterceptor> interceptors, RetryTemplate retryTemplate){
-		this(PartnerCenter.PROVIDER_ID, new PartnerCenterServiceProvider(applicationId, applicationSecret, clientId, tenant, apiVersion, interceptors, retryTemplate), new PartnerCenterApiAdapter());
+	public PartnerCenterConnectionFactory(String applicationId, String applicationSecret, String clientId, String tenant, String apiVersion, Collection<ClientHttpRequestInterceptor> interceptors, RetryTemplate retryTemplate, String authority, String resourceUrl, String partnerServiceApiRoot){
+		this(PartnerCenter.PROVIDER_ID, new PartnerCenterServiceProvider(applicationId, applicationSecret, clientId, tenant, apiVersion, interceptors, retryTemplate, authority, resourceUrl, partnerServiceApiRoot), new PartnerCenterApiAdapter());
 	}
 
-	public PartnerCenterConnectionFactory(String applicationId, String applicationSecret, String clientId, String tenant, Collection<ClientHttpRequestInterceptor> interceptors){
-		this(PartnerCenter.PROVIDER_ID, new PartnerCenterServiceProvider(applicationId, applicationSecret, clientId, tenant, interceptors), new PartnerCenterApiAdapter());
+	public PartnerCenterConnectionFactory(String applicationId, String applicationSecret, String clientId, String tenant, Collection<ClientHttpRequestInterceptor> interceptors, String authority, String resourceUrl, String partnerServiceApiRoot){
+		this(PartnerCenter.PROVIDER_ID, new PartnerCenterServiceProvider(applicationId, applicationSecret, clientId, tenant, interceptors, authority, resourceUrl, partnerServiceApiRoot), new PartnerCenterApiAdapter());
 	}
 
-	public PartnerCenterConnectionFactory(String applicationId, String applicationSecret, String clientId, String tenant, Collection<ClientHttpRequestInterceptor> interceptors, RetryTemplate retryTemplate){
-		this(PartnerCenter.PROVIDER_ID, new PartnerCenterServiceProvider(applicationId, applicationSecret, clientId, tenant, interceptors, retryTemplate), new PartnerCenterApiAdapter());
+	public PartnerCenterConnectionFactory(String applicationId, String applicationSecret, String clientId, String tenant, Collection<ClientHttpRequestInterceptor> interceptors, RetryTemplate retryTemplate, String authority, String resourceUrl, String partnerServiceApiRoot){
+		this(PartnerCenter.PROVIDER_ID, new PartnerCenterServiceProvider(applicationId, applicationSecret, clientId, tenant, interceptors, retryTemplate, authority, resourceUrl, partnerServiceApiRoot), new PartnerCenterApiAdapter());
 	}
 
 	private PartnerCenterConnectionFactory(String providerId, PartnerCenterServiceProvider serviceProvider, ApiAdapter<PartnerCenter> apiAdapter) {

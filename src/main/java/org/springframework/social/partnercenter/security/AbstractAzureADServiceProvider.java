@@ -14,8 +14,6 @@ public abstract class AbstractAzureADServiceProvider<T> implements AzureADServic
 		this.azureADAuthOperations = azureADAuthOperations;
 	}
 
-	// implementing OAuth2ServiceProvider
-
 	public AzureADAuthOperations getAzureADAuthOperations() {
 		return azureADAuthOperations;
 	}
