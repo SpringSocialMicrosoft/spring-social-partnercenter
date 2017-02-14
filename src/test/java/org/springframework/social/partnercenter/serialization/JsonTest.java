@@ -16,11 +16,10 @@ public class JsonTest {
 		Something something = new Something();
 		String s = Json.toJson(something);
 		Something instant = Json.fromJson(s, Something.class);
-		assertThat(instant.instant.getEpochSecond()).isBetween(something.instant.getEpochSecond()-2, something.instant.getEpochSecond() +2);
-		assertThat(instant.instant).isEqualToIgnoringGivenFields(something.instant, "nanos", "seconds");
-		assertThat(instant.zonedDateTime).as("ZonedDateTime").isEqualToIgnoringNanos(something.zonedDateTime);
-		assertThat(instant.localDateTime).as("LocalDateTime").isEqualToIgnoringNanos(something.localDateTime);
-		assertThat(instant.offsetDateTime).as("OffsetDateTime").isEqualToIgnoringNanos(something.offsetDateTime);
+		assertThat(instant.instant).isEqualByComparingTo(something.instant);
+		assertThat(instant.zonedDateTime.toInstant()).as("ZonedDateTime").isEqualByComparingTo(something.zonedDateTime.toInstant());
+		assertThat(instant.localDateTime).as("LocalDateTime").isEqualTo(something.localDateTime);
+		assertThat(instant.offsetDateTime.toInstant()).as("OffsetDateTime").isEqualByComparingTo(something.offsetDateTime.toInstant());
 	}
 
 
@@ -35,6 +34,38 @@ public class JsonTest {
 			zonedDateTime = ZonedDateTime.now();
 			localDateTime = LocalDateTime.now();
 			offsetDateTime = OffsetDateTime.now();
+		}
+
+		public Instant getInstant() {
+			return instant;
+		}
+
+		public ZonedDateTime getZonedDateTime() {
+			return zonedDateTime;
+		}
+
+		public LocalDateTime getLocalDateTime() {
+			return localDateTime;
+		}
+
+		public OffsetDateTime getOffsetDateTime() {
+			return offsetDateTime;
+		}
+
+		public void setInstant(Instant instant) {
+			this.instant = instant;
+		}
+
+		public void setZonedDateTime(ZonedDateTime zonedDateTime) {
+			this.zonedDateTime = zonedDateTime;
+		}
+
+		public void setLocalDateTime(LocalDateTime localDateTime) {
+			this.localDateTime = localDateTime;
+		}
+
+		public void setOffsetDateTime(OffsetDateTime offsetDateTime) {
+			this.offsetDateTime = offsetDateTime;
 		}
 	}
 }
