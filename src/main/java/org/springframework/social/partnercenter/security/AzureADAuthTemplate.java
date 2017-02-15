@@ -1,6 +1,7 @@
 package org.springframework.social.partnercenter.security;
 
 import static java.util.Optional.ofNullable;
+import static org.springframework.social.partnercenter.api.uri.UriProvider.DEFAULT_URL_PROVIDER;
 import static org.springframework.util.Assert.notNull;
 
 import java.io.UnsupportedEncodingException;
@@ -28,41 +29,66 @@ public class AzureADAuthTemplate implements AzureADAuthOperations {
 	private final String applicationId;
 	private final String clientId;
 	private final String applicationSecret;
-	private final String accessTokenUrl;
-	private final String authorizeUrl;
+	private String accessTokenUrl;
+	private String authorizeUrl;
 	private RestTemplate restTemplate;
 	private boolean useParametersForClientAuthentication;
+	private final UriProvider uriProvider;
 
 	/**
 	 * Constructs an OAuth2Template for a given set of client credentials.
 	 * @param applicationId the application ID
 	 * @param applicationSecret the application secret
 	 * @param domain the reseller domain
-	 * @param clientId The client id for login with credentials
+	 * @param clientId the client id for login with credentials
+	 * @param authority domain of the reseller including .onmicrosoft.com
+	 * @param resourceUrl
+	 * @param partnerServiceApiRoot root of the Partner Center API
+	 */
+	public AzureADAuthTemplate(String applicationId, String applicationSecret, String clientId, String domain, String authority, String resourceUrl, String partnerServiceApiRoot){
+		this(applicationId,
+				applicationSecret,
+				clientId,
+				domain,
+				UriProvider.builder()
+						.authority(authority)
+						.partnerServiceApiRoot(partnerServiceApiRoot)
+						.resourceUrl(resourceUrl)
+						.build());
+	}
+	/**
+	 * Constructs an OAuth2Template for a given set of client credentials.
+	 * @param applicationId the application ID
+	 * @param applicationSecret the application secret
+	 * @param domain the reseller domain
+	 * @param clientId the client id for login with credentials
 	 */
 	public AzureADAuthTemplate(String applicationId, String applicationSecret, String clientId, String domain){
-		this(applicationId, applicationSecret, clientId, UriProvider.buildPartnerCenterOAuth2Uri(domain), UriProvider.buildPartnerCenterTokenUri());
+		this(applicationId,
+				applicationSecret,
+				clientId,
+				domain,
+				DEFAULT_URL_PROVIDER);
 	}
 
 	/**
 	 * Constructs an OAuth2Template for a given set of client credentials.
 	 * @param applicationId the client ID
 	 * @param applicationSecret the client secret
-	 * @param authorizeUrl the base URL to redirect to when doing authorization code or implicit grant authorization
-	 * @param accessTokenUrl the URL at which an authorization code, refresh token, or user credentials may be exchanged for an access token
+	 * @param domain the reseller domain
 	 */
-	private AzureADAuthTemplate(String applicationId, String applicationSecret, String clientId, String authorizeUrl, String accessTokenUrl) {
+	public AzureADAuthTemplate(String applicationId, String applicationSecret, String clientId, String domain, UriProvider uriProvider) {
 		notNull(applicationId, "The applicationId property cannot be null");
 		notNull(applicationSecret, "The applicationSecret property cannot be null");
 		notNull(clientId, "The clientId property cannot be null");
-		notNull(authorizeUrl, "The authorizeUrl property cannot be null");
-		notNull(accessTokenUrl, "The accessTokenUrl property cannot be null");
+		notNull(domain, "The authorizeUrl property cannot be null");
+		this.uriProvider = ofNullable(uriProvider).orElse(DEFAULT_URL_PROVIDER);
 		this.applicationId = applicationId;
 		this.applicationSecret = applicationSecret;
 		this.clientId = clientId;
-		this.authorizeUrl = authorizeUrl;
+		this.authorizeUrl = uriProvider.buildPartnerCenterOAuth2Uri(domain);
 		this.useParametersForClientAuthentication = true;
-		this.accessTokenUrl = accessTokenUrl;
+		this.accessTokenUrl = uriProvider.buildPartnerCenterTokenUri();
 	}
 
 	@Override
@@ -119,7 +145,7 @@ public class AzureADAuthTemplate implements AzureADAuthOperations {
 		}
 		params.set("username", username);
 		params.set("password", password);
-		params.set("resource", UriProvider.PARTNER_CENTER_URL);
+		params.set("resource", uriProvider.getPartnerServiceApiRoot());
 		params.set("scope", "openid");
 		params.set("grant_type", PartnerCenterGrantType.PASSWORD.asString());
 
@@ -178,7 +204,7 @@ public class AzureADAuthTemplate implements AzureADAuthOperations {
 		params.set("grant_type", PartnerCenterGrantType.CLIENT_CREDENTIALS.asString());
 		params.set("client_id", applicationId);
 		params.set("client_secret", applicationSecret);
-		params.set("resource", UriProvider.GRAPH_URL);
+		params.set("resource", uriProvider.getResourceUri());
 		return getRestTemplate().postForObject(authorizeUrl, params, AzureADSecurityToken.class);
 	}
 
