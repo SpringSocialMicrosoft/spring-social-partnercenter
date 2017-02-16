@@ -13,7 +13,7 @@ public class UriProvider {
 			.partnerServiceApiRoot("https://api.partnercenter.microsoft.com")
 			.resourceUrl("https://graph.cloudapi.de")
 			.build();
-	public static final UriProvider DEFAULT_URL_PROVIDER = UriProvider.US;
+	public static final UriProvider DEFAULT_URL_PROVIDER = UriProvider.DE;
 
 	private String authority;
 	private String resourceUrl;
