@@ -171,6 +171,10 @@ public class PartnerCenterTemplate extends AbstractOAuth2ApiBinding implements P
 				.add(new LoggingRequestInterceptor(new Slf4jHttpRequestResponseLogger(getClass(), level)));
 	}
 
+	public String getDomain(){
+		return this.uriProvider.getDomain();
+	}
+
 	private void addVersionInterceptor(String apiVersion) {
 		getRestTemplate().getInterceptors().add(new ApiVersionParameterRequestInterceptor(apiVersion));
 	}

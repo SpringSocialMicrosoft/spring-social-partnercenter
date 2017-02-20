@@ -4,7 +4,6 @@ import static org.springframework.social.partnercenter.api.customer.request.Oper
 
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.ResponseEntity;
-import org.springframework.social.partnercenter.api.AbstractTemplate;
 import org.springframework.social.partnercenter.PartnerCenterAdmin;
 import org.springframework.social.partnercenter.api.PartnerCenterResponse;
 import org.springframework.social.partnercenter.api.customer.AdminCustomerOperations;

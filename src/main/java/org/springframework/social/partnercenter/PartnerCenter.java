@@ -2,12 +2,12 @@ package org.springframework.social.partnercenter;
 
 import org.springframework.social.ApiBinding;
 import org.springframework.social.partnercenter.api.billing.invoicing.InvoiceOperations;
-import org.springframework.social.partnercenter.api.billing.usage.UsageOperations;
 import org.springframework.social.partnercenter.api.billing.pricing.PricingOperations;
+import org.springframework.social.partnercenter.api.billing.usage.UsageOperations;
 import org.springframework.social.partnercenter.api.customer.CustomerOperations;
 import org.springframework.social.partnercenter.api.customer.user.UserOperations;
-import org.springframework.social.partnercenter.api.order.offer.OfferOperations;
 import org.springframework.social.partnercenter.api.order.OrderOperations;
+import org.springframework.social.partnercenter.api.order.offer.OfferOperations;
 import org.springframework.social.partnercenter.api.order.subscription.SubscriptionOperations;
 import org.springframework.social.partnercenter.api.profile.ProfileOperations;
 import org.springframework.social.partnercenter.api.utilities.UtilityOperations;
@@ -26,4 +26,5 @@ public interface PartnerCenter extends ApiBinding {
 	UtilityOperations getUtilityOperations();
 	UserOperations getUserOperations();
 	void enableSlf4j(LogLevel level);
+	String getDomain();
 }

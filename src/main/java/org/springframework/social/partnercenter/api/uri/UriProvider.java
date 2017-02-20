@@ -18,6 +18,7 @@ public class UriProvider {
 	private String authority;
 	private String resourceUrl;
 	private String partnerServiceApiRoot;
+	private String domain;
 
 	private UriProvider(String authority, String resourceUrl, String partnerServiceApiRoot) {
 		this.authority = authority;
@@ -28,6 +29,7 @@ public class UriProvider {
 	private UriProvider() {}
 
 	public String buildPartnerCenterOAuth2Uri(String tenantId){
+		this.domain = tenantId;
 		return UriComponentsBuilder.fromUriString(authority)
 				.pathSegment(tenantId)
 				.pathSegment("oauth2")
@@ -76,6 +78,14 @@ public class UriProvider {
 
 	public static UriProviderBuilder builder(){
 		return new UriProviderBuilder();
+	}
+
+	public String getDomain() {
+		return domain;
+	}
+
+	public void setDomain(String domain) {
+		this.domain = domain;
 	}
 
 	public static class UriProviderBuilder{
