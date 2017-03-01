@@ -2,10 +2,7 @@ package org.springframework.social.partnercenter.api;
 
 import static java.util.Objects.nonNull;
 
-import java.util.Collection;
-
 import org.springframework.http.client.BufferingClientHttpRequestFactory;
-import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.retry.support.RetryTemplate;
 import org.springframework.social.oauth2.AbstractOAuth2ApiBinding;
@@ -53,11 +50,7 @@ public class PartnerCenterTemplate extends AbstractOAuth2ApiBinding implements P
 	private final UtilityOperations utilityOperations;
 	private final UserOperations userOperations;
 
-	protected PartnerCenterTemplate(UriProvider uriProvider, String accessToken, String version) {
-		this(null, uriProvider, accessToken, version);
-	}
-
-	protected PartnerCenterTemplate(RetryTemplate retryTemplate, UriProvider uriProvider, String accessToken, String version){
+	public PartnerCenterTemplate(RetryTemplate retryTemplate, UriProvider uriProvider, String accessToken, String version){
 		super(accessToken);
 		addVersionInterceptor(version);
 		this.uriProvider = uriProvider;
@@ -91,15 +84,6 @@ public class PartnerCenterTemplate extends AbstractOAuth2ApiBinding implements P
 
 		userOperations = new UserTemplate(createRestResource(
 				uriProvider.partnerCenterCustomerUri().toUriString(), retryTemplate), isAuthorized());
-	}
-
-	public PartnerCenterTemplate(UriProvider uriProvider, String accessToken, String version, Collection<ClientHttpRequestInterceptor> interceptors) {
-		this(null, uriProvider, accessToken, version, interceptors);
-	}
-
-	public PartnerCenterTemplate(RetryTemplate retryTemplate, UriProvider uriProvider, String accessToken, String version, Collection<ClientHttpRequestInterceptor> interceptors) {
-		this(retryTemplate, uriProvider, accessToken, version);
-		interceptors.forEach(interceptor -> getRestTemplate().getInterceptors().add(interceptor));
 	}
 
 	private RestResource createRestResource(String baseUri, RetryTemplate retryTemplate){
