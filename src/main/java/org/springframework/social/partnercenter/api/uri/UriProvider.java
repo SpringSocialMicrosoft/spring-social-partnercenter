@@ -1,23 +1,19 @@
 package org.springframework.social.partnercenter.api.uri;
 
+import static org.springframework.social.partnercenter.api.uri.SecurityRegion.DEU;
+import static org.springframework.social.partnercenter.api.uri.SecurityRegion.USA;
+
 import org.springframework.web.util.UriComponentsBuilder;
 
 public class UriProvider {
-	public static final UriProvider US = builder()
-			.authority("https://login.windows.net")
-			.partnerServiceApiRoot("https://api.partnercenter.microsoft.com")
-			.resourceUrl("https://graph.windows.net")
-			.build();
-	public static final UriProvider DE = builder()
-			.authority("https://login.microsoftonline.de")
-			.partnerServiceApiRoot("https://api.partnercenter.microsoft.com")
-			.resourceUrl("https://graph.cloudapi.de")
-			.build();
+	public static final UriProvider US = fromSecurityRegion(USA);
+	public static final UriProvider DE = fromSecurityRegion(DEU);
 	public static final UriProvider DEFAULT_URL_PROVIDER = UriProvider.DE;
 
 	private String authority;
 	private String resourceUrl;
 	private String partnerServiceApiRoot;
+	private String domain;
 
 	private UriProvider(String authority, String resourceUrl, String partnerServiceApiRoot) {
 		this.authority = authority;
@@ -28,6 +24,7 @@ public class UriProvider {
 	private UriProvider() {}
 
 	public String buildPartnerCenterOAuth2Uri(String tenantId){
+		this.domain = tenantId;
 		return UriComponentsBuilder.fromUriString(authority)
 				.pathSegment(tenantId)
 				.pathSegment("oauth2")
@@ -42,6 +39,10 @@ public class UriProvider {
 
 	public  String getPartnerServiceApiRoot(){
 		return partnerServiceApiRoot;
+	}
+
+	public String getAuthority(){
+		return authority;
 	}
 
 	public  String buildPartnerCenterTokenUri(){
@@ -76,6 +77,22 @@ public class UriProvider {
 
 	public static UriProviderBuilder builder(){
 		return new UriProviderBuilder();
+	}
+
+	public static UriProvider fromSecurityRegion(SecurityRegion region){
+		return UriProvider.builder()
+				.authority(region.getAuthority())
+				.resourceUrl(region.getResourceUrl())
+				.partnerServiceApiRoot(region.getPartnerServiceApiRoot())
+				.build();
+	}
+
+	public String getDomain() {
+		return domain;
+	}
+
+	public void setDomain(String domain) {
+		this.domain = domain;
 	}
 
 	public static class UriProviderBuilder{

@@ -23,7 +23,9 @@ scmVersion {
 	tag {
 		prefix = 'release'
 	}
-	ignoreUncommittedChanges = true
+	checks {
+		uncommittedChanges = false
+	}
 }
 group 'io.github.springsocialmicrosoft'
 version = scmVersion.version
