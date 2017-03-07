@@ -8,7 +8,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class UriProvider {
 	public static final UriProvider US = fromSecurityRegion(USA);
 	public static final UriProvider DE = fromSecurityRegion(DEU);
-	public static final UriProvider DEFAULT_URL_PROVIDER = UriProvider.DE;
+	public static final UriProvider DEFAULT_URL_PROVIDER = UriProvider.US;
 
 	private String authority;
 	private String resourceUrl;
