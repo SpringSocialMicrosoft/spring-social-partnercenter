@@ -18,11 +18,16 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.social.oauth2.AccessGrant;
 import org.springframework.social.oauth2.GrantType;
+import org.springframework.social.partnercenter.api.ApiAuthorizationException;
+import org.springframework.social.partnercenter.api.AuthorizationFault;
 import org.springframework.social.partnercenter.api.uri.UriProvider;
+import org.springframework.social.partnercenter.serialization.Json;
+import org.springframework.social.partnercenter.serialization.JsonSerializationException;
 import org.springframework.social.support.ClientHttpRequestFactorySelector;
 import org.springframework.social.support.FormMapHttpMessageConverter;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 public class AzureADAuthTemplate implements AzureADAuthOperations {
@@ -42,7 +47,7 @@ public class AzureADAuthTemplate implements AzureADAuthOperations {
 	 * @param domain the reseller domain
 	 * @param clientId the client id for login with credentials
 	 * @param authority domain of the reseller including .onmicrosoft.com
-	 * @param resourceUrl
+	 * @param resourceUrl see Partner Center documentation
 	 * @param partnerServiceApiRoot root of the Partner Center API
 	 */
 	public AzureADAuthTemplate(String applicationId, String applicationSecret, String clientId, String domain, String authority, String resourceUrl, String partnerServiceApiRoot){
@@ -70,12 +75,30 @@ public class AzureADAuthTemplate implements AzureADAuthOperations {
 				domain,
 				DEFAULT_URL_PROVIDER);
 	}
+	/**
+	 * Constructs an OAuth2Template for a given set of client credentials.
+	 * @param applicationId the application ID
+	 * @param applicationSecret the application secret
+	 * @param domain the reseller domain
+	 * @param clientId the client id for login with credentials
+	 * @param restTemplate restTemplate to make auth requests
+	 */
+	public AzureADAuthTemplate(String applicationId, String applicationSecret, String clientId, String domain, RestTemplate restTemplate){
+		this(applicationId,
+				applicationSecret,
+				clientId,
+				domain,
+				DEFAULT_URL_PROVIDER);
+		this.restTemplate = configureRestTemplate(restTemplate);
+	}
 
 	/**
 	 * Constructs an OAuth2Template for a given set of client credentials.
 	 * @param applicationId the client ID
 	 * @param applicationSecret the client secret
 	 * @param domain the reseller domain
+	 * @param clientId the client id for login with credentials
+	 * @param uriProvider builds auth urls
 	 */
 	public AzureADAuthTemplate(String applicationId, String applicationSecret, String clientId, String domain, UriProvider uriProvider) {
 		notNull(applicationId, "The applicationId property cannot be null");
@@ -106,7 +129,11 @@ public class AzureADAuthTemplate implements AzureADAuthOperations {
 		if (additionalParameters != null) {
 			params.putAll(additionalParameters);
 		}
-		return postForAccessGrant(accessTokenUrl, headers, params);
+		try {
+			return postForAccessGrant(accessTokenUrl, headers, params);
+		} catch (HttpClientErrorException e){
+			throw buildAuthFault(e);
+		}
 	}
 
 	/**
@@ -119,6 +146,10 @@ public class AzureADAuthTemplate implements AzureADAuthOperations {
 	protected RestTemplate createRestTemplate() {
 		ClientHttpRequestFactory requestFactory = ClientHttpRequestFactorySelector.getRequestFactory();
 		RestTemplate restTemplate = new RestTemplate(requestFactory);
+		return configureRestTemplate(restTemplate);
+	}
+
+	private RestTemplate configureRestTemplate(RestTemplate restTemplate) {
 		ArrayList<HttpMessageConverter<?>> converters = new ArrayList<>(3);
 		converters.add(new FormHttpMessageConverter());
 		converters.add(new FormMapHttpMessageConverter());
@@ -126,7 +157,6 @@ public class AzureADAuthTemplate implements AzureADAuthOperations {
 		restTemplate.setMessageConverters(converters);
 		return restTemplate;
 	}
-
 
 	protected RestTemplate getRestTemplate() {
 		// Lazily create RestTemplate to make sure all parameters have had a chance to be set.
@@ -205,7 +235,11 @@ public class AzureADAuthTemplate implements AzureADAuthOperations {
 		params.set("client_id", applicationId);
 		params.set("client_secret", applicationSecret);
 		params.set("resource", uriProvider.getResourceUri());
-		return getRestTemplate().postForObject(authorizeUrl, params, AzureADSecurityToken.class);
+		try {
+			return getRestTemplate().postForObject(authorizeUrl, params, AzureADSecurityToken.class);
+		} catch (HttpClientErrorException e){
+			throw buildAuthFault(e);
+		}
 	}
 
 	/**
@@ -243,6 +277,18 @@ public class AzureADAuthTemplate implements AzureADAuthOperations {
 			return Long.valueOf(String.valueOf(map.get(key))); // normalize to String before creating integer value;
 		} catch (NumberFormatException e) {
 			return null;
+		}
+	}
+
+	private ApiAuthorizationException buildAuthFault(HttpClientErrorException e){
+		String responseBody = e.getResponseBodyAsString();
+		try {
+			AuthorizationFault authorizationFault = Json.fromJson(responseBody, AuthorizationFault.class);
+			return new ApiAuthorizationException(authorizationFault.getErrorDescription(), e, authorizationFault);
+		} catch (JsonSerializationException se){
+			AuthorizationFault authorizationFault = new AuthorizationFault();
+			authorizationFault.setErrorDescription(responseBody);
+			return new ApiAuthorizationException(responseBody, e, authorizationFault);
 		}
 	}
 
