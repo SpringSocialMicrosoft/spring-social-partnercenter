@@ -38,7 +38,7 @@ public class RestResourceTest {
 	public void test() {
 		assertThatThrownBy(() -> restResource.execute(URI.create("http://hello.com"), HttpMethod.GET, new HttpEntity<>(""), String.class))
 				.isExactlyInstanceOf(ApiFaultException.class)
-				.hasMessage("400 Bad Request")
+				.hasMessage("Reseller CAID fc17d052-b0b2-40ca-af51-e203877acda0 does not have a reseller relationship with customer CAID 7e2e644f-6000-465e-9056-4fdad81bf416.")
 				.matches(o -> ((ApiFaultException)o).getErrorMessage().equals("Reseller CAID fc17d052-b0b2-40ca-af51-e203877acda0 does not have a reseller relationship with customer CAID 7e2e644f-6000-465e-9056-4fdad81bf416."))
 				.matches(o -> ((ApiFaultException)o).getErrorCode().equals("20002"))
 				.matches(o -> ((ApiFaultException)o).getAttributes().containsKey("Resource"))

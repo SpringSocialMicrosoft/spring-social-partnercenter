@@ -36,7 +36,7 @@ public class AzureADAuthTemplateTest {
 	public void test(){
 		assertThatThrownBy(() -> azureADAuthTemplate.exchangeForAccess())
 				.isExactlyInstanceOf(ApiAuthorizationException.class)
-				.hasMessage("400 Bad Request")
+				.hasMessage("AADSTS50001: The application named https://management.azure.com/ was not found in the tenant named alextest030617.onmicrosoft.de.  This can happen if the application has not been installed by the administrator of the tenant or consented to by any user in the tenant.  You might have sent your authentication request to the wrong tenant.\r\nTrace ID: b262bde5-777b-491c-8591-ed1b72389c20\r\nCorrelation ID: 607a9e54-c610-4893-a82f-7bea7a8e03db\r\nTimestamp: 2017-03-07 04:15:39Z")
 				.matches(o -> ((ApiAuthorizationException)o).getError().equals("invalid_resource"))
 				.matches(o -> ((ApiAuthorizationException)o).getCorrelation_id().equals("607a9e54-c610-4893-a82f-7bea7a8e03db"))
 				.matches(o -> ((ApiAuthorizationException)o).getErrorCodes().contains(50001));
