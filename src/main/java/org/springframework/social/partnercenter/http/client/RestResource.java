@@ -3,7 +3,6 @@ package org.springframework.social.partnercenter.http.client;
 import static java.util.Collections.singletonList;
 
 import java.net.URI;
-import java.util.Map;
 
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
@@ -11,6 +10,11 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.social.partnercenter.api.ApiFault;
+import org.springframework.social.partnercenter.api.ApiFaultException;
+import org.springframework.social.partnercenter.serialization.Json;
+import org.springframework.social.partnercenter.serialization.JsonSerializationException;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 public class RestResource {
@@ -80,16 +84,32 @@ public class RestResource {
 		return restTemplate.exchange(uri, HttpMethod.DELETE, new HttpEntity<>(headers), String.class);
 	}
 
-	public <T, R> ResponseEntity<R> execute(URI uri, HttpMethod httpMethod, HttpEntity<T> entity, Class<R> responseType){
-		return restTemplate.exchange(
-				uri, httpMethod, entity, responseType
-		);
+	public <T, R> ResponseEntity<R> execute(URI uri, HttpMethod httpMethod, HttpEntity<T> entity, Class<R> responseType) {
+		try{
+			return restTemplate.exchange(uri, httpMethod, entity, responseType);
+		} catch (HttpClientErrorException e){
+			throw buildApiFault(e);
+		}
 	}
 
-	public <T, R> ResponseEntity<R> execute(URI uri, HttpMethod httpMethod, HttpEntity<T> entity, ParameterizedTypeReference<R> responseType){
-		return restTemplate.exchange(
-				uri, httpMethod, entity, responseType
-		);
+	public <T, R> ResponseEntity<R> execute(URI uri, HttpMethod httpMethod, HttpEntity<T> entity, ParameterizedTypeReference<R> responseType) {
+		try{
+			return restTemplate.exchange(uri, httpMethod, entity, responseType);
+		} catch (HttpClientErrorException e){
+			throw buildApiFault(e);
+		}
+	}
+
+	private ApiFaultException buildApiFault(HttpClientErrorException e) {
+		String responseBody = e.getResponseBodyAsString();
+		try {
+			ApiFault apiFault = Json.fromJson(responseBody, ApiFault.class);
+			return new ApiFaultException(apiFault.getErrorMessage(), e, apiFault);
+		} catch (JsonSerializationException serializationException) {
+			ApiFault apiFault = new ApiFault();
+			apiFault.setErrorMessage(responseBody);
+			return new ApiFaultException(responseBody, e, apiFault);
+		}
 	}
 
 }

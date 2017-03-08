@@ -1,11 +1,19 @@
 package org.springframework.social.partnercenter.api;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.StringTokenizer;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ApiFault {
+	@JsonProperty("code")
 	private String errorCode;
+	@JsonProperty("description")
 	private String errorMessage;
-	private Map<String, String> attributes;
+	@JsonProperty("data")
+	private Map<String, String> attributes = new HashMap<>();
 
 	public String getErrorCode() {
 		return errorCode;
@@ -27,7 +35,12 @@ public class ApiFault {
 		return attributes;
 	}
 
-	public void setAttributes(Map<String, String> attributes) {
-		this.attributes = attributes;
+	public void setAttributes(List<String> attributes) {
+		attributes.forEach((String s) -> {
+			StringTokenizer tokenizer = new StringTokenizer(s, ":");
+			if (tokenizer.countTokens() == 2){
+				this.attributes.put(tokenizer.nextToken().trim(), tokenizer.nextToken().trim());
+			}
+		});
 	}
 }

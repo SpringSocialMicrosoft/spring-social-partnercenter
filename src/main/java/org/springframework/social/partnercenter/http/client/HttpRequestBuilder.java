@@ -8,6 +8,7 @@ import java.util.UUID;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
+import org.springframework.social.partnercenter.api.ApiFaultException;
 import org.springframework.social.partnercenter.http.PartnerCenterHttpHeaders;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -55,30 +56,30 @@ public class HttpRequestBuilder {
 		return this;
 	}
 
-	public <T, R> ResponseEntity<R> put(T payload, Class<R> aClass){
+	public <T, R> ResponseEntity<R> put(T payload, Class<R> aClass) {
 		HttpEntity<T> tHttpEntity = new HttpEntity<>(payload, headers);
 		return restResource.put(uriBuilder.build().toUri(), tHttpEntity, aClass);
 	}
 
-	public <T, R> ResponseEntity<R> post(T payload, Class<R> aClass){
+	public <T, R> ResponseEntity<R> post(T payload, Class<R> aClass) {
 		HttpEntity<T> tHttpEntity = new HttpEntity<>(payload, headers);
 		return restResource.post(uriBuilder.build().toUri(), tHttpEntity, aClass);
 	}
 
-	public <T, R> ResponseEntity<R> patch(T payload, Class<R> aClass){
+	public <T, R> ResponseEntity<R> patch(T payload, Class<R> aClass) {
 		HttpEntity<T> tHttpEntity = new HttpEntity<>(payload, headers);
 		return restResource.patch(uriBuilder.build().toUri(), tHttpEntity, aClass);
 	}
 
-	public <T> ResponseEntity<T> get(Class<T> aClass){
+	public <T> ResponseEntity<T> get(Class<T> aClass) {
 		return restResource.get(uriBuilder.build().toUri(), aClass, headers);
 	}
 
-	public <T> ResponseEntity<T> get(ParameterizedTypeReference<T> aClass){
+	public <T> ResponseEntity<T> get(ParameterizedTypeReference<T> aClass) {
 		return restResource.get(uriBuilder.build().toUri(), aClass, headers);
 	}
 
-	public ResponseEntity delete(){
+	public ResponseEntity delete() throws ApiFaultException{
 		return restResource.delete(uriBuilder.build().toUri(), headers);
 	}
 
