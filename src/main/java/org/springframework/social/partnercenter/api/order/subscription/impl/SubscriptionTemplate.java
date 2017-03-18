@@ -13,7 +13,6 @@ import org.springframework.social.partnercenter.api.order.subscription.Subscript
 import org.springframework.social.partnercenter.api.order.subscription.upgrade.Upgrade;
 import org.springframework.social.partnercenter.api.order.subscription.upgrade.UpgradeResult;
 import org.springframework.social.partnercenter.http.client.RestResource;
-import org.springframework.social.partnercenter.http.client.ResultType;
 
 public class SubscriptionTemplate extends PagingResourceTemplate<Subscription> implements SubscriptionOperations {
 
@@ -41,7 +40,7 @@ public class SubscriptionTemplate extends PagingResourceTemplate<Subscription> i
 	public ResponseEntity<PartnerCenterResponse<Subscription>> getCustomersSubscriptions(String customerId) {
 		return restResource.request()
 				.pathSegment(customerId, SUBSCRIPTIONS)
-				.get();
+				.get(new ParameterizedTypeReference<PartnerCenterResponse<Subscription>>(){});
 	}
 
 	@Override
@@ -49,7 +48,7 @@ public class SubscriptionTemplate extends PagingResourceTemplate<Subscription> i
 		return restResource.request()
 				.pathSegment(customerId, SUBSCRIPTIONS)
 				.queryParam("order_id", orderId)
-				.get(ResultType.<PartnerCenterResponse<Subscription>>typeReference());
+				.get(new ParameterizedTypeReference<PartnerCenterResponse<Subscription>>(){});
 	}
 
 	@Override

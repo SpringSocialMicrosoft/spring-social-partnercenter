@@ -79,10 +79,6 @@ public class HttpRequestBuilder {
 		return restResource.get(uriBuilder.build().toUri(), aClass, headers);
 	}
 
-	public <T> ResponseEntity<T> get() {
-		return restResource.get(uriBuilder.build().toUri(), new ParameterizedTypeReference<T>() {}, headers);
-	}
-
 	public ResponseEntity delete() throws ApiFaultException{
 		return restResource.delete(uriBuilder.build().toUri(), headers);
 	}
