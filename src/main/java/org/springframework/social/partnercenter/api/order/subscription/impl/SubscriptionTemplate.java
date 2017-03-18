@@ -40,8 +40,7 @@ public class SubscriptionTemplate extends PagingResourceTemplate<Subscription> i
 	public ResponseEntity<PartnerCenterResponse<Subscription>> getCustomersSubscriptions(String customerId) {
 		return restResource.request()
 				.pathSegment(customerId, SUBSCRIPTIONS)
-				.get(new ParameterizedTypeReference<PartnerCenterResponse<Subscription>>(){
-				});
+				.get(new ParameterizedTypeReference<PartnerCenterResponse<Subscription>>(){});
 	}
 
 	@Override
@@ -49,16 +48,14 @@ public class SubscriptionTemplate extends PagingResourceTemplate<Subscription> i
 		return restResource.request()
 				.pathSegment(customerId, SUBSCRIPTIONS)
 				.queryParam("order_id", orderId)
-				.get(new ParameterizedTypeReference<PartnerCenterResponse<Subscription>>(){
-				});
+				.get(new ParameterizedTypeReference<PartnerCenterResponse<Subscription>>(){});
 	}
 
 	@Override
 	public ResponseEntity<PartnerCenterResponse<Subscription>> getAddOnsForBySubscriptionId(String customerId, String subscriptionId) {
 		return restResource.request()
 				.pathSegment(customerId, SUBSCRIPTIONS, subscriptionId, "addons")
-				.get(new ParameterizedTypeReference<PartnerCenterResponse<Subscription>>(){
-				});
+				.get(new ParameterizedTypeReference<PartnerCenterResponse<Subscription>>(){});
 	}
 
 	@Override

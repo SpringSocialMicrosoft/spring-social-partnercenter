@@ -111,5 +111,4 @@ public class RestResource {
 			return new ApiFaultException(responseBody, e, apiFault);
 		}
 	}
-
 }
