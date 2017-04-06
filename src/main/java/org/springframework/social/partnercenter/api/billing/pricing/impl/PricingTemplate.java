@@ -1,5 +1,7 @@
 package org.springframework.social.partnercenter.api.billing.pricing.impl;
 
+import java.util.Locale;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.social.partnercenter.PartnerCenter;
 import org.springframework.social.partnercenter.api.AbstractTemplate;
@@ -26,6 +28,15 @@ public class PricingTemplate extends AbstractTemplate implements PricingOperatio
 		return restResource.request()
 				.queryParam("currency", currency)
 				.queryParam("region", region)
+				.get(AzureResourcePricing.class);
+	}
+
+	@Override
+	public ResponseEntity<AzureResourcePricing> getAzurePricing(String currency, String region, Locale locale) {
+		return restResource.request()
+				.queryParam("currency", currency)
+				.queryParam("region", region)
+				.header("X-Locale", locale.toLanguageTag())
 				.get(AzureResourcePricing.class);
 	}
 
