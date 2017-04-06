@@ -30,6 +30,23 @@ public class MultiTenantConnectionFactoryRegistry {
 		connectionFactories.put(buildKey(tenant, connectionFactory.getProviderId()), connectionFactory);
 	}
 
+	/**
+	 * Replace an existign {@link ConnectionFactory} in this registry.
+	 * @param connectionFactory the connection factory
+	 * @param tenant the tenant to register the connection under
+	 */
+	public void replaceConnectionFactory(String tenant, ConnectionFactory<?> connectionFactory) {
+		if (!connectionFactories.containsKey(buildKey(tenant, connectionFactory.getProviderId()))) {
+			throw new IllegalArgumentException("A ConnectionFactory for provider '" + connectionFactory.getProviderId() + "' with tenantId '"+tenant+"' in not registered" +
+					" and cannot be replaced. Please use addConnectionFactory");
+		}
+		Class<?> apiType = GenericTypeResolver.resolveTypeArgument(connectionFactory.getClass(), ConnectionFactory.class);
+		if (!apiTypeIndex.containsKey(apiType)) {
+			apiTypeIndex.put(apiType, connectionFactory.getProviderId());
+		}
+		connectionFactories.replace(buildKey(tenant, connectionFactory.getProviderId()), connectionFactory);
+	}
+
 	public void setConnectionFactories(Map<String, ConnectionFactory<?>> connectionFactories) {
 		for(String key : connectionFactories.keySet()){
 			addConnectionFactory(key, connectionFactories.get(key));
@@ -57,6 +74,10 @@ public class MultiTenantConnectionFactoryRegistry {
 
 	public boolean isRegistered(String tenantId, String providerId){
 		return connectionFactories.containsKey(buildKey(tenantId, providerId));
+	}
+
+	public void remove(String tenantId, String providerId){
+		connectionFactories.remove(buildKey(tenantId, providerId));
 	}
 
 	public boolean isRegistered(String tenantId, Class<?> apiType){
