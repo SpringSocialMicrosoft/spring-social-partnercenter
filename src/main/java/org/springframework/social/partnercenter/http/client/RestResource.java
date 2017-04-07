@@ -55,6 +55,9 @@ public class RestResource {
 	<T> ResponseEntity<T> get(URI url, Class<T> responseType, HttpHeaders header) {
 		return execute(url, HttpMethod.GET, new HttpEntity<>(header), responseType);
 	}
+	ResponseEntity<Void> head(URI url, HttpHeaders header) {
+		return execute(url, HttpMethod.HEAD, new HttpEntity<>(header), Void.class);
+	}
 
 	<T> ResponseEntity<T> post(URI url, ParameterizedTypeReference<T> responseType) {
 		return execute(url, HttpMethod.POST, HttpEntity.EMPTY, responseType);
@@ -104,11 +107,11 @@ public class RestResource {
 		String responseBody = e.getResponseBodyAsString();
 		try {
 			ApiFault apiFault = Json.fromJson(responseBody, ApiFault.class);
-			return new ApiFaultException(apiFault.getErrorMessage(), e, apiFault);
+			return new ApiFaultException(apiFault.getErrorMessage(), e, e.getStatusCode(), apiFault);
 		} catch (JsonSerializationException serializationException) {
 			ApiFault apiFault = new ApiFault();
 			apiFault.setErrorMessage(responseBody);
-			return new ApiFaultException(responseBody, e, apiFault);
+			return new ApiFaultException(responseBody, e, e.getStatusCode(), apiFault);
 		}
 	}
 }

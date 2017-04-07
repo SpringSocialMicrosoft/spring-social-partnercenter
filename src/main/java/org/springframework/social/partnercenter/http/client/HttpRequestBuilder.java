@@ -75,6 +75,10 @@ public class HttpRequestBuilder {
 		return restResource.get(uriBuilder.build().toUri(), aClass, headers);
 	}
 
+	public ResponseEntity<Void> head() {
+		return restResource.head(uriBuilder.build().toUri(), headers);
+	}
+
 	public <T> ResponseEntity<T> get(ParameterizedTypeReference<T> aClass) {
 		return restResource.get(uriBuilder.build().toUri(), aClass, headers);
 	}
