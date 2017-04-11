@@ -32,10 +32,10 @@ public class UtilityTemplate extends AbstractTemplate implements UtilityOperatio
 	}
 
 	@Override
-	public Boolean isDomainAvailable(String domainId) {
+	public Boolean isDomainAvailable(String domain) {
 		try {
 			return !restResource.request()
-					.pathSegment("validations", "checkdomainavailability", domainId)
+					.pathSegment("domains", domain)
 					.head().getStatusCode().equals(OK);
 		} catch (ApiFaultException fault){
 			return fault.getHttpStatus().equals(NOT_FOUND);
