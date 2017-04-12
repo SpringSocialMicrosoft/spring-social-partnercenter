@@ -37,6 +37,14 @@ public class AdminCustomerTemplate extends CustomerTemplate implements AdminCust
 	}
 
 	@Override
+	public ResponseEntity<CustomerBillingProfile> updateBillingProfile(String customerId, String etag, CustomerBillingProfile billingProfile) {
+		return  restResource.request()
+				.pathSegment(customerId, "profiles", "billing")
+				.header("If-Match", etag)
+				.put(billingProfile, CustomerBillingProfile.class);
+	}
+
+	@Override
 	protected String getProviderId() {
 		return PartnerCenterAdmin.PROVIDER_ID;
 	}
