@@ -8,7 +8,6 @@ import org.springframework.social.partnercenter.PartnerCenter;
 import org.springframework.social.partnercenter.api.PagingResourceTemplate;
 import org.springframework.social.partnercenter.api.PartnerCenterResponse;
 import org.springframework.social.partnercenter.api.customer.Customer;
-import org.springframework.social.partnercenter.api.customer.CustomerBillingProfile;
 import org.springframework.social.partnercenter.api.customer.CustomerCompanyProfile;
 import org.springframework.social.partnercenter.api.customer.CustomerOperations;
 import org.springframework.social.partnercenter.api.customer.request.Filter;
@@ -72,14 +71,6 @@ public class CustomerTemplate extends PagingResourceTemplate<Customer> implement
 		return restResource.request()
 				.pathSegment(customerId, "profiles", "profiles")
 				.get(CustomerCompanyProfile.class);
-	}
-
-	@Override
-	public ResponseEntity<CustomerBillingProfile> updateBillingProfile(String customerId, String etag, CustomerBillingProfile billingProfile) {
-		return  restResource.request()
-				.pathSegment(customerId, "profiles", "billing")
-				.header("If-Match", etag)
-				.put(billingProfile, CustomerBillingProfile.class);
 	}
 
 	@Override
