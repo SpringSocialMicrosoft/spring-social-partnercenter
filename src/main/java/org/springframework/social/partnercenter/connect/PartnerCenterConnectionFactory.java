@@ -57,6 +57,24 @@ public class PartnerCenterConnectionFactory extends BasePartnerCenterConnectionF
 		super(providerId, serviceProvider, apiAdapter);
 	}
 
+	public boolean canConnect(){
+		try {
+			createConnection();
+			return true;
+		} catch (Exception e){
+			return false;
+		}
+	}
+
+	public boolean canConnect(String username, String password){
+		try {
+			createConnection(username, password);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
 	public PartnerCenterConnection createConnection(){
 		AccessGrant accessGrant = getAuthOperations().exchangeForAccess();
 		return (PartnerCenterConnection) createConnection(accessGrant);
