@@ -14,7 +14,7 @@ import org.springframework.social.partnercenter.http.client.RestResource;
 public class AdminUserTemplate extends UserTemplate implements AdminUserOperations {
 	private final RestResource restResource;
 
-	protected AdminUserTemplate(RestResource restResource, boolean isAuthorized) {
+	public AdminUserTemplate(RestResource restResource, boolean isAuthorized) {
 		super(restResource, isAuthorized);
 		this.restResource = restResource;
 	}
