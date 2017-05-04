@@ -2,14 +2,14 @@ package org.springframework.social.partnercenter.api.order.impl;
 
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.ResponseEntity;
+import org.springframework.social.partnercenter.PartnerCenter;
 import org.springframework.social.partnercenter.api.PagingResourceTemplate;
 import org.springframework.social.partnercenter.api.PartnerCenterResponse;
-import org.springframework.social.partnercenter.api.order.OrderOperations;
-import org.springframework.social.partnercenter.PartnerCenter;
-import org.springframework.social.partnercenter.http.client.RestResource;
-import org.springframework.social.partnercenter.api.AbstractTemplate;
 import org.springframework.social.partnercenter.api.order.Order;
+import org.springframework.social.partnercenter.api.order.OrderOperations;
 import org.springframework.social.partnercenter.api.order.request.CreateOrderRequest;
+import org.springframework.social.partnercenter.api.order.subscription.SubscriptionProvisioningState;
+import org.springframework.social.partnercenter.http.client.RestResource;
 
 public class OrderTemplate extends PagingResourceTemplate<Order> implements OrderOperations {
 	private final RestResource restResource;
@@ -50,5 +50,12 @@ public class OrderTemplate extends PagingResourceTemplate<Order> implements Orde
 	@Override
 	protected String getProviderId() {
 		return PartnerCenter.PROVIDER_ID;
+	}
+
+	@Override
+	public ResponseEntity<SubscriptionProvisioningState> getSubscriptionProvisioningState(String customerTenantId, String subscriptionId) {
+		return restResource.request()
+				.pathSegment(customerTenantId, "subscriptions", subscriptionId, "provisioningstatus")
+				.get(SubscriptionProvisioningState.class);
 	}
 }
