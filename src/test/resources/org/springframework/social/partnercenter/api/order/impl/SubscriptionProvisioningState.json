@@ -1,0 +1,9 @@
+{
+  "skuId": "CDD28E44-67E3-425E-BE4C-737FAB2899D3",
+  "status": "success",
+  "quantity": 5,
+  "endDate": "2018-05-10T00:00:00Z",
+  "attributes": {
+    "objectType": "SubscriptionProvisioningStatus"
+  }
+}
