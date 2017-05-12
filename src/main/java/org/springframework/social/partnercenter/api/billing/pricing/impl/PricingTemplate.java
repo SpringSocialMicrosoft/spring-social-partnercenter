@@ -36,7 +36,7 @@ public class PricingTemplate extends AbstractTemplate implements PricingOperatio
 		return restResource.request()
 				.queryParam("currency", currency)
 				.queryParam("region", region)
-				.header("X-Locale", locale.toLanguageTag())
+				.header("X-Locale", locale.toString())
 				.get(AzureResourcePricing.class);
 	}
 
