@@ -44,6 +44,7 @@ public class UtilityTemplate extends AbstractTemplate implements UtilityOperatio
 		try {
 			return !restResource.request()
 					.pathSegment("domains", domain)
+					.noRetry()
 					.head().getStatusCode().equals(OK);
 		} catch (ApiFaultException fault){
 			return fault.getHttpStatus().equals(NOT_FOUND);
@@ -64,6 +65,25 @@ public class UtilityTemplate extends AbstractTemplate implements UtilityOperatio
 				.queryParam("startDate", startDate.atZone(of("UTC")).format(PARTNER_CENTER_UTC))
 				.queryParam("endDate", endDate.atZone(of("UTC")).format(PARTNER_CENTER_UTC))
 				.queryParam("filter", filter.getValue())
+				.get(new ParameterizedTypeReference<PartnerCenterResponse<AuditRecord>>() {});
+	}
+
+	@Override
+	public ResponseEntity<PartnerCenterResponse<AuditRecord>> getActivityByUser(Instant startDate, Instant endDate, String filter) {
+		return restResource.request()
+				.pathSegment("auditrecords")
+				.queryParam("startDate", startDate.atZone(of("UTC")).format(PARTNER_CENTER_UTC))
+				.queryParam("endDate", endDate.atZone(of("UTC")).format(PARTNER_CENTER_UTC))
+				.queryParam("filter", filter)
+				.get(new ParameterizedTypeReference<PartnerCenterResponse<AuditRecord>>() {});
+	}
+
+	@Override
+	public ResponseEntity<PartnerCenterResponse<AuditRecord>> getActivityByUser(Instant startDate, Instant endDate) {
+		return restResource.request()
+				.pathSegment("auditrecords")
+				.queryParam("startDate", startDate.atZone(of("UTC")).format(PARTNER_CENTER_UTC))
+				.queryParam("endDate", endDate.atZone(of("UTC")).format(PARTNER_CENTER_UTC))
 				.get(new ParameterizedTypeReference<PartnerCenterResponse<AuditRecord>>() {});
 	}
 }

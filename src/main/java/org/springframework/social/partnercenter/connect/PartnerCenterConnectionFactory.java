@@ -1,6 +1,5 @@
 package org.springframework.social.partnercenter.connect;
 
-import org.springframework.retry.support.RetryTemplate;
 import org.springframework.social.connect.ApiAdapter;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionData;
@@ -25,32 +24,12 @@ public class PartnerCenterConnectionFactory extends BasePartnerCenterConnectionF
 		this(PartnerCenter.PROVIDER_ID, new PartnerCenterServiceProvider(applicationId, applicationSecret, clientId, tenant, authority, resourceUrl, partnerServiceApiRoot), new PartnerCenterApiAdapter());
 	}
 
-	public PartnerCenterConnectionFactory(String applicationId, String applicationSecret, String clientId, String tenant, RetryTemplate retryTemplate){
-		this(PartnerCenter.PROVIDER_ID, new PartnerCenterServiceProvider(applicationId, applicationSecret, clientId, tenant, retryTemplate), new PartnerCenterApiAdapter());
-	}
-
-	public PartnerCenterConnectionFactory(String applicationId, String applicationSecret, String clientId, String tenant, RetryTemplate retryTemplate, SecurityRegion region){
-		this(PartnerCenter.PROVIDER_ID, new PartnerCenterServiceProvider(applicationId, applicationSecret, clientId, tenant, region, retryTemplate), new PartnerCenterApiAdapter());
-	}
-
-	public PartnerCenterConnectionFactory(String applicationId, String applicationSecret, String clientId, String tenant, RetryTemplate retryTemplate, String authority, String resourceUrl, String partnerServiceApiRoot){
-		this(PartnerCenter.PROVIDER_ID, new PartnerCenterServiceProvider(applicationId, applicationSecret, clientId, tenant, retryTemplate, authority, resourceUrl, partnerServiceApiRoot), new PartnerCenterApiAdapter());
-	}
-
 	public PartnerCenterConnectionFactory(String applicationId, String applicationSecret, String clientId, String tenant, String apiVersion, SecurityRegion region){
 		this(PartnerCenter.PROVIDER_ID, new PartnerCenterServiceProvider(applicationId, applicationSecret, clientId, tenant, apiVersion, region), new PartnerCenterApiAdapter());
 	}
 
-	public PartnerCenterConnectionFactory(String applicationId, String applicationSecret, String clientId, String tenant, RetryTemplate retryTemplate, String apiVersion, SecurityRegion region){
-		this(PartnerCenter.PROVIDER_ID, new PartnerCenterServiceProvider(applicationId, applicationSecret, clientId, tenant, retryTemplate, apiVersion, region), new PartnerCenterApiAdapter());
-	}
-
 	public PartnerCenterConnectionFactory(String applicationId, String applicationSecret, String clientId, String tenant, String apiVersion, String authority, String resourceUrl, String partnerServiceApiRoot){
 		this(PartnerCenter.PROVIDER_ID, new PartnerCenterServiceProvider(applicationId, applicationSecret, clientId, tenant, apiVersion, authority, resourceUrl, partnerServiceApiRoot), new PartnerCenterApiAdapter());
-	}
-
-	public PartnerCenterConnectionFactory(String applicationId, String applicationSecret, String clientId, String tenant, String apiVersion, RetryTemplate retryTemplate, String authority, String resourceUrl, String partnerServiceApiRoot){
-		this(PartnerCenter.PROVIDER_ID, new PartnerCenterServiceProvider(applicationId, applicationSecret, clientId, tenant, apiVersion, retryTemplate, authority, resourceUrl, partnerServiceApiRoot), new PartnerCenterApiAdapter());
 	}
 
 	private PartnerCenterConnectionFactory(String providerId, PartnerCenterServiceProvider serviceProvider, ApiAdapter<PartnerCenter> apiAdapter) {

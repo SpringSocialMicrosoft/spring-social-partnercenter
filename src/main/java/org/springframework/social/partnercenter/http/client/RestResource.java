@@ -21,70 +21,28 @@ public class RestResource {
 	private RestTemplate restTemplate;
 	private String resourceBaseUri;
 
-	public HttpRequestBuilder request(){
-		return new HttpRequestBuilder(this, this.resourceBaseUri);
-	}
-
-	public HttpRequestBuilder request(String msRequestId, String msCorrelationId){
-		return new HttpRequestBuilder(this, this.resourceBaseUri, msRequestId, msCorrelationId);
-	}
-	public HttpRequestBuilder request(MediaType mediaType){
-		return new HttpRequestBuilder(this, this.resourceBaseUri).header(HttpHeaders.CONTENT_TYPE, singletonList(mediaType.toString()));
-	}
-
-	RestTemplate getRestTemplate() {
-		return restTemplate;
-	}
-
 	public RestResource(RestTemplate restTemplate, String resourceBaseUri) {
 		this.restTemplate = restTemplate;
 		this.resourceBaseUri = resourceBaseUri;
 	}
 
-	<T> ResponseEntity<T> get(URI url, ParameterizedTypeReference<T> responseType) {
-		return execute(url, HttpMethod.GET, null, responseType);
+	public HttpRequestBuilder request(){
+		return new HttpRequestBuilder(this, this.resourceBaseUri);
 	}
-	<T> ResponseEntity<T> get(URI url, ParameterizedTypeReference<T> responseType, HttpHeaders headers) {
-		return execute(url, HttpMethod.GET, new HttpEntity<>(headers), responseType);
-	}
-
-	<T> ResponseEntity<T> get(URI url, Class<T> responseType) {
-		return execute(url, HttpMethod.GET, null, responseType);
+	public HttpRequestBuilder request(String msRequestId, String msCorrelationId){
+		return new HttpRequestBuilder(this, this.resourceBaseUri, msRequestId, msCorrelationId);
 	}
 
-	<T> ResponseEntity<T> get(URI url, Class<T> responseType, HttpHeaders header) {
-		return execute(url, HttpMethod.GET, new HttpEntity<>(header), responseType);
-	}
-	ResponseEntity<Void> head(URI url, HttpHeaders header) {
-		return execute(url, HttpMethod.HEAD, new HttpEntity<>(header), Void.class);
-	}
-
-	<T> ResponseEntity<T> post(URI url, ParameterizedTypeReference<T> responseType) {
-		return execute(url, HttpMethod.POST, HttpEntity.EMPTY, responseType);
-	}
-
-	<T> ResponseEntity<T> post(URI url, ParameterizedTypeReference<T> responseType, HttpHeaders headers) {
-		return execute(url, HttpMethod.POST, new HttpEntity<Object>(headers), responseType);
-	}
-
-	<T, R> ResponseEntity<R> post(URI uri, T entity, Class<R> responseType) {
-		return execute(uri, HttpMethod.POST, new HttpEntity<>(entity), responseType);
-	}
-
-	<T, R> ResponseEntity<R> post(URI uri, HttpEntity<T> entity, Class<R> responseType) {
-		return execute(uri, HttpMethod.POST, entity, responseType);
-	}
-
-	<T, R> ResponseEntity<R> patch(URI uri, HttpEntity<T> entity, Class<R> responseType) {
-		return execute(uri, HttpMethod.PATCH, entity, responseType);
-	}
-
-	<T, R> ResponseEntity<R> put(URI uri, HttpEntity<T> entity, Class<R> responseType) {
-		return execute(uri, HttpMethod.PUT, entity, responseType);
+	public HttpRequestBuilder request(MediaType mediaType){
+		return new HttpRequestBuilder(this, this.resourceBaseUri).header(HttpHeaders.CONTENT_TYPE, singletonList(mediaType.toString()));
 	}
 
 	public ResponseEntity delete(URI uri, HttpHeaders headers){
-		return restTemplate.exchange(uri, HttpMethod.DELETE, new HttpEntity<>(headers), String.class);
+		try {
+			return restTemplate.exchange(uri, HttpMethod.DELETE, new HttpEntity<>(headers), String.class);
+		} catch (HttpClientErrorException e) {
+			throw buildApiFault(e);
+		}
 	}
 
 	public <T, R> ResponseEntity<R> execute(URI uri, HttpMethod httpMethod, HttpEntity<T> entity, Class<R> responseType) {
@@ -103,7 +61,7 @@ public class RestResource {
 		}
 	}
 
-	private ApiFaultException buildApiFault(HttpClientErrorException e) {
+	protected ApiFaultException buildApiFault(HttpClientErrorException e) {
 		String responseBody = e.getResponseBodyAsString();
 		try {
 			ApiFault apiFault = Json.fromJson(responseBody, ApiFault.class);

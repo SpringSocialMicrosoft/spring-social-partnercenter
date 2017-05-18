@@ -11,4 +11,6 @@ public interface UtilityOperations {
 	Boolean isDomainAvailable(String domainId);
 	ResponseEntity deleteCustomer(String customerId);
 	ResponseEntity<PartnerCenterResponse<AuditRecord>> getActivityByUser(Instant startDate, Instant endDate, Filter filter);
+	ResponseEntity<PartnerCenterResponse<AuditRecord>> getActivityByUser(Instant startDate, Instant endDate, String filter);
+	ResponseEntity<PartnerCenterResponse<AuditRecord>> getActivityByUser(Instant startDate, Instant endDate);
 }

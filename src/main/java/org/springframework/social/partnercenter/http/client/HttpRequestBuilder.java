@@ -2,20 +2,26 @@ package org.springframework.social.partnercenter.http.client;
 
 import static java.util.Collections.singletonList;
 
+import java.net.URI;
 import java.util.List;
 import java.util.UUID;
 
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.retry.support.RetryTemplate;
 import org.springframework.social.partnercenter.api.ApiFaultException;
 import org.springframework.social.partnercenter.http.PartnerCenterHttpHeaders;
+import org.springframework.social.partnercenter.http.client.retry.RetryBuilder;
+import org.springframework.social.partnercenter.http.client.retry.RetryService;
 import org.springframework.web.util.UriComponentsBuilder;
 
 public class HttpRequestBuilder {
 	private PartnerCenterHttpHeaders headers;
 	private RestResource restResource;
 	private UriComponentsBuilder uriBuilder;
+	private RetryService retryService = new RetryService(RetryBuilder.DEFAULT_EXPONENTIAL_RETRY);
 
 	HttpRequestBuilder(RestResource restResource, String resourceBaseUri, String msRequestId, String msCorrelationId){
 		this.headers = new PartnerCenterHttpHeaders();
@@ -51,40 +57,64 @@ public class HttpRequestBuilder {
 		return this;
 	}
 
+	public HttpRequestBuilder noRetry(){
+		retryService = null;
+		return this;
+	}
+
+	public HttpRequestBuilder withRetry(RetryTemplate retryTemplate){
+		retryService = new RetryService(retryTemplate);
+		return this;
+	}
+
 	public HttpRequestBuilder path(String path){
 		uriBuilder.path(path);
 		return this;
 	}
 
 	public <T, R> ResponseEntity<R> put(T payload, Class<R> aClass) {
-		HttpEntity<T> tHttpEntity = new HttpEntity<>(payload, headers);
-		return restResource.put(uriBuilder.build().toUri(), tHttpEntity, aClass);
+		HttpEntity<T> entity = new HttpEntity<>(payload, headers);
+		return execute(uriBuilder.build().toUri(), HttpMethod.PUT, entity, aClass);
 	}
 
 	public <T, R> ResponseEntity<R> post(T payload, Class<R> aClass) {
-		HttpEntity<T> tHttpEntity = new HttpEntity<>(payload, headers);
-		return restResource.post(uriBuilder.build().toUri(), tHttpEntity, aClass);
+		HttpEntity<T> entity = new HttpEntity<>(payload, headers);
+		return execute(uriBuilder.build().toUri(), HttpMethod.POST, entity, aClass);
 	}
 
 	public <T, R> ResponseEntity<R> patch(T payload, Class<R> aClass) {
-		HttpEntity<T> tHttpEntity = new HttpEntity<>(payload, headers);
-		return restResource.patch(uriBuilder.build().toUri(), tHttpEntity, aClass);
+		HttpEntity<T> entity = new HttpEntity<>(payload, headers);
+		return execute(uriBuilder.build().toUri(), HttpMethod.PATCH, entity, aClass);
 	}
 
 	public <T> ResponseEntity<T> get(Class<T> aClass) {
-		return restResource.get(uriBuilder.build().toUri(), aClass, headers);
+		return execute(uriBuilder.build().toUri(), HttpMethod.GET, new HttpEntity<>(headers), aClass);
 	}
 
 	public ResponseEntity<Void> head() {
-		return restResource.head(uriBuilder.build().toUri(), headers);
+		return execute(uriBuilder.build().toUri(), HttpMethod.HEAD, new HttpEntity<>(headers), Void.class);
 	}
 
 	public <T> ResponseEntity<T> get(ParameterizedTypeReference<T> aClass) {
-		return restResource.get(uriBuilder.build().toUri(), aClass, headers);
+		return execute(uriBuilder.build().toUri(), HttpMethod.GET, new HttpEntity<>(headers), aClass);
 	}
 
 	public ResponseEntity delete() throws ApiFaultException{
-		return restResource.delete(uriBuilder.build().toUri(), headers);
+		return retryService != null
+				? retryService.doWithRetry(() -> restResource.delete(uriBuilder.build().toUri(), headers))
+				: restResource.delete(uriBuilder.build().toUri(), headers);
+	}
+
+	private <T, R> ResponseEntity<R> execute(URI uri, HttpMethod httpMethod, HttpEntity<T> entity, Class<R> responseType){
+		return retryService != null
+				? retryService.doWithRetry(() -> restResource.execute(uri, httpMethod, entity, responseType))
+				: restResource.execute(uri, httpMethod, entity, responseType);
+	}
+
+	private <T, R> ResponseEntity<R> execute(URI uri, HttpMethod httpMethod, HttpEntity<T> entity, ParameterizedTypeReference<R> responseType) {
+		return retryService != null
+				? retryService.doWithRetry(() -> restResource.execute(uri, httpMethod, entity, responseType))
+				: restResource.execute(uri, httpMethod, entity, responseType);
 	}
 
 	private void addMicrosoftTrackingHeaders() {
