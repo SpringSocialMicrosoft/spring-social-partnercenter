@@ -1,10 +1,7 @@
 package org.springframework.social.partnercenter.api;
 
-import static java.util.Objects.nonNull;
-
 import org.springframework.http.client.BufferingClientHttpRequestFactory;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
-import org.springframework.retry.support.RetryTemplate;
 import org.springframework.social.oauth2.AbstractOAuth2ApiBinding;
 import org.springframework.social.partnercenter.PartnerCenter;
 import org.springframework.social.partnercenter.api.billing.invoicing.InvoiceOperations;
@@ -30,8 +27,6 @@ import org.springframework.social.partnercenter.api.utilities.UtilityOperations;
 import org.springframework.social.partnercenter.api.utilities.impl.UtilityTemplate;
 import org.springframework.social.partnercenter.connect.ApiVersionParameterRequestInterceptor;
 import org.springframework.social.partnercenter.http.client.RestResource;
-import org.springframework.social.partnercenter.http.client.RetryRestResource;
-import org.springframework.social.partnercenter.http.client.retry.RetryService;
 import org.springframework.social.partnercenter.http.logging.LogLevel;
 import org.springframework.social.partnercenter.http.logging.LoggingRequestInterceptor;
 import org.springframework.social.partnercenter.http.logging.Slf4jHttpRequestResponseLogger;
@@ -50,46 +45,43 @@ public class PartnerCenterTemplate extends AbstractOAuth2ApiBinding implements P
 	private final UtilityOperations utilityOperations;
 	private final UserOperations userOperations;
 
-	public PartnerCenterTemplate(RetryTemplate retryTemplate, UriProvider uriProvider, String accessToken, String version){
+	public PartnerCenterTemplate(UriProvider uriProvider, String accessToken, String version){
 		super(accessToken);
 		addVersionInterceptor(version);
 		this.uriProvider = uriProvider;
 		subscriptionOperations = new SubscriptionTemplate(createRestResource(
-				uriProvider.partnerCenterCustomerUri().toUriString(), retryTemplate),
+				uriProvider.partnerCenterCustomerUri().toUriString()),
 				isAuthorized());
 
 		orderOperations = new OrderTemplate(createRestResource(
-				uriProvider.partnerCenterCustomerUri().toUriString(), retryTemplate), isAuthorized());
+				uriProvider.partnerCenterCustomerUri().toUriString()), isAuthorized());
 
 		customerOperations = new CustomerTemplate(createRestResource(
-				uriProvider.partnerCenterCustomerUri().toUriString(), retryTemplate) ,isAuthorized());
+				uriProvider.partnerCenterCustomerUri().toUriString()) ,isAuthorized());
 
 		offerOperations = new OfferTemplate(createRestResource(
-				uriProvider.partnerCenterOfferUri().toUriString(), retryTemplate), isAuthorized());
+				uriProvider.partnerCenterOfferUri().toUriString()), isAuthorized());
 
 		usageOperations = new UsageTemplate(createRestResource(
-				uriProvider.partnerCenterCustomerUri().toUriString(), retryTemplate), isAuthorized());
+				uriProvider.partnerCenterCustomerUri().toUriString()), isAuthorized());
 
 		pricingOperations = new PricingTemplate(createRestResource(
-				uriProvider.partnerCenterPricingUri().toUriString(), retryTemplate), isAuthorized());
+				uriProvider.partnerCenterPricingUri().toUriString()), isAuthorized());
 
 		invoiceOperations = new InvoiceTemplate(createRestResource(
-				uriProvider.partnerCenterInvoiceUri().toUriString(), retryTemplate), isAuthorized());
+				uriProvider.partnerCenterInvoiceUri().toUriString()), isAuthorized());
 
 		profileOperations = new ProfileTemplate(createRestResource(
-				uriProvider.partnerCenterProfileUri().toUriString(), retryTemplate), isAuthorized());
+				uriProvider.partnerCenterProfileUri().toUriString()), isAuthorized());
 
 		utilityOperations = new UtilityTemplate(createRestResource(
-				uriProvider.partnerCenterBuilder().pathSegment("v1").toUriString(), retryTemplate), isAuthorized());
+				uriProvider.partnerCenterBuilder().pathSegment("v1").toUriString()), isAuthorized());
 
 		userOperations = new UserTemplate(createRestResource(
-				uriProvider.partnerCenterCustomerUri().toUriString(), retryTemplate), isAuthorized());
+				uriProvider.partnerCenterCustomerUri().toUriString()), isAuthorized());
 	}
 
-	private RestResource createRestResource(String baseUri, RetryTemplate retryTemplate){
-		if(nonNull(retryTemplate)){
-			return new RetryRestResource(getRestTemplate(), baseUri, new RetryService(retryTemplate));
-		}
+	private RestResource createRestResource(String baseUri){
 		return new RestResource(getRestTemplate(), baseUri);
 	}
 
