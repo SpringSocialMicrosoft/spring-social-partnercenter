@@ -19,6 +19,7 @@ import org.springframework.social.partnercenter.api.utilities.AuditRecord;
 import org.springframework.social.partnercenter.api.utilities.CountryInformation;
 import org.springframework.social.partnercenter.api.utilities.UtilityOperations;
 import org.springframework.social.partnercenter.http.client.RestResource;
+import org.springframework.social.partnercenter.serialization.Json;
 
 public class UtilityTemplate extends AbstractTemplate implements UtilityOperations{
 	private final RestResource restResource;
@@ -72,7 +73,7 @@ public class UtilityTemplate extends AbstractTemplate implements UtilityOperatio
 				.pathSegment("auditrecords")
 				.queryParam("startDate", startDate.atZone(of("UTC")).format(PARTNER_CENTER_UTC))
 				.queryParam("endDate", endDate.atZone(of("UTC")).format(PARTNER_CENTER_UTC))
-				.queryParam("filter", filter.getValue())
+				.queryParam("filter", Json.toJson(filter))
 				.get(new ParameterizedTypeReference<PartnerCenterResponse<AuditRecord>>() {});
 	}
 
