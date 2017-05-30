@@ -13,6 +13,7 @@ import org.springframework.social.partnercenter.PartnerCenter;
 import org.springframework.social.partnercenter.api.AbstractTemplate;
 import org.springframework.social.partnercenter.api.ApiFaultException;
 import org.springframework.social.partnercenter.api.PartnerCenterResponse;
+import org.springframework.social.partnercenter.api.customer.Address;
 import org.springframework.social.partnercenter.api.customer.request.Filter;
 import org.springframework.social.partnercenter.api.utilities.AuditRecord;
 import org.springframework.social.partnercenter.api.utilities.CountryInformation;
@@ -49,6 +50,13 @@ public class UtilityTemplate extends AbstractTemplate implements UtilityOperatio
 		} catch (ApiFaultException fault){
 			return fault.getHttpStatus().equals(NOT_FOUND);
 		}
+	}
+
+	@Override
+	public ResponseEntity<Boolean> validateAddress(Address address) {
+		return restResource.request()
+				.pathSegment("validations", "address")
+				.post(address, Boolean.class);
 	}
 
 	@Override
