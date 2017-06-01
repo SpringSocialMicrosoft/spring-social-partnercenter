@@ -20,16 +20,16 @@ import org.springframework.social.partnercenter.http.client.RestResource;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class OrderTemplateTest {
+public class AdminOrderTemplateTest {
 	@Mock(answer = Answers.RETURNS_DEEP_STUBS)
 	private RestResource restResource;
 
-	private OrderTemplate orderTemplate;
+	private AdminOrderTemplate orderTemplate;
 
 	@Before
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
-		orderTemplate = new OrderTemplate(restResource, true);
+		orderTemplate = new AdminOrderTemplate(restResource, true);
 	}
 
 	@Test
