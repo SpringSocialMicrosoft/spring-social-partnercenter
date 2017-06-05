@@ -34,6 +34,14 @@ public class Offer {
 	private OfferCategory category;
 	@JsonProperty("prerequisiteOffers")
 	private List<String> prerequisiteOffers;
+	@JsonProperty("conversionTargetOffers")
+	private List<String> conversionTargetOffers;
+	@JsonProperty("reselleeQualifications")
+	private List<String> reselleeQualifications;
+	@JsonProperty("resellerQualifications")
+	private List<String> resellerQualifications;
+	@JsonProperty("salesGroupId")
+	private String salesGroupId;
 	@JsonProperty("isAddOn")
 	private boolean isAddOn;
 	@JsonProperty("hasAddOns")
@@ -48,6 +56,12 @@ public class Offer {
 	private Product product;
 	@JsonProperty("unitType")
 	private String unitType;
+	@JsonProperty("isTrial")
+	private boolean trial;
+	@JsonProperty("supportedBillingCycles")
+	private List<String> supportedBillingCycles;
+	@JsonProperty("isInternal")
+	private boolean internal;
 	@JsonProperty("links")
 	private Map<String, Link> links;
 	@JsonProperty("attributes")
@@ -233,6 +247,62 @@ public class Offer {
 		return this;
 	}
 
+	public List<String> getConversionTargetOffers() {
+		return conversionTargetOffers;
+	}
+
+	public void setConversionTargetOffers(List<String> conversionTargetOffers) {
+		this.conversionTargetOffers = conversionTargetOffers;
+	}
+
+	public List<String> getReselleeQualifications() {
+		return reselleeQualifications;
+	}
+
+	public void setReselleeQualifications(List<String> reselleeQualifications) {
+		this.reselleeQualifications = reselleeQualifications;
+	}
+
+	public List<String> getResellerQualifications() {
+		return resellerQualifications;
+	}
+
+	public void setResellerQualifications(List<String> resellerQualifications) {
+		this.resellerQualifications = resellerQualifications;
+	}
+
+	public String getSalesGroupId() {
+		return salesGroupId;
+	}
+
+	public void setSalesGroupId(String salesGroupId) {
+		this.salesGroupId = salesGroupId;
+	}
+
+	public boolean isTrial() {
+		return trial;
+	}
+
+	public void setTrial(boolean trial) {
+		this.trial = trial;
+	}
+
+	public List<String> getSupportedBillingCycles() {
+		return supportedBillingCycles;
+	}
+
+	public void setSupportedBillingCycles(List<String> supportedBillingCycles) {
+		this.supportedBillingCycles = supportedBillingCycles;
+	}
+
+	public boolean isInternal() {
+		return internal;
+	}
+
+	public void setInternal(boolean internal) {
+		this.internal = internal;
+	}
+
 	public static OfferBuilder builder(){
 		return new OfferBuilder();
 	}
@@ -259,6 +329,13 @@ public class Offer {
 		private String unitType;
 		private Map<String, Link> links;
 		private Map<String, String> attributes;
+		private List<String> conversionTargetOffers;
+		private List<String> reselleeQualifications;
+		private List<String> resellerQualifications;
+		private List<String> supportedBillingCycles;
+		private String salesGroupId;
+		private boolean internal;
+		private boolean trial;
 
 		public Offer build(){
 			Offer offer = new Offer();
@@ -282,6 +359,13 @@ public class Offer {
 			offer.setAutoRenewable(isAutoRenewable);
 			offer.setProduct(product);
 			offer.setUnitType(unitType);
+			offer.setSupportedBillingCycles(supportedBillingCycles);
+			offer.setConversionTargetOffers(conversionTargetOffers);
+			offer.setReselleeQualifications(reselleeQualifications);
+			offer.setResellerQualifications(resellerQualifications);
+			offer.setSalesGroupId(salesGroupId);
+			offer.setInternal(internal);
+			offer.setTrial(trial);
 
 			return offer;
 		}
@@ -382,6 +466,41 @@ public class Offer {
 
 		public OfferBuilder attributes(Map<String, String> attributes) {
 			this.attributes = attributes;
+			return this;
+		}
+
+		public OfferBuilder conversionTargetOffers(List<String> conversionTargetOffers) {
+			this.conversionTargetOffers = conversionTargetOffers;
+			return this;
+		}
+
+		public OfferBuilder reselleeQualifications(List<String> reselleeQualifications) {
+			this.reselleeQualifications = reselleeQualifications;
+			return this;
+		}
+
+		public OfferBuilder resellerQualifications(List<String> resellerQualifications) {
+			this.resellerQualifications = resellerQualifications;
+			return this;
+		}
+
+		public OfferBuilder supportedBillingCycles(List<String> supportedBillingCycles) {
+			this.supportedBillingCycles = supportedBillingCycles;
+			return this;
+		}
+
+		public OfferBuilder salesGroupId(String salesGroupId) {
+			this.salesGroupId = salesGroupId;
+			return this;
+		}
+
+		public OfferBuilder internal(boolean internal) {
+			this.internal = internal;
+			return this;
+		}
+
+		public OfferBuilder trial(boolean trial) {
+			this.trial = trial;
 			return this;
 		}
 	}

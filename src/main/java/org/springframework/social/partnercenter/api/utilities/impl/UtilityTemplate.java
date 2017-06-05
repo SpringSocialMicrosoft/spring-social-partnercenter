@@ -3,6 +3,7 @@ package org.springframework.social.partnercenter.api.utilities.impl;
 import static java.time.ZoneId.of;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.social.partnercenter.serialization.Json.toJson;
 import static org.springframework.social.partnercenter.time.PartnerCenterDateTimeFormatter.PARTNER_CENTER_UTC;
 
 import java.time.Instant;
@@ -72,7 +73,7 @@ public class UtilityTemplate extends AbstractTemplate implements UtilityOperatio
 				.pathSegment("auditrecords")
 				.queryParam("startDate", startDate.atZone(of("UTC")).format(PARTNER_CENTER_UTC))
 				.queryParam("endDate", endDate.atZone(of("UTC")).format(PARTNER_CENTER_UTC))
-				.queryParam("filter", filter.getValue())
+				.queryParam("filter", toJson(filter))
 				.get(new ParameterizedTypeReference<PartnerCenterResponse<AuditRecord>>() {});
 	}
 
