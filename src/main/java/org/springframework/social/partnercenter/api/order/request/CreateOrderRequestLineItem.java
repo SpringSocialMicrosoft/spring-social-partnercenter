@@ -4,10 +4,8 @@ import static java.util.Objects.nonNull;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class CreateOrderRequestLineItem {
 	private Integer lineItemNumber;
@@ -15,6 +13,7 @@ public class CreateOrderRequestLineItem {
 	private String parentSubscriptionId;
 	private String friendlyName;
 	private Integer quantity;
+	private String partnerIdOnRecord;
 
 	public Integer getLineItemNumber() {
 		return lineItemNumber;
@@ -54,6 +53,14 @@ public class CreateOrderRequestLineItem {
 
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
+	}
+
+	public String getPartnerIdOnRecord() {
+		return partnerIdOnRecord;
+	}
+
+	public void setPartnerIdOnRecord(String partnerIdOnRecord) {
+		this.partnerIdOnRecord = partnerIdOnRecord;
 	}
 
 	@JsonIgnore
@@ -97,6 +104,7 @@ public class CreateOrderRequestLineItem {
 		private String parentSubscriptionId;
 		private String friendlyName;
 		private int quantity;
+		private String partnerIdOnRecord;
 
 		public CreateOrderRequestLineItemBuilder lineItemNumber(Integer lineItemNumber) {
 			this.lineItemNumber = lineItemNumber;
@@ -123,12 +131,18 @@ public class CreateOrderRequestLineItem {
 			return this;
 		}
 
+		public CreateOrderRequestLineItemBuilder partnerIdOnRecord(String partnerIdOnRecord) {
+			this.partnerIdOnRecord = partnerIdOnRecord;
+			return this;
+		}
+
 		public CreateOrderRequestLineItem build(){
 			CreateOrderRequestLineItem createOrderRequestLineItem = new CreateOrderRequestLineItem();
 			createOrderRequestLineItem.setFriendlyName(friendlyName);
 			createOrderRequestLineItem.setOfferId(offerId);
 			createOrderRequestLineItem.setParentSubscriptionId(parentSubscriptionId);
 			createOrderRequestLineItem.setQuantity(quantity);
+			createOrderRequestLineItem.setPartnerIdOnRecord(partnerIdOnRecord);
 			if (nonNull(lineItemNumber)) {
 				createOrderRequestLineItem.setLineItemNumber(lineItemNumber);
 			}
