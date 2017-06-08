@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 public class CreateOrderRequestLineItem {
 	private Integer lineItemNumber;
@@ -13,6 +14,7 @@ public class CreateOrderRequestLineItem {
 	private String parentSubscriptionId;
 	private String friendlyName;
 	private Integer quantity;
+	@JsonInclude(JsonInclude.Include.NON_NULL)
 	private String partnerIdOnRecord;
 
 	public Integer getLineItemNumber() {
