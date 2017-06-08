@@ -2,8 +2,10 @@ package org.springframework.social.partnercenter.api.customer.request;
 
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.social.partnercenter.api.customer.PasswordProfile;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class UpdateUserPasswordRequest {
 	private PasswordProfile passwordProfile;
 	private Map<String, String> attributes;
