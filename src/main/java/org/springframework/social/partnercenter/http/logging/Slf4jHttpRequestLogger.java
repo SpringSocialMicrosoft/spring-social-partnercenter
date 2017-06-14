@@ -19,7 +19,7 @@ public class Slf4jHttpRequestLogger implements HttpRequestLogger {
 	}
 
 	public String formatLog(Instant startTime, HttpRequest request, byte[] body){
-		return format("HTTP Request sent at %s: %s%s", startTime.toString(),
+		return format("HTTP %s Request sent to %s at %s: %s%s", request.getMethod(), request.getURI(), startTime.toString(),
 				httpHeaderLogFormatter.formatHeaderLogs(request.getHeaders()),
 				httpBodyLogFormatter.createRequestBodyLogString(body));
 	}
