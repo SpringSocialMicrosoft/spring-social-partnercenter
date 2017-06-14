@@ -1,15 +1,15 @@
 package org.springframework.social.partnercenter.api.profile;
 
-import java.util.List;
 import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import org.springframework.social.partnercenter.api.Link;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Partner {
 	private String partnerName;
 	private String mpnId;
-	private Map<String, List> links;
+	private Map<String, Link> links;
 	private Map<String, String> attributes;
 
 	public String getPartnerName() {
@@ -30,11 +30,11 @@ public class Partner {
 		return this;
 	}
 
-	public Map<String, List> getLinks() {
+	public Map<String, Link> getLinks() {
 		return links;
 	}
 
-	public Partner setLinks(Map<String, List> links) {
+	public Partner setLinks(Map<String, Link> links) {
 		this.links = links;
 		return this;
 	}
