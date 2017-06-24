@@ -1,0 +1,19 @@
+language: java
+sudo: enabled
+dist: trusty
+branches:
+  only:
+    - master
+jobs:
+  include:
+    - stage: build
+      language: java
+      script: gradle build
+    - stage: release
+      language: java
+      script:
+        - 'if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then bash gradle release; fi'
+    - stage: Bintray Upload
+      language: java
+      script:
+        - 'if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then bash gradle bintrayUpload -PbintrayUser=$BINTRAY_USER -PbintrayKey=$BINTRAY_KEY; fi'
