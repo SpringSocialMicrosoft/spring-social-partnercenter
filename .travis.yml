@@ -8,7 +8,7 @@ jobs:
   include:
     - stage: build
       language: java
-      script: gradle build
+      script: gradle check
     - stage: release
       language: java
       script:
