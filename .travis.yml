@@ -12,8 +12,8 @@ jobs:
     - stage: release
       language: java
       script:
-        - 'if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then bash gradle release; fi'
+        - 'if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then gradle release; fi'
     - stage: Bintray Upload
       language: java
       script:
-        - 'if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then bash gradle bintrayUpload -PbintrayUser=$BINTRAY_USER -PbintrayKey=$BINTRAY_KEY; fi'
+        - 'if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then gradle bintrayUpload -PbintrayUser=$BINTRAY_USER -PbintrayKey=$BINTRAY_KEY; fi'
