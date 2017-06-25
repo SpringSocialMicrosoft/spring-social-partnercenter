@@ -11,7 +11,7 @@ jobs:
       script: gradle check
     - stage: release
       script:
-        - 'if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then gradle release -Prelease.disableChecks; fi'
+        - 'if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then gradle release -Prelease.disableChecks -Prelease.pushTagsOnly; fi'
     - stage: Bintray Upload
       script:
         - 'if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then gradle bintrayUpload -PbintrayUser=$BINTRAY_USER -PbintrayKey=$BINTRAY_KEY; fi'
