@@ -10,10 +10,8 @@ jobs:
       language: java
       script: gradle check
     - stage: release
-      language: java
       script:
         - 'if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then gradle release -Prelease.disableChecks; fi'
     - stage: Bintray Upload
-      language: java
       script:
         - 'if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then gradle bintrayUpload -PbintrayUser=$BINTRAY_USER -PbintrayKey=$BINTRAY_KEY; fi'
