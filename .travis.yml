@@ -7,11 +7,10 @@ branches:
 jobs:
   include:
     - stage: build
-      language: java
-      script: gradle check
+      script: gradle test -i
     - stage: release
       script:
-        - 'if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then gradle release -Prelease.disableChecks -Prelease.pushTagsOnly -s; fi'
+        - 'if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then gradle release -Prelease.disableChecks -Prelease.pushTagsOnly -PauthKey=$AUTH_KEY -s; fi'
     - stage: Bintray Upload
       script:
         - 'if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then gradle bintrayUpload -PbintrayUser=$BINTRAY_USER -PbintrayKey=$BINTRAY_KEY; fi'
