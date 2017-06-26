@@ -27,6 +27,15 @@ scmVersion {
 		uncommittedChanges = false
 	}
 }
+
+task loadKeyPassword << {
+	scmVersion.repository.customKey = project.getProperties().get("authKey")
+}
+
+release {
+	dependsOn loadKeyPassword
+}
+
 group 'io.github.springsocialmicrosoft'
 version = scmVersion.version
 
