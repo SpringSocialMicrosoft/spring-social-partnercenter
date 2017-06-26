@@ -11,6 +11,6 @@ jobs:
     - stage: release
       script:
         - 'if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then gradle release -Prelease.disableChecks -Prelease.pushTagsOnly -PauthKey=$AUTH_KEY -s; fi'
-    - stage: Bintray Upload
+    - stage: BintrayUpload
       script:
         - 'if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then gradle bintrayUpload -PbintrayUser=$BINTRAY_USER -PbintrayKey=$BINTRAY_KEY; fi'
