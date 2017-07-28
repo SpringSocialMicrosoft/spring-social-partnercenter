@@ -6,11 +6,11 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class OfferTerms {
+public class OfferTerm {
 	@JsonProperty("name")
 	private String name;
 	@JsonProperty("discount")
-	private double discount;
+	private Double discount;
 	private List<String> excludedMeterIds;
 	private String effectiveDate;
 
@@ -18,16 +18,16 @@ public class OfferTerms {
 		return name;
 	}
 
-	public OfferTerms setName(String name) {
+	public OfferTerm setName(String name) {
 		this.name = name;
 		return this;
 	}
 
-	public double getDiscount() {
+	public Double getDiscount() {
 		return discount;
 	}
 
-	public OfferTerms setDiscount(double discount) {
+	public OfferTerm setDiscount(Double discount) {
 		this.discount = discount;
 		return this;
 	}
@@ -36,7 +36,7 @@ public class OfferTerms {
 		return excludedMeterIds;
 	}
 
-	public OfferTerms setExcludedMeterIds(List<String> excludedMeterIds) {
+	public OfferTerm setExcludedMeterIds(List<String> excludedMeterIds) {
 		this.excludedMeterIds = excludedMeterIds;
 		return this;
 	}
@@ -45,7 +45,7 @@ public class OfferTerms {
 		return effectiveDate;
 	}
 
-	public OfferTerms setEffectiveDate(String effectiveDate) {
+	public OfferTerm setEffectiveDate(String effectiveDate) {
 		this.effectiveDate = effectiveDate;
 		return this;
 	}

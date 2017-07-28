@@ -7,8 +7,8 @@ public class AzureResourcePricing {
 	private String locale;
 	private String currency;
 	private boolean isTaxIncluded;
-	private List<PricingMeters> meters;
-	private List<OfferTerms> offerTerms;
+	private List<PricingMeter> meters;
+	private List<OfferTerm> offerTerms;
 	private Map<String, String> attributes;
 
 	public String getLocale() {
@@ -38,20 +38,20 @@ public class AzureResourcePricing {
 		return this;
 	}
 
-	public List<PricingMeters> getMeters() {
+	public List<PricingMeter> getMeters() {
 		return meters;
 	}
 
-	public AzureResourcePricing setMeters(List<PricingMeters> meters) {
+	public AzureResourcePricing setMeters(List<PricingMeter> meters) {
 		this.meters = meters;
 		return this;
 	}
 
-	public List<OfferTerms> getOfferTerms() {
+	public List<OfferTerm> getOfferTerms() {
 		return offerTerms;
 	}
 
-	public AzureResourcePricing setOfferTerms(List<OfferTerms> offerTerms) {
+	public AzureResourcePricing setOfferTerms(List<OfferTerm> offerTerms) {
 		this.offerTerms = offerTerms;
 		return this;
 	}

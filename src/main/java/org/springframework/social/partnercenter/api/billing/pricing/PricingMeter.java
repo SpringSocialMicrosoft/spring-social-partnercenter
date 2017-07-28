@@ -6,7 +6,7 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class PricingMeters {
+public class PricingMeter {
 	private String id;
 	private String name;
 	private List<String> tags;
@@ -15,14 +15,14 @@ public class PricingMeters {
 	private String subcategory;
 	private String region;
 	private String unit;
-	private double includedQuantity;
+	private Double includedQuantity;
 	private String effectiveDate;
 
 	public String getId() {
 		return id;
 	}
 
-	public PricingMeters setId(String id) {
+	public PricingMeter setId(String id) {
 		this.id = id;
 		return this;
 	}
@@ -31,7 +31,7 @@ public class PricingMeters {
 		return name;
 	}
 
-	public PricingMeters setName(String name) {
+	public PricingMeter setName(String name) {
 		this.name = name;
 		return this;
 	}
@@ -40,7 +40,7 @@ public class PricingMeters {
 		return tags;
 	}
 
-	public PricingMeters setTags(List<String> tags) {
+	public PricingMeter setTags(List<String> tags) {
 		this.tags = tags;
 		return this;
 	}
@@ -49,7 +49,7 @@ public class PricingMeters {
 		return rates;
 	}
 
-	public PricingMeters setRates(Map<String, Double> rates) {
+	public PricingMeter setRates(Map<String, Double> rates) {
 		this.rates = rates;
 		return this;
 	}
@@ -58,7 +58,7 @@ public class PricingMeters {
 		return category;
 	}
 
-	public PricingMeters setCategory(String category) {
+	public PricingMeter setCategory(String category) {
 		this.category = category;
 		return this;
 	}
@@ -67,7 +67,7 @@ public class PricingMeters {
 		return subcategory;
 	}
 
-	public PricingMeters setSubcategory(String subcategory) {
+	public PricingMeter setSubcategory(String subcategory) {
 		this.subcategory = subcategory;
 		return this;
 	}
@@ -76,7 +76,7 @@ public class PricingMeters {
 		return region;
 	}
 
-	public PricingMeters setRegion(String region) {
+	public PricingMeter setRegion(String region) {
 		this.region = region;
 		return this;
 	}
@@ -85,16 +85,16 @@ public class PricingMeters {
 		return unit;
 	}
 
-	public PricingMeters setUnit(String unit) {
+	public PricingMeter setUnit(String unit) {
 		this.unit = unit;
 		return this;
 	}
 
-	public double getIncludedQuantity() {
+	public Double getIncludedQuantity() {
 		return includedQuantity;
 	}
 
-	public PricingMeters setIncludedQuantity(double includedQuantity) {
+	public PricingMeter setIncludedQuantity(Double includedQuantity) {
 		this.includedQuantity = includedQuantity;
 		return this;
 	}
@@ -103,7 +103,7 @@ public class PricingMeters {
 		return effectiveDate;
 	}
 
-	public PricingMeters setEffectiveDate(String effectiveDate) {
+	public PricingMeter setEffectiveDate(String effectiveDate) {
 		this.effectiveDate = effectiveDate;
 		return this;
 	}
