@@ -80,11 +80,20 @@ bintray {
 		userOrg = 'springsocialmicrosoft'
 		licenses = ['Apache-2.0']
 		vcsUrl = 'https://github.com/SpringSocialMicrosoft/spring-social-partnercenter.git'
+		publish = true
 		version {
 			name = scmVersion.version
 			released  = new Date()
 			vcsTag = scmVersion.tag
 			publicDownloadNumbers = true
+			gpg {
+				sign = true
+			}
+			mavenCentralSync {
+				sync = true
+				user = "${mavenCentralUser}"
+				password = "${mavenCentralPassword}"
+			}
 		}
 	}
 }
