@@ -15,7 +15,6 @@ import org.mockito.Mock;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.social.partnercenter.api.ApiFaultException;
-import org.springframework.social.partnercenter.http.client.retry.RetryService;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
@@ -37,7 +36,6 @@ public class RestResourceTest {
 
 	@Test
 	public void test() {
-		RetryService
 		assertThatThrownBy(() -> restResource.execute(URI.create("http://hello.com"), HttpMethod.GET, new HttpEntity<>(""), String.class))
 				.isExactlyInstanceOf(ApiFaultException.class)
 				.hasMessage("Reseller CAID fc17d052-b0b2-40ca-af51-e203877acda0 does not have a reseller relationship with customer CAID 7e2e644f-6000-465e-9056-4fdad81bf416.")
