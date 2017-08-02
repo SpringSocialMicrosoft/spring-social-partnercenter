@@ -48,6 +48,20 @@ public class AdminUserTemplate extends UserTemplate implements AdminUserOperatio
 	}
 
 	@Override
+	public ResponseEntity<CustomerUser> getUser(String customerTenantId, String userId) {
+		return restResource.request()
+				.pathSegment(customerTenantId, "users", userId)
+				.get(CustomerUser.class);
+	}
+
+	@Override
+	public ResponseEntity<PartnerCenterResponse<CustomerUser>> getUsers(String customerTenantId) {
+		return restResource.request()
+				.pathSegment(customerTenantId, "users")
+				.get(new ParameterizedTypeReference<PartnerCenterResponse<CustomerUser>>() {});
+	}
+
+	@Override
 	protected String getProviderId() {
 		return PartnerCenterAdmin.PROVIDER_ID;
 	}

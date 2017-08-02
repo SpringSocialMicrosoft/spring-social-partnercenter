@@ -10,4 +10,6 @@ public interface AdminUserOperations extends UserOperations{
 	ResponseEntity<PartnerCenterResponse<License>> getLicensesAssignToAUser(String customerTenantId, String userId);
 	ResponseEntity<CustomerUser> createUserAccountsForCustomer(String customerTenantId, CreateUserAccountsForCustomerRequest request);
 	ResponseEntity deleteUserAccountsForCustomer(String customerTenantId);
+	ResponseEntity<CustomerUser> getUser(String customerTenantId, String userId);
+	ResponseEntity<PartnerCenterResponse<CustomerUser>> getUsers(String customerTenantId);
 }

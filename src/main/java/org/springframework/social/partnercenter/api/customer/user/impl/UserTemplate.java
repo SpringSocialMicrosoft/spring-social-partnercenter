@@ -38,13 +38,6 @@ public class UserTemplate extends PagingResourceTemplate<CustomerUser> implement
 	}
 
 	@Override
-	public ResponseEntity<CustomerUser> getUser(String customerTenantId, String userId) {
-		return restResource.request()
-				.pathSegment(customerTenantId, "users", userId)
-				.get(CustomerUser.class);
-	}
-
-	@Override
 	public ResponseEntity<CustomerUser> updateUserPassword(String customerTenantId, String userId, UpdateUserPasswordRequest request) {
 		return restResource.request()
 				.pathSegment(customerTenantId, "users", userId)

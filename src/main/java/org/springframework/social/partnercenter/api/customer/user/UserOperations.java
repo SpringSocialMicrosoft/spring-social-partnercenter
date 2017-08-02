@@ -9,7 +9,6 @@ public interface UserOperations {
 	ResponseEntity<CustomerUser> createUser(String customerTenantId, CreateUserRequest request);
 	ResponseEntity<CustomerUser> createUser(String customerTenantId, CreateUserRequest request, String userId);
 	ResponseEntity deleteUser(String customerTenantId, String userId);
-	ResponseEntity<CustomerUser> getUser(String customerTenantId, String userId);
 	ResponseEntity<CustomerUser> updateUserPassword(String customerTenantId, String userId, UpdateUserPasswordRequest request);
 	ResponseEntity<GetRoleListResponse> getUserRoles(String customerTenantId, String userId);
 	ResponseEntity<GetRoleListResponse> getAllRoles(String customerTenantId);
