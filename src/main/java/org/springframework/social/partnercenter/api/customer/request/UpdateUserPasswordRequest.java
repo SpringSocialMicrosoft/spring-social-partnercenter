@@ -2,8 +2,10 @@ package org.springframework.social.partnercenter.api.customer.request;
 
 import java.util.Map;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.social.partnercenter.api.customer.PasswordProfile;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class UpdateUserPasswordRequest {
@@ -14,17 +16,41 @@ public class UpdateUserPasswordRequest {
 		return passwordProfile;
 	}
 
-	public UpdateUserPasswordRequest setPasswordProfile(PasswordProfile passwordProfile) {
+	public void setPasswordProfile(PasswordProfile passwordProfile) {
 		this.passwordProfile = passwordProfile;
-		return this;
 	}
 
 	public Map<String, String> getAttributes() {
 		return attributes;
 	}
 
-	public UpdateUserPasswordRequest setAttributes(Map<String, String> attributes) {
+	public void setAttributes(Map<String, String> attributes) {
 		this.attributes = attributes;
-		return this;
+	}
+
+	@JsonIgnore
+	public static Builder builder(){
+		return new Builder();
+	}
+
+	public static class Builder{
+		private String password;
+		private boolean forceChangePassword;
+
+		public Builder password(String password) {
+			this.password = password;
+			return this;
+		}
+
+		public Builder forceChangePassword(boolean forceChangePassword) {
+			this.forceChangePassword = forceChangePassword;
+			return this;
+		}
+
+		public UpdateUserPasswordRequest build(){
+			UpdateUserPasswordRequest request = new UpdateUserPasswordRequest();
+			request.setPasswordProfile(PasswordProfile.builder().forceChangePassword(forceChangePassword).password(password).build());
+			return request;
+		}
 	}
 }

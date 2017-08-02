@@ -6,10 +6,10 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class AssignLicensesToUserRequest {
-	LicensesToAssign licensesToAssign;
-	List<String> licensesToRemove;
-	List<String> licenseWarnings;
-	Map<String, String> attributes;
+	private LicensesToAssign licensesToAssign;
+	private List<String> licensesToRemove;
+	private List<String> licenseWarnings;
+	private Map<String, String> attributes;
 
 	public LicensesToAssign getLicensesToAssign() {
 		return licensesToAssign;
