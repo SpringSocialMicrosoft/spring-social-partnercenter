@@ -2,15 +2,15 @@ package org.springframework.social.partnercenter.api.customer.user.impl;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.social.partnercenter.PartnerCenter;
-import org.springframework.social.partnercenter.api.customer.User;
+import org.springframework.social.partnercenter.api.PagingResourceTemplate;
 import org.springframework.social.partnercenter.api.customer.request.CreateUserRequest;
 import org.springframework.social.partnercenter.api.customer.request.UpdateUserPasswordRequest;
 import org.springframework.social.partnercenter.api.customer.response.GetRoleListResponse;
-import org.springframework.social.partnercenter.api.PagingResourceTemplate;
+import org.springframework.social.partnercenter.api.customer.user.CustomerUser;
 import org.springframework.social.partnercenter.api.customer.user.UserOperations;
 import org.springframework.social.partnercenter.http.client.RestResource;
 
-public class UserTemplate extends PagingResourceTemplate<User> implements UserOperations{
+public class UserTemplate extends PagingResourceTemplate<CustomerUser> implements UserOperations{
 	private RestResource restResource;
 
 	public UserTemplate(RestResource restResource, boolean isAuthorized) {
@@ -19,17 +19,17 @@ public class UserTemplate extends PagingResourceTemplate<User> implements UserOp
 	}
 
 	@Override
-	public ResponseEntity<User> createUser(String customerTenantId, CreateUserRequest request) {
+	public ResponseEntity<CustomerUser> createUser(String customerTenantId, CreateUserRequest request) {
 		return restResource.request()
 				.pathSegment(customerTenantId, "users")
-				.post(request, User.class);
+				.post(request, CustomerUser.class);
 	}
 
 	@Override
-	public ResponseEntity<User> createUser(String customerTenantId, CreateUserRequest request, String userId) {
+	public ResponseEntity<CustomerUser> createUser(String customerTenantId, CreateUserRequest request, String userId) {
 		return restResource.request()
 				.pathSegment(customerTenantId, "users", userId)
-				.post(request, User.class);
+				.post(request, CustomerUser.class);
 	}
 
 	@Override
@@ -38,17 +38,17 @@ public class UserTemplate extends PagingResourceTemplate<User> implements UserOp
 	}
 
 	@Override
-	public ResponseEntity<User> getUser(String customerTenantId, String userId) {
+	public ResponseEntity<CustomerUser> getUser(String customerTenantId, String userId) {
 		return restResource.request()
 				.pathSegment(customerTenantId, "users", userId)
-				.get(User.class);
+				.get(CustomerUser.class);
 	}
 
 	@Override
-	public ResponseEntity<User> updateUserPassword(String customerTenantId, String userId, UpdateUserPasswordRequest request) {
+	public ResponseEntity<CustomerUser> updateUserPassword(String customerTenantId, String userId, UpdateUserPasswordRequest request) {
 		return restResource.request()
 				.pathSegment(customerTenantId, "users", userId)
-				.post(request, User.class);
+				.post(request, CustomerUser.class);
 	}
 
 	@Override
