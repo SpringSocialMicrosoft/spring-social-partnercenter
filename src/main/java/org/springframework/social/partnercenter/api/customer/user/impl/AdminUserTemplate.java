@@ -4,7 +4,7 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.ResponseEntity;
 import org.springframework.social.partnercenter.PartnerCenterAdmin;
 import org.springframework.social.partnercenter.api.PartnerCenterResponse;
-import org.springframework.social.partnercenter.api.customer.response.GetRoleListResponse;
+import org.springframework.social.partnercenter.api.customer.Role;
 import org.springframework.social.partnercenter.api.customer.user.AdminUserOperations;
 import org.springframework.social.partnercenter.api.customer.user.CustomerUser;
 import org.springframework.social.partnercenter.api.customer.user.License;
@@ -88,24 +88,24 @@ public class AdminUserTemplate extends UserTemplate implements AdminUserOperatio
 	}
 
 	@Override
-	public ResponseEntity<GetRoleListResponse> getUserRoles(String customerTenantId, String userId) {
+	public ResponseEntity<PartnerCenterResponse<Role>> getUserRoles(String customerTenantId, String userId) {
 		return restResource.request()
 				.pathSegment(customerTenantId, "users", userId, "directoryroles")
-				.get(GetRoleListResponse.class);
+				.get(new ParameterizedTypeReference<PartnerCenterResponse<Role>>() {});
 	}
 
 	@Override
-	public ResponseEntity<GetRoleListResponse> getAllRoles(String customerTenantId) {
+	public ResponseEntity<PartnerCenterResponse<Role>> getAllRoles(String customerTenantId) {
 		return restResource.request()
 				.pathSegment(customerTenantId, "users", "directoryroles")
-				.get(GetRoleListResponse.class);
+				.get(new ParameterizedTypeReference<PartnerCenterResponse<Role>>() {});
 	}
 
 	@Override
-	public ResponseEntity<GetRoleListResponse> getRolesByRoleId(String customerTenantId, String roleId) {
+	public ResponseEntity<PartnerCenterResponse<Role>> getRolesByRoleId(String customerTenantId, String roleId) {
 		return restResource.request()
 				.pathSegment(customerTenantId, "users", roleId, "directoryroles")
-				.get(GetRoleListResponse.class);
+				.get(new ParameterizedTypeReference<PartnerCenterResponse<Role>>() {});
 	}
 
 	@Override

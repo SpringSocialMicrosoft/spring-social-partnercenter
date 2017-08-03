@@ -2,7 +2,7 @@ package org.springframework.social.partnercenter.api.customer.user;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.social.partnercenter.api.PartnerCenterResponse;
-import org.springframework.social.partnercenter.api.customer.response.GetRoleListResponse;
+import org.springframework.social.partnercenter.api.customer.Role;
 import org.springframework.social.partnercenter.api.customer.user.request.AssignLicensesToUserRequest;
 
 public interface AdminUserOperations extends UserOperations{
@@ -16,7 +16,7 @@ public interface AdminUserOperations extends UserOperations{
 	ResponseEntity<CustomerUser> updateUser(String customerTenantId, CustomerUser request, String userId);
 	ResponseEntity deleteUser(String customerTenantId, String userId);
 	ResponseEntity<CustomerUser> updateUserPassword(String customerTenantId, String userId, CustomerUser request);
-	ResponseEntity<GetRoleListResponse> getUserRoles(String customerTenantId, String userId);
-	ResponseEntity<GetRoleListResponse> getAllRoles(String customerTenantId);
-	ResponseEntity<GetRoleListResponse> getRolesByRoleId(String customerTenantId, String RoleId);
+	ResponseEntity<PartnerCenterResponse<Role>> getUserRoles(String customerTenantId, String userId);
+	ResponseEntity<PartnerCenterResponse<Role>> getAllRoles(String customerTenantId);
+	ResponseEntity<PartnerCenterResponse<Role>> getRolesByRoleId(String customerTenantId, String RoleId);
 }
