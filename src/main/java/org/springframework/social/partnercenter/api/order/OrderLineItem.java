@@ -11,20 +11,20 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(NON_NULL)
 public class OrderLineItem {
-	private int lineItemNumber;
+	private Integer lineItemNumber;
 	private String offerId;
 	private String subscriptionId;
 	private String parentSubscriptionId;
 	private String partnerIdOnRecord;
 	private String friendlyName;
-	private int quantity;
+	private Integer quantity;
 	private Map<String, Link> links;
 
-	public int getLineItemNumber() {
+	public Integer getLineItemNumber() {
 		return lineItemNumber;
 	}
 
-	public OrderLineItem setLineItemNumber(int lineItemNumber) {
+	public OrderLineItem setLineItemNumber(Integer lineItemNumber) {
 		this.lineItemNumber = lineItemNumber;
 		return this;
 	}
@@ -55,11 +55,11 @@ public class OrderLineItem {
 		return this;
 	}
 
-	public int getQuantity() {
+	public Integer getQuantity() {
 		return quantity;
 	}
 
-	public OrderLineItem setQuantity(int quantity) {
+	public OrderLineItem setQuantity(Integer quantity) {
 		this.quantity = quantity;
 		return this;
 	}
