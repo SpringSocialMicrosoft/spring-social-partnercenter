@@ -11,8 +11,6 @@ import org.springframework.social.partnercenter.api.customer.Customer;
 import org.springframework.social.partnercenter.api.customer.CustomerCompanyProfile;
 import org.springframework.social.partnercenter.api.customer.CustomerOperations;
 import org.springframework.social.partnercenter.api.customer.query.Filter;
-import org.springframework.social.partnercenter.api.customer.response.CustomerListResponse;
-import org.springframework.social.partnercenter.api.customer.response.CustomerRelationshipRequest;
 import org.springframework.social.partnercenter.api.order.subscription.Subscription;
 import org.springframework.social.partnercenter.http.client.RestResource;
 import org.springframework.social.partnercenter.serialization.Json;
@@ -29,11 +27,6 @@ public class CustomerTemplate extends PagingResourceTemplate<Customer> implement
 	public ResponseEntity<Customer> create(Customer customer) {
 		return restResource.request()
 				.post(customer, Customer.class);
-	}
-
-	@Override
-	public ResponseEntity<CustomerRelationshipRequest> requestResellerRelationship() {
-		return null;
 	}
 
 	@Override
@@ -60,10 +53,10 @@ public class CustomerTemplate extends PagingResourceTemplate<Customer> implement
 	}
 
 	@Override
-	public ResponseEntity<CustomerListResponse> getList(int size) {
+	public ResponseEntity<PartnerCenterResponse<Customer>> getList(int size) {
 		return restResource.request()
 				.queryParam("size", size)
-				.get(CustomerListResponse.class);
+				.get(new ParameterizedTypeReference<PartnerCenterResponse<Customer>>() {});
 	}
 
 	@Override
