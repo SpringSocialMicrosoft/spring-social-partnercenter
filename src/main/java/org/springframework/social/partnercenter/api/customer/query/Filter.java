@@ -1,4 +1,4 @@
-package org.springframework.social.partnercenter.api.customer.request;
+package org.springframework.social.partnercenter.api.customer.query;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;

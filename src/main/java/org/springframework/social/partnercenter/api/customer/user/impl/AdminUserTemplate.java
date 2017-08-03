@@ -4,14 +4,11 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.ResponseEntity;
 import org.springframework.social.partnercenter.PartnerCenterAdmin;
 import org.springframework.social.partnercenter.api.PartnerCenterResponse;
-import org.springframework.social.partnercenter.api.customer.request.CreateUserRequest;
-import org.springframework.social.partnercenter.api.customer.request.UpdateUserPasswordRequest;
 import org.springframework.social.partnercenter.api.customer.response.GetRoleListResponse;
 import org.springframework.social.partnercenter.api.customer.user.AdminUserOperations;
 import org.springframework.social.partnercenter.api.customer.user.CustomerUser;
 import org.springframework.social.partnercenter.api.customer.user.License;
 import org.springframework.social.partnercenter.api.customer.user.request.AssignLicensesToUserRequest;
-import org.springframework.social.partnercenter.api.customer.user.request.CreateUserAccountsForCustomerRequest;
 import org.springframework.social.partnercenter.http.client.RestResource;
 
 public class AdminUserTemplate extends UserTemplate implements AdminUserOperations {
@@ -37,7 +34,7 @@ public class AdminUserTemplate extends UserTemplate implements AdminUserOperatio
 	}
 
 	@Override
-	public ResponseEntity<CustomerUser> createUserAccountsForCustomer(String customerTenantId, CreateUserAccountsForCustomerRequest request) {
+	public ResponseEntity<CustomerUser> createUserAccountsForCustomer(String customerTenantId, CustomerUser request) {
 		return restResource.request()
 				.pathSegment(customerTenantId, "users")
 				.post(request, CustomerUser.class);
@@ -65,14 +62,14 @@ public class AdminUserTemplate extends UserTemplate implements AdminUserOperatio
 	}
 
 	@Override
-	public ResponseEntity<CustomerUser> updateUser(String customerTenantId, CreateUserRequest request) {
+	public ResponseEntity<CustomerUser> updateUser(String customerTenantId, CustomerUser request) {
 		return restResource.request()
 				.pathSegment(customerTenantId, "users")
 				.post(request, CustomerUser.class);
 	}
 
 	@Override
-	public ResponseEntity<CustomerUser> updateUser(String customerTenantId, CreateUserRequest request, String userId) {
+	public ResponseEntity<CustomerUser> updateUser(String customerTenantId, CustomerUser request, String userId) {
 		return restResource.request()
 				.pathSegment(customerTenantId, "users", userId)
 				.patch(request, CustomerUser.class);
@@ -84,7 +81,7 @@ public class AdminUserTemplate extends UserTemplate implements AdminUserOperatio
 	}
 
 	@Override
-	public ResponseEntity<CustomerUser> updateUserPassword(String customerTenantId, String userId, UpdateUserPasswordRequest request) {
+	public ResponseEntity<CustomerUser> updateUserPassword(String customerTenantId, String userId, CustomerUser request) {
 		return restResource.request()
 				.pathSegment(customerTenantId, "users", userId)
 				.patch(request, CustomerUser.class);
