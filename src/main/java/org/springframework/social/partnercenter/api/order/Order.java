@@ -1,18 +1,23 @@
 package org.springframework.social.partnercenter.api.order;
 
+import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
+
 import java.util.List;
 import java.util.Map;
+
+import org.springframework.social.partnercenter.api.order.offer.BillingCycle;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonInclude(NON_NULL)
 public class Order {
 	private String id;
 	private String referenceCustomerId;
 	private List<OrderLineItem> lineItems;
 	private String status;
 	private String creationDate;
+	private BillingCycle billingCycle;
 	private Map<String, String> attributes;
 
 	public String getId() {
@@ -66,6 +71,15 @@ public class Order {
 
 	public Order setAttributes(Map<String, String> attributes) {
 		this.attributes = attributes;
+		return this;
+	}
+
+	public BillingCycle getBillingCycle() {
+		return billingCycle;
+	}
+
+	public Order billingCycle(BillingCycle billingCycle) {
+		this.billingCycle = billingCycle;
 		return this;
 	}
 

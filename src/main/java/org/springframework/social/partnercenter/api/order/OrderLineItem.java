@@ -1,16 +1,21 @@
 package org.springframework.social.partnercenter.api.order;
 
+import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
+
 import java.util.Map;
 
 import org.springframework.social.partnercenter.api.Link;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonInclude(NON_NULL)
 public class OrderLineItem {
 	private int lineItemNumber;
 	private String offerId;
 	private String subscriptionId;
+	private String parentSubscriptionId;
+	private String partnerIdOnRecord;
 	private String friendlyName;
 	private int quantity;
 	private Map<String, Link> links;
@@ -68,6 +73,23 @@ public class OrderLineItem {
 		return this;
 	}
 
+	public String getParentSubscriptionId() {
+		return parentSubscriptionId;
+	}
+
+	public void setParentSubscriptionId(String parentSubscriptionId) {
+		this.parentSubscriptionId = parentSubscriptionId;
+	}
+
+	public String getPartnerIdOnRecord() {
+		return partnerIdOnRecord;
+	}
+
+	public void setPartnerIdOnRecord(String partnerIdOnRecord) {
+		this.partnerIdOnRecord = partnerIdOnRecord;
+	}
+
+	@JsonIgnore
 	public static LineItemBuilder builder(){
 		return new LineItemBuilder();
 	}
@@ -76,6 +98,8 @@ public class OrderLineItem {
 		private int lineItemNumber;
 		private String offerId;
 		private String subscriptionId;
+		private String parentSubscriptionId;
+		private String partnerIdOnRecord;
 		private String friendlyName;
 		private int quantity;
 		private Map<String, Link> links;
@@ -110,6 +134,16 @@ public class OrderLineItem {
 			return this;
 		}
 
+		public LineItemBuilder parentSubscriptionId(String parentSubscriptionId) {
+			this.parentSubscriptionId = parentSubscriptionId;
+			return this;
+		}
+
+		public LineItemBuilder partnerIdOnRecord(String partnerIdOnRecord) {
+			this.partnerIdOnRecord = partnerIdOnRecord;
+			return this;
+		}
+
 		public OrderLineItem build(){
 			OrderLineItem lineItem = new OrderLineItem();
 			lineItem.setLineItemNumber(lineItemNumber);
@@ -118,6 +152,8 @@ public class OrderLineItem {
 			lineItem.setSubscriptionId(subscriptionId);
 			lineItem.setOfferId(offerId);
 			lineItem.setQuantity(quantity);
+			lineItem.setParentSubscriptionId(parentSubscriptionId);
+			lineItem.setPartnerIdOnRecord(partnerIdOnRecord);
 			return lineItem;
 		}
 	}
