@@ -3,7 +3,7 @@ package org.springframework.social.partnercenter.api.order.subscription;
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
 import org.springframework.social.partnercenter.api.ResourceAttributes;
-import org.springframework.social.partnercenter.api.order.offer.BillingCycle;
+import org.springframework.social.partnercenter.api.order.BillingCycle;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 

@@ -5,8 +5,6 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.social.partnercenter.api.order.offer.BillingCycle;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 

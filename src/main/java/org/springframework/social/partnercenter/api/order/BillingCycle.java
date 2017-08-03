@@ -1,4 +1,4 @@
-package org.springframework.social.partnercenter.api.order.offer;
+package org.springframework.social.partnercenter.api.order;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 
