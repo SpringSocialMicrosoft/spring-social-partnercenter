@@ -1,6 +1,6 @@
 package org.springframework.social.partnercenter.api.customer.impl;
 
-import static org.springframework.social.partnercenter.api.customer.request.Operator.STARTS_WITH;
+import static org.springframework.social.partnercenter.api.customer.query.Operator.STARTS_WITH;
 
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +10,7 @@ import org.springframework.social.partnercenter.api.PartnerCenterResponse;
 import org.springframework.social.partnercenter.api.customer.Customer;
 import org.springframework.social.partnercenter.api.customer.CustomerCompanyProfile;
 import org.springframework.social.partnercenter.api.customer.CustomerOperations;
-import org.springframework.social.partnercenter.api.customer.request.Filter;
+import org.springframework.social.partnercenter.api.customer.query.Filter;
 import org.springframework.social.partnercenter.api.customer.response.CustomerListResponse;
 import org.springframework.social.partnercenter.api.customer.response.CustomerRelationshipRequest;
 import org.springframework.social.partnercenter.api.order.subscription.Subscription;

@@ -1,4 +1,4 @@
-package org.springframework.social.partnercenter.api.customer.request;
+package org.springframework.social.partnercenter.api.customer.query;
 
 public enum Operator {
 	EQUALS(0),

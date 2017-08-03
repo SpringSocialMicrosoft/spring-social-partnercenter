@@ -5,7 +5,7 @@ import java.time.Instant;
 import org.springframework.http.ResponseEntity;
 import org.springframework.social.partnercenter.api.PartnerCenterResponse;
 import org.springframework.social.partnercenter.api.customer.Address;
-import org.springframework.social.partnercenter.api.customer.request.Filter;
+import org.springframework.social.partnercenter.api.customer.query.Filter;
 
 public interface UtilityOperations {
 	ResponseEntity<CountryInformation> getAddressFormattingRulesByMarket(String isoCodeId);

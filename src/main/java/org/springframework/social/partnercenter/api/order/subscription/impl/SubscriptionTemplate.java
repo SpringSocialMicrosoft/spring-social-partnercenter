@@ -16,7 +16,7 @@ import org.springframework.social.partnercenter.http.client.RestResource;
 
 public class SubscriptionTemplate extends PagingResourceTemplate<Subscription> implements SubscriptionOperations {
 
-	private static final String SUBSCRIPTIONS = "subscriptions";
+	protected static final String SUBSCRIPTIONS = "subscriptions";
 	private final RestResource restResource;
 
 	public SubscriptionTemplate(RestResource restResource, boolean isAuthorized) {

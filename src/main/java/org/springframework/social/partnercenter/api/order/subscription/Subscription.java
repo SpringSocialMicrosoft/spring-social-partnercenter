@@ -1,8 +1,9 @@
 package org.springframework.social.partnercenter.api.order.subscription;
 
-import java.util.Map;
-
-import org.springframework.social.partnercenter.api.Link;
+import org.springframework.social.partnercenter.api.ResourceAttributes;
+import org.springframework.social.partnercenter.api.order.BillingCycle;
+import org.springframework.social.partnercenter.api.order.BillingType;
+import org.springframework.social.partnercenter.api.order.ContractType;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
@@ -19,13 +20,13 @@ public class Subscription {
 	private String effectiveStartDate;
 	private String commitmentEndDate;
 	private SubscriptionStatus status;
-	private String billingType;
-	private String billingCycle;
-	private String contractType;
+	private BillingType billingType;
+	private BillingCycle billingCycle;
+	private ContractType contractType;
 	private boolean autoRenewEnabled;
 	private String orderId;
-	private Map<String, Link> links;
-	private Map<String, String> attributes;
+	private SubscriptionLinks links;
+	private ResourceAttributes attributes;
 
 	public String getId() {
 		return id;
@@ -126,29 +127,29 @@ public class Subscription {
 		return this;
 	}
 
-	public String getBillingType() {
+	public BillingType getBillingType() {
 		return billingType;
 	}
 
-	public Subscription setBillingType(String billingType) {
+	public Subscription setBillingType(BillingType billingType) {
 		this.billingType = billingType;
 		return this;
 	}
 
-	public String getBillingCycle() {
+	public BillingCycle getBillingCycle() {
 		return billingCycle;
 	}
 
-	public Subscription setBillingCycle(String billingCycle) {
+	public Subscription setBillingCycle(BillingCycle billingCycle) {
 		this.billingCycle = billingCycle;
 		return this;
 	}
 
-	public String getContractType() {
+	public ContractType getContractType() {
 		return contractType;
 	}
 
-	public Subscription setContractType(String contractType) {
+	public Subscription setContractType(ContractType contractType) {
 		this.contractType = contractType;
 		return this;
 	}
@@ -171,20 +172,20 @@ public class Subscription {
 		return this;
 	}
 
-	public Map<String, Link> getLinks() {
+	public SubscriptionLinks getLinks() {
 		return links;
 	}
 
-	public Subscription setLinks(Map<String, Link> links) {
+	public Subscription setLinks(SubscriptionLinks links) {
 		this.links = links;
 		return this;
 	}
 
-	public Map<String, String> getAttributes() {
+	public ResourceAttributes getAttributes() {
 		return attributes;
 	}
 
-	public Subscription setAttributes(Map<String, String> attributes) {
+	public Subscription setAttributes(ResourceAttributes attributes) {
 		this.attributes = attributes;
 		return this;
 	}
@@ -205,13 +206,13 @@ public class Subscription {
 		private String effectiveStartDate;
 		private String commitmentEndDate;
 		private SubscriptionStatus status;
-		private String billingType;
-		private String billingCycle;
-		private String contractType;
+		private BillingType billingType;
+		private BillingCycle billingCycle;
+		private ContractType contractType;
 		private boolean autoRenewEnabled;
 		private String orderId;
-		private Map<String, Link> links;
-		private Map<String, String> attributes;
+		private SubscriptionLinks links;
+		private ResourceAttributes attributes;
 
 		public SubscriptionBuilder id(String id) {
 			this.id = id;
@@ -268,17 +269,17 @@ public class Subscription {
 			return this;
 		}
 
-		public SubscriptionBuilder billingType(String billingType) {
+		public SubscriptionBuilder billingType(BillingType billingType) {
 			this.billingType = billingType;
 			return this;
 		}
 
-		public SubscriptionBuilder billingCycle(String billingCycle) {
+		public SubscriptionBuilder billingCycle(BillingCycle billingCycle) {
 			this.billingCycle = billingCycle;
 			return this;
 		}
 
-		public SubscriptionBuilder contractType(String contractType) {
+		public SubscriptionBuilder contractType(ContractType contractType) {
 			this.contractType = contractType;
 			return this;
 		}
@@ -293,12 +294,12 @@ public class Subscription {
 			return this;
 		}
 
-		public SubscriptionBuilder links(Map<String, Link> links) {
+		public SubscriptionBuilder links(SubscriptionLinks links) {
 			this.links = links;
 			return this;
 		}
 
-		public SubscriptionBuilder attributes(Map<String, String> attributes) {
+		public SubscriptionBuilder attributes(ResourceAttributes attributes) {
 			this.attributes = attributes;
 			return this;
 		}

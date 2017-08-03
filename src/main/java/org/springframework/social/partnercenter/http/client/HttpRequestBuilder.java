@@ -1,6 +1,8 @@
 package org.springframework.social.partnercenter.http.client;
 
 import static java.util.Collections.singletonList;
+import static org.springframework.http.HttpStatus.FORBIDDEN;
+import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 
 import java.net.URI;
 import java.util.List;
@@ -9,19 +11,20 @@ import java.util.UUID;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.retry.support.RetryTemplate;
 import org.springframework.social.partnercenter.api.ApiFaultException;
 import org.springframework.social.partnercenter.http.PartnerCenterHttpHeaders;
+import org.springframework.social.partnercenter.http.client.retry.HttpRetryService;
 import org.springframework.social.partnercenter.http.client.retry.RetryBuilder;
-import org.springframework.social.partnercenter.http.client.retry.RetryService;
 import org.springframework.web.util.UriComponentsBuilder;
 
 public class HttpRequestBuilder {
 	private PartnerCenterHttpHeaders headers;
 	private RestResource restResource;
 	private UriComponentsBuilder uriBuilder;
-	private RetryService retryService = new RetryService(RetryBuilder.DEFAULT_EXPONENTIAL_RETRY);
+	private HttpRetryService httpRetryService = new HttpRetryService(RetryBuilder.DEFAULT_EXPONENTIAL_RETRY, FORBIDDEN, UNAUTHORIZED);
 
 	HttpRequestBuilder(RestResource restResource, String resourceBaseUri, String msRequestId, String msCorrelationId){
 		this.headers = new PartnerCenterHttpHeaders();
@@ -58,12 +61,12 @@ public class HttpRequestBuilder {
 	}
 
 	public HttpRequestBuilder noRetry(){
-		retryService = null;
+		httpRetryService = null;
 		return this;
 	}
 
-	public HttpRequestBuilder withRetry(RetryTemplate retryTemplate){
-		retryService = new RetryService(retryTemplate);
+	public HttpRequestBuilder withRetry(RetryTemplate retryTemplate, HttpStatus ... statusCodeToNotRetry){
+		httpRetryService = new HttpRetryService(retryTemplate, statusCodeToNotRetry);
 		return this;
 	}
 
@@ -100,20 +103,20 @@ public class HttpRequestBuilder {
 	}
 
 	public ResponseEntity delete() throws ApiFaultException{
-		return retryService != null
-				? retryService.doWithRetry(() -> restResource.delete(uriBuilder.build().toUri(), headers))
+		return httpRetryService != null
+				? httpRetryService.doWithRetry(() -> restResource.delete(uriBuilder.build().toUri(), headers))
 				: restResource.delete(uriBuilder.build().toUri(), headers);
 	}
 
 	private <T, R> ResponseEntity<R> execute(URI uri, HttpMethod httpMethod, HttpEntity<T> entity, Class<R> responseType){
-		return retryService != null
-				? retryService.doWithRetry(() -> restResource.execute(uri, httpMethod, entity, responseType))
+		return httpRetryService != null
+				? httpRetryService.doWithRetry(() -> restResource.execute(uri, httpMethod, entity, responseType))
 				: restResource.execute(uri, httpMethod, entity, responseType);
 	}
 
 	private <T, R> ResponseEntity<R> execute(URI uri, HttpMethod httpMethod, HttpEntity<T> entity, ParameterizedTypeReference<R> responseType) {
-		return retryService != null
-				? retryService.doWithRetry(() -> restResource.execute(uri, httpMethod, entity, responseType))
+		return httpRetryService != null
+				? httpRetryService.doWithRetry(() -> restResource.execute(uri, httpMethod, entity, responseType))
 				: restResource.execute(uri, httpMethod, entity, responseType);
 	}
 

@@ -15,7 +15,7 @@ import org.springframework.social.partnercenter.api.AbstractTemplate;
 import org.springframework.social.partnercenter.api.ApiFaultException;
 import org.springframework.social.partnercenter.api.PartnerCenterResponse;
 import org.springframework.social.partnercenter.api.customer.Address;
-import org.springframework.social.partnercenter.api.customer.request.Filter;
+import org.springframework.social.partnercenter.api.customer.query.Filter;
 import org.springframework.social.partnercenter.api.utilities.AuditRecord;
 import org.springframework.social.partnercenter.api.utilities.CountryInformation;
 import org.springframework.social.partnercenter.api.utilities.UtilityOperations;
