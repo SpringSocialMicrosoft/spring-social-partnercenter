@@ -2,8 +2,10 @@ package org.springframework.social.partnercenter.api.order;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
+import java.time.ZonedDateTime;
 import java.util.List;
-import java.util.Map;
+
+import org.springframework.social.partnercenter.api.ResourceAttributes;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -14,9 +16,9 @@ public class Order {
 	private String referenceCustomerId;
 	private List<OrderLineItem> lineItems;
 	private String status;
-	private String creationDate;
+	private ZonedDateTime creationDate;
 	private BillingCycle billingCycle;
-	private Map<String, String> attributes;
+	private ResourceAttributes attributes;
 
 	public String getId() {
 		return id;
@@ -54,20 +56,20 @@ public class Order {
 		return this;
 	}
 
-	public String getCreationDate() {
+	public ZonedDateTime getCreationDate() {
 		return creationDate;
 	}
 
-	public Order setCreationDate(String creationDate) {
+	public Order setCreationDate(ZonedDateTime creationDate) {
 		this.creationDate = creationDate;
 		return this;
 	}
 
-	public Map<String, String> getAttributes() {
+	public ResourceAttributes getAttributes() {
 		return attributes;
 	}
 
-	public Order setAttributes(Map<String, String> attributes) {
+	public Order setAttributes(ResourceAttributes attributes) {
 		this.attributes = attributes;
 		return this;
 	}
