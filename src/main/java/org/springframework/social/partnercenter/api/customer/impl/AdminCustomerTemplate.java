@@ -38,10 +38,10 @@ public class AdminCustomerTemplate extends CustomerTemplate implements AdminCust
 	}
 
 	@Override
-	public ResponseEntity<SubscribedSku> subscribedSkus(String customerTenantId) {
+	public ResponseEntity<PartnerCenterResponse<SubscribedSku>> subscribedSkus(String customerTenantId) {
 		return restResource.request()
 				.pathSegment(customerTenantId, "subscribedskus")
-				.get(SubscribedSku.class);
+				.get(new ParameterizedTypeReference<PartnerCenterResponse<SubscribedSku>>() {});
 	}
 
 	@Override

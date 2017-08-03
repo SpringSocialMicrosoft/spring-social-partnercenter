@@ -40,7 +40,7 @@ public class OrderTemplate extends PagingResourceTemplate<Order> implements Orde
 	}
 
 	@Override
-	public ResponseEntity<Order> createOrder(String customerId, CreateOrderRequest request) {
+	public ResponseEntity<Order> createOrder(String customerId, Order request) {
 		return restResource.request()
 				.pathSegment(customerId, "orders")
 				.post(request, Order.class);

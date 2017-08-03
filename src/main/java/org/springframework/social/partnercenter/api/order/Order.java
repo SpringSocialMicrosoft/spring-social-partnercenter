@@ -3,6 +3,7 @@ package org.springframework.social.partnercenter.api.order;
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.social.partnercenter.api.ResourceAttributes;
@@ -84,8 +85,70 @@ public class Order {
 	}
 
 	@JsonIgnore
-	public void addLineItem(OrderLineItem lineItem){
-		lineItem.setLineItemNumber(getLineItems().stream().mapToInt(OrderLineItem::getLineItemNumber).max().orElse(-1) + 1);
-		this.getLineItems().add(lineItem);
+	public static Builder builder() {
+		return new Builder();
+	}
+
+	public static class Builder {
+		private String id;
+		private String referenceCustomerId;
+		private List<OrderLineItem> lineItems= new ArrayList<>();
+		private String status;
+		private ZonedDateTime creationDate;
+		private BillingCycle billingCycle;
+		private ResourceAttributes attributes;
+
+		public Builder id(String id) {
+			this.id = id;
+			return this;
+		}
+
+		public Builder referenceCustomerId(String referenceCustomerId) {
+			this.referenceCustomerId = referenceCustomerId;
+			return this;
+		}
+
+		public Builder addLineItem(OrderLineItem lineItem){
+			lineItem.setLineItemNumber(lineItems.stream().mapToInt(OrderLineItem::getLineItemNumber).max().orElse(-1) + 1);
+			lineItems.add(lineItem);
+			return this;
+		}
+
+		public Builder lineItems(List<OrderLineItem> lineItems) {
+			this.lineItems = lineItems;
+			return this;
+		}
+
+		public Builder status(String status) {
+			this.status = status;
+			return this;
+		}
+
+		public Builder creationDate(ZonedDateTime creationDate) {
+			this.creationDate = creationDate;
+			return this;
+		}
+
+		public Builder billingCycle(BillingCycle billingCycle) {
+			this.billingCycle = billingCycle;
+			return this;
+		}
+
+		public Builder attributes(ResourceAttributes attributes) {
+			this.attributes = attributes;
+			return this;
+		}
+
+		public Order build() {
+			Order order = new Order();
+			order.attributes = attributes;
+			order.billingCycle = billingCycle;
+			order.creationDate = creationDate;
+			order.id = id;
+			order.lineItems = lineItems;
+			order.referenceCustomerId = referenceCustomerId;
+			order.status = status;
+			return order;
+		}
 	}
 }
