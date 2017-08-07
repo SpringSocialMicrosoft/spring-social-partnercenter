@@ -16,13 +16,13 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.social.partnercenter.api.order.subscription.SubscriptionProvisioningState;
-import org.springframework.social.partnercenter.http.client.RestResource;
+import org.springframework.social.partnercenter.http.client.RestClient;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class AdminOrderTemplateTest {
 	@Mock(answer = Answers.RETURNS_DEEP_STUBS)
-	private RestResource restResource;
+	private RestClient restResource;
 
 	private AdminOrderTemplate orderTemplate;
 

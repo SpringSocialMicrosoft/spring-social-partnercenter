@@ -1,5 +1,7 @@
 package org.springframework.social.partnercenter.api;
 
+import java.net.URI;
+
 import org.springframework.social.partnercenter.PartnerCenterAdmin;
 import org.springframework.social.partnercenter.api.customer.AdminCustomerOperations;
 import org.springframework.social.partnercenter.api.customer.impl.AdminCustomerTemplate;
@@ -10,6 +12,7 @@ import org.springframework.social.partnercenter.api.order.impl.AdminOrderTemplat
 import org.springframework.social.partnercenter.api.order.subscription.AdminSubscriptionOperations;
 import org.springframework.social.partnercenter.api.order.subscription.impl.AdminSubscriptionTemplate;
 import org.springframework.social.partnercenter.api.uri.UriProvider;
+import org.springframework.social.partnercenter.http.client.RestClient;
 import org.springframework.social.partnercenter.http.client.RestResource;
 
 public class PartnerCenterAdminTemplate extends PartnerCenterTemplate implements PartnerCenterAdmin {
@@ -21,14 +24,14 @@ public class PartnerCenterAdminTemplate extends PartnerCenterTemplate implements
 	public PartnerCenterAdminTemplate(UriProvider uriProvider, String accessToken, String version){
 		super(uriProvider, accessToken, version);
 
-		adminCustomerOperations = new AdminCustomerTemplate(createRestResource(uriProvider.partnerCenterCustomerUri().toUriString()), isAuthorized());
-		adminUserOperations = new AdminUserTemplate(createRestResource(uriProvider.partnerCenterCustomerUri().toUriString()), isAuthorized());
-		adminOrderOperations = new AdminOrderTemplate(createRestResource(uriProvider.partnerCenterCustomerUri().toUriString()), isAuthorized());
-		adminSubscriptionOperations = new AdminSubscriptionTemplate(createRestResource(uriProvider.partnerCenterCustomerUri().toUriString()), isAuthorized());
+		adminCustomerOperations = new AdminCustomerTemplate(createRestResource(uriProvider.partnerCenterCustomerUri().build().toUri()), isAuthorized());
+		adminUserOperations = new AdminUserTemplate(createRestResource(uriProvider.partnerCenterCustomerUri().build().toUri()), isAuthorized());
+		adminOrderOperations = new AdminOrderTemplate(createRestResource(uriProvider.partnerCenterCustomerUri().build().toUri()), isAuthorized());
+		adminSubscriptionOperations = new AdminSubscriptionTemplate(createRestResource(uriProvider.partnerCenterCustomerUri().build().toUri()), isAuthorized());
 	}
 
-	private RestResource createRestResource(String baseUri){
-		return new RestResource(getRestTemplate(), baseUri);
+	private RestResource createRestResource(URI baseUri){
+		return new RestClient(getRestTemplate(), baseUri);
 	}
 
 	@Override
