@@ -30,17 +30,4 @@ public class HttpRetryService {
 			}
 		});
 	}
-	public Boolean doWithRetry(Runnable function) throws RuntimeException {
-		return this.retryTemplate.execute(context -> {
-			try {
-				function.run();
-			} catch (ApiFaultException e){
-				if (statusCodeToNotRetry.contains(e.getHttpStatus())){
-					context.setExhaustedOnly();
-				}
-				throw e;
-			}
-			return true;
-		});
-	}
 }

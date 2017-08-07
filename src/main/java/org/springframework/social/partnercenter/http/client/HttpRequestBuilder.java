@@ -22,22 +22,22 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 public class HttpRequestBuilder {
 	private PartnerCenterHttpHeaders headers;
-	private RestResource restResource;
+	private RestClient restResource;
 	private UriComponentsBuilder uriBuilder;
-	private HttpRetryService httpRetryService = new HttpRetryService(RetryBuilder.DEFAULT_EXPONENTIAL_RETRY, FORBIDDEN, UNAUTHORIZED);
+	private HttpRetryService httpRetryService = new HttpRetryService(RetryBuilder.defaultRetry(), FORBIDDEN, UNAUTHORIZED);
 
-	HttpRequestBuilder(RestResource restResource, String resourceBaseUri, String msRequestId, String msCorrelationId){
+	HttpRequestBuilder(RestClient restResource, UriComponentsBuilder resourceBaseUri, String msRequestId, String msCorrelationId){
 		this.headers = new PartnerCenterHttpHeaders();
 		addMicrosoftTrackingHeaders(msRequestId, msCorrelationId);
 		this.restResource = restResource;
-		this.uriBuilder = UriComponentsBuilder.fromUriString(resourceBaseUri);
+		this.uriBuilder = resourceBaseUri;
 	}
 
-	HttpRequestBuilder(RestResource restResource, String resourceBaseUri){
+	HttpRequestBuilder(RestClient restResource, UriComponentsBuilder resourceBaseUri){
 		this.headers = new PartnerCenterHttpHeaders();
 		addMicrosoftTrackingHeaders();
 		this.restResource = restResource;
-		this.uriBuilder = UriComponentsBuilder.fromUriString(resourceBaseUri);
+		this.uriBuilder = resourceBaseUri;
 	}
 
 	public HttpRequestBuilder header(String key, List<String> value){

@@ -1,5 +1,7 @@
 package org.springframework.social.partnercenter.api;
 
+import java.net.URI;
+
 import org.springframework.http.client.BufferingClientHttpRequestFactory;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.social.oauth2.AbstractOAuth2ApiBinding;
@@ -26,6 +28,7 @@ import org.springframework.social.partnercenter.api.uri.UriProvider;
 import org.springframework.social.partnercenter.api.utilities.UtilityOperations;
 import org.springframework.social.partnercenter.api.utilities.impl.UtilityTemplate;
 import org.springframework.social.partnercenter.connect.ApiVersionParameterRequestInterceptor;
+import org.springframework.social.partnercenter.http.client.RestClient;
 import org.springframework.social.partnercenter.http.client.RestResource;
 import org.springframework.social.partnercenter.http.logging.LogLevel;
 import org.springframework.social.partnercenter.http.logging.LoggingRequestInterceptor;
@@ -50,39 +53,39 @@ public class PartnerCenterTemplate extends AbstractOAuth2ApiBinding implements P
 		addVersionInterceptor(version);
 		this.uriProvider = uriProvider;
 		subscriptionOperations = new SubscriptionTemplate(createRestResource(
-				uriProvider.partnerCenterCustomerUri().toUriString()),
+				uriProvider.partnerCenterCustomerUri().build().toUri()),
 				isAuthorized());
 
 		orderOperations = new OrderTemplate(createRestResource(
-				uriProvider.partnerCenterCustomerUri().toUriString()), isAuthorized());
+				uriProvider.partnerCenterCustomerUri().build().toUri()), isAuthorized());
 
 		customerOperations = new CustomerTemplate(createRestResource(
-				uriProvider.partnerCenterCustomerUri().toUriString()) ,isAuthorized());
+				uriProvider.partnerCenterCustomerUri().build().toUri()) ,isAuthorized());
 
 		offerOperations = new OfferTemplate(createRestResource(
-				uriProvider.partnerCenterOfferUri().toUriString()), isAuthorized());
+				uriProvider.partnerCenterOfferUri().build().toUri()), isAuthorized());
 
 		usageOperations = new UsageTemplate(createRestResource(
-				uriProvider.partnerCenterCustomerUri().toUriString()), isAuthorized());
+				uriProvider.partnerCenterCustomerUri().build().toUri()), isAuthorized());
 
 		pricingOperations = new PricingTemplate(createRestResource(
-				uriProvider.partnerCenterPricingUri().toUriString()), isAuthorized());
+				uriProvider.partnerCenterPricingUri().build().toUri()), isAuthorized());
 
 		invoiceOperations = new InvoiceTemplate(createRestResource(
-				uriProvider.partnerCenterInvoiceUri().toUriString()), isAuthorized());
+				uriProvider.partnerCenterInvoiceUri().build().toUri()), isAuthorized());
 
 		profileOperations = new ProfileTemplate(createRestResource(
-				uriProvider.partnerCenterProfileUri().toUriString()), isAuthorized());
+				uriProvider.partnerCenterProfileUri().build().toUri()), isAuthorized());
 
 		utilityOperations = new UtilityTemplate(createRestResource(
-				uriProvider.partnerCenterBuilder().pathSegment("v1").toUriString()), isAuthorized());
+				uriProvider.partnerCenterBuilder().pathSegment("v1").build().toUri()), isAuthorized());
 
 		userOperations = new UserTemplate(createRestResource(
-				uriProvider.partnerCenterCustomerUri().toUriString()), isAuthorized());
+				uriProvider.partnerCenterCustomerUri().build().toUri()), isAuthorized());
 	}
 
-	private RestResource createRestResource(String baseUri){
-		return new RestResource(getRestTemplate(), baseUri);
+	private RestResource createRestResource(URI baseUri){
+		return new RestClient(getRestTemplate(), baseUri);
 	}
 
 	@Override
