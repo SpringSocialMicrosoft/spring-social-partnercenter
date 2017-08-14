@@ -1,7 +1,9 @@
 package org.springframework.social.partnercenter.api.customer.user.impl;
 
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.social.partnercenter.PartnerCenter;
 import org.springframework.social.partnercenter.api.PagingResourceTemplate;
+import org.springframework.social.partnercenter.api.PartnerCenterResponse;
 import org.springframework.social.partnercenter.api.customer.user.CustomerUser;
 import org.springframework.social.partnercenter.api.customer.user.UserOperations;
 import org.springframework.social.partnercenter.http.client.RestResource;
@@ -10,10 +12,9 @@ public class UserTemplate extends PagingResourceTemplate<CustomerUser> implement
 	private RestResource restResource;
 
 	public UserTemplate(RestResource restResource, boolean isAuthorized) {
-		super(restResource, isAuthorized);
+		super(restResource, isAuthorized, new ParameterizedTypeReference<PartnerCenterResponse<CustomerUser>>() {});
 		this.restResource = restResource;
 	}
-
 
 
 	@Override

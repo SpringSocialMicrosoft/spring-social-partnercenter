@@ -9,9 +9,11 @@ import org.springframework.social.partnercenter.http.client.RestResource;
 
 public class PagingResourceTemplate<T> extends AbstractTemplate implements PagingResourceOperations<T>{
 	private final RestResource restResource;
-	protected PagingResourceTemplate(RestResource restResource, boolean isAuthorized) {
+	private ParameterizedTypeReference<PartnerCenterResponse<T>> typeReference;
+	protected PagingResourceTemplate(RestResource restResource, boolean isAuthorized, ParameterizedTypeReference<PartnerCenterResponse<T>> typeReference) {
 		super(isAuthorized);
 		this.restResource = restResource;
+		this.typeReference = typeReference;
 	}
 
 	@Override
@@ -19,7 +21,7 @@ public class PagingResourceTemplate<T> extends AbstractTemplate implements Pagin
 		return restResource.request()
 				.header(MS_CONTINUATION_TOKEN, continuationToken)
 				.queryParam("seekOperation", SeekOperation.NEXT_VALUE)
-				.get(new ParameterizedTypeReference<PartnerCenterResponse<T>>() {});
+				.get(typeReference);
 	}
 
 	@Override
@@ -27,7 +29,7 @@ public class PagingResourceTemplate<T> extends AbstractTemplate implements Pagin
 		return restResource.request()
 				.header(MS_CONTINUATION_TOKEN, continuationToken)
 				.queryParam("seekOperation", SeekOperation.PREVIOUS_VALUE)
-				.get(new ParameterizedTypeReference<PartnerCenterResponse<T>>() {});
+				.get(typeReference);
 	}
 
 	@Override
@@ -35,7 +37,7 @@ public class PagingResourceTemplate<T> extends AbstractTemplate implements Pagin
 		return restResource.request()
 				.header(MS_CONTINUATION_TOKEN, continuationToken)
 				.queryParam("seekOperation", SeekOperation.FIRST_VALUE)
-				.get(new ParameterizedTypeReference<PartnerCenterResponse<T>>() {});
+				.get(typeReference);
 	}
 
 	@Override
@@ -43,7 +45,7 @@ public class PagingResourceTemplate<T> extends AbstractTemplate implements Pagin
 		return restResource.request()
 				.header(MS_CONTINUATION_TOKEN, continuationToken)
 				.queryParam("seekOperation", SeekOperation.LAST_VALUE)
-				.get(new ParameterizedTypeReference<PartnerCenterResponse<T>>() {});
+				.get(typeReference);
 	}
 
 	@Override
@@ -52,7 +54,7 @@ public class PagingResourceTemplate<T> extends AbstractTemplate implements Pagin
 				.header(MS_CONTINUATION_TOKEN, continuationToken)
 				.queryParam("seekOperation", SeekOperation.PAGE_INDEX_VALUE)
 				.queryParam("page", pageIndex)
-				.get(new ParameterizedTypeReference<PartnerCenterResponse<T>>() {});
+				.get(typeReference);
 	}
 
 	@Override

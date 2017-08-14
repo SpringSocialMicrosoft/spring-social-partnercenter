@@ -13,7 +13,7 @@ public class OrderTemplate extends PagingResourceTemplate<Order> implements Orde
 	private final RestResource restResource;
 
 	public OrderTemplate(RestResource restResource, boolean isAuthorized) {
-		super(restResource, isAuthorized);
+		super(restResource, isAuthorized, new ParameterizedTypeReference<PartnerCenterResponse<Order>>() {});
 		this.restResource = restResource;
 	}
 

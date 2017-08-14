@@ -19,7 +19,7 @@ public class CustomerTemplate extends PagingResourceTemplate<Customer> implement
 	private RestResource restResource;
 
 	public CustomerTemplate(RestResource restResource, boolean isAuthorized) {
-		super(restResource, isAuthorized);
+		super(restResource, isAuthorized, new ParameterizedTypeReference<PartnerCenterResponse<Customer>>() {});
 		this.restResource = restResource;
 	}
 

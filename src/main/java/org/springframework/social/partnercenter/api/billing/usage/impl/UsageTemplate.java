@@ -23,7 +23,7 @@ public class UsageTemplate extends PagingResourceTemplate<UtilizationRecord> imp
 	private RestResource restResource;
 
 	public UsageTemplate(RestResource restResource, boolean isAuthorized) {
-		super(restResource, isAuthorized);
+		super(restResource, isAuthorized, new ParameterizedTypeReference<PartnerCenterResponse<UtilizationRecord>>() {});
 		this.restResource = restResource;
 	}
 
