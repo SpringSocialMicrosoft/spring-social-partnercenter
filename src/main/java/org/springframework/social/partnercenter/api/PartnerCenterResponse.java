@@ -1,8 +1,7 @@
 package org.springframework.social.partnercenter.api;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -14,11 +13,11 @@ public class PartnerCenterResponse<T> {
 	@JsonProperty("continuationToken")
 	private String continuationToken;
 	@JsonProperty
-	private List<T> items;
+	private List<T> items = new ArrayList<>();
 	@JsonProperty
-	private Map<String, String> attributes;
+	private ResourceAttributes attributes;
 	@JsonProperty
-	private Map<String, Link> links = new HashMap<>();
+	private ResourceLinks links;
 
 	public int getTotal() {
 		return total;
@@ -38,20 +37,20 @@ public class PartnerCenterResponse<T> {
 		return this;
 	}
 
-	public Map<String, String> getAttributes() {
+	public ResourceAttributes getAttributes() {
 		return attributes;
 	}
 
-	public PartnerCenterResponse setAttributes(Map<String, String> attributes) {
+	public PartnerCenterResponse setAttributes(ResourceAttributes attributes) {
 		this.attributes = attributes;
 		return this;
 	}
 
-	public Map<String, Link> getLinks() {
+	public ResourceLinks getLinks() {
 		return links;
 	}
 
-	public PartnerCenterResponse setLinks(Map<String, Link> links) {
+	public PartnerCenterResponse setLinks(ResourceLinks links) {
 		this.links = links;
 		return this;
 	}

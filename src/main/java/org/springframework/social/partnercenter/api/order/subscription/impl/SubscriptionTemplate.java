@@ -20,7 +20,7 @@ public class SubscriptionTemplate extends PagingResourceTemplate<Subscription> i
 	private final RestResource restResource;
 
 	public SubscriptionTemplate(RestResource restResource, boolean isAuthorized) {
-		super(restResource, isAuthorized);
+		super(restResource, isAuthorized, new ParameterizedTypeReference<PartnerCenterResponse<Subscription>>() {});
 		this.restResource = restResource;
 	}
 
