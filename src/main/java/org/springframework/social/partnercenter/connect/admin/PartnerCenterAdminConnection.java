@@ -16,7 +16,7 @@ import org.springframework.social.partnercenter.PartnerCenterAdmin;
 import org.springframework.social.partnercenter.connect.RefreshableConnection;
 import org.springframework.social.partnercenter.security.PartnerCenterServiceProvider;
 
-public class PartnerCenterAdminConnection extends AbstractConnection<PartnerCenter> implements RefreshableConnection {
+public class PartnerCenterAdminConnection extends AbstractConnection<PartnerCenter> implements RefreshableConnection<PartnerCenter> {
 
 	private String accessToken;
 	private Long expireTime;
