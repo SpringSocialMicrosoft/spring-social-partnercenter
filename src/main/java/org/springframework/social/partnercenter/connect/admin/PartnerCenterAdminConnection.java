@@ -13,9 +13,10 @@ import org.springframework.social.oauth2.AccessGrant;
 import org.springframework.social.oauth2.OAuth2Parameters;
 import org.springframework.social.partnercenter.PartnerCenter;
 import org.springframework.social.partnercenter.PartnerCenterAdmin;
+import org.springframework.social.partnercenter.connect.RefreshableConnection;
 import org.springframework.social.partnercenter.security.PartnerCenterServiceProvider;
 
-public class PartnerCenterAdminConnection extends AbstractConnection<PartnerCenter> {
+public class PartnerCenterAdminConnection extends AbstractConnection<PartnerCenter> implements RefreshableConnection {
 
 	private String accessToken;
 	private Long expireTime;

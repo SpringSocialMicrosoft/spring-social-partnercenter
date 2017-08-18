@@ -16,7 +16,7 @@ import org.springframework.social.oauth2.AccessGrant;
 import org.springframework.social.partnercenter.PartnerCenter;
 import org.springframework.social.partnercenter.security.PartnerCenterServiceProvider;
 
-public class PartnerCenterConnection extends AbstractConnection<PartnerCenter> {
+public class PartnerCenterConnection extends AbstractConnection<PartnerCenter> implements RefreshableConnection{
 	private static final long serialVersionUID = 4057584084077577480L;
 
 	private transient final PartnerCenterServiceProvider serviceProvider;
