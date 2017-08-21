@@ -13,10 +13,9 @@ import org.springframework.social.oauth2.AccessGrant;
 import org.springframework.social.oauth2.OAuth2Parameters;
 import org.springframework.social.partnercenter.PartnerCenter;
 import org.springframework.social.partnercenter.PartnerCenterAdmin;
-import org.springframework.social.partnercenter.connect.RefreshableConnection;
 import org.springframework.social.partnercenter.security.PartnerCenterServiceProvider;
 
-public class PartnerCenterAdminConnection extends AbstractConnection<PartnerCenter> implements RefreshableConnection<PartnerCenter> {
+public class PartnerCenterAdminConnection extends AbstractConnection<PartnerCenter> {
 
 	private String accessToken;
 	private Long expireTime;
@@ -41,6 +40,7 @@ public class PartnerCenterAdminConnection extends AbstractConnection<PartnerCent
 		adminApi = serviceProvider.getAdminApi(accessToken);
 	}
 
+	@Override
 	public void refresh() {
 		synchronized (getMonitor()) {
 			AccessGrant accessGrant = serviceProvider.getAzureADAuthOperations().exchangeCredentialsForAccess(username, password, new OAuth2Parameters());
@@ -49,6 +49,7 @@ public class PartnerCenterAdminConnection extends AbstractConnection<PartnerCent
 		}
 	}
 
+	@Override
 	public PartnerCenterAdmin getApi() {
 		if (adminApiProxy != null) {
 			return adminApiProxy;
