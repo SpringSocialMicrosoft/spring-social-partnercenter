@@ -16,7 +16,7 @@ import org.springframework.social.oauth2.AccessGrant;
 import org.springframework.social.partnercenter.PartnerCenter;
 import org.springframework.social.partnercenter.security.PartnerCenterServiceProvider;
 
-public class PartnerCenterConnection extends AbstractConnection<PartnerCenter> implements RefreshableConnection<PartnerCenter>{
+public class PartnerCenterConnection extends AbstractConnection<PartnerCenter> {
 	private static final long serialVersionUID = 4057584084077577480L;
 
 	private transient final PartnerCenterServiceProvider serviceProvider;
@@ -64,12 +64,14 @@ public class PartnerCenterConnection extends AbstractConnection<PartnerCenter> i
 
 	// implementing Connection
 
+	@Override
 	public boolean hasExpired() {
 		synchronized (getMonitor()) {
 			return expireTime != null && System.currentTimeMillis() - 1000 >= expireTime;
 		}
 	}
 
+	@Override
 	public void refresh() {
 		synchronized (getMonitor()) {
 			AccessGrant accessGrant = serviceProvider.getAzureADAuthOperations().refreshAccess(null);
@@ -78,6 +80,7 @@ public class PartnerCenterConnection extends AbstractConnection<PartnerCenter> i
 		}
 	}
 
+	@Override
 	public PartnerCenter getApi() {
 		if (apiProxy != null) {
 			return apiProxy;
@@ -88,6 +91,7 @@ public class PartnerCenterConnection extends AbstractConnection<PartnerCenter> i
 		}
 	}
 
+	@Override
 	public ConnectionData createData() {
 		synchronized (getMonitor()) {
 			return new ConnectionData(getKey().getProviderId(), getKey().getProviderUserId(), getDisplayName(), getProfileUrl(), getImageUrl(),
