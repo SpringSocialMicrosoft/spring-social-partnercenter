@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 
 public class CustomerBillingProfile {
 
-	private Object id;
+	private String id;
 	private String firstName;
 	private String lastName;
 	private String email;
@@ -22,7 +22,7 @@ public class CustomerBillingProfile {
 	@JsonIgnore
 	private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
-	public Object getId() {
+	public String getId() {
 		return id;
 	}
 
@@ -30,7 +30,7 @@ public class CustomerBillingProfile {
 		return firstName;
 	}
 
-	public void setId(Object id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
