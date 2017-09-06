@@ -20,22 +20,22 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 public class RestClient implements RestResource {
 	private RestOperations restTemplate;
-	private UriComponentsBuilder builder;
+	private URI resourceBaseUri;
 
 	public RestClient(RestOperations restTemplate, URI resourceBaseUri) {
 		this.restTemplate = restTemplate;
-		this.builder = UriComponentsBuilder.fromUri(resourceBaseUri);
+		this.resourceBaseUri = resourceBaseUri;
 	}
 
 	public HttpRequestBuilder request(){
-		return new HttpRequestBuilder(this, this.builder);
+		return new HttpRequestBuilder(this, UriComponentsBuilder.fromUri(resourceBaseUri));
 	}
 	public HttpRequestBuilder request(String msRequestId, String msCorrelationId){
-		return new HttpRequestBuilder(this, this.builder, msRequestId, msCorrelationId);
+		return new HttpRequestBuilder(this, UriComponentsBuilder.fromUri(resourceBaseUri), msRequestId, msCorrelationId);
 	}
 
 	public HttpRequestBuilder request(MediaType mediaType){
-		return new HttpRequestBuilder(this, this.builder).header(HttpHeaders.CONTENT_TYPE, singletonList(mediaType.toString()));
+		return new HttpRequestBuilder(this, UriComponentsBuilder.fromUri(resourceBaseUri)).header(HttpHeaders.CONTENT_TYPE, singletonList(mediaType.toString()));
 	}
 
 	public ResponseEntity delete(URI uri, HttpHeaders headers){
