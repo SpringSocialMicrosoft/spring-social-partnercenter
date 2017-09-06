@@ -1,5 +1,7 @@
 package org.springframework.social.partnercenter.api;
 
+import static org.springframework.util.StringUtils.isEmpty;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,5 +64,9 @@ public class PartnerCenterResponse<T> {
 	public PartnerCenterResponse setContinuationToken(String continuationToken) {
 		this.continuationToken = continuationToken;
 		return this;
+	}
+
+	public boolean hasNext(){
+		return !isEmpty(links.getNext());
 	}
 }
