@@ -1,8 +1,5 @@
 package org.springframework.social.partnercenter.api.order.subscription.impl;
 
-import static org.springframework.social.partnercenter.api.order.subscription.SubscriptionStatus.ACTIVE;
-import static org.springframework.social.partnercenter.api.order.subscription.SubscriptionStatus.SUSPENDED;
-
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.ResponseEntity;
 import org.springframework.social.partnercenter.PartnerCenter;
@@ -10,9 +7,10 @@ import org.springframework.social.partnercenter.api.PagingResourceTemplate;
 import org.springframework.social.partnercenter.api.PartnerCenterResponse;
 import org.springframework.social.partnercenter.api.order.subscription.Subscription;
 import org.springframework.social.partnercenter.api.order.subscription.SubscriptionOperations;
-import org.springframework.social.partnercenter.api.order.subscription.upgrade.Upgrade;
-import org.springframework.social.partnercenter.api.order.subscription.upgrade.UpgradeResult;
 import org.springframework.social.partnercenter.http.client.RestResource;
+
+import static org.springframework.social.partnercenter.api.order.subscription.SubscriptionStatus.ACTIVE;
+import static org.springframework.social.partnercenter.api.order.subscription.SubscriptionStatus.SUSPENDED;
 
 public class SubscriptionTemplate extends PagingResourceTemplate<Subscription> implements SubscriptionOperations {
 
@@ -95,19 +93,5 @@ public class SubscriptionTemplate extends PagingResourceTemplate<Subscription> i
 		ResponseEntity<Subscription> subscription = getById(customerId, subscriptionId);
 		subscription.getBody().setQuantity(qty);
 		return updateSubscription(customerId, subscriptionId, subscription.getBody());
-	}
-
-	@Override
-	public ResponseEntity<PartnerCenterResponse<Upgrade>> getAvailableUpgrades(String customerId, String subscriptionId) {
-		return restResource.request()
-				.pathSegment(customerId, SUBSCRIPTIONS, subscriptionId, "upgrades")
-				.get(new ParameterizedTypeReference<PartnerCenterResponse<Upgrade>>() {});
-	}
-
-	@Override
-	public ResponseEntity<UpgradeResult> upgradeSubscription(String customerId, String sourceSubscriptionId, Upgrade upgrade) {
-		return restResource.request()
-				.pathSegment(customerId, SUBSCRIPTIONS, sourceSubscriptionId, "upgrades")
-				.post(upgrade, UpgradeResult.class);
 	}
 }
