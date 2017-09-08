@@ -3,6 +3,7 @@ package org.springframework.social.partnercenter.api.order.subscription.upgrade;
 import java.util.List;
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.social.partnercenter.api.order.offer.Offer;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -12,6 +13,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 public class Upgrade {
 	private Offer targetOffer;
 	private UpgradeType upgradeType;
+	@JsonProperty("isEligible")
 	private boolean isEligible;
 	private int quantity;
 	private List<UpgradeError> upgradeErrors;
@@ -44,8 +46,8 @@ public class Upgrade {
 		return isEligible;
 	}
 
-	public Upgrade setEligible(boolean eligible) {
-		isEligible = eligible;
+	public Upgrade setIsEligible(boolean eligible) {
+		this.isEligible = eligible;
 		return this;
 	}
 
@@ -93,8 +95,8 @@ public class Upgrade {
 			return this;
 		}
 
-		public UpgradeBuilder setEligible(boolean eligible) {
-			upgrade.setEligible(eligible);
+		public UpgradeBuilder setIsEligible(boolean eligible) {
+			upgrade.setIsEligible(eligible);
 			return this;
 		}
 
@@ -103,10 +105,10 @@ public class Upgrade {
 			return this;
 		}
 
-//		public UpgradeBuilder setUpgradeErrors(List<String> upgradeErrors) {
-//			upgrade.setUpgradeErrors(upgradeErrors);
-//			return this;
-//		}
+		public UpgradeBuilder setUpgradeErrors(List<UpgradeError> upgradeErrors) {
+			upgrade.setUpgradeErrors(upgradeErrors);
+			return this;
+		}
 
 		public UpgradeBuilder setAttributes(Map<String, String> attributes) {
 			upgrade.setAttributes(attributes);
