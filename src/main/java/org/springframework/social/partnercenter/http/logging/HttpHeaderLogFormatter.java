@@ -17,7 +17,11 @@ class HttpHeaderLogFormatter {
 		Map<String, List<String>> headersByName = new HashMap<>();
 		for (String headerName : headers.keySet()) {
 			List<String> headerValue = headers.get(headerName);
-			if (Objects.equals(headerName, "Authorization")){
+			if (Objects.equals(headerName, "Authorization")
+					|| Objects.equals(headerName, "clientId")
+					|| Objects.equals(headerName, "clientSecret")
+					|| Objects.equals(headerName, "username")
+					|| Objects.equals(headerName, "password")){
 				headersByName.put(headerName, singletonList("*"));
 			}
 			else {
