@@ -1,5 +1,7 @@
 package org.springframework.social.partnercenter.serialization;
 
+import com.fasterxml.jackson.databind.JsonNode;
+
 public class Json {
 	private static JsonConverter jsonConverter;
 
@@ -33,6 +35,12 @@ public class Json {
 	public static void configure(JsonSerializationSettings serializationSettings) {
 		jsonConverter.configure(serializationSettings);
 	}
+	public static JsonNode toJsonNode(String json){
+		return jsonConverter.toJsonNode(json);
+	}
 
+	public static JsonNode toJsonNode(Object json){
+		return jsonConverter.toJsonNode(json);
+	}
 
 }

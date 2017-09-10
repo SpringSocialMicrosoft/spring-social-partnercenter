@@ -30,9 +30,9 @@ import org.springframework.social.partnercenter.api.utilities.impl.UtilityTempla
 import org.springframework.social.partnercenter.connect.ApiVersionParameterRequestInterceptor;
 import org.springframework.social.partnercenter.http.client.RestClient;
 import org.springframework.social.partnercenter.http.client.RestResource;
+import org.springframework.social.partnercenter.http.logging.HttpRequestResponseLoggerFactory;
 import org.springframework.social.partnercenter.http.logging.LogLevel;
 import org.springframework.social.partnercenter.http.logging.LoggingRequestInterceptor;
-import org.springframework.social.partnercenter.http.logging.Slf4jHttpRequestResponseLogger;
 import org.springframework.web.client.RestTemplate;
 
 public class PartnerCenterTemplate extends AbstractOAuth2ApiBinding implements PartnerCenter {
@@ -147,7 +147,7 @@ public class PartnerCenterTemplate extends AbstractOAuth2ApiBinding implements P
 	@Override
 	public void enableSlf4j(LogLevel level) {
 		getRestTemplate().getInterceptors()
-				.add(new LoggingRequestInterceptor(new Slf4jHttpRequestResponseLogger(getClass(), level)));
+				.add(new LoggingRequestInterceptor(HttpRequestResponseLoggerFactory.createSlf4jApiLogger(getClass(), level)));
 	}
 
 	public String getDomain(){

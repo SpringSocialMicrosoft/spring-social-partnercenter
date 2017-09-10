@@ -23,9 +23,9 @@ import org.springframework.social.oauth2.GrantType;
 import org.springframework.social.partnercenter.api.ApiAuthorizationException;
 import org.springframework.social.partnercenter.api.AuthorizationFault;
 import org.springframework.social.partnercenter.api.uri.UriProvider;
+import org.springframework.social.partnercenter.http.logging.HttpRequestResponseLoggerFactory;
 import org.springframework.social.partnercenter.http.logging.LogLevel;
 import org.springframework.social.partnercenter.http.logging.LoggingRequestInterceptor;
-import org.springframework.social.partnercenter.http.logging.Slf4jHttpRequestResponseLogger;
 import org.springframework.social.partnercenter.serialization.Json;
 import org.springframework.social.partnercenter.serialization.JsonSerializationException;
 import org.springframework.social.support.ClientHttpRequestFactorySelector;
@@ -204,7 +204,7 @@ public class AzureADAuthTemplate implements AzureADAuthOperations {
 		getRestTemplate().setRequestFactory(requestFactory);
 
 		getRestTemplate().getInterceptors()
-				.add(new LoggingRequestInterceptor(new Slf4jHttpRequestResponseLogger(getClass(), logLevel)));
+				.add(new LoggingRequestInterceptor(HttpRequestResponseLoggerFactory.createSlf4jAuthorizationLogger(getClass(), logLevel)));
 	}
 
 	/**

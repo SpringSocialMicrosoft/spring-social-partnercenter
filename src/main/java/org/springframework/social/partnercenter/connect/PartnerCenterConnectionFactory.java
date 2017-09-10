@@ -60,7 +60,7 @@ public class PartnerCenterConnectionFactory extends BasePartnerCenterConnectionF
 		return (PartnerCenterConnection) createConnection(accessGrant);
 	}
 
-	public void enableSl4fjAuthLogging(LogLevel logLevel){
+	public void enableSl4fjForAuthRequests(LogLevel logLevel){
 		getAuthOperations().enableSlf4j(logLevel);
 	}
 
