@@ -1,6 +1,6 @@
 package org.springframework.social.partnercenter.http.logging;
 
-import static com.google.common.base.Charsets.UTF_8;
+import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.util.Optional.empty;
 import static java.util.Optional.of;
 
@@ -13,14 +13,14 @@ import java.util.stream.Collectors;
 import org.springframework.http.client.ClientHttpResponse;
 
 class ApiHttpBodyLogFormatter implements HttpBodyLogFormatter {
-	public String formatResponseLogs(ClientHttpResponse body) {
+	public String 	formatResponseLogs(ClientHttpResponse body) {
 		Optional<String> bodyAsString = getResponseBodyAsString(body);
-		return String.format("Body : %n %s", bodyAsString.orElse("ERROR RETRIEVING BODY ..."));
+		return String.format("Body:\n\t%s", bodyAsString.orElse("ERROR RETRIEVING BODY ..."));
 	}
 
 	public String formatRequestLogs(byte[] body) {
 		Optional<String> bodyAsString = getRequestBodyAsString(body);
-		return String.format("Body : %n %s", bodyAsString.orElse("ERROR RETRIEVING BODY ..."));
+		return String.format("Body:\n\t%s", bodyAsString.orElse("ERROR RETRIEVING BODY ..."));
 	}
 
 	private Optional<String> getResponseBodyAsString(ClientHttpResponse response) {
@@ -35,7 +35,7 @@ class ApiHttpBodyLogFormatter implements HttpBodyLogFormatter {
 
 	private Optional<String> getRequestBodyAsString(byte[] body) {
 		try {
-			return of(new String(body, UTF_8.displayName()));
+			return of(new String(body, UTF_8.name()));
 		} catch (Exception exception) {
 			return empty();
 		}

@@ -1,6 +1,6 @@
 package org.springframework.social.partnercenter.http.logging;
 
-import static com.google.common.base.Charsets.UTF_8;
+import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.util.Arrays.asList;
 import static java.util.Optional.empty;
 import static java.util.Optional.of;
@@ -10,6 +10,7 @@ import static org.springframework.social.partnercenter.serialization.Json.toJson
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -22,14 +23,14 @@ public class AuthorizationHttpBodyLogFormatter implements HttpBodyLogFormatter {
 
 	public String formatRequestLogs(byte[] body) {
 		Optional<String> bodyAsString = getRequestBodyAsString(body).map(this::obfuscateSensitiveFieldsInRequest);
-		return String.format("Body : %n %s", bodyAsString.orElse("ERROR RETRIEVING BODY ..."));
+		return String.format("Body:\n\t%s", bodyAsString.orElse("ERROR RETRIEVING BODY ..."));
 	}
 
 	public String formatResponseLogs(ClientHttpResponse body) {
 
 		Optional<String> bodyAsString = getResponseBodyAsString(body).map(this::obfuscateSensitiveFieldsInResponse);
 
-		return String.format("Body : %n %s", bodyAsString.orElse("ERROR RETRIEVING BODY ..."));
+		return String.format("Body:\n\t%s", bodyAsString.orElse("ERROR RETRIEVING BODY ..."));
 	}
 
 	private Optional<String> getResponseBodyAsString(ClientHttpResponse response) {
@@ -44,8 +45,8 @@ public class AuthorizationHttpBodyLogFormatter implements HttpBodyLogFormatter {
 
 	private Optional<String> getRequestBodyAsString(byte[] body) {
 		try {
-			return of(new String(body, UTF_8.displayName()));
-		} catch (Exception exception) {
+			return of(new String(body, UTF_8.name()));
+		} catch (UnsupportedEncodingException exception) {
 			return empty();
 		}
 	}
@@ -57,11 +58,14 @@ public class AuthorizationHttpBodyLogFormatter implements HttpBodyLogFormatter {
 		final String[] keyValuePairs = bodyString.split("&");
 		StringBuilder newBody = new StringBuilder();
 		for (int i = 0; i != keyValuePairs.length; i++) {
+			if (i != 0){
+				newBody.append("&");
+			}
 			String key = keyValuePairs[i].split("=")[0];
 			if (asList("client_id", "client_secret", "password").contains(key)) {
-				newBody.append(key.concat("=*&"));
+				newBody.append(key.concat("=*"));
 			}
-			else newBody.append(keyValuePairs[i].concat("&"));
+			else newBody.append(keyValuePairs[i]);
 		}
 		return newBody.toString();
 	}
