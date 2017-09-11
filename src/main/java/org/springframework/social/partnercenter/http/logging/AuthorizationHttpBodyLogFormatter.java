@@ -11,12 +11,15 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.client.utils.URLEncodedUtils;
+import org.apache.http.message.BasicNameValuePair;
 import org.springframework.http.client.ClientHttpResponse;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 public class AuthorizationHttpBodyLogFormatter implements HttpBodyLogFormatter {
@@ -52,22 +55,13 @@ public class AuthorizationHttpBodyLogFormatter implements HttpBodyLogFormatter {
 	}
 
 	private String obfuscateSensitiveFieldsInRequest(String bodyString) {
-		if (!bodyString.contains("grant_type")) {
-			return bodyString;
-		}
-		final String[] keyValuePairs = bodyString.split("&");
-		StringBuilder newBody = new StringBuilder();
-		for (int i = 0; i != keyValuePairs.length; i++) {
-			if (i != 0){
-				newBody.append("&");
+		final List<NameValuePair> obfuscatedBody = URLEncodedUtils.parse(bodyString, UTF_8).stream().map(pair -> {
+			if (asList("client_id", "client_secret", "password").contains(pair.getName())) {
+				return new BasicNameValuePair(pair.getName(), "*");
 			}
-			String key = keyValuePairs[i].split("=")[0];
-			if (asList("client_id", "client_secret", "password").contains(key)) {
-				newBody.append(key.concat("=*"));
-			}
-			else newBody.append(keyValuePairs[i]);
-		}
-		return newBody.toString();
+			return pair;
+		}).collect(Collectors.toList());
+		return URLEncodedUtils.format(obfuscatedBody, UTF_8);
 	}
 
 	private String obfuscateSensitiveFieldsInResponse(String bodyString) {
@@ -75,10 +69,12 @@ public class AuthorizationHttpBodyLogFormatter implements HttpBodyLogFormatter {
 			return bodyString;
 		}
 		try {
-			final JsonNode jsonNode = toJsonNode(bodyString);
-			((ObjectNode) jsonNode).put("access_token", "*");
-			((ObjectNode) jsonNode).put("refresh_token", "*");
-			((ObjectNode) jsonNode).put("id_token", "*");
+			final ObjectNode jsonNode = (ObjectNode) toJsonNode(bodyString);
+			jsonNode.fields().forEachRemaining(element -> {
+				if (element.getKey().contains("token")){
+					jsonNode.put(element.getKey(), "*");
+				}
+			});
 			return toJson(jsonNode);
 		} catch (Exception e) {
 			return "Could not parse obfuscate sensitive fields. Body will not be written to logs.";
