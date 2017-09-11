@@ -8,20 +8,20 @@ import org.slf4j.Logger;
 import org.springframework.http.HttpRequest;
 
 public class Slf4jHttpRequestLogger implements HttpRequestLogger {
-	private final HttpHeaderLogFormatter httpHeaderLogFormatter;
+	private final DefaultHttpHeaderLogFormatter httpHeaderLogFormatter;
 	private final HttpBodyLogFormatter httpBodyLogFormatter;
 	private final Logger logger;
 
-	public Slf4jHttpRequestLogger(Logger logger) {
+	public Slf4jHttpRequestLogger(Logger logger, HttpBodyLogFormatter bodyLogFormatter) {
 		this.logger = logger;
-		this.httpHeaderLogFormatter = new HttpHeaderLogFormatter();
-		this.httpBodyLogFormatter = new HttpBodyLogFormatter();
+		this.httpHeaderLogFormatter = new DefaultHttpHeaderLogFormatter();
+		this.httpBodyLogFormatter = bodyLogFormatter;
 	}
 
 	public String formatLog(Instant startTime, HttpRequest request, byte[] body){
 		return format("HTTP %s Request sent to %s at %s: %s%s", request.getMethod(), request.getURI(), startTime.toString(),
 				httpHeaderLogFormatter.formatHeaderLogs(request.getHeaders()),
-				httpBodyLogFormatter.createRequestBodyLogString(body));
+				httpBodyLogFormatter.formatRequestLogs(body));
 	}
 
 	@Override

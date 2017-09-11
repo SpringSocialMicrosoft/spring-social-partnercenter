@@ -1,6 +1,7 @@
 package org.springframework.social.partnercenter.security;
 
 import org.springframework.social.oauth2.AccessGrant;
+import org.springframework.social.partnercenter.http.logging.LogLevel;
 import org.springframework.util.MultiValueMap;
 
 public interface AzureADAuthOperations {
@@ -34,4 +35,10 @@ public interface AzureADAuthOperations {
 	 * @return the access grant.
 	 */
 	AccessGrant refreshAccess(MultiValueMap<String, String> additionalParameters);
+
+	/**
+	 * adds request and response logging to restTemplate
+	 * @param logLevel level at which logging will be written
+	 */
+	void enableSlf4j(LogLevel logLevel);
 }

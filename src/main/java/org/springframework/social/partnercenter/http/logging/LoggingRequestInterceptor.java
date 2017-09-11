@@ -3,11 +3,8 @@ package org.springframework.social.partnercenter.http.logging;
 import static java.util.Arrays.asList;
 import static org.springframework.http.HttpStatus.ACCEPTED;
 import static org.springframework.http.HttpStatus.CREATED;
-import static org.springframework.http.HttpStatus.NON_AUTHORITATIVE_INFORMATION;
 import static org.springframework.http.HttpStatus.NO_CONTENT;
 import static org.springframework.http.HttpStatus.OK;
-import static org.springframework.http.HttpStatus.PARTIAL_CONTENT;
-import static org.springframework.http.HttpStatus.RESET_CONTENT;
 
 import java.io.IOException;
 import java.time.Instant;
@@ -28,11 +25,11 @@ public class LoggingRequestInterceptor implements ClientHttpRequestInterceptor {
 	}
 
 	public LoggingRequestInterceptor(Class<?> logSource, LogLevel logLevel, List<HttpStatus> expectedStatus) {
-		this.logger = new Slf4jHttpRequestResponseLogger(logSource, logLevel, expectedStatus);
+		this.logger = HttpRequestResponseLoggerFactory.createSlf4jApiLogger(logSource, logLevel, expectedStatus);
 	}
 
 	public LoggingRequestInterceptor(Class<?> logSource, LogLevel level) {
-		this.logger = new Slf4jHttpRequestResponseLogger(logSource, level, DEFAULT_EXPECTED_HTTP_STATUS);
+		this.logger = HttpRequestResponseLoggerFactory.createSlf4jApiLogger(logSource, level, DEFAULT_EXPECTED_HTTP_STATUS);
 	}
 
 	@Override

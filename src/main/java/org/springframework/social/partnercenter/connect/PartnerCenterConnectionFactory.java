@@ -8,6 +8,7 @@ import org.springframework.social.oauth2.OAuth2Parameters;
 import org.springframework.social.partnercenter.PartnerCenter;
 import org.springframework.social.partnercenter.api.uri.SecurityRegion;
 import org.springframework.social.partnercenter.connect.admin.PartnerCenterAdminConnection;
+import org.springframework.social.partnercenter.http.logging.LogLevel;
 import org.springframework.social.partnercenter.security.PartnerCenterServiceProvider;
 
 public class PartnerCenterConnectionFactory extends BasePartnerCenterConnectionFactory {
@@ -57,6 +58,10 @@ public class PartnerCenterConnectionFactory extends BasePartnerCenterConnectionF
 	public PartnerCenterConnection createConnection(){
 		AccessGrant accessGrant = getAuthOperations().exchangeForAccess();
 		return (PartnerCenterConnection) createConnection(accessGrant);
+	}
+
+	public void enableSl4fjForAuthRequests(LogLevel logLevel){
+		getAuthOperations().enableSlf4j(logLevel);
 	}
 
 	public PartnerCenterAdminConnection createConnection(String username, String password){

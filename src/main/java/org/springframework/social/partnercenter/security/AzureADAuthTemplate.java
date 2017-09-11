@@ -12,7 +12,9 @@ import java.util.Map;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.http.client.BufferingClientHttpRequestFactory;
 import org.springframework.http.client.ClientHttpRequestFactory;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.http.converter.FormHttpMessageConverter;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -21,6 +23,9 @@ import org.springframework.social.oauth2.GrantType;
 import org.springframework.social.partnercenter.api.ApiAuthorizationException;
 import org.springframework.social.partnercenter.api.AuthorizationFault;
 import org.springframework.social.partnercenter.api.uri.UriProvider;
+import org.springframework.social.partnercenter.http.logging.HttpRequestResponseLoggerFactory;
+import org.springframework.social.partnercenter.http.logging.LogLevel;
+import org.springframework.social.partnercenter.http.logging.LoggingRequestInterceptor;
 import org.springframework.social.partnercenter.serialization.Json;
 import org.springframework.social.partnercenter.serialization.JsonSerializationException;
 import org.springframework.social.support.ClientHttpRequestFactorySelector;
@@ -190,6 +195,16 @@ public class AzureADAuthTemplate implements AzureADAuthOperations {
 	public AccessGrant refreshAccess(MultiValueMap<String, String> additionalParameters) {
 		AzureADSecurityToken azureADSecurityToken = postForADToken();
 		return exchangeForAccess(azureADSecurityToken.getAccessToken(), additionalParameters);
+	}
+
+	@Override
+	public void enableSlf4j(LogLevel logLevel) {
+		HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory();
+		BufferingClientHttpRequestFactory requestFactory = new BufferingClientHttpRequestFactory(factory);
+		getRestTemplate().setRequestFactory(requestFactory);
+
+		getRestTemplate().getInterceptors()
+				.add(new LoggingRequestInterceptor(HttpRequestResponseLoggerFactory.createSlf4jAuthorizationLogger(getClass(), logLevel)));
 	}
 
 	/**
