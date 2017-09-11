@@ -19,11 +19,10 @@ public class AuthorizationHttpBodyLogFormatterTest {
 
 	@Test
 	public void testFormatResquestLogs_whenFormattingRequestBody_theCorrectFieldsAreObfuscated() {
-		String requestBody = "grant_type=password&username=paul.smelser%40gmail.com&password=password1234&client_id=asdfjkl;&client_secret=bhfdksafdhsafdsa=";
+		String requestBody = "grant_type=password&username=paul.smelser%40gmail.com&password=password1234&client_id=asdfjklhjfkdlfhasjdal&client_secret=bhfdksafdhsafdsa=";
 		String expectedBody = requestBody
 				.replace("password1234", "*")
-				.replace("bhfdksafdhsafdsa=", "*")
-				.replace("asdfjkl;", "*");
+				.replace("bhfdksafdhsafdsa=", "*");
 		final String result = new AuthorizationHttpBodyLogFormatter().formatRequestLogs(requestBody.getBytes());
 		assertThat(result).isEqualTo("Body:\n\t"+ expectedBody);
 	}
@@ -57,6 +56,7 @@ public class AuthorizationHttpBodyLogFormatterTest {
 
 	private String buildAuthResponse(){
 		JSONObject json = new JSONObject();
+		json.put("token_type", "Bearer");
 		json.put("access_token", "jfdsfjdksla;fjdksal;fdsuagfhdjsanlfjdsa");
 		json.put("refresh_token", "fhdjksafhdsaiufydbsahfdsafdsafdsahtrhrte");
 		json.put("id_token", "fdnsjkfbdsauflndjsbayvugdsavdsanjfldsafdsa");
@@ -65,6 +65,7 @@ public class AuthorizationHttpBodyLogFormatterTest {
 
 	private String buildAuthResponseWithoutIdToken(){
 		JSONObject json = new JSONObject();
+		json.put("token_type", "Bearer");
 		json.put("access_token", "jfdsfjdksla;fjdksal;fdsuagfhdjsanlfjdsa");
 		json.put("refresh_token", "fhdjksafhdsaiufydbsahfdsafdsafdsahtrhrte");
 		return json.toJSONString();
@@ -72,6 +73,7 @@ public class AuthorizationHttpBodyLogFormatterTest {
 
 	private String buildExpectedAuthResponseLog(){
 		JSONObject json = new JSONObject();
+		json.put("token_type", "Bearer");
 		json.put("access_token", "*");
 		json.put("refresh_token", "*");
 		json.put("id_token", "*");
@@ -80,6 +82,7 @@ public class AuthorizationHttpBodyLogFormatterTest {
 
 	private String buildExpectedAuthResponseLogIfThereIsNoIdToken(){
 		JSONObject json = new JSONObject();
+		json.put("token_type", "Bearer");
 		json.put("access_token", "*");
 		json.put("refresh_token", "*");
 		return json.toJSONString();

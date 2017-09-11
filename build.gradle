@@ -21,7 +21,7 @@ ext.junit4Version = '4.12'
 
 scmVersion {
 	tag {
-		prefix = 'release'
+		prefix = 'loggingPatch'
 	}
 	checks {
 		uncommittedChanges = false
