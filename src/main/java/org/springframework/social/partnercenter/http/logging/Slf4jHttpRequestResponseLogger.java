@@ -1,7 +1,5 @@
 package org.springframework.social.partnercenter.http.logging;
 
-import static java.util.Arrays.asList;
-
 import java.io.IOException;
 import java.time.Instant;
 import java.util.List;
@@ -19,15 +17,19 @@ public class Slf4jHttpRequestResponseLogger implements HttpRequestResponseLogger
 	private final ClientHttpResponseLogger responseLogger;
 	private final List<HttpStatus> expectedStatus;
 
-	public Slf4jHttpRequestResponseLogger(Class<?> logSource, LogLevel logLevel, HttpStatus... expectedStatus) {
-		this(logSource, logLevel, asList(expectedStatus));
-	}
-
-	public Slf4jHttpRequestResponseLogger(Class<?> logSource, LogLevel logLevel, List<HttpStatus> expectedStatus) {
+	Slf4jHttpRequestResponseLogger(Class<?> logSource, LogLevel logLevel, List<HttpStatus> expectedStatus) {
 		this.logger = LoggerFactory.getLogger(logSource);
 		this.logLevel  = logLevel;
-		this.requestLogger = new Slf4jHttpRequestLogger(logger);
-		this.responseLogger = new Slf4jClientHttpResponseLogger(logger);
+		this.requestLogger = new Slf4jHttpRequestLogger(logger, new ApiHttpBodyLogFormatter());
+		this.responseLogger = new Slf4jClientHttpResponseLogger(logger, new ApiHttpBodyLogFormatter());
+		this.expectedStatus = expectedStatus;
+	}
+
+	Slf4jHttpRequestResponseLogger(Class<?> logSource, LogLevel logLevel, HttpBodyLogFormatter bodyLogFormatter, List<HttpStatus> expectedStatus) {
+		this.logger = LoggerFactory.getLogger(logSource);
+		this.logLevel  = logLevel;
+		this.requestLogger = new Slf4jHttpRequestLogger(logger, bodyLogFormatter);
+		this.responseLogger = new Slf4jClientHttpResponseLogger(logger, bodyLogFormatter);
 		this.expectedStatus = expectedStatus;
 	}
 

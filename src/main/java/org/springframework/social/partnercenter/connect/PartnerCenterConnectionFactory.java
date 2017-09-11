@@ -8,6 +8,7 @@ import org.springframework.social.oauth2.OAuth2Parameters;
 import org.springframework.social.partnercenter.PartnerCenter;
 import org.springframework.social.partnercenter.api.uri.SecurityRegion;
 import org.springframework.social.partnercenter.connect.admin.PartnerCenterAdminConnection;
+import org.springframework.social.partnercenter.http.logging.LogLevel;
 import org.springframework.social.partnercenter.security.PartnerCenterServiceProvider;
 
 public class PartnerCenterConnectionFactory extends BasePartnerCenterConnectionFactory {
@@ -34,6 +35,7 @@ public class PartnerCenterConnectionFactory extends BasePartnerCenterConnectionF
 
 	private PartnerCenterConnectionFactory(String providerId, PartnerCenterServiceProvider serviceProvider, ApiAdapter<PartnerCenter> apiAdapter) {
 		super(providerId, serviceProvider, apiAdapter);
+		getAuthOperations().enableSlf4j(LogLevel.INFO);
 	}
 
 	public boolean canConnect(){

@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
@@ -69,6 +70,18 @@ public class JsonConverter {
 		} catch (JsonProcessingException e) {
 			throw new JsonSerializationException(e);
 		}
+	}
+
+	public JsonNode toJsonNode(String json){
+		try {
+			return objectMapper.reader().readTree(json);
+		} catch (IOException e) {
+			throw new JsonSerializationException(e);
+		}
+	}
+
+	public JsonNode toJsonNode(Object json){
+		return objectMapper.valueToTree(json);
 	}
 
 	public void configure(JsonSerializationSettings serializationSettings) {

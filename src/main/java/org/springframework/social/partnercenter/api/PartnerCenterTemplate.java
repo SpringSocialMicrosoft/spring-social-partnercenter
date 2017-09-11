@@ -1,5 +1,7 @@
 package org.springframework.social.partnercenter.api;
 
+import static org.springframework.social.partnercenter.http.logging.HttpRequestResponseLoggerFactory.createSlf4jApiLogger;
+
 import org.springframework.http.client.BufferingClientHttpRequestFactory;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.social.oauth2.AbstractOAuth2ApiBinding;
@@ -29,7 +31,6 @@ import org.springframework.social.partnercenter.connect.ApiVersionParameterReque
 import org.springframework.social.partnercenter.http.client.RestResource;
 import org.springframework.social.partnercenter.http.logging.LogLevel;
 import org.springframework.social.partnercenter.http.logging.LoggingRequestInterceptor;
-import org.springframework.social.partnercenter.http.logging.Slf4jHttpRequestResponseLogger;
 import org.springframework.web.client.RestTemplate;
 
 public class PartnerCenterTemplate extends AbstractOAuth2ApiBinding implements PartnerCenter {
@@ -45,7 +46,7 @@ public class PartnerCenterTemplate extends AbstractOAuth2ApiBinding implements P
 	private final UtilityOperations utilityOperations;
 	private final UserOperations userOperations;
 
-	public PartnerCenterTemplate(UriProvider uriProvider, String accessToken, String version){
+	public PartnerCenterTemplate(UriProvider uriProvider, String accessToken, String version) {
 		super(accessToken);
 		addVersionInterceptor(version);
 		this.uriProvider = uriProvider;
@@ -57,7 +58,7 @@ public class PartnerCenterTemplate extends AbstractOAuth2ApiBinding implements P
 				uriProvider.partnerCenterCustomerUri().toUriString()), isAuthorized());
 
 		customerOperations = new CustomerTemplate(createRestResource(
-				uriProvider.partnerCenterCustomerUri().toUriString()) ,isAuthorized());
+				uriProvider.partnerCenterCustomerUri().toUriString()), isAuthorized());
 
 		offerOperations = new OfferTemplate(createRestResource(
 				uriProvider.partnerCenterOfferUri().toUriString()), isAuthorized());
@@ -81,7 +82,11 @@ public class PartnerCenterTemplate extends AbstractOAuth2ApiBinding implements P
 				uriProvider.partnerCenterCustomerUri().toUriString()), isAuthorized());
 	}
 
-	private RestResource createRestResource(String baseUri){
+	private void addVersionInterceptor(String apiVersion) {
+		getRestTemplate().getInterceptors().add(new ApiVersionParameterRequestInterceptor(apiVersion));
+	}
+
+	private RestResource createRestResource(String baseUri) {
 		return new RestResource(getRestTemplate(), baseUri);
 	}
 
@@ -144,14 +149,10 @@ public class PartnerCenterTemplate extends AbstractOAuth2ApiBinding implements P
 	@Override
 	public void enableSlf4j(LogLevel level) {
 		getRestTemplate().getInterceptors()
-				.add(new LoggingRequestInterceptor(new Slf4jHttpRequestResponseLogger(getClass(), level)));
+				.add(new LoggingRequestInterceptor(createSlf4jApiLogger(getClass(), level)));
 	}
 
-	public String getDomain(){
+	public String getDomain() {
 		return this.uriProvider.getDomain();
-	}
-
-	private void addVersionInterceptor(String apiVersion) {
-		getRestTemplate().getInterceptors().add(new ApiVersionParameterRequestInterceptor(apiVersion));
 	}
 }
