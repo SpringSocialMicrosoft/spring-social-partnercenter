@@ -56,7 +56,7 @@ public class AuthorizationHttpBodyLogFormatter implements HttpBodyLogFormatter {
 
 	private String obfuscateSensitiveFieldsInRequest(String bodyString) {
 		final List<NameValuePair> obfuscatedBody = URLEncodedUtils.parse(bodyString, UTF_8).stream().map(pair -> {
-			if (asList("client_id", "client_secret", "password").contains(pair.getName())) {
+			if (asList("client_secret", "password").contains(pair.getName())) {
 				return new BasicNameValuePair(pair.getName(), "*");
 			}
 			return pair;
@@ -71,7 +71,7 @@ public class AuthorizationHttpBodyLogFormatter implements HttpBodyLogFormatter {
 		try {
 			final ObjectNode jsonNode = (ObjectNode) toJsonNode(bodyString);
 			jsonNode.fields().forEachRemaining(element -> {
-				if (element.getKey().contains("token")){
+				if (element.getKey().contains("_token")){
 					jsonNode.put(element.getKey(), "*");
 				}
 			});
