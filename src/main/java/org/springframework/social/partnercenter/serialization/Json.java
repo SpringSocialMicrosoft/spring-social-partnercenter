@@ -35,6 +35,7 @@ public class Json {
 	public static void configure(JsonSerializationSettings serializationSettings) {
 		jsonConverter.configure(serializationSettings);
 	}
+
 	public static JsonNode toJsonNode(String json){
 		return jsonConverter.toJsonNode(json);
 	}

@@ -19,7 +19,7 @@ public class AuthorizationHttpBodyLogFormatterTest {
 
 	@Test
 	public void testFormatResquestLogs_whenFormattingRequestBody_theCorrectFieldsAreObfuscated() {
-		String requestBody = "grant_type=password&username=paul.smelser@gmail.com&password=password1234&client_id=asdfjkl;&client_secret=bhfdksafdhsafdsa=";
+		String requestBody = "grant_type=password&username=paul.smelser%40gmail.com&password=password1234&client_id=asdfjkl;&client_secret=bhfdksafdhsafdsa=";
 		String expectedBody = requestBody
 				.replace("password1234", "*")
 				.replace("bhfdksafdhsafdsa=", "*")
@@ -36,6 +36,15 @@ public class AuthorizationHttpBodyLogFormatterTest {
 		doReturn(responseBodyStream).when(httpResponse).getBody();
 		final String result = new AuthorizationHttpBodyLogFormatter().formatResponseLogs(httpResponse);
 		assertThat(result).isEqualTo("Body:\n\t"+ buildExpectedAuthResponseLog());
+	}
+	@Test
+	public void testFormatResponseLogs_whenFormattingResponseBodyWithoutIdToken_thenTheIdTokenIsNotIncludedInTheResponse() throws IOException {
+		String responseBody = buildAuthResponseWithoutIdToken();
+		InputStream responseBodyStream = new ByteArrayInputStream(responseBody.getBytes(StandardCharsets.UTF_8.name()));
+		final ClientHttpResponse httpResponse = spy(ClientHttpResponse.class);
+		doReturn(responseBodyStream).when(httpResponse).getBody();
+		final String result = new AuthorizationHttpBodyLogFormatter().formatResponseLogs(httpResponse);
+		assertThat(result).isEqualTo("Body:\n\t"+ buildExpectedAuthResponseLogIfThereIsNoIdToken());
 	}
 
 	@Test
@@ -54,6 +63,12 @@ public class AuthorizationHttpBodyLogFormatterTest {
 		return json.toJSONString();
 	}
 
+	private String buildAuthResponseWithoutIdToken(){
+		JSONObject json = new JSONObject();
+		json.put("access_token", "jfdsfjdksla;fjdksal;fdsuagfhdjsanlfjdsa");
+		json.put("refresh_token", "fhdjksafhdsaiufydbsahfdsafdsafdsahtrhrte");
+		return json.toJSONString();
+	}
 
 	private String buildExpectedAuthResponseLog(){
 		JSONObject json = new JSONObject();
@@ -63,4 +78,10 @@ public class AuthorizationHttpBodyLogFormatterTest {
 		return json.toJSONString();
 	}
 
+	private String buildExpectedAuthResponseLogIfThereIsNoIdToken(){
+		JSONObject json = new JSONObject();
+		json.put("access_token", "*");
+		json.put("refresh_token", "*");
+		return json.toJSONString();
+	}
 }
