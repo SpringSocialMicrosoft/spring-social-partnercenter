@@ -22,8 +22,8 @@ public class AdminUserTemplate extends UserTemplate implements AdminUserOperatio
 	@Override
 	public ResponseEntity<String> assignLicensesToUser(String customerId, String userId, AssignLicensesToUserRequest request) {
 		return restResource.request()
-				.pathSegment("users", userId, "licenseupdates")
-				.post(customerId, String.class);
+				.pathSegment(customerId, "users", userId, "licenseupdates")
+				.post(request, String.class);
 	}
 
 	@Override
