@@ -5,17 +5,17 @@ import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-public class AssignLicensesToUserRequest {
-	private LicensesToAssign licensesToAssign;
+public class CustomerUserAssignLicenses {
+	private List<LicenseAssignment> licensesToAssign;
 	private List<String> licensesToRemove;
 	private List<String> licenseWarnings;
 	private Map<String, String> attributes;
 
-	public LicensesToAssign getLicensesToAssign() {
+	public List<LicenseAssignment> getLicensesToAssign() {
 		return licensesToAssign;
 	}
 
-	public void setLicensesToAssign(LicensesToAssign licensesToAssign) {
+	public void setLicensesToAssign(List<LicenseAssignment> licensesToAssign) {
 		this.licensesToAssign = licensesToAssign;
 	}
 
@@ -49,12 +49,12 @@ public class AssignLicensesToUserRequest {
 	}
 
 	public static class AssignLicensesToUserRequestBuilder {
-		LicensesToAssign licensesToAssign;
+		List<LicenseAssignment> licensesToAssign;
 		List<String> licensesToRemove;
 		List<String> licenseWarnings;
 		Map<String, String> attributes;
 
-		public AssignLicensesToUserRequestBuilder licensesToAssign(LicensesToAssign licensesToAssign) {
+		public AssignLicensesToUserRequestBuilder licensesToAssign(List<LicenseAssignment> licensesToAssign) {
 			this.licensesToAssign = licensesToAssign;
 			return this;
 		}
@@ -74,8 +74,8 @@ public class AssignLicensesToUserRequest {
 			return this;
 		}
 
-		public AssignLicensesToUserRequest build(){
-			AssignLicensesToUserRequest request = new AssignLicensesToUserRequest();
+		public CustomerUserAssignLicenses build(){
+			CustomerUserAssignLicenses request = new CustomerUserAssignLicenses();
 			request.setAttributes(attributes);
 			request.setLicensesToAssign(licensesToAssign);
 			request.setLicensesToRemove(licensesToRemove);

@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-public class LicensesToAssign {
+public class LicenseAssignment {
 	private List<String> excludedPlans;
 	private String skuId;
 
@@ -42,8 +42,8 @@ public class LicensesToAssign {
 			return this;
 		}
 
-		public LicensesToAssign build(){
-			LicensesToAssign licensesToAssign = new LicensesToAssign();
+		public LicenseAssignment build(){
+			LicenseAssignment licensesToAssign = new LicenseAssignment();
 			licensesToAssign.setExcludedPlans(excludedPlans);
 			licensesToAssign.setSkuId(skuId);
 			return licensesToAssign;
