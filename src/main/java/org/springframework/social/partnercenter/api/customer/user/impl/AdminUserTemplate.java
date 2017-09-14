@@ -8,7 +8,7 @@ import org.springframework.social.partnercenter.api.customer.Role;
 import org.springframework.social.partnercenter.api.customer.user.AdminUserOperations;
 import org.springframework.social.partnercenter.api.customer.user.CustomerUser;
 import org.springframework.social.partnercenter.api.customer.user.License;
-import org.springframework.social.partnercenter.api.customer.user.request.AssignLicensesToUserRequest;
+import org.springframework.social.partnercenter.api.customer.user.request.CustomerUserAssignLicenses;
 import org.springframework.social.partnercenter.http.client.RestResource;
 
 public class AdminUserTemplate extends UserTemplate implements AdminUserOperations {
@@ -20,10 +20,10 @@ public class AdminUserTemplate extends UserTemplate implements AdminUserOperatio
 	}
 
 	@Override
-	public ResponseEntity<String> assignLicensesToUser(String customerId, String userId, AssignLicensesToUserRequest request) {
+	public ResponseEntity<String> assignLicensesToUser(String customerId, String userId, CustomerUserAssignLicenses request) {
 		return restResource.request()
-				.pathSegment("users", userId, "licenseupdates")
-				.post(customerId, String.class);
+				.pathSegment(customerId, "users", userId, "licenseupdates")
+				.post(request, String.class);
 	}
 
 	@Override
