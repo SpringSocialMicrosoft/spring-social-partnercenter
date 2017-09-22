@@ -15,31 +15,31 @@ public class PartnerCenterServiceProvider extends AbstractAzureADServiceProvider
 	private final String apiVersion;
 	private final UriProvider uriProvider;
 
-	public PartnerCenterServiceProvider(String applicationId, String applicationSecret, String clientId, String domain){
-		super(new AzureADAuthTemplate(applicationId, applicationSecret, clientId, domain, DEFAULT_URL_PROVIDER));
+	public PartnerCenterServiceProvider(String webAppId, String webAppKey, String nativeAppId, String domain){
+		super(new AzureADAuthTemplate(webAppId, webAppKey, nativeAppId, domain, DEFAULT_URL_PROVIDER));
 		apiVersion = DEFAULT_API_VERSION;
 		this.uriProvider = DEFAULT_URL_PROVIDER;
 	}
-	public PartnerCenterServiceProvider(String applicationId, String applicationSecret, String clientId, String domain, SecurityRegion securityRegion){
-		super(new AzureADAuthTemplate(applicationId, applicationSecret, clientId, domain, DEFAULT_URL_PROVIDER));
+	public PartnerCenterServiceProvider(String webAppId, String webAppKey, String nativeAppId, String domain, SecurityRegion securityRegion){
+		super(new AzureADAuthTemplate(webAppId, webAppKey, nativeAppId, domain, DEFAULT_URL_PROVIDER));
 		apiVersion = DEFAULT_API_VERSION;
 		this.uriProvider = UriProvider.fromSecurityRegion(securityRegion);
 	}
 
-	public PartnerCenterServiceProvider(String applicationId, String applicationSecret, String clientId, String domain, String authority, String resourceUrl, String partnerServiceApiRoot){
-		super(new AzureADAuthTemplate(applicationId, applicationSecret, clientId, domain, authority, resourceUrl, partnerServiceApiRoot));
+	public PartnerCenterServiceProvider(String webAppId, String webAppKey, String nativeAppId, String domain, String authority, String resourceUrl, String partnerServiceApiRoot){
+		super(new AzureADAuthTemplate(webAppId, webAppKey, nativeAppId, domain, authority, resourceUrl, partnerServiceApiRoot));
 		apiVersion = DEFAULT_API_VERSION;
 		uriProvider = UriProvider.builder().authority(authority).partnerServiceApiRoot(partnerServiceApiRoot).resourceUrl(resourceUrl).build();
 	}
 
-	public PartnerCenterServiceProvider(String applicationId, String applicationSecret, String clientId, String domain, String apiVersion, SecurityRegion region){
-		super(new AzureADAuthTemplate(applicationId, applicationSecret, clientId, domain, region.getAuthority(), region.getResourceUrl(), region.getPartnerServiceApiRoot()));
+	public PartnerCenterServiceProvider(String webAppId, String webAppKey, String nativeAppId, String domain, String apiVersion, SecurityRegion region){
+		super(new AzureADAuthTemplate(webAppId, webAppKey, nativeAppId, domain, region.getAuthority(), region.getResourceUrl(), region.getPartnerServiceApiRoot()));
 		uriProvider = UriProvider.fromSecurityRegion(region);
 		this.apiVersion = apiVersion;
 	}
 
-	public PartnerCenterServiceProvider(String applicationId, String applicationSecret, String clientId, String domain, String apiVersion, String authority, String resourceUrl, String partnerServiceApiRoot){
-		super(new AzureADAuthTemplate(applicationId, applicationSecret, clientId, domain, authority, resourceUrl, partnerServiceApiRoot));
+	public PartnerCenterServiceProvider(String webAppId, String webAppKey, String nativeAppId, String domain, String apiVersion, String authority, String resourceUrl, String partnerServiceApiRoot){
+		super(new AzureADAuthTemplate(webAppId, webAppKey, nativeAppId, domain, authority, resourceUrl, partnerServiceApiRoot));
 		uriProvider = UriProvider.builder().authority(authority).partnerServiceApiRoot(partnerServiceApiRoot).resourceUrl(resourceUrl).build();
 		this.apiVersion = apiVersion;
 	}
