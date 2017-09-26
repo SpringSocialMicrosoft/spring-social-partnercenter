@@ -13,24 +13,24 @@ import org.springframework.social.partnercenter.security.PartnerCenterServicePro
 
 public class PartnerCenterConnectionFactory extends BasePartnerCenterConnectionFactory {
 
-	public PartnerCenterConnectionFactory(String applicationId, String applicationSecret, String clientId, String tenant){
-		this(PartnerCenter.PROVIDER_ID, new PartnerCenterServiceProvider(applicationId, applicationSecret, clientId, tenant), new PartnerCenterApiAdapter());
+	public PartnerCenterConnectionFactory(String webAppId, String webAppKey, String nativeAppId, String tenant){
+		this(PartnerCenter.PROVIDER_ID, new PartnerCenterServiceProvider(webAppId, webAppKey, nativeAppId, tenant), new PartnerCenterApiAdapter());
 	}
 
-	public PartnerCenterConnectionFactory(String applicationId, String applicationSecret, String clientId, String tenant, SecurityRegion region){
-		this(PartnerCenter.PROVIDER_ID, new PartnerCenterServiceProvider(applicationId, applicationSecret, clientId, tenant, region), new PartnerCenterApiAdapter());
+	public PartnerCenterConnectionFactory(String webAppId, String webAppKey, String nativeAppId, String tenant, SecurityRegion region){
+		this(PartnerCenter.PROVIDER_ID, new PartnerCenterServiceProvider(webAppId, webAppKey, nativeAppId, tenant, region), new PartnerCenterApiAdapter());
 	}
 
-	public PartnerCenterConnectionFactory(String applicationId, String applicationSecret, String clientId, String tenant, String authority, String resourceUrl, String partnerServiceApiRoot){
-		this(PartnerCenter.PROVIDER_ID, new PartnerCenterServiceProvider(applicationId, applicationSecret, clientId, tenant, authority, resourceUrl, partnerServiceApiRoot), new PartnerCenterApiAdapter());
+	public PartnerCenterConnectionFactory(String webAppId, String webAppKey, String nativeAppId, String tenant, String authority, String resourceUrl, String partnerServiceApiRoot){
+		this(PartnerCenter.PROVIDER_ID, new PartnerCenterServiceProvider(webAppId, webAppKey, nativeAppId, tenant, authority, resourceUrl, partnerServiceApiRoot), new PartnerCenterApiAdapter());
 	}
 
-	public PartnerCenterConnectionFactory(String applicationId, String applicationSecret, String clientId, String tenant, String apiVersion, SecurityRegion region){
-		this(PartnerCenter.PROVIDER_ID, new PartnerCenterServiceProvider(applicationId, applicationSecret, clientId, tenant, apiVersion, region), new PartnerCenterApiAdapter());
+	public PartnerCenterConnectionFactory(String webAppId, String webAppKey, String nativeAppId, String tenant, String apiVersion, SecurityRegion region){
+		this(PartnerCenter.PROVIDER_ID, new PartnerCenterServiceProvider(webAppId, webAppKey, nativeAppId, tenant, apiVersion, region), new PartnerCenterApiAdapter());
 	}
 
-	public PartnerCenterConnectionFactory(String applicationId, String applicationSecret, String clientId, String tenant, String apiVersion, String authority, String resourceUrl, String partnerServiceApiRoot){
-		this(PartnerCenter.PROVIDER_ID, new PartnerCenterServiceProvider(applicationId, applicationSecret, clientId, tenant, apiVersion, authority, resourceUrl, partnerServiceApiRoot), new PartnerCenterApiAdapter());
+	public PartnerCenterConnectionFactory(String webAppId, String webAppKey, String nativeAppId, String tenant, String apiVersion, String authority, String resourceUrl, String partnerServiceApiRoot){
+		this(PartnerCenter.PROVIDER_ID, new PartnerCenterServiceProvider(webAppId, webAppKey, nativeAppId, tenant, apiVersion, authority, resourceUrl, partnerServiceApiRoot), new PartnerCenterApiAdapter());
 	}
 
 	private PartnerCenterConnectionFactory(String providerId, PartnerCenterServiceProvider serviceProvider, ApiAdapter<PartnerCenter> apiAdapter) {

@@ -36,9 +36,9 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 public class AzureADAuthTemplate implements AzureADAuthOperations {
-	private final String applicationId;
-	private final String clientId;
-	private final String applicationSecret;
+	private final String webAppId;
+	private final String nativeAppId;
+	private final String webAppKey;
 	private String accessTokenUrl;
 	private String authorizeUrl;
 	private RestTemplate restTemplate;
@@ -47,18 +47,18 @@ public class AzureADAuthTemplate implements AzureADAuthOperations {
 
 	/**
 	 * Constructs an OAuth2Template for a given set of client credentials.
-	 * @param applicationId the application ID
-	 * @param applicationSecret the application secret
+	 * @param webAppId the application ID
+	 * @param webAppKey the application secret
 	 * @param domain the reseller domain
-	 * @param clientId the client id for login with credentials
+	 * @param nativeAppId the client id for login with credentials
 	 * @param authority domain of the reseller including .onmicrosoft.com
 	 * @param resourceUrl see Partner Center documentation
 	 * @param partnerServiceApiRoot root of the Partner Center API
 	 */
-	public AzureADAuthTemplate(String applicationId, String applicationSecret, String clientId, String domain, String authority, String resourceUrl, String partnerServiceApiRoot){
-		this(applicationId,
-				applicationSecret,
-				clientId,
+	public AzureADAuthTemplate(String webAppId, String webAppKey, String nativeAppId, String domain, String authority, String resourceUrl, String partnerServiceApiRoot){
+		this(webAppId,
+				webAppKey,
+				nativeAppId,
 				domain,
 				UriProvider.builder()
 						.authority(authority)
@@ -68,30 +68,30 @@ public class AzureADAuthTemplate implements AzureADAuthOperations {
 	}
 	/**
 	 * Constructs an OAuth2Template for a given set of client credentials.
-	 * @param applicationId the application ID
-	 * @param applicationSecret the application secret
+	 * @param webAppId the application ID
+	 * @param webAppKey the application secret
 	 * @param domain the reseller domain
-	 * @param clientId the client id for login with credentials
+	 * @param nativeAppId the client id for login with credentials
 	 */
-	public AzureADAuthTemplate(String applicationId, String applicationSecret, String clientId, String domain){
-		this(applicationId,
-				applicationSecret,
-				clientId,
+	public AzureADAuthTemplate(String webAppId, String webAppKey, String nativeAppId, String domain){
+		this(webAppId,
+				webAppKey,
+				nativeAppId,
 				domain,
 				DEFAULT_URL_PROVIDER);
 	}
 	/**
 	 * Constructs an OAuth2Template for a given set of client credentials.
-	 * @param applicationId the application ID
-	 * @param applicationSecret the application secret
+	 * @param webAppId the application ID
+	 * @param webAppKey the application secret
 	 * @param domain the reseller domain
-	 * @param clientId the client id for login with credentials
+	 * @param nativeAppId the client id for login with credentials
 	 * @param restTemplate restTemplate to make auth requests
 	 */
-	public AzureADAuthTemplate(String applicationId, String applicationSecret, String clientId, String domain, RestTemplate restTemplate){
-		this(applicationId,
-				applicationSecret,
-				clientId,
+	public AzureADAuthTemplate(String webAppId, String webAppKey, String nativeAppId, String domain, RestTemplate restTemplate){
+		this(webAppId,
+				webAppKey,
+				nativeAppId,
 				domain,
 				DEFAULT_URL_PROVIDER);
 		this.restTemplate = configureRestTemplate(restTemplate);
@@ -99,21 +99,21 @@ public class AzureADAuthTemplate implements AzureADAuthOperations {
 
 	/**
 	 * Constructs an OAuth2Template for a given set of client credentials.
-	 * @param applicationId the client ID
-	 * @param applicationSecret the client secret
+	 * @param webAppId the Web App 'App ID'
+	 * @param webAppKey the Web App 'Key'
 	 * @param domain the reseller domain
-	 * @param clientId the client id for login with credentials
+	 * @param nativeAppId the Native App 'App ID'
 	 * @param uriProvider builds auth urls
 	 */
-	public AzureADAuthTemplate(String applicationId, String applicationSecret, String clientId, String domain, UriProvider uriProvider) {
-		notNull(applicationId, "The applicationId property cannot be null");
-		notNull(applicationSecret, "The applicationSecret property cannot be null");
-		notNull(clientId, "The clientId property cannot be null");
+	public AzureADAuthTemplate(String webAppId, String webAppKey, String nativeAppId, String domain, UriProvider uriProvider) {
+		notNull(webAppId, "The webAppId property cannot be null");
+		notNull(webAppKey, "The webAppKey property cannot be null");
+		notNull(nativeAppId, "The nativeAppId property cannot be null");
 		notNull(domain, "The authorizeUrl property cannot be null");
 		this.uriProvider = ofNullable(uriProvider).orElse(DEFAULT_URL_PROVIDER);
-		this.applicationId = applicationId;
-		this.applicationSecret = applicationSecret;
-		this.clientId = clientId;
+		this.webAppId = webAppId;
+		this.webAppKey = webAppKey;
+		this.nativeAppId = nativeAppId;
 		this.authorizeUrl = uriProvider.buildPartnerCenterOAuth2Uri(domain);
 		this.useParametersForClientAuthentication = true;
 		this.accessTokenUrl = uriProvider.buildPartnerCenterTokenUri();
@@ -176,7 +176,7 @@ public class AzureADAuthTemplate implements AzureADAuthOperations {
 	public AccessGrant exchangeCredentialsForAccess(String username, String password, MultiValueMap<String, String> additionalParameters) {
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
 		if (useParametersForClientAuthentication) {
-			params.set("client_id", clientId);
+			params.set("client_id", nativeAppId);
 		}
 		params.set("username", username);
 		params.set("password", password);
@@ -248,8 +248,8 @@ public class AzureADAuthTemplate implements AzureADAuthOperations {
 	private AzureADSecurityToken postForADToken(){
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
 		params.set("grant_type", PartnerCenterGrantType.CLIENT_CREDENTIALS.asString());
-		params.set("client_id", applicationId);
-		params.set("client_secret", applicationSecret);
+		params.set("client_id", webAppId);
+		params.set("client_secret", webAppKey);
 		params.set("resource", uriProvider.getResourceUri());
 		try {
 			return getRestTemplate().postForObject(authorizeUrl, params, AzureADSecurityToken.class);
