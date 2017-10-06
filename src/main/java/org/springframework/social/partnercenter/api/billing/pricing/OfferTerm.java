@@ -1,7 +1,9 @@
 package org.springframework.social.partnercenter.api.billing.pricing;
 
+import java.time.Instant;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -12,7 +14,8 @@ public class OfferTerm {
 	@JsonProperty("discount")
 	private Double discount;
 	private List<String> excludedMeterIds;
-	private String effectiveDate;
+	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "UTC")
+	private Instant effectiveDate;
 
 	public String getName() {
 		return name;
@@ -41,11 +44,11 @@ public class OfferTerm {
 		return this;
 	}
 
-	public String getEffectiveDate() {
+	public Instant getEffectiveDate() {
 		return effectiveDate;
 	}
 
-	public OfferTerm setEffectiveDate(String effectiveDate) {
+	public OfferTerm setEffectiveDate(Instant effectiveDate) {
 		this.effectiveDate = effectiveDate;
 		return this;
 	}
