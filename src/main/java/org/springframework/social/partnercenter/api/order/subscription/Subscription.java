@@ -1,5 +1,7 @@
 package org.springframework.social.partnercenter.api.order.subscription;
 
+import java.time.ZonedDateTime;
+
 import org.springframework.social.partnercenter.api.ResourceAttributes;
 import org.springframework.social.partnercenter.api.order.BillingCycle;
 import org.springframework.social.partnercenter.api.order.BillingType;
@@ -16,9 +18,9 @@ public class Subscription {
 	private String friendlyName;
 	private int quantity;
 	private String unitType;
-	private String creationDate;
-	private String effectiveStartDate;
-	private String commitmentEndDate;
+	private ZonedDateTime creationDate;
+	private ZonedDateTime effectiveStartDate;
+	private ZonedDateTime commitmentEndDate;
 	private SubscriptionStatus status;
 	private BillingType billingType;
 	private BillingCycle billingCycle;
@@ -91,29 +93,29 @@ public class Subscription {
 		return this;
 	}
 
-	public String getCreationDate() {
+	public ZonedDateTime getCreationDate() {
 		return creationDate;
 	}
 
-	public Subscription setCreationDate(String creationDate) {
+	public Subscription setCreationDate(ZonedDateTime creationDate) {
 		this.creationDate = creationDate;
 		return this;
 	}
 
-	public String getEffectiveStartDate() {
+	public ZonedDateTime getEffectiveStartDate() {
 		return effectiveStartDate;
 	}
 
-	public Subscription setEffectiveStartDate(String effectiveStartDate) {
+	public Subscription setEffectiveStartDate(ZonedDateTime effectiveStartDate) {
 		this.effectiveStartDate = effectiveStartDate;
 		return this;
 	}
 
-	public String getCommitmentEndDate() {
+	public ZonedDateTime getCommitmentEndDate() {
 		return commitmentEndDate;
 	}
 
-	public Subscription setCommitmentEndDate(String commitmentEndDate) {
+	public Subscription setCommitmentEndDate(ZonedDateTime commitmentEndDate) {
 		this.commitmentEndDate = commitmentEndDate;
 		return this;
 	}
@@ -202,9 +204,9 @@ public class Subscription {
 		private String friendlyName;
 		private int quantity;
 		private String unitType;
-		private String creationDate;
-		private String effectiveStartDate;
-		private String commitmentEndDate;
+		private ZonedDateTime creationDate;
+		private ZonedDateTime effectiveStartDate;
+		private ZonedDateTime commitmentEndDate;
 		private SubscriptionStatus status;
 		private BillingType billingType;
 		private BillingCycle billingCycle;
@@ -249,17 +251,17 @@ public class Subscription {
 			return this;
 		}
 
-		public SubscriptionBuilder creationDate(String creationDate) {
+		public SubscriptionBuilder creationDate(ZonedDateTime creationDate) {
 			this.creationDate = creationDate;
 			return this;
 		}
 
-		public SubscriptionBuilder effectiveStartDate(String effectiveStartDate) {
+		public SubscriptionBuilder effectiveStartDate(ZonedDateTime effectiveStartDate) {
 			this.effectiveStartDate = effectiveStartDate;
 			return this;
 		}
 
-		public SubscriptionBuilder commitmentEndDate(String commitmentEndDate) {
+		public SubscriptionBuilder commitmentEndDate(ZonedDateTime commitmentEndDate) {
 			this.commitmentEndDate = commitmentEndDate;
 			return this;
 		}

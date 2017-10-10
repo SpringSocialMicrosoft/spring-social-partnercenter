@@ -20,6 +20,7 @@ public class Json {
 	public static <T> T fromJson(String jsonString, Class<T> targetClass){
 		return jsonConverter.fromJson(jsonString, targetClass);
 	}
+
 	public static <T> T fromJson(String jsonString, Class<T> targetClass, JsonSerializationSettings serializationSettings){
 		return jsonConverter.fromJson(jsonString, targetClass, serializationSettings);
 	}

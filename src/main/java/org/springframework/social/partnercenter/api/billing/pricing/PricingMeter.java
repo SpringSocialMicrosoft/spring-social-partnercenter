@@ -1,5 +1,6 @@
 package org.springframework.social.partnercenter.api.billing.pricing;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -16,7 +17,7 @@ public class PricingMeter {
 	private String region;
 	private String unit;
 	private Double includedQuantity;
-	private String effectiveDate;
+	private ZonedDateTime effectiveDate;
 
 	public String getId() {
 		return id;
@@ -99,11 +100,11 @@ public class PricingMeter {
 		return this;
 	}
 
-	public String getEffectiveDate() {
+	public ZonedDateTime getEffectiveDate() {
 		return effectiveDate;
 	}
 
-	public PricingMeter setEffectiveDate(String effectiveDate) {
+	public PricingMeter setEffectiveDate(ZonedDateTime effectiveDate) {
 		this.effectiveDate = effectiveDate;
 		return this;
 	}

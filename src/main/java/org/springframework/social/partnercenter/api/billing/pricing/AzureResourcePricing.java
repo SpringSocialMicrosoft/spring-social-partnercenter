@@ -1,23 +1,42 @@
 package org.springframework.social.partnercenter.api.billing.pricing;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
+
 public class AzureResourcePricing {
-	private String locale;
+	private Locale locale;
 	private String currency;
 	private boolean isTaxIncluded;
 	private List<PricingMeter> meters;
 	private List<OfferTerm> offerTerms;
 	private Map<String, String> attributes;
 
-	public String getLocale() {
+	@JsonIgnore
+	public Locale getLocale() {
 		return locale;
 	}
 
-	public AzureResourcePricing setLocale(String locale) {
+	@JsonIgnore
+	public AzureResourcePricing setLocale(Locale locale) {
 		this.locale = locale;
 		return this;
+	}
+
+	@JsonProperty("locale")
+	@JsonCreator
+	public void localeFromLanguageTag(String locale) {
+		this.locale = Locale.forLanguageTag(locale);
+	}
+
+	@JsonValue
+	public String localeToLaguageTag() {
+		return this.locale.toLanguageTag();
 	}
 
 	public String getCurrency() {
