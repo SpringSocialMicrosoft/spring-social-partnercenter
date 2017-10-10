@@ -41,6 +41,7 @@ public class JsonConverter {
 			throw new JsonSerializationException(e);
 		}
 	}
+
 	public <T> T fromJson(String jsonString, Class<T> targetClass, JsonSerializationSettings serializationSettings){
 		try {
 			ObjectReader reader = serializationSettings.createMapper()
