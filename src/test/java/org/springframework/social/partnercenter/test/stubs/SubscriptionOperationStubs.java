@@ -15,7 +15,7 @@ public class SubscriptionOperationStubs {
 		stubFor(get(anyUrl())
 				.willReturn(aResponse()
 						.withStatus(200)
-						.withHeader("Content-Type", "application/json")
+						.withHeader(CONTENT_TYPE, APPLICATION_JSON_VALUE)
 						.withBody(Resource.parseFile("data/subscription/ok.json").getAsString())));
 	}
 

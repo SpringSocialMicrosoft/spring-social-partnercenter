@@ -20,7 +20,7 @@ public class AnalyticsTemplate extends AbstractTemplate implements AnalyticsOper
 	}
 
 	@Override
-	public ResponseEntity<PartnerCenterResponse<PartnerLicensesDeploymentInsights>> getPartnerLicensesDeploymentInformation() {
+	public ResponseEntity<PartnerCenterResponse<PartnerLicensesDeploymentInsights>> getPartnerLicensesDeploymentInsights() {
 		return restResource.request()
 				.pathSegment("analytics", "licenses", "deployment")
 				.get(new ParameterizedTypeReference<PartnerCenterResponse<PartnerLicensesDeploymentInsights>>() {});
