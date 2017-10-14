@@ -3,6 +3,8 @@ package org.springframework.social.partnercenter.api;
 import java.net.URI;
 
 import org.springframework.social.partnercenter.PartnerCenterAdmin;
+import org.springframework.social.partnercenter.api.analytics.AnalyticsOperations;
+import org.springframework.social.partnercenter.api.analytics.impl.AnalyticsTemplate;
 import org.springframework.social.partnercenter.api.customer.AdminCustomerOperations;
 import org.springframework.social.partnercenter.api.customer.impl.AdminCustomerTemplate;
 import org.springframework.social.partnercenter.api.customer.user.AdminUserOperations;
@@ -20,14 +22,15 @@ public class PartnerCenterAdminTemplate extends PartnerCenterTemplate implements
 	private final AdminUserOperations adminUserOperations;
 	private final AdminOrderOperations adminOrderOperations;
 	private final AdminSubscriptionOperations adminSubscriptionOperations;
+	private final AnalyticsOperations analyticsOperations;
 
 	public PartnerCenterAdminTemplate(UriProvider uriProvider, String accessToken, String version){
 		super(uriProvider, accessToken, version);
-
 		adminCustomerOperations = new AdminCustomerTemplate(createRestResource(uriProvider.partnerCenterCustomerUri().build().toUri()), isAuthorized());
 		adminUserOperations = new AdminUserTemplate(createRestResource(uriProvider.partnerCenterCustomerUri().build().toUri()), isAuthorized());
 		adminOrderOperations = new AdminOrderTemplate(createRestResource(uriProvider.partnerCenterCustomerUri().build().toUri()), isAuthorized());
 		adminSubscriptionOperations = new AdminSubscriptionTemplate(createRestResource(uriProvider.partnerCenterCustomerUri().build().toUri()), isAuthorized());
+		analyticsOperations = new AnalyticsTemplate(createRestResource(uriProvider.partnerAnalyticsUri().build().toUri()), isAuthorized());
 	}
 
 	private RestResource createRestResource(URI baseUri){
@@ -52,5 +55,10 @@ public class PartnerCenterAdminTemplate extends PartnerCenterTemplate implements
 	@Override
 	public AdminSubscriptionOperations getSubscriptionOperations() {
 		return adminSubscriptionOperations;
+	}
+
+	@Override
+	public AnalyticsOperations getAnalyticsOperations() {
+		return analyticsOperations;
 	}
 }
