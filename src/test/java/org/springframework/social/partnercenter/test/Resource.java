@@ -9,6 +9,8 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.Scanner;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+
 public class Resource implements Closeable {
 
 	private BufferedReader reader;
@@ -47,6 +49,10 @@ public class Resource implements Closeable {
 	}
 
 	public <T> T getJsonAsObject(Class<T> aClass){
+		return fromJson(getAsString(), aClass);
+	}
+
+	public <T> T getJsonAsObject(TypeReference<T> aClass){
 		return fromJson(getAsString(), aClass);
 	}
 

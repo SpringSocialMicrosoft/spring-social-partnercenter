@@ -1,5 +1,6 @@
-package org.springframework.social.partnercenter.api.utilities;
+package org.springframework.social.partnercenter.api.audit;
 
+import java.time.ZonedDateTime;
 import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -10,11 +11,11 @@ public class AuditRecord {
 	private String customerName;
 	private String userPrincipalName;
 	private String applicationId;
-	private String resourceType;
+	private ResourceType resourceType;
 	private String resourceNewValue;
-	private String operationType;
-	private String operationDate;
-	private String operationStatus;
+	private OperationType operationType;
+	private ZonedDateTime operationDate;
+	private OperationStatus operationStatus;
 	private String originalCorrelationId;
 	private String sessionId;
 	private Map<String, String> attributes;
@@ -51,11 +52,11 @@ public class AuditRecord {
 		this.applicationId = applicationId;
 	}
 
-	public String getResourceType() {
+	public ResourceType getResourceType() {
 		return resourceType;
 	}
 
-	public void setResourceType(String resourceType) {
+	public void setResourceType(ResourceType resourceType) {
 		this.resourceType = resourceType;
 	}
 
@@ -67,27 +68,27 @@ public class AuditRecord {
 		this.resourceNewValue = resourceNewValue;
 	}
 
-	public String getOperationType() {
+	public OperationType getOperationType() {
 		return operationType;
 	}
 
-	public void setOperationType(String operationType) {
+	public void setOperationType(OperationType operationType) {
 		this.operationType = operationType;
 	}
 
-	public String getOperationDate() {
+	public ZonedDateTime getOperationDate() {
 		return operationDate;
 	}
 
-	public void setOperationDate(String operationDate) {
+	public void setOperationDate(ZonedDateTime operationDate) {
 		this.operationDate = operationDate;
 	}
 
-	public String getOperationStatus() {
+	public OperationStatus getOperationStatus() {
 		return operationStatus;
 	}
 
-	public void setOperationStatus(String operationStatus) {
+	public void setOperationStatus(OperationStatus operationStatus) {
 		this.operationStatus = operationStatus;
 	}
 

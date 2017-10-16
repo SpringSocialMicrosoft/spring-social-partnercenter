@@ -1,0 +1,73 @@
+{
+  "totalCount": 2,
+  "items": [{
+	"partnerId": "3b33e682-00c3-41ee-9dd2-a548adf56438",
+	"customerId": "0c39d6d5-c70d-4c55-bc02-f620844f3fd1",
+	"customerName": "Relecloud",
+	"userPrincipalName": "admin@domain.onmicrosoft.com",
+	"resourceType": "order",
+	"resourceNewValue": "{\"Id\":\"d51a052e-043c-4a2a-aa37-2bb938cef6c1\",\"ReferenceCustomerId\":\"0c39d6d5-c70d-4c55-bc02-f620844f3fd1\",\"BillingCycle\":\"none\",\"LineItems\":[{\"LineItemNumber\":0,\"OfferId\":\"C0BD2E08-11AC-4836-BDC7-3712E744922F\",\"SubscriptionId\":\"488745B5-2086-4912-802C-6ABB9F7C3638\",\"ParentSubscriptionId\":null,\"FriendlyName\":\"Office 365 Business Premium Trial\",\"Quantity\":25,\"PartnerIdOnRecord\":null,\"Links\":{\"Subscription\":{\"Uri\":\"/customers/0c39d6d5-c70d-4c55-bc02-f620844f3fd1/subscriptions/488745B5-2086-4912-802C-6ABB9F7C3638\",\"Method\":\"GET\",\"Headers\":[]}}}],\"CreationDate\":\"2017-06-15T15:56:04.077-07:00\",\"Links\":{\"Self\":{\"Uri\":\"/customers/0c39d6d5-c70d-4c55-bc02-f620844f3fd1/orders/d51a052e-043c-4a2a-aa37-2bb938cef6c1\",\"Method\":\"GET\",\"Headers\":[]}},\"Attributes\":{\"Etag\":\"eyJpZCI6ImQ1MWEwNTJlLTA0M2MtNGEyYS1hYTM3LTJiYjkzOGNlZjZjMSIsInZlcnNpb24iOjF9\",\"ObjectType\":\"Order\"}}",
+	"operationType": "create_order",
+	"operationDate": "2017-06-15T22:56:05.0589308Z",
+	"operationStatus": "succeeded",
+	"customizedData": [{
+	  "key": "OrderId",
+	  "value": "d51a052e-043c-4a2a-aa37-2bb938cef6c1"
+	}, {
+	  "key": "BillingCycle",
+	  "value": "None"
+	}, {
+	  "key": "OfferId-0",
+	  "value": "C0BD2E08-11AC-4836-BDC7-3712E744922F"
+	}, {
+	  "key": "SubscriptionId-0",
+	  "value": "488745B5-2086-4912-802C-6ABB9F7C3638"
+	}, {
+	  "key": "SubscriptionName-0",
+	  "value": "Office 365 Business Premium Trial"
+	}, {
+	  "key": "Quantity-0",
+	  "value": "25"
+	}, {
+	  "key": "PartnerOnRecord-0",
+	  "value": null
+	}
+	],
+	"attributes": {
+	  "objectType": "AuditRecord"
+	}
+  }, {
+	"partnerId": "3b33e682-00c3-41ee-9dd2-a548adf56438",
+	"customerId": "0c39d6d5-c70d-4c55-bc02-f620844f3fd1",
+	"customerName": "Relecloud",
+	"userPrincipalName": "admin@domain.onmicrosoft.com",
+	"applicationId": "Partner Center Native App",
+	"resourceType": "license",
+	"resourceNewValue": "{\"LicensesToAssign\":[{\"ExcludedPlans\":null,\"SkuId\":\"efccb6f7-5641-4e0e-bd10-b4976e1bf68e\"}],\"LicensesToRemove\":null,\"LicenseWarnings\":[],\"Attributes\":{\"ObjectType\":\"LicenseUpdate\"}}",
+	"operationType": "update_customer_user_licenses",
+	"operationDate": "2017-06-01T20:09:07.0450483Z",
+	"operationStatus": "succeeded",
+	"customizedData": [{
+	  "key": "CustomerUserId",
+	  "value": "482e2152-4b49-48ec-b715-823365ce3d4c"
+	}, {
+	  "key": "AddedLicenseSkuId",
+	  "value": "efccb6f7-5641-4e0e-bd10-b4976e1bf68e"
+	}
+	],
+	"attributes": {
+	  "objectType": "AuditRecord"
+	}
+  }
+  ],
+  "links": {
+	"self": {
+	  "uri": "/auditrecords?startDate=2017-06-01&size=500&filter=%7B%22Field%22%3A%22CustomerId%22%2C%22Value%22%3A%220c39d6d5-c70d-4c55-bc02-f620844f3fd1%22%2C%22Operator%22%3A%22equals%22%7D",
+	  "method": "GET",
+	  "headers": []
+	}
+  },
+  "attributes": {
+	"objectType": "Collection"
+  }
+}

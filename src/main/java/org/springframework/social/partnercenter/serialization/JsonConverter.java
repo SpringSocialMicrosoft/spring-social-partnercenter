@@ -3,6 +3,7 @@ package org.springframework.social.partnercenter.serialization;
 import java.io.IOException;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.MapperFeature;
@@ -30,6 +31,19 @@ public class JsonConverter {
 	}
 
 	public <T> T fromJson(String jsonString, Class<T> targetClass){
+		try {
+			ObjectReader reader = objectMapper
+					.reader()
+					.forType(targetClass);
+
+			return reader.readValue(jsonString);
+
+		} catch (IOException e) {
+			throw new JsonSerializationException(e);
+		}
+	}
+
+	public <T> T fromJson(String jsonString, TypeReference<T> targetClass){
 		try {
 			ObjectReader reader = objectMapper
 					.reader()
