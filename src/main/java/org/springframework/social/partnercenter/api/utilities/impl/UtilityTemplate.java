@@ -67,7 +67,15 @@ public class UtilityTemplate extends AbstractTemplate implements UtilityOperatio
 				.delete();
 	}
 
+	/**
+	 * This has been replace by {@link org.springframework.social.partnercenter.api.audit.AuditOperations#getPartnerCenterActivity(Instant, Instant)}
+	 * @param startDate Beginning of audit period
+	 * @param endDate End of audit Period
+	 * @param filter records can be filtered by 'CompanyName', 'CustomerId' or 'ResourceType
+	 * @return list of activity
+	 */
 	@Override
+	@Deprecated
 	public ResponseEntity<PartnerCenterResponse<AuditRecord>> getActivityByUser(Instant startDate, Instant endDate, Filter filter) {
 		return restResource.request()
 				.pathSegment("auditrecords")
@@ -77,7 +85,15 @@ public class UtilityTemplate extends AbstractTemplate implements UtilityOperatio
 				.get(new ParameterizedTypeReference<PartnerCenterResponse<AuditRecord>>() {});
 	}
 
+	/**
+	 * This has been replace by {@link org.springframework.social.partnercenter.api.audit.AuditOperations#getPartnerCenterActivity(Instant, Instant)}
+	 * @param startDate Beginning of audit period
+	 * @param endDate End of audit Period
+	 * @param filter records can be filtered by 'CompanyName', 'CustomerId' or 'ResourceType
+	 * @return list of activity
+	 */
 	@Override
+	@Deprecated
 	public ResponseEntity<PartnerCenterResponse<AuditRecord>> getActivityByUser(Instant startDate, Instant endDate, String filter) {
 		return restResource.request()
 				.pathSegment("auditrecords")
@@ -87,7 +103,14 @@ public class UtilityTemplate extends AbstractTemplate implements UtilityOperatio
 				.get(new ParameterizedTypeReference<PartnerCenterResponse<AuditRecord>>() {});
 	}
 
+	/**
+	 * This has been replace by {@link org.springframework.social.partnercenter.api.audit.AuditOperations#getPartnerCenterActivity(Instant, Instant)}
+	 * @param startDate Beginning of audit period
+	 * @param endDate End of audit Period
+	 * @return list of activity
+	 */
 	@Override
+	@Deprecated
 	public ResponseEntity<PartnerCenterResponse<AuditRecord>> getActivityByUser(Instant startDate, Instant endDate) {
 		return restResource.request()
 				.pathSegment("auditrecords")

@@ -25,9 +25,9 @@ public class AuditOperationsTest {
 	@Test
 	public void testGetAuditRecord_validateResponseParsedCorrectly() {
 		given_getAuditRecord_200_OK();
-		final PartnerCenterResponse<PartnerAuditRecord> expectedRecords = Resource.parseFile("data/audit/record.json").getJsonAsObject(new TypeReference<PartnerCenterResponse<PartnerAuditRecord>>(){});
+		final PartnerCenterResponse<AuditRecord> expectedRecords = Resource.parseFile("data/audit/record.json").getJsonAsObject(new TypeReference<PartnerCenterResponse<AuditRecord>>(){});
 		final AuditOperations auditOperations = new AuditTemplate(new RestClient(TestRestTemplateFactory.createRestTemplate(), baseURI("v1/auditrecords")));
-		final PartnerCenterResponse<PartnerAuditRecord> records = auditOperations.getAuditRecordForPartner(Instant.now().minus(100, ChronoUnit.DAYS)).getBody();
+		final PartnerCenterResponse<AuditRecord> records = auditOperations.getPartnerCenterActivity(Instant.now().minus(100, ChronoUnit.DAYS)).getBody();
 
 		SoftAssertions.assertSoftly(softly -> {
 			for (int i = 0; i < records.getItems().size(); i++) {

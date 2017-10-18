@@ -6,9 +6,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.social.partnercenter.api.PartnerCenterResponse;
 
 public interface AuditOperations {
-	ResponseEntity<PartnerCenterResponse<PartnerAuditRecord>> getAuditRecordForPartner(Instant startDate);
-	ResponseEntity<PartnerCenterResponse<PartnerAuditRecord>> getAuditRecordForPartner(Instant startDate, Instant endDate);
-	ResponseEntity<PartnerCenterResponse<PartnerAuditRecord>> getAuditRecordByCompanyName(Instant startDate, Instant endDate, String companyName);
-	ResponseEntity<PartnerCenterResponse<PartnerAuditRecord>> getAuditRecordByCustomerId(Instant startDate, Instant endDate, String customerId);
-	ResponseEntity<PartnerCenterResponse<PartnerAuditRecord>> getAuditRecordByResoureType(Instant startDate, Instant endDate, String resourceType);
+	ResponseEntity<PartnerCenterResponse<AuditRecord>> getPartnerCenterActivity(Instant startDate);
+	ResponseEntity<PartnerCenterResponse<AuditRecord>> getPartnerCenterActivity(Instant startDate, Instant endDate);
+	ResponseEntity<PartnerCenterResponse<AuditRecord>> getPartnerCenterActivityByCompanyName(Instant startDate, Instant endDate, String companyName);
+	ResponseEntity<PartnerCenterResponse<AuditRecord>> getPartnerCenterActivityByCustomerId(Instant startDate, Instant endDate, String customerId);
+	ResponseEntity<PartnerCenterResponse<AuditRecord>> getPartnerCenterActivityByResourceType(Instant startDate, Instant endDate, String resourceType);
 }

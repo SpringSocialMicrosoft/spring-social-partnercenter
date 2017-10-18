@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class AuditRecord {
+	private String partnerId;
 	private String customerId;
 	private String customerName;
 	private String userPrincipalName;
@@ -114,5 +115,14 @@ public class AuditRecord {
 
 	public void setAttributes(Map<String, String> attributes) {
 		this.attributes = attributes;
+	}
+
+	public String getPartnerId() {
+		return partnerId;
+	}
+
+	public AuditRecord partnerId(String partnerId) {
+		this.partnerId = partnerId;
+		return this;
 	}
 }

@@ -1,6 +1,7 @@
 package org.springframework.social.partnercenter;
 
 import org.springframework.social.ApiBinding;
+import org.springframework.social.partnercenter.api.audit.AuditOperations;
 import org.springframework.social.partnercenter.api.billing.invoicing.InvoiceOperations;
 import org.springframework.social.partnercenter.api.billing.pricing.PricingOperations;
 import org.springframework.social.partnercenter.api.billing.usage.UsageOperations;
@@ -25,6 +26,7 @@ public interface PartnerCenter extends ApiBinding {
 	ProfileOperations getProfileOperations();
 	UtilityOperations getUtilityOperations();
 	UserOperations getUserOperations();
+	AuditOperations getAuditOperations();
 	void enableSlf4j(LogLevel level);
 	String getDomain();
 }

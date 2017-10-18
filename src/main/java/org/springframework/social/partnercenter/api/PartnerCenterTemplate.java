@@ -6,6 +6,8 @@ import org.springframework.http.client.BufferingClientHttpRequestFactory;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.social.oauth2.AbstractOAuth2ApiBinding;
 import org.springframework.social.partnercenter.PartnerCenter;
+import org.springframework.social.partnercenter.api.audit.AuditOperations;
+import org.springframework.social.partnercenter.api.audit.impl.AuditTemplate;
 import org.springframework.social.partnercenter.api.billing.invoicing.InvoiceOperations;
 import org.springframework.social.partnercenter.api.billing.invoicing.impl.InvoiceTemplate;
 import org.springframework.social.partnercenter.api.billing.pricing.PricingOperations;
@@ -47,6 +49,7 @@ public class PartnerCenterTemplate extends AbstractOAuth2ApiBinding implements P
 	private final ProfileOperations profileOperations;
 	private final UtilityOperations utilityOperations;
 	private final UserOperations userOperations;
+	private final AuditOperations auditOperations;
 
 	public PartnerCenterTemplate(UriProvider uriProvider, String accessToken, String version){
 		super(accessToken);
@@ -82,6 +85,8 @@ public class PartnerCenterTemplate extends AbstractOAuth2ApiBinding implements P
 
 		userOperations = new UserTemplate(createRestResource(
 				uriProvider.partnerCenterCustomerUri().build().toUri()), isAuthorized());
+
+		auditOperations = new AuditTemplate(createRestResource(uriProvider.auditUri().build().toUri()));
 	}
 
 	private RestResource createRestResource(URI baseUri){
@@ -142,6 +147,11 @@ public class PartnerCenterTemplate extends AbstractOAuth2ApiBinding implements P
 	@Override
 	public UserOperations getUserOperations() {
 		return userOperations;
+	}
+
+	@Override
+	public AuditOperations getAuditOperations() {
+		return auditOperations;
 	}
 
 	@Override
