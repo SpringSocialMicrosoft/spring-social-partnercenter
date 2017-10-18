@@ -7,6 +7,7 @@ import org.springframework.social.partnercenter.api.order.BillingCycle;
 import org.springframework.social.partnercenter.api.order.BillingType;
 import org.springframework.social.partnercenter.api.order.ContractType;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -18,8 +19,11 @@ public class Subscription {
 	private String friendlyName;
 	private int quantity;
 	private String unitType;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", locale = "UTC")
 	private ZonedDateTime creationDate;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", locale = "UTC")
 	private ZonedDateTime effectiveStartDate;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", locale = "UTC")
 	private ZonedDateTime commitmentEndDate;
 	private SubscriptionStatus status;
 	private BillingType billingType;
