@@ -10,22 +10,27 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.springframework.social.partnercenter.api.order.subscription.impl.SubscriptionTemplate;
 import org.springframework.social.partnercenter.http.client.RestClient;
+import org.springframework.social.partnercenter.serialization.Json;
+import org.springframework.social.partnercenter.test.Resource;
 import org.springframework.social.partnercenter.test.stubs.TestRestTemplateFactory;
 
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 
 public class SubscriptionOperationsTest {
 	@Rule
-	public WireMockRule wireMockRule = new WireMockRule();
+	public WireMockRule wireMockRule = new WireMockRule(8089);
 
 	@Test
 	public void testById_whenCalled_thenResponseIsParsedCorrectly() {
 		given_getById_200_OK();
 
 		final SubscriptionOperations subscriptionOperations = new SubscriptionTemplate(
-				new RestClient(TestRestTemplateFactory.createRestTemplate(),URI.create("http://localhost:8080/v1/customers")),
+				new RestClient(TestRestTemplateFactory.createRestTemplate(),URI.create("http://localhost:8089/v1/customers")),
 				true);
 
+		final Subscription jsonAsObject = Resource.parseFile("data/subscription/ok.json").getJsonAsObject(Subscription.class);
+
+		final String toJson = Json.toJson(jsonAsObject);
 		final Subscription subscription = subscriptionOperations.getById(
 				"cec7381b-58d1-455d-b516-134caf447ffa",
 				"6C36999D-F573-408D-A463-ED9EAC6319E1").getBody();

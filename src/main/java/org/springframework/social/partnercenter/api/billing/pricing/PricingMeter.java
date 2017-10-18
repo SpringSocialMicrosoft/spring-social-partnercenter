@@ -18,7 +18,7 @@ public class PricingMeter {
 	private String region;
 	private String unit;
 	private Double includedQuantity;
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", locale = "UTC")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssX")
 	private ZonedDateTime effectiveDate;
 
 	public String getId() {
