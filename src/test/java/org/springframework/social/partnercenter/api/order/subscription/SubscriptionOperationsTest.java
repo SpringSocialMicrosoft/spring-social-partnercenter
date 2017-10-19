@@ -10,7 +10,6 @@ import static org.springframework.social.partnercenter.test.stubs.SubscriptionOp
 import static org.springframework.social.partnercenter.test.stubs.SubscriptionOperationStubs.given_patch_200_OK;
 import static org.springframework.social.partnercenter.test.stubs.TestRestTemplateFactory.createRestTemplate;
 
-import java.net.URI;
 import java.time.format.DateTimeFormatter;
 
 import org.assertj.core.api.SoftAssertions;
@@ -31,7 +30,7 @@ public class SubscriptionOperationsTest {
 		given_getById_200_OK();
 
 		final SubscriptionOperations subscriptionOperations = new SubscriptionTemplate(
-				new RestClient(createRestTemplate(),URI.create("http://localhost:8089/v1/customers")),
+				new RestClient(createRestTemplate(), baseURI(wireMockRule.port(), "v1", "customers")),
 				true);
 
 		final Subscription subscription = subscriptionOperations.getById(

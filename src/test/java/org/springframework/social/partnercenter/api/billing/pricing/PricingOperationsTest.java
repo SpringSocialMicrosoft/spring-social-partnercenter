@@ -1,8 +1,8 @@
 package org.springframework.social.partnercenter.api.billing.pricing;
 
+import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
 import static org.springframework.social.partnercenter.test.stubs.PricingOperationsStubs.given_getAzurePricing_200_OK;
 
-import java.net.URI;
 import java.time.Instant;
 import java.time.ZonedDateTime;
 import java.util.Locale;
@@ -13,18 +13,19 @@ import org.junit.Test;
 import org.springframework.http.ResponseEntity;
 import org.springframework.social.partnercenter.api.billing.pricing.impl.PricingTemplate;
 import org.springframework.social.partnercenter.http.client.RestClient;
+import org.springframework.social.partnercenter.test.stubs.StubURI;
 import org.springframework.social.partnercenter.test.stubs.TestRestTemplateFactory;
 
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 
 public class PricingOperationsTest {
 	@Rule
-	public WireMockRule wireMockRule = new WireMockRule();
+	public WireMockRule wireMockRule = new WireMockRule(options().dynamicPort());
 
 	@Test
 	public void testGetAzurePricing_whenCalled_thenResponseIsParsedCorrectly() {
 		given_getAzurePricing_200_OK();
-		final PricingTemplate pricingTemplate = new PricingTemplate(new RestClient(TestRestTemplateFactory.createRestTemplate(), URI.create("http://localhost:8080/v1/ratecards/azure")), true);
+		final PricingTemplate pricingTemplate = new PricingTemplate(new RestClient(TestRestTemplateFactory.createRestTemplate(), StubURI.baseURI(wireMockRule.port(), "v1", "ratecards", "azure")), true);
 		final ResponseEntity<AzureResourcePricing> azurePricing = pricingTemplate.getAzurePricing();
 
 		SoftAssertions.assertSoftly(softly -> {
