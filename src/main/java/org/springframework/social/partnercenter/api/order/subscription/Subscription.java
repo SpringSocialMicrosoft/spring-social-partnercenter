@@ -7,7 +7,9 @@ import org.springframework.social.partnercenter.api.order.BillingCycle;
 import org.springframework.social.partnercenter.api.order.BillingType;
 import org.springframework.social.partnercenter.api.order.ContractType;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Subscription {
@@ -18,16 +20,22 @@ public class Subscription {
 	private String friendlyName;
 	private int quantity;
 	private String unitType;
+	private boolean hasPurchasableAddons;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
 	private ZonedDateTime creationDate;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssX")
 	private ZonedDateTime effectiveStartDate;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssX")
 	private ZonedDateTime commitmentEndDate;
 	private SubscriptionStatus status;
+	private boolean autoRenewEnabled;
+	@JsonProperty("isTrial")
+	private boolean trial;
 	private BillingType billingType;
 	private BillingCycle billingCycle;
 	private ContractType contractType;
-	private boolean autoRenewEnabled;
-	private String orderId;
 	private SubscriptionLinks links;
+	private String orderId;
 	private ResourceAttributes attributes;
 
 	public String getId() {
@@ -196,6 +204,22 @@ public class Subscription {
 		return new SubscriptionBuilder();
 	}
 
+	public boolean isTrial() {
+		return trial;
+	}
+
+	public void setIsTrial(boolean trial) {
+		this.trial = trial;
+	}
+
+	public boolean isHasPurchasableAddons() {
+		return hasPurchasableAddons;
+	}
+
+	public void setHasPurchasableAddons(boolean hasPurchasableAddons) {
+		this.hasPurchasableAddons = hasPurchasableAddons;
+	}
+
 	public static class SubscriptionBuilder{
 		private String id;
 		private String offerId;
@@ -204,6 +228,8 @@ public class Subscription {
 		private String friendlyName;
 		private int quantity;
 		private String unitType;
+		private boolean hasPurchasableAddons;
+		private boolean isTrial;
 		private ZonedDateTime creationDate;
 		private ZonedDateTime effectiveStartDate;
 		private ZonedDateTime commitmentEndDate;
@@ -296,6 +322,11 @@ public class Subscription {
 			return this;
 		}
 
+		public SubscriptionBuilder trial(boolean trial) {
+			isTrial = trial;
+			return this;
+		}
+
 		public SubscriptionBuilder links(SubscriptionLinks links) {
 			this.links = links;
 			return this;
@@ -303,6 +334,11 @@ public class Subscription {
 
 		public SubscriptionBuilder attributes(ResourceAttributes attributes) {
 			this.attributes = attributes;
+			return this;
+		}
+
+		public SubscriptionBuilder hasPurchasableAddons(boolean hasPurchasableAddons) {
+			this.hasPurchasableAddons = hasPurchasableAddons;
 			return this;
 		}
 
@@ -315,6 +351,8 @@ public class Subscription {
 			subscription.setAttributes(attributes);
 			subscription.setOfferId(offerId);
 			subscription.setOrderId(orderId);
+			subscription.setIsTrial(isTrial);
+			subscription.setHasPurchasableAddons(hasPurchasableAddons);
 			subscription.setAutoRenewEnabled(autoRenewEnabled);
 			subscription.setBillingCycle(billingCycle);
 			subscription.setBillingType(billingType);
