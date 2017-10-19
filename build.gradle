@@ -84,7 +84,7 @@ bintray {
 		version {
 			name = scmVersion.version
 			released  = new Date()
-			vcsTag = scmVersion.tag
+			vcsTag = "${scmVersion.tag.prefix}${scmVersion.tag.versionSeparator}${scmVersion.version}"
 			publicDownloadNumbers = true
 			gpg {
 				sign = true
