@@ -9,10 +9,10 @@ jobs:
     - stage: Build
       script: gradle test -i
     - stage: Release
-      if: fork = false AND branch =~ ^release.*
+      if: fork = false AND head_branch =~ ^release.*
       script:
         - 'gradle release -Prelease.disableChecks -Prelease.pushTagsOnly -Prelease.customUsername=$GITHUB_USER -Prelease.customPassword=$GITHUB_PASSWORD -s;'
     - stage: Bintray Upload
-      if: fork = false AND branch =~ ^release.*
+      if: fork = false AND head_branch =~ ^release.*
       script:
         - 'gradle bintrayUpload -PbintrayUser=$BINTRAY_USER -PbintrayKey=$BINTRAY_KEY -PmavenCentralUser=$MAVEN_USER -PmavenCentralPassword=$MAVEN_PASSWORD;'
