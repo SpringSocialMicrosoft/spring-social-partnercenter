@@ -21,7 +21,7 @@ public interface UtilityOperations {
 	 *
 	 * This has been replace by {@link org.springframework.social.partnercenter.api.audit.AuditOperations#getPartnerCenterActivityByCompanyName(Instant, Instant, String)},
 	 * {@link org.springframework.social.partnercenter.api.audit.AuditOperations#getPartnerCenterActivityByCustomerId(Instant, Instant, String)} (Instant, Instant, String)} or
-	 * {@link org.springframework.social.partnercenter.api.audit.AuditOperations#getPartnerCenterActivityByResourceType(Instant, Instant, String)} (Instant, Instant, String)}.
+	 * {@link org.springframework.social.partnercenter.api.audit.AuditOperations#getPartnerCenterActivityByResourceType(Instant, Instant, org.springframework.social.partnercenter.api.audit.ResourceType)} (Instant, Instant, String)}.
 	 *
 	 * @param startDate Beginning of audit period
 	 * @param endDate End of audit Period
@@ -40,7 +40,7 @@ public interface UtilityOperations {
 	 *
 	 * This has been replace by {@link org.springframework.social.partnercenter.api.audit.AuditOperations#getPartnerCenterActivityByCompanyName(Instant, Instant, String)},
 	 * {@link org.springframework.social.partnercenter.api.audit.AuditOperations#getPartnerCenterActivityByCustomerId(Instant, Instant, String)} (Instant, Instant, String)} or
-	 * {@link org.springframework.social.partnercenter.api.audit.AuditOperations#getPartnerCenterActivityByResourceType(Instant, Instant, String)} (Instant, Instant, String)}.
+	 * {@link org.springframework.social.partnercenter.api.audit.AuditOperations#getPartnerCenterActivityByResourceType(Instant, Instant, org.springframework.social.partnercenter.api.audit.ResourceType)} (Instant, Instant, String)}.
 	 *
 	 * @param startDate Beginning of audit period
 	 * @param endDate End of audit Period
