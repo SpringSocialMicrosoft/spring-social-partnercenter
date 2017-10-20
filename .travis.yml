@@ -9,8 +9,10 @@ jobs:
     - stage: build
       script: gradle test -i
     - stage: release
+      if: type IN (pull_request) AND branch =~ ^release.*
       script:
-        - 'if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then gradle release -Prelease.disableChecks -Prelease.pushTagsOnly -Prelease.customUsername=$GITHUB_USER -Prelease.customPassword=$GITHUB_PASSWORD -s; fi'
+        - 'gradle release -Prelease.disableChecks -Prelease.pushTagsOnly -Prelease.customUsername=$GITHUB_USER -Prelease.customPassword=$GITHUB_PASSWORD -s;'
     - stage: Bintray Upload
+      if: type IN (pull_request) AND branch =~ ^release.*
       script:
-        - 'if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then gradle bintrayUpload -PbintrayUser=$BINTRAY_USER -PbintrayKey=$BINTRAY_KEY -PmavenCentralUser=$MAVEN_USER -PmavenCentralPassword=$MAVEN_PASSWORD; fi'
+        - 'gradle bintrayUpload -PbintrayUser=$BINTRAY_USER -PbintrayKey=$BINTRAY_KEY -PmavenCentralUser=$MAVEN_USER -PmavenCentralPassword=$MAVEN_PASSWORD;'
