@@ -1,0 +1,58 @@
+{
+  "items": [
+	{
+	  "proratedLicensesUsagePercent": 0.0,
+	  "workloadName": "Microsoft Dynamics CRM",
+	  "processedDateTime": "2017-10-09T00:00:00Z",
+	  "serviceName": "crm",
+	  "channel": "reseller",
+	  "attributes": {
+		"objectType": "PartnerLicensesUsageInsights"
+	  }
+	},
+	{
+	  "proratedLicensesUsagePercent": 2.13,
+	  "workloadName": "Exchange",
+	  "processedDateTime": "2017-10-08T00:00:00Z",
+	  "serviceName": "o365",
+	  "channel": "reseller",
+	  "attributes": {
+		"objectType": "PartnerLicensesUsageInsights"
+	  }
+	},
+	{
+	  "proratedLicensesUsagePercent": 3.14,
+	  "workloadName": "SharePoint",
+	  "processedDateTime": "2017-10-08T00:00:00Z",
+	  "serviceName": "o365",
+	  "channel": "reseller",
+	  "attributes": {
+		"objectType": "PartnerLicensesUsageInsights"
+	  }
+	},
+	{
+	  "proratedLicensesUsagePercent": 5.64,
+	  "workloadName": "Skype For Business",
+	  "processedDateTime": "2017-10-08T00:00:00Z",
+	  "serviceName": "o365",
+	  "channel": "reseller",
+	  "attributes": {
+		"objectType": "PartnerLicensesUsageInsights"
+	  }
+	},
+	{
+	  "proratedLicensesUsagePercent": 0.1,
+	  "workloadName": "Teams",
+	  "processedDateTime": "2017-10-08T00:00:00Z",
+	  "serviceName": "o365",
+	  "channel": "reseller",
+	  "attributes": {
+		"objectType": "PartnerLicensesUsageInsights"
+	  }
+	}
+  ],
+  "attributes": {
+	"objectType": "Collection"
+  },
+  "totalCount": 5
+}

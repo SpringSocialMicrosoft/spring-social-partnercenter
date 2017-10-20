@@ -1,5 +1,6 @@
 package org.springframework.social.partnercenter.serialization;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 
 public class Json {
@@ -18,6 +19,10 @@ public class Json {
 	}
 
 	public static <T> T fromJson(String jsonString, Class<T> targetClass){
+		return jsonConverter.fromJson(jsonString, targetClass);
+	}
+
+	public static <T> T fromJson(String jsonString, TypeReference<T> targetClass){
 		return jsonConverter.fromJson(jsonString, targetClass);
 	}
 

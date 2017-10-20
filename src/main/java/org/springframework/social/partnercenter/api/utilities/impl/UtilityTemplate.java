@@ -14,9 +14,9 @@ import org.springframework.social.partnercenter.PartnerCenter;
 import org.springframework.social.partnercenter.api.AbstractTemplate;
 import org.springframework.social.partnercenter.api.ApiFaultException;
 import org.springframework.social.partnercenter.api.PartnerCenterResponse;
+import org.springframework.social.partnercenter.api.audit.AuditRecord;
 import org.springframework.social.partnercenter.api.customer.Address;
 import org.springframework.social.partnercenter.api.customer.query.Filter;
-import org.springframework.social.partnercenter.api.utilities.AuditRecord;
 import org.springframework.social.partnercenter.api.utilities.CountryInformation;
 import org.springframework.social.partnercenter.api.utilities.UtilityOperations;
 import org.springframework.social.partnercenter.http.client.RestResource;
@@ -68,6 +68,7 @@ public class UtilityTemplate extends AbstractTemplate implements UtilityOperatio
 	}
 
 	@Override
+	@Deprecated
 	public ResponseEntity<PartnerCenterResponse<AuditRecord>> getActivityByUser(Instant startDate, Instant endDate, Filter filter) {
 		return restResource.request()
 				.pathSegment("auditrecords")

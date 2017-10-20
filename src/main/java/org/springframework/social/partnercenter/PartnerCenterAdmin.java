@@ -1,5 +1,6 @@
 package org.springframework.social.partnercenter;
 
+import org.springframework.social.partnercenter.api.analytics.AnalyticsOperations;
 import org.springframework.social.partnercenter.api.customer.AdminCustomerOperations;
 import org.springframework.social.partnercenter.api.customer.user.AdminUserOperations;
 import org.springframework.social.partnercenter.api.order.AdminOrderOperations;
@@ -12,4 +13,5 @@ public interface PartnerCenterAdmin extends PartnerCenter {
 	AdminUserOperations getUserOperations();
 	AdminOrderOperations getOrderOperations();
 	AdminSubscriptionOperations getSubscriptionOperations();
+	AnalyticsOperations getAnalyticsOperations();
 }

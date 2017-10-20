@@ -1,0 +1,28 @@
+{
+  "items": [
+	{
+	  "proratedDeploymentPercent": 2.43,
+	  "licensesSold": 206.0,
+	  "processedDateTime": "2017-10-09T00:00:00Z",
+	  "serviceName": "crm",
+	  "channel": "reseller",
+	  "attributes": {
+		"objectType": "PartnerLicensesDeploymentInsights"
+	  }
+	},
+	{
+	  "proratedDeploymentPercent": 26.16,
+	  "licensesSold": 474.0,
+	  "processedDateTime": "2017-10-13T03:55:46.21Z",
+	  "serviceName": "o365",
+	  "channel": "reseller",
+	  "attributes": {
+		"objectType": "PartnerLicensesDeploymentInsights"
+	  }
+	}
+  ],
+  "attributes": {
+	"objectType": "Collection"
+  },
+  "totalCount": 2
+}

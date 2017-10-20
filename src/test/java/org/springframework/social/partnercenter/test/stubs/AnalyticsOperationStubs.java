@@ -8,12 +8,20 @@ import static org.springframework.http.HttpHeaders.CONTENT_TYPE;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.social.partnercenter.test.Resource.parseFile;
 
-public class PricingOperationsStubs {
-	public static void given_getAzurePricing_200_OK() {
-		stubFor(get(urlEqualTo("/v1/ratecards/azure"))
+public class AnalyticsOperationStubs {
+	public static void given_getPartnerLicensesDeploymentInsights_200_OK() {
+		stubFor(get(urlEqualTo("/v1/analytics/licenses/deployment"))
 				.willReturn(aResponse()
 						.withStatus(200)
 						.withHeader(CONTENT_TYPE, APPLICATION_JSON_VALUE)
-						.withBody(parseFile("data/pricing/ok.json").getAsString())));
+						.withBody(parseFile("data/analytics/partnerPricingInsights.json").getAsString())));
+	}
+
+	public static void given_getPartnerLicensesUsageInsights_200_OK() {
+		stubFor(get(urlEqualTo("/v1/analytics/licenses/usage"))
+				.willReturn(aResponse()
+						.withStatus(200)
+						.withHeader(CONTENT_TYPE, APPLICATION_JSON_VALUE)
+						.withBody(parseFile("data/analytics/partnerUsageInsights.json").getAsString())));
 	}
 }

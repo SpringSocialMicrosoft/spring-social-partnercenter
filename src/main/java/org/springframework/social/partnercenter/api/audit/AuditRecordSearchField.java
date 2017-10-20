@@ -1,4 +1,4 @@
-package org.springframework.social.partnercenter.api.utilities;
+package org.springframework.social.partnercenter.api.audit;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 
