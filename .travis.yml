@@ -6,9 +6,9 @@ branches:
     - master
 jobs:
   include:
-    - stage: build
+    - stage: Build
       script: gradle test -i
-    - stage: release
+    - stage: Release
       if: fork = false AND branch =~ ^release.*
       script:
         - 'gradle release -Prelease.disableChecks -Prelease.pushTagsOnly -Prelease.customUsername=$GITHUB_USER -Prelease.customPassword=$GITHUB_PASSWORD -s;'
