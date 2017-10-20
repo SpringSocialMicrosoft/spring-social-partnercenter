@@ -6,7 +6,7 @@ branches:
     - master
 jobs:
   include:
-    - stage: Build
+    - stage: Test
       script: gradle test -i
     - stage: Release
       if: type != pull_request AND head_branch =~ ^release.*
