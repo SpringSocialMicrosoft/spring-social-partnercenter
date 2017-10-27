@@ -28,13 +28,20 @@ public interface AzureADAuthOperations {
 	 */
 	AccessGrant exchangeCredentialsForAccess(String username, String password, MultiValueMap<String, String> additionalParameters);
 
-
 	/**
 	 * Refreshes a previous access grant.
 	 * @param additionalParameters any additional parameters to be sent when refreshing a previous access grant. Should not be encoded.
 	 * @return the access grant.
 	 */
 	AccessGrant refreshAccess(MultiValueMap<String, String> additionalParameters);
+
+	/**
+	 * Refreshes a previous access grant.
+	 * @param refreshToken the refresh token from the previous access grant.
+	 * @param additionalParameters any additional parameters to be sent when refreshing a previous access grant. Should not be encoded.
+	 * @return the access grant.
+	 */
+	AccessGrant refreshAccess(String refreshToken, MultiValueMap<String, String> additionalParameters);
 
 	/**
 	 * adds request and response logging to restTemplate

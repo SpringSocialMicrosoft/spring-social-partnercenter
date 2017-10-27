@@ -198,6 +198,21 @@ public class AzureADAuthTemplate implements AzureADAuthOperations {
 	}
 
 	@Override
+	public AccessGrant refreshAccess(String refreshToken, MultiValueMap<String, String> additionalParameters) {
+		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+		if (useParametersForClientAuthentication) {
+			params.set("client_id", nativeAppId);
+		}
+		params.set("refresh_token", refreshToken);
+		params.set("grant_type", "refresh_token");
+		params.set("scope", "openid");
+		if (additionalParameters != null) {
+			params.putAll(additionalParameters);
+		}
+		return postForAccessGrant(accessTokenUrl, params);
+	}
+
+	@Override
 	public void enableSlf4j(LogLevel logLevel) {
 		HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory();
 		BufferingClientHttpRequestFactory requestFactory = new BufferingClientHttpRequestFactory(factory);
