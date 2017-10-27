@@ -8,14 +8,13 @@ import java.lang.reflect.Proxy;
 import org.springframework.social.ExpiredAuthorizationException;
 import org.springframework.social.connect.ApiAdapter;
 import org.springframework.social.connect.ConnectionData;
-import org.springframework.social.connect.support.AbstractConnection;
 import org.springframework.social.oauth2.AccessGrant;
 import org.springframework.social.oauth2.OAuth2Parameters;
 import org.springframework.social.partnercenter.PartnerCenter;
 import org.springframework.social.partnercenter.PartnerCenterAdmin;
 import org.springframework.social.partnercenter.security.PartnerCenterServiceProvider;
 
-public class PartnerCenterAdminConnection extends AbstractConnection<PartnerCenter> {
+public class PartnerCenterAdminConnection extends AbstractUserConnection<PartnerCenter> {
 
 	private String accessToken;
 	private String refreshToken;
@@ -43,6 +42,15 @@ public class PartnerCenterAdminConnection extends AbstractConnection<PartnerCent
 	public void refresh() {
 		synchronized (getMonitor()) {
 			AccessGrant accessGrant = serviceProvider.getAzureADAuthOperations().refreshAccess(refreshToken, new OAuth2Parameters());
+			initAccessAttributes(accessGrant.getAccessToken(), accessGrant.getExpireTime(), accessGrant.getRefreshToken());
+			initApi();
+		}
+	}
+
+	@Override
+	public void refresh(String username, String password) {
+		synchronized (getMonitor()) {
+			AccessGrant accessGrant = serviceProvider.getAzureADAuthOperations().exchangeCredentialsForAccess(username, password, new OAuth2Parameters());
 			initAccessAttributes(accessGrant.getAccessToken(), accessGrant.getExpireTime(), accessGrant.getRefreshToken());
 			initApi();
 		}
