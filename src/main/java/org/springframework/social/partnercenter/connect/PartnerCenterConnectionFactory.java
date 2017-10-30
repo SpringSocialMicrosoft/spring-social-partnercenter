@@ -65,10 +65,11 @@ public class PartnerCenterConnectionFactory extends BasePartnerCenterConnectionF
 	}
 
 	public PartnerCenterAdminConnection createConnection(String username, String password){
-		AccessGrant accessGrant = getAuthOperations().exchangeCredentialsForAccess(username, password, new OAuth2Parameters());
+		AccessGrant windowsLoginAccessGrant = getAuthOperations().exchangeCredentialsForAccess(username, password, new OAuth2Parameters());
+		final AccessGrant partnerCenterGrant = getAuthOperations().exchangeForAccess(windowsLoginAccessGrant.getAccessToken(), null);
 
-		return new PartnerCenterAdminConnection(getProviderId(), extractProviderUserId(accessGrant), accessGrant.getRefreshToken(), accessGrant.getAccessToken(),
-				accessGrant.getExpireTime(), getPartnerCenterServiceProvider(), getApiAdapter());
+		return new PartnerCenterAdminConnection(getProviderId(), extractProviderUserId(windowsLoginAccessGrant), windowsLoginAccessGrant.getRefreshToken(), partnerCenterGrant.getAccessToken(),
+				partnerCenterGrant.getExpireTime(), getPartnerCenterServiceProvider(), getApiAdapter());
 	}
 
 	@Override

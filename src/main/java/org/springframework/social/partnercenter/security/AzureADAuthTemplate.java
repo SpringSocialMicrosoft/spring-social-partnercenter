@@ -187,8 +187,8 @@ public class AzureADAuthTemplate implements AzureADAuthOperations {
 		ofNullable(additionalParameters).ifPresent(additionalParameterMap ->
 				additionalParameterMap.forEach(params::put));
 
-		final AccessGrant accessGrant = postForAccessGrant(authorizeUrl, params);
-		return exchangeForAccess(accessGrant.getAccessToken(), null);
+		return postForAccessGrant(authorizeUrl, params);
+//		return exchangeForAccess(accessGrant.getAccessToken(), null);
 	}
 
 	@Override
@@ -209,7 +209,7 @@ public class AzureADAuthTemplate implements AzureADAuthOperations {
 		if (additionalParameters != null) {
 			params.putAll(additionalParameters);
 		}
-		return postForAccessGrant(accessTokenUrl, params);
+		return postForAccessGrant(authorizeUrl, params);
 	}
 
 	@Override
