@@ -8,29 +8,27 @@ import java.lang.reflect.Proxy;
 import org.springframework.social.ExpiredAuthorizationException;
 import org.springframework.social.connect.ApiAdapter;
 import org.springframework.social.connect.ConnectionData;
-import org.springframework.social.connect.support.AbstractConnection;
 import org.springframework.social.oauth2.AccessGrant;
 import org.springframework.social.oauth2.OAuth2Parameters;
 import org.springframework.social.partnercenter.PartnerCenter;
 import org.springframework.social.partnercenter.PartnerCenterAdmin;
 import org.springframework.social.partnercenter.security.PartnerCenterServiceProvider;
 
-public class PartnerCenterAdminConnection extends AbstractConnection<PartnerCenter> {
+public class PartnerCenterAdminConnection extends AbstractUserConnection<PartnerCenter> {
 
 	private String accessToken;
+	private String refreshToken;
 	private Long expireTime;
-	private String username;
-	private String password;
 	private transient final PartnerCenterServiceProvider serviceProvider;
 
 	private transient PartnerCenterAdmin adminApi;
 
 	private transient PartnerCenterAdmin adminApiProxy;
 
-	public PartnerCenterAdminConnection(String providerId, String providerUserId, String username, String password, String accessToken, Long expireTime, PartnerCenterServiceProvider serviceProvider, ApiAdapter<PartnerCenter> apiAdapter) {
+	public PartnerCenterAdminConnection(String providerId, String providerUserId, String refreshToken, String accessToken, Long expireTime, PartnerCenterServiceProvider serviceProvider, ApiAdapter<PartnerCenter> apiAdapter) {
 		super(apiAdapter);
 		this.serviceProvider = serviceProvider;
-		initAccessAttributes(accessToken, expireTime, username, password);
+		initAccessAttributes(accessToken, expireTime, refreshToken);
 		initApi();
 		initApiProxy();
 		initKey(providerId, providerUserId);
@@ -43,8 +41,17 @@ public class PartnerCenterAdminConnection extends AbstractConnection<PartnerCent
 	@Override
 	public void refresh() {
 		synchronized (getMonitor()) {
+			AccessGrant accessGrant = serviceProvider.getAzureADAuthOperations().refreshAccess(refreshToken, new OAuth2Parameters());
+			initAccessAttributes(accessGrant.getAccessToken(), accessGrant.getExpireTime(), accessGrant.getRefreshToken());
+			initApi();
+		}
+	}
+
+	@Override
+	public void refresh(String username, String password) {
+		synchronized (getMonitor()) {
 			AccessGrant accessGrant = serviceProvider.getAzureADAuthOperations().exchangeCredentialsForAccess(username, password, new OAuth2Parameters());
-			initAccessAttributes(accessGrant.getAccessToken(), accessGrant.getExpireTime(), this.username, this.password);
+			initAccessAttributes(accessGrant.getAccessToken(), accessGrant.getExpireTime(), accessGrant.getRefreshToken());
 			initApi();
 		}
 	}
@@ -74,11 +81,10 @@ public class PartnerCenterAdminConnection extends AbstractConnection<PartnerCent
 		}
 	}
 
-	private void initAccessAttributes(String accessToken, Long expireTime, String username, String password) {
+	private void initAccessAttributes(String accessToken, Long expireTime, String refreshToken) {
 		this.accessToken = accessToken;
 		this.expireTime = expireTime;
-		this.username = username;
-		this.password = password;
+		this.refreshToken = refreshToken;
 	}
 
 

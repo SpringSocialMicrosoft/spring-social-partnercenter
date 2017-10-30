@@ -39,7 +39,7 @@ public class PartnerCenterConnectionFactory extends BasePartnerCenterConnectionF
 
 	public boolean canConnect(){
 		try {
-			createConnection();
+			createConnection().getApi().getCustomerOperations().getList(1);
 			return true;
 		} catch (Exception e){
 			return false;
@@ -48,7 +48,7 @@ public class PartnerCenterConnectionFactory extends BasePartnerCenterConnectionF
 
 	public boolean canConnect(String username, String password){
 		try {
-			createConnection(username, password);
+			createConnection(username, password).getApi().getCustomerOperations().getList(1);
 			return true;
 		} catch (Exception e) {
 			return false;
@@ -66,7 +66,8 @@ public class PartnerCenterConnectionFactory extends BasePartnerCenterConnectionF
 
 	public PartnerCenterAdminConnection createConnection(String username, String password){
 		AccessGrant accessGrant = getAuthOperations().exchangeCredentialsForAccess(username, password, new OAuth2Parameters());
-		return new PartnerCenterAdminConnection(getProviderId(), extractProviderUserId(accessGrant), username, password, accessGrant.getAccessToken(),
+
+		return new PartnerCenterAdminConnection(getProviderId(), extractProviderUserId(accessGrant), accessGrant.getRefreshToken(), accessGrant.getAccessToken(),
 				accessGrant.getExpireTime(), getPartnerCenterServiceProvider(), getApiAdapter());
 	}
 
