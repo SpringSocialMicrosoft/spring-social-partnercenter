@@ -9,7 +9,6 @@ import org.springframework.core.GenericTypeResolver;
 import org.springframework.social.ExpiredAuthorizationException;
 import org.springframework.social.ServiceProvider;
 import org.springframework.social.connect.ApiAdapter;
-import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionData;
 import org.springframework.social.connect.support.AbstractConnection;
 import org.springframework.social.oauth2.AccessGrant;
@@ -37,29 +36,14 @@ public class PartnerCenterConnection extends AbstractConnection<PartnerCenter> {
 	 * @param serviceProvider the OAuth2-based ServiceProvider
 	 * @param apiAdapter the ApiAdapter for the ServiceProvider
 	 */
-	public PartnerCenterConnection(String providerId, String providerUserId, String accessToken, Long expireTime,
-								   PartnerCenterServiceProvider serviceProvider, ApiAdapter<PartnerCenter> apiAdapter) {
+	PartnerCenterConnection(String providerId, String providerUserId, String accessToken, Long expireTime,
+							PartnerCenterServiceProvider serviceProvider, ApiAdapter<PartnerCenter> apiAdapter) {
 		super(apiAdapter);
 		this.serviceProvider = serviceProvider;
 		initAccessTokens(accessToken, expireTime);
 		initApi();
 		initApiProxy();
 		initKey(providerId, providerUserId);
-	}
-
-	/**
-	 * Creates a new {@link PartnerCenterConnection} from the data provided.
-	 * Designed to be called when re-constituting an existing {@link Connection} from {@link ConnectionData}.
-	 * @param data the data holding the state of this connection
-	 * @param serviceProvider the OAuth2-based ServiceProvider
-	 * @param apiAdapter the ApiAdapter for the ServiceProvider
-	 */
-	public PartnerCenterConnection(ConnectionData data, PartnerCenterServiceProvider serviceProvider, ApiAdapter<PartnerCenter> apiAdapter) {
-		super(data, apiAdapter);
-		this.serviceProvider = serviceProvider;
-		initAccessTokens(data.getAccessToken(), data.getExpireTime());
-		initApi();
-		initApiProxy();
 	}
 
 	// implementing Connection

@@ -8,7 +8,9 @@ import org.springframework.social.connect.support.OAuth2ConnectionFactory;
 import org.springframework.social.oauth2.AccessGrant;
 import org.springframework.social.oauth2.OAuth2Operations;
 import org.springframework.social.partnercenter.PartnerCenter;
+import org.springframework.social.partnercenter.connect.admin.PartnerCenterAdminConnection;
 import org.springframework.social.partnercenter.security.AzureADAuthOperations;
+import org.springframework.social.partnercenter.security.PartnerCenterAccessGrant;
 import org.springframework.social.partnercenter.security.PartnerCenterServiceProvider;
 
 public class BasePartnerCenterConnectionFactory extends ConnectionFactory<PartnerCenter> {
@@ -47,7 +49,7 @@ public class BasePartnerCenterConnectionFactory extends ConnectionFactory<Partne
 	 * @param data connection data from which to create the connection
 	 */
 	public Connection<PartnerCenter> createConnection(ConnectionData data) {
-		return new PartnerCenterConnection(data, getPartnerCenterServiceProvider(), getApiAdapter());
+		return new PartnerCenterAdminConnection(data, getApiAdapter(), getPartnerCenterServiceProvider());
 	}
 
 	// subclassing hooks
@@ -57,10 +59,16 @@ public class BasePartnerCenterConnectionFactory extends ConnectionFactory<Partne
 	 * Default implementation returns null, indicating it is not exposed and another remote API call will be required to obtain it.
 	 * Subclasses may override.
 	 * @param accessGrant an AccessGrant from which to extract the provider ID
-	 * @return the pvodier ID, if available
+	 * @return the providerUser ID, if available
 	 */
 	String extractProviderUserId(AccessGrant accessGrant) {
-		return null;
+		PartnerCenterAccessGrant grant = (PartnerCenterAccessGrant) accessGrant;
+
+		try {
+			return PartnerCenterJWT.fromTokenString(grant.getIdToken()).getOid().toString();
+		} catch (Exception e) {
+			return null;
+		}
 	}
 
 	// internal helpers

@@ -2,20 +2,25 @@ package org.springframework.social.partnercenter.security;
 
 import org.springframework.social.oauth2.AccessGrant;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class PartnerCenterAccessGrant extends AccessGrant {
-	private String id_token;
+	@JsonProperty("id_token")
+	private String idToken;
 
-	public PartnerCenterAccessGrant(String accessToken, String scope, String refreshToken, String id_token, Long expiresIn) {
+	public PartnerCenterAccessGrant(String accessToken, String scope, String refreshToken, String idToken, Long expiresIn) {
 		super(accessToken, scope, refreshToken, expiresIn);
-		this.id_token = id_token;
+		this.idToken = idToken;
 	}
 
-	public String getId_token() {
-		return id_token;
+	public String getIdToken() {
+		return idToken;
 	}
 
-	public PartnerCenterAccessGrant setId_token(String id_token) {
-		this.id_token = id_token;
+	public PartnerCenterAccessGrant setIdToken(String idToken) {
+		this.idToken = idToken;
 		return this;
 	}
 }

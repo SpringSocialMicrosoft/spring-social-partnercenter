@@ -1,3 +1,5 @@
+# Release Notes: Spring Social for Microsoft Partner Center
+
 ## 5.0.1
 This release changes several date fields to java.date types instead of _string_ and fixes bugs in UserOperations and PricingOperations
 
@@ -16,4 +18,9 @@ This release changes several date fields to java.date types instead of _string_ 
 ## 5.0.2
 
 Bug Fixes
-1. Fixed serialization issue with date attributs in `org.springframework.social.partnercenter.api.order.subscription.Subscription` class.
+1. Fixed serialization issue with date attributes in `org.springframework.social.partnercenter.api.order.subscription.Subscription` class.
+
+
+## 6.0.0 -- Unreleased
+Features
+1. Modified authorization methods in connection to use the refresh token when refreshing connection.
