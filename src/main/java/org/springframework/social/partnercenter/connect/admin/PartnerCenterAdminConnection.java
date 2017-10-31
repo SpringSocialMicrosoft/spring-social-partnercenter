@@ -7,14 +7,16 @@ import java.lang.reflect.Proxy;
 
 import org.springframework.social.ExpiredAuthorizationException;
 import org.springframework.social.connect.ApiAdapter;
+import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionData;
+import org.springframework.social.connect.support.AbstractConnection;
 import org.springframework.social.oauth2.AccessGrant;
 import org.springframework.social.oauth2.OAuth2Parameters;
 import org.springframework.social.partnercenter.PartnerCenter;
 import org.springframework.social.partnercenter.PartnerCenterAdmin;
 import org.springframework.social.partnercenter.security.PartnerCenterServiceProvider;
 
-public class PartnerCenterAdminConnection extends AbstractUserConnection<PartnerCenter> {
+public class PartnerCenterAdminConnection extends AbstractConnection<PartnerCenter> {
 
 	private String accessToken;
 	private String refreshToken;
@@ -25,6 +27,36 @@ public class PartnerCenterAdminConnection extends AbstractUserConnection<Partner
 
 	private transient PartnerCenterAdmin adminApiProxy;
 
+	/**
+	 * Creates a new {@link PartnerCenterAdminConnection} from the data provided.
+	 * Designed to be called when re-constituting an existing {@link Connection} from {@link ConnectionData}.
+	 * @param data the data holding the state of this connection
+	 * @param serviceProvider the OAuth2-based ServiceProvider
+	 * @param apiAdapter the ApiAdapter for the ServiceProvider
+	 */
+	public PartnerCenterAdminConnection(ConnectionData data, ApiAdapter<PartnerCenter> apiAdapter, PartnerCenterServiceProvider serviceProvider) {
+		super(data, apiAdapter);
+		initAccessAttributes(data.getAccessToken(), data.getExpireTime(), data.getRefreshToken());
+		initApi();
+		initApiProxy();
+		initKey(data.getProviderId(), data.getProviderUserId());
+		this.serviceProvider = serviceProvider;
+		if (this.hasExpired()) {
+			refresh();
+		}
+	}
+
+	/**
+	 * Creates a new {@link PartnerCenterAdminConnection} from the data provided.
+	 * Designed to be called when re-constituting an existing {@link Connection} from {@link ConnectionData}.
+	 * @param providerId partner-center
+	 * @param providerUserId userId of the sign in user.
+	 * @param refreshToken token used to refresh access when accessToken has expired
+	 * @param accessToken token provided to Partner Center to authenticate user and client
+	 * @param expireTime time at which access token will expire.
+	 * @param serviceProvider the OAuth2-based ServiceProvider
+	 * @param apiAdapter the ApiAdapter for the ServiceProvider
+	 */
 	public PartnerCenterAdminConnection(String providerId, String providerUserId, String refreshToken, String accessToken, Long expireTime, PartnerCenterServiceProvider serviceProvider, ApiAdapter<PartnerCenter> apiAdapter) {
 		super(apiAdapter);
 		this.serviceProvider = serviceProvider;
@@ -48,15 +80,6 @@ public class PartnerCenterAdminConnection extends AbstractUserConnection<Partner
 	}
 
 	@Override
-	public void refresh(String username, String password) {
-		synchronized (getMonitor()) {
-			AccessGrant accessGrant = serviceProvider.getAzureADAuthOperations().exchangeCredentialsForAccess(username, password, new OAuth2Parameters());
-			initAccessAttributes(accessGrant.getAccessToken(), accessGrant.getExpireTime(), accessGrant.getRefreshToken());
-			initApi();
-		}
-	}
-
-	@Override
 	public PartnerCenterAdmin getApi() {
 		if (adminApiProxy != null) {
 			return adminApiProxy;
@@ -70,7 +93,7 @@ public class PartnerCenterAdminConnection extends AbstractUserConnection<Partner
 	@Override
 	public ConnectionData createData() {
 		synchronized (getMonitor()) {
-			return new ConnectionData(getKey().getProviderId(), getKey().getProviderUserId(), getDisplayName(), getProfileUrl(), getImageUrl(), accessToken, null, null, expireTime);
+			return new ConnectionData(getKey().getProviderId(), getKey().getProviderUserId(), getDisplayName(), getProfileUrl(), getImageUrl(), accessToken, null, refreshToken, expireTime);
 		}
 	}
 
