@@ -10,7 +10,7 @@ plugins {
 	id "maven"
 	id 'maven-publish'
 	id "com.jfrog.bintray" version "1.7.3"
-	id 'pl.allegro.tech.build.axion-release' version '1.4.1'
+	id 'pl.allegro.tech.build.axion-release' version '1.8.1'
 }
 
 repositories {
@@ -21,11 +21,20 @@ ext.junit4Version = '4.12'
 
 scmVersion {
 	tag {
-		prefix = 'release'
+		prefix = 'spring-social-partner-center'
 	}
 	checks {
 		uncommittedChanges = false
 	}
+	nextVersion {
+		suffix = 'rc'
+		separator = '-'
+	}
+	branchVersionIncrementer = [
+			'release/patch/.*': 'incrementPatch',
+			'release/minor/.*': 'incrementMinor',
+			'release/major/.*': 'incrementMajor'
+	]
 }
 
 group 'io.github.springsocialmicrosoft'
@@ -138,5 +147,9 @@ publishing {
 	repositories{
 		maven {
 			url "https://dl.bintray.com/springsocialmicrosoft/spring-social-microsoft/" }
+	}
+
+	task wrapper(type: Wrapper) {
+		gradleVersion = '4.3'
 	}
 }
