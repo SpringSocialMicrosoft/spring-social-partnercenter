@@ -9,6 +9,8 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.Scanner;
 
+import org.springframework.util.StringUtils;
+
 public class Resource implements Closeable {
 
 	private BufferedReader reader;
@@ -39,11 +41,11 @@ public class Resource implements Closeable {
 	}
 
 	public String getAsString() {
-		String content = "";
+		StringBuilder content = new StringBuilder();
 		while (scan.hasNext()) {
-			content += scan.next();
+			content.append(scan.next());
 		}
-		return content;
+		return content.toString();
 	}
 
 	public <T> T getJsonAsObject(Class<T> aClass){
@@ -51,11 +53,11 @@ public class Resource implements Closeable {
 	}
 
 	public String getAsStringFlattenedString() {
-		String content = "";
+		StringBuilder content = new StringBuilder();
 		while (scan.hasNext()) {
-			content += scan.next();
+			content.append(scan.next());
 		}
-		return content.replaceAll("\\n", "");
+		return StringUtils.delete(content.toString(), "\\n");
 	}
 
 	@Override
