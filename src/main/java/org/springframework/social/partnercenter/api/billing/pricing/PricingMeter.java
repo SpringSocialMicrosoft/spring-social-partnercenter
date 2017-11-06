@@ -4,7 +4,6 @@ import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -18,7 +17,6 @@ public class PricingMeter {
 	private String region;
 	private String unit;
 	private Double includedQuantity;
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssX")
 	private ZonedDateTime effectiveDate;
 
 	public String getId() {

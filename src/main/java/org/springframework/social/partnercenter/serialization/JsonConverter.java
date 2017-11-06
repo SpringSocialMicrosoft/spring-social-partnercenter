@@ -17,9 +17,8 @@ public class JsonConverter {
 	public JsonConverter(){
 		objectMapper = JsonSerializationSettings.builder()
 				.with(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-				.with(DeserializationFeature.READ_DATE_TIMESTAMPS_AS_NANOSECONDS, false)
 				.with(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
-				.with(SerializationFeature.WRITE_DATE_TIMESTAMPS_AS_NANOSECONDS, false)
+				.with(SerializationFeature.WRITE_DATES_WITH_ZONE_ID, false)
 				.with(SerializationFeature.FAIL_ON_EMPTY_BEANS, false)
 				.with(MapperFeature.DEFAULT_VIEW_INCLUSION, false)
 				.with(new JavaTimeModule())
@@ -87,5 +86,9 @@ public class JsonConverter {
 
 	public void configure(JsonSerializationSettings serializationSettings) {
 		objectMapper = serializationSettings.createMapper();
+	}
+
+	public ObjectMapper getObjectMapper() {
+		return objectMapper;
 	}
 }
