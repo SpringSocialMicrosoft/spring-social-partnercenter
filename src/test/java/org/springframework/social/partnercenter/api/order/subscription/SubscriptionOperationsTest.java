@@ -7,6 +7,7 @@ import static com.github.tomakehurst.wiremock.client.WireMock.verify;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
 import static org.springframework.social.partnercenter.test.stubs.StubURI.baseURI;
 import static org.springframework.social.partnercenter.test.stubs.SubscriptionOperationStubs.given_getById_200_OK;
+import static org.springframework.social.partnercenter.test.stubs.SubscriptionOperationStubs.given_getById_200_OK_with_short_date;
 import static org.springframework.social.partnercenter.test.stubs.SubscriptionOperationStubs.given_patch_200_OK;
 import static org.springframework.social.partnercenter.test.stubs.TestRestTemplateFactory.createRestTemplate;
 
@@ -45,6 +46,25 @@ public class SubscriptionOperationsTest {
 	}
 
 	@Test
+	public void testById_whenCalledAndDateIsShort_thenResponseIsParsedCorrectly() {
+		given_getById_200_OK_with_short_date();
+
+		final SubscriptionOperations subscriptionOperations = new SubscriptionTemplate(
+				new RestClient(createRestTemplate(), baseURI(wireMockRule.port(), "v1", "customers")),
+				true);
+
+		final Subscription subscription = subscriptionOperations.getById(
+				"cec7381b-58d1-455d-b516-134caf447ffa",
+				"6C36999D-F573-408D-A463-ED9EAC6319E1").getBody();
+
+		SoftAssertions.assertSoftly(softly -> {
+			softly.assertThat(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'").format(subscription.getCommitmentEndDate())).isEqualTo("9999-12-04T00:00:00Z");
+			softly.assertThat(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'").format(subscription.getEffectiveStartDate())).isEqualTo("2017-10-04T00:00:00Z");
+			softly.assertThat(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").format(subscription.getCreationDate())).isEqualTo("2017-11-06T15:28:31.600Z");
+		});
+	}
+
+	@Test
 	public void testUpdateSubscription_validateRequestSerializedCorrectly() {
 		given_patch_200_OK();
 
@@ -57,7 +77,7 @@ public class SubscriptionOperationsTest {
 				subscription);
 
 		verify(patchRequestedFor(urlPathEqualTo("/v1/customers/hello/subscriptions/world"))
-		.withRequestBody(equalToJson(Resource.parseFile("data/subscription/ok.json").getAsString(), true, true)));
+		.withRequestBody(equalToJson(Resource.parseFile("data/subscription/ok.json").getAsStringFlattenedString(), true, true)));
 	}
 
 }

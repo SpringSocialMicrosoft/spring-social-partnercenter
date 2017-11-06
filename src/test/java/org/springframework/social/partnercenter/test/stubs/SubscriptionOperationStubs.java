@@ -18,13 +18,20 @@ public class SubscriptionOperationStubs {
 						.withHeader(CONTENT_TYPE, APPLICATION_JSON_VALUE)
 						.withBody(Resource.parseFile("data/subscription/ok.json").getAsString())));
 	}
+	public static void given_getById_200_OK_with_short_date() {
+		stubFor(get(anyUrl())
+				.willReturn(aResponse()
+						.withStatus(200)
+						.withHeader(CONTENT_TYPE, APPLICATION_JSON_VALUE)
+						.withBody(Resource.parseFile("data/subscription/ok-date-shorter.json").getAsString())));
+	}
 
 	public static void given_patch_200_OK() {
 		stubFor(patch(anyUrl())
 				.willReturn(aResponse()
 						.withStatus(200)
 						.withHeader(CONTENT_TYPE, APPLICATION_JSON_VALUE)
-						.withBody(Resource.parseFile("data/subscription/ok.json").getAsStringFlattenedString()))
+						.withBody(Resource.parseFile("data/subscription/ok.json").getAsString()))
 		);
 	}
 }
