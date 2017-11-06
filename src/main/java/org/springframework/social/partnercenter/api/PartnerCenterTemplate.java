@@ -1,9 +1,11 @@
 package org.springframework.social.partnercenter.api;
 
 import java.net.URI;
+import java.util.stream.IntStream;
 
 import org.springframework.http.client.BufferingClientHttpRequestFactory;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.social.oauth2.AbstractOAuth2ApiBinding;
 import org.springframework.social.partnercenter.PartnerCenter;
 import org.springframework.social.partnercenter.api.audit.AuditOperations;
@@ -35,6 +37,7 @@ import org.springframework.social.partnercenter.http.client.RestResource;
 import org.springframework.social.partnercenter.http.logging.HttpRequestResponseLoggerFactory;
 import org.springframework.social.partnercenter.http.logging.LogLevel;
 import org.springframework.social.partnercenter.http.logging.LoggingRequestInterceptor;
+import org.springframework.social.partnercenter.serialization.Json;
 import org.springframework.web.client.RestTemplate;
 
 public class PartnerCenterTemplate extends AbstractOAuth2ApiBinding implements PartnerCenter {
@@ -97,6 +100,12 @@ public class PartnerCenterTemplate extends AbstractOAuth2ApiBinding implements P
 	protected void configureRestTemplate(RestTemplate restTemplate) {
 		HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory();
 		BufferingClientHttpRequestFactory requestFactory = new BufferingClientHttpRequestFactory(factory);
+		IntStream.range(0, restTemplate.getMessageConverters().size())
+				.forEach(idx -> {
+					if (MappingJackson2HttpMessageConverter.class.isInstance(restTemplate.getMessageConverters().get(idx))) {
+						restTemplate.getMessageConverters().set(idx, new MappingJackson2HttpMessageConverter(Json.instance().getObjectMapper()));
+					}
+				});
 		restTemplate.setRequestFactory(requestFactory);
 	}
 
