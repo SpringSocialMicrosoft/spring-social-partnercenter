@@ -24,3 +24,4 @@ Bug Fixes
 ## 6.0.0 -- Unreleased
 Features
 1. Modified authorization methods in connection to use the refresh token when refreshing connection.
+1. Added Suspension Reasons to `org.springframework.social.partnercenter.api.order.subscription.Subscription`

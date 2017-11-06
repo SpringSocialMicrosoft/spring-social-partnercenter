@@ -1,6 +1,8 @@
 package org.springframework.social.partnercenter.api.order.subscription;
 
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import org.springframework.social.partnercenter.api.ResourceAttributes;
 import org.springframework.social.partnercenter.api.order.BillingCycle;
@@ -30,6 +32,7 @@ public class Subscription {
 	private BillingType billingType;
 	private BillingCycle billingCycle;
 	private ContractType contractType;
+	private Collection<String> suspensionReasons = new ArrayList<>();
 	private SubscriptionLinks links;
 	private String orderId;
 	private ResourceAttributes attributes;
@@ -196,6 +199,14 @@ public class Subscription {
 		return this;
 	}
 
+	public Collection<String> getSuspensionReasons() {
+		return suspensionReasons;
+	}
+
+	public void setSuspensionReasons(Collection<String> suspensionReasons) {
+		this.suspensionReasons = suspensionReasons;
+	}
+
 	public static SubscriptionBuilder builder(){
 		return new SubscriptionBuilder();
 	}
@@ -237,6 +248,7 @@ public class Subscription {
 		private String orderId;
 		private SubscriptionLinks links;
 		private ResourceAttributes attributes;
+		private Collection<String> suspensionReasons = new ArrayList<>();
 
 		public SubscriptionBuilder id(String id) {
 			this.id = id;
@@ -338,6 +350,11 @@ public class Subscription {
 			return this;
 		}
 
+		public SubscriptionBuilder suspensionReasons(Collection<String> suspensionReasons) {
+			this.suspensionReasons = suspensionReasons;
+			return this;
+		}
+
 		public Subscription build(){
 			Subscription subscription = new Subscription();
 			subscription.setId(id);
@@ -361,6 +378,7 @@ public class Subscription {
 			subscription.setQuantity(quantity);
 			subscription.setPartnerId(partnerId);
 			subscription.setUnitType(unitType);
+			subscription.setSuspensionReasons(suspensionReasons);
 
 			return subscription;
 		}
