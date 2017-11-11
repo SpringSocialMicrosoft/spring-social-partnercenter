@@ -31,9 +31,9 @@ scmVersion {
 		separator = '-'
 	}
 	branchVersionIncrementer = [
-			'release/patch/.*': 'incrementPatch',
-			'release/minor/.*': 'incrementMinor',
-			'release/major/.*': 'incrementMajor'
+			'.*/release/patch/.*': 'incrementPatch',
+			'.*/release/minor/.*': 'incrementMinor',
+			'.*/release/major/.*': 'incrementMajor'
 	]
 }
 
