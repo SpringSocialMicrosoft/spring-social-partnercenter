@@ -25,3 +25,6 @@ Bug Fixes
 Features
 1. Modified authorization methods in connection to use the refresh token when refreshing connection.
 1. Added Suspension Reasons to `org.springframework.social.partnercenter.api.order.subscription.Subscription`
+
+Fixes
+1. Updated `org.springframework.social.partnercenter.api.customer.user.License` to match API documentation. 
