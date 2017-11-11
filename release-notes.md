@@ -21,10 +21,10 @@ Bug Fixes
 1. Fixed serialization issue with date attributes in `org.springframework.social.partnercenter.api.order.subscription.Subscription` class.
 
 
-## 6.0.0 -- Unreleased
-Features
+## 6.0.0
+#### Updates
 1. Modified authorization methods in connection to use the refresh token when refreshing connection.
 1. Added Suspension Reasons to `org.springframework.social.partnercenter.api.order.subscription.Subscription`
 
-Fixes
+#### Bug Fixes
 1. Updated `org.springframework.social.partnercenter.api.customer.user.License` to match API documentation. 
