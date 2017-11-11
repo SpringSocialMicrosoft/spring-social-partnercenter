@@ -27,7 +27,7 @@ scmVersion {
 		uncommittedChanges = false
 	}
 	nextVersion {
-		suffix = 'rc'
+		suffix = 'rc-spring-social-partner-center'
 		separator = '-'
 	}
 	branchVersionIncrementer = [
