@@ -22,6 +22,7 @@ This release changes several date fields to java.date types instead of _string_ 
 
 
 ## 6.0.0
+
 #### Updates
 1. Modified authorization methods in connection to use the refresh token when refreshing connection.
 1. Added Suspension Reasons to `org.springframework.social.partnercenter.api.order.subscription.Subscription`
