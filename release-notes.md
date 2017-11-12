@@ -17,7 +17,7 @@ This release changes several date fields to java.date types instead of _string_ 
 
 ## 5.0.2
 
-Bug Fixes
+#### Bug Fixes
 1. Fixed serialization issue with date attributes in `org.springframework.social.partnercenter.api.order.subscription.Subscription` class.
 
 
