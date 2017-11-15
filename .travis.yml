@@ -10,8 +10,7 @@ jobs:
       script: gradle test -i
     - stage: Release
       if: branch =~ ^release/.* AND type != pull_request
-      script:
-        - 'if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then gradle release -Prelease.disableChecks -Prelease.pushTagsOnly -Prelease.customUsername=$GITHUB_USER -Prelease.customPassword=$GITHUB_PASSWORD -s; fi'
+      script: ./travis-release
     - stage: Bintray Upload
       if: branch =~ ^release/.* AND type != pull_request
       script:
