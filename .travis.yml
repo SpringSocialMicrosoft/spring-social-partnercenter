@@ -9,9 +9,9 @@ jobs:
     - stage: Unit Tests
       script: gradle test -i
     - stage: Release
-      if: branch =~ ^release/.* AND type != pull_request
+      if: type != pull_request
       script: ./travis-release
     - stage: Bintray Upload
-      if: branch =~ ^release/.* AND type != pull_request
+      if: type != pull_request
       script:
         - 'if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then gradle bintrayUpload -PbintrayUser=$BINTRAY_USER -PbintrayKey=$BINTRAY_KEY -PmavenCentralUser=$MAVEN_USER -PmavenCentralPassword=$MAVEN_PASSWORD; fi'
