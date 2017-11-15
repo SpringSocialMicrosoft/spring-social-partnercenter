@@ -10,8 +10,8 @@ jobs:
       script: gradle test -i
     - stage: Release
       if: type != pull_request
-      script: ./travis-release
+      script: ./travis-release.sh
     - stage: Bintray Upload
       if: type != pull_request
       script:
-        - 'if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then gradle bintrayUpload -PbintrayUser=$BINTRAY_USER -PbintrayKey=$BINTRAY_KEY -PmavenCentralUser=$MAVEN_USER -PmavenCentralPassword=$MAVEN_PASSWORD; fi'
+        - 'gradle bintrayUpload -PbintrayUser=$BINTRAY_USER -PbintrayKey=$BINTRAY_KEY -PmavenCentralUser=$MAVEN_USER -PmavenCentralPassword=$MAVEN_PASSWORD; fi'
