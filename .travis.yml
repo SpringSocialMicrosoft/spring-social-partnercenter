@@ -9,7 +9,7 @@ jobs:
     - stage: Unit Tests
       script: gradle test -i
     - stage: Release
-      if: type != pull_request AND branch =~ ^release/major/.*
+      if: type != pull_request AND head_branch =~ ^release/major/.*
       env: release_type=major
       script: ./.travis/scripts/travis-release.sh
     - stage: Release
