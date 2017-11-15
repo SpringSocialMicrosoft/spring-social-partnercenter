@@ -9,8 +9,14 @@ jobs:
     - stage: Unit Tests
       script: gradle test -i
     - stage: Release
-      if: type != pull_request AND (head_branch =~ ^release/minor/.* OR branch =~ ^release/minor/.)
+      if: type != pull_request AND (head_branch =~ ^release/major/.* OR branch =~ ^release/major/.*)
+      script: ./.travis/scripts/travis-release.sh
+    - stage: Release
+      if: type != pull_request AND (head_branch =~ ^release/minor/.* OR branch =~ ^release/minor/.*)
+      script: ./.travis/scripts/travis-release.sh
+    - stage: Release
+      if: type != pull_request AND (head_branch =~ ^release/patch/.* OR branch =~ ^release/patch/.*)
       script: ./.travis/scripts/travis-release.sh
     - stage: Bintray Upload
-      if: type != pull_request AND (head_branch =~ ^release/minor/.* OR branch =~ ^release/minor/.)
+      if: type != pull_request AND (head_branch =~ ^release/.* OR branch =~ ^release/.*)
       script: ./.travis/scripts/travis-bintray-upload.sh
