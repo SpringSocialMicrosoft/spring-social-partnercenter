@@ -7,12 +7,14 @@ branches:
 jobs:
   include:
     - stage: Unit Tests
+      script: echo $TRAVIS_PULL_REQUEST_BRANCH
+    - stage: Unit Tests
       script: gradle test -i
     - stage: Release
-      if: $TRAVIS_PULL_REQUEST_BRANCH =~ ^release/.*
+      if: head_branch =~ ^release/.* AND type != pull_request
       script:
         - 'if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then gradle release -Prelease.disableChecks -Prelease.pushTagsOnly -Prelease.customUsername=$GITHUB_USER -Prelease.customPassword=$GITHUB_PASSWORD -s; fi'
     - stage: Bintray Upload
-      if: head_branch =~ ^release/.*
+      if: head_branch =~ ^release/.* AND type != pull_request
       script:
         - 'if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then gradle bintrayUpload -PbintrayUser=$BINTRAY_USER -PbintrayKey=$BINTRAY_KEY -PmavenCentralUser=$MAVEN_USER -PmavenCentralPassword=$MAVEN_PASSWORD; fi'
