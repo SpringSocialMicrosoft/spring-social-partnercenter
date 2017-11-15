@@ -10,7 +10,7 @@ jobs:
       script: gradle test -i
     - stage: Release
       if: type != pull_request
-      script: ./travis-release
+      script: ./travis-release.sh
     - stage: Bintray Upload
       if: type != pull_request
       script:
