@@ -26,5 +26,6 @@ public interface PartnerCenter extends ApiBinding {
 	UtilityOperations getUtilityOperations();
 	UserOperations getUserOperations();
 	void enableSlf4j(LogLevel level);
+	boolean isSlf4jEnabled();
 	String getDomain();
 }
