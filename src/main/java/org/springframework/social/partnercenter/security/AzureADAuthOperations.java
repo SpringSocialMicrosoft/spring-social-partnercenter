@@ -41,4 +41,6 @@ public interface AzureADAuthOperations {
 	 * @param logLevel level at which logging will be written
 	 */
 	void enableSlf4j(LogLevel logLevel);
+
+	boolean isSlf4jEnabled();
 }
