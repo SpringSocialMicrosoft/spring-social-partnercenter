@@ -10,7 +10,13 @@ jobs:
       script: gradle test -i
     - stage: Release
       if: type != pull_request
-      script: ./.travis/scripts/travis-release.sh
+      script:
+        - eval "$(ssh-agent -s)"
+        - cat $GITHUB_SSH_KEY > .travis/deploy_key.pem
+        - chmod 600 .travis/deploy_key.pem
+        - ssh-add .travis/deploy_key.pem
+        - git remote add release git@github.com:SpringSocialMicrosoft/spring-social-partnercenter.git
+        - ./.travis/scripts/travis-release.sh
     - stage: Bintray Upload
       if: type != pull_request
       script: ./.travis/scripts/travis-bintray-upload.sh
