@@ -1,5 +1,22 @@
 # Release Notes: Spring Social for Microsoft Partner Center
 
+## 6.1.0
+
+#### Bug Fixes
+1. Fixed logging issue where multiple redundant loggers were added when logging was enabled through `enableSlf4j(LogLevel level)` 
+on `org.springframework.social.partnercenter.api.PartnerCenterTemplate` and `org.springframework.social.partnercenter.security.AzureADAuthTemplate`
+
+## 5.1.0
+#### Bug Fixes
+1. Fixed logging issue where multiple redundant loggers were added when logging was enabled through `enableSlf4j(LogLevel level)` 
+on `org.springframework.social.partnercenter.api.PartnerCenterTemplate` and `org.springframework.social.partnercenter.security.AzureADAuthTemplate`
+
+## 4.0.17
+
+#### Bug Fixes
+1. Fixed logging issue where multiple redundant loggers were added when logging was enabled through `enableSlf4j(LogLevel level)` 
+on `org.springframework.social.partnercenter.api.PartnerCenterTemplate` and `org.springframework.social.partnercenter.security.AzureADAuthTemplate`
+
 ## 5.0.1
 This release changes several date fields to java.date types instead of _string_ and fixes bugs in UserOperations and PricingOperations
 
