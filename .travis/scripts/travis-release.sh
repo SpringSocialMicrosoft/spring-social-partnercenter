@@ -3,6 +3,8 @@
 last_merged_pr_branch=$(git log --oneline --merges master -1 | sed 's/.*\///')
 
 if [[ ${last_merged_pr_branch} =~ .*/release/major/.* ]];
+
+echo ${last_merged_pr_branch}
 then
 	echo "Creating Major Release"
 	gradle release -Prelease.disableChecks -Prelease.pushTagsOnly -Prelease.customUsername=$GITHUB_USER -Prelease.customPassword=$GITHUB_PASSWORD -Prelease.versionIncrementer=incrementMajor -s;
