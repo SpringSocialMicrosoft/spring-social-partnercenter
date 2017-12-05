@@ -6,7 +6,7 @@ branches:
     - master
 jobs:
   include:
-    - stage: Unit Tests
+    - stage: Tests
       script: gradle test -i
     - stage: Release
       if: type != pull_request
