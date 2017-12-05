@@ -19,4 +19,5 @@ env:
   global:
   - REPO="git@github.com:SpringSocialMicrosoft/spring-social-partnercenter.git"
   - secure: m6oJVaWggYhSRF67ftMlV3obMBumAqGpfcCNAXTBxocPgPVK/IMe6/yigeXhEhZ1tqy8Exw8eUYaA1rMxql8tjWp6o61B810fpfcVIOsZNyATJPTgxkYAHwcsTU6vbxTbnieOfnL3DlMhSApeXTI0J4BQan05UCxz39pzCprLHuqO3vTGVlPjKbfRqv5tt5eh+s/J/hkz9fz2hZFL25ed/7WbhZrrIU4E7RRYpqB7XEvseFUwGShDShhVUThnu58UKWt8un+Xj+dml9jbioAUHVOBBo6eY6LgfPpdiFXdWC72/UmjW1GBz2xXE+CvbrGuEBkhK7F/Dncd1V1yFi4N8UBrulWDp9zKpQitN0NY/Fe+EtRT1LR1o8QuYNbzja2WI8UkMynmdHxc7epZ5cHbEw97hZp+nZGr2cswN0UbRduLr0t1IeIya04nndgP5iVzokgWPXmMlYHuEilvBuNTdjkca4EQtkzrsm8JahKzOOQO9SXvEuxjDZ0wm/CzTd1nY9ZwrgU6huAUSWBYl8Fj0PDnOi5AbL4NpEx/u7EPGJcb43g70mYAUArLBdoAzWewsz1jS8/015wuAl2IO1H1vuoDkSVMGkl6Mqax/v9uepHgNY88kwXfIDzhkxVDtKbcieWe491+iEsBB7AKz/Q61+aAviIGJMpJUrb9p37eaw=
-before_install: "./.travis/scripts/before_install.sh"
+before_install:
+  - "./.travis/scripts/before_install.sh"
