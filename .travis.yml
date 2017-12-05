@@ -19,5 +19,4 @@ env:
   global:
   - REPO="git@github.com:SpringSocialMicrosoft/spring-social-partnercenter.git"
 before_install:
-- openssl aes-256-cbc -K $encrypted_86c7e10d33bb_key -iv $encrypted_86c7e10d33bb_iv
-  -in id_rsa_github.enc -out ~\/.ssh/id_rsa_github -d
+  - openssl aes-256-cbc -K $encrypted_86c7e10d33bb_key -iv $encrypted_86c7e10d33bb_iv -in id_rsa_github.enc -out ~\/.ssh/id_rsa_github -d
