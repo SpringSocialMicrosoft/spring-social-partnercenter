@@ -4,7 +4,7 @@ dist: trusty
 branches:
   only:
   - master
-script: ./.travis/scripts/before.sh
+script: "./.travis/scripts/before.sh"
 jobs:
   include:
   - stage: Tests
@@ -18,5 +18,6 @@ jobs:
 env:
   global:
   - REPO="git@github.com:SpringSocialMicrosoft/spring-social-partnercenter.git"
+  - secure: CLFHlNcuLlb4vVUJ5q9hC51nEKghHXh2YXYw1vsVsNI+fFNsqWZLJYWc+HQ90yfS346mqRA/VhZHvlnwNWAt+YphVGOBRk2ogwYaHPzaeH9oBv0ihTbUhRQQCTdSAEymH8wXMP1uf/z3PLVuhL7eCiNeny0zmBjJX89cHFXQAUMOtmudyU/0S2pAZj2WhfnIceZDgCYBuJOEIlrRzfSlA8OIp0kkCB5TwSeqt97jMDZGX19B4cHi75mMIjJ8y6moMKUqAQ023rbgkx2Swxbk9f+nEd/Wv/ov1AjprfDd9FBlCnCeHmLi4Q8ucNoQ6u5Praq8b+0jEyZpWMgaqi7OofVt+uiPTOrp7w5HKgkHxqw3PSQ5ID+JkEjNgI1ZEypU5oXrxzGXA/gOijO1L8kE1OiUFXuwI3OStdBkjRjQIm2zm8vcgbZW2z8xTozUNyWNr04utD5zjnKSpHHvExL2fuzyKpWNDuSXlKsm5jUjHFNkciin2e0FElln3Qy1ALrKPDwndj6qM1xmvuxPMN2cHONe+kilphV2rOfG6dt1iuczW7H7Sinj0T8Z30MSgaKgReVm/7wI3YazXMaBoxWjwdRwiUjbDwLKZswU/p5+WfcGKbr5uBq/cAGOXk6MDV4lwcLqosNT9HFAr+WAxEfoCNFe1/7n8OtMzoOfymTaKXQ=
 before_install:
-  - openssl aes-256-cbc -K $encrypted_86c7e10d33bb_key -iv $encrypted_86c7e10d33bb_iv -in id_rsa_github.enc -out id_rsa_github -d
+  - openssl aes-256-cbc -k "$secret_password" -in ./.travis/id_rsa_github.enc -out ./.travis/id_rsa_github -d
