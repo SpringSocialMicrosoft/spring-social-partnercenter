@@ -7,6 +7,7 @@ echo ${last_merged_pr_branch}
 eval "$(ssh-agent -s)"
 tee .travis/deploy_key <<< $GITHUB_SSH_KEY
 chmod 600 .travis/deploy_key
+
 tee .travis/deploy_key.pub <<< $GITHUB_SSH_PUB
 chmod 600 .travis/deploy_key.pub
 
