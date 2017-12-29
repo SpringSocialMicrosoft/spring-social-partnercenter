@@ -5,6 +5,7 @@ import org.springframework.social.partnercenter.api.customer.AdminCustomerOperat
 import org.springframework.social.partnercenter.api.customer.user.AdminUserOperations;
 import org.springframework.social.partnercenter.api.order.AdminOrderOperations;
 import org.springframework.social.partnercenter.api.order.subscription.AdminSubscriptionOperations;
+import org.springframework.social.partnercenter.api.support.SupportOperations;
 
 public interface PartnerCenterAdmin extends PartnerCenter {
 	String PROVIDER_ID = "partner-center-admin";
@@ -14,4 +15,5 @@ public interface PartnerCenterAdmin extends PartnerCenter {
 	AdminOrderOperations getOrderOperations();
 	AdminSubscriptionOperations getSubscriptionOperations();
 	AnalyticsOperations getAnalyticsOperations();
+	SupportOperations getSupportOperations();
 }

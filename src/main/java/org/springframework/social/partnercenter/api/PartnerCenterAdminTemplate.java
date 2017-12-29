@@ -13,6 +13,8 @@ import org.springframework.social.partnercenter.api.order.AdminOrderOperations;
 import org.springframework.social.partnercenter.api.order.impl.AdminOrderTemplate;
 import org.springframework.social.partnercenter.api.order.subscription.AdminSubscriptionOperations;
 import org.springframework.social.partnercenter.api.order.subscription.impl.AdminSubscriptionTemplate;
+import org.springframework.social.partnercenter.api.support.SupportOperations;
+import org.springframework.social.partnercenter.api.support.impl.SupportTemplate;
 import org.springframework.social.partnercenter.api.uri.UriProvider;
 import org.springframework.social.partnercenter.http.client.RestClient;
 import org.springframework.social.partnercenter.http.client.RestResource;
@@ -23,6 +25,7 @@ public class PartnerCenterAdminTemplate extends PartnerCenterTemplate implements
 	private final AdminOrderOperations adminOrderOperations;
 	private final AdminSubscriptionOperations adminSubscriptionOperations;
 	private final AnalyticsOperations analyticsOperations;
+	private final SupportOperations supportOperations;
 
 	public PartnerCenterAdminTemplate(UriProvider uriProvider, String accessToken, String version){
 		super(uriProvider, accessToken, version);
@@ -30,7 +33,8 @@ public class PartnerCenterAdminTemplate extends PartnerCenterTemplate implements
 		adminUserOperations = new AdminUserTemplate(createRestResource(uriProvider.partnerCenterCustomerUri().build().toUri()), isAuthorized());
 		adminOrderOperations = new AdminOrderTemplate(createRestResource(uriProvider.partnerCenterCustomerUri().build().toUri()), isAuthorized());
 		adminSubscriptionOperations = new AdminSubscriptionTemplate(createRestResource(uriProvider.partnerCenterCustomerUri().build().toUri()), isAuthorized());
-		analyticsOperations = new AnalyticsTemplate(createRestResource(uriProvider.partnerAnalyticsUri().build().toUri()), isAuthorized());
+		analyticsOperations = new AnalyticsTemplate(createRestResource(uriProvider.partnerBaseUri().build().toUri()), isAuthorized());
+		supportOperations = new SupportTemplate(createRestResource(uriProvider.partnerBaseUri().build().toUri()), isAuthorized());
 	}
 
 	private RestResource createRestResource(URI baseUri){
@@ -60,5 +64,10 @@ public class PartnerCenterAdminTemplate extends PartnerCenterTemplate implements
 	@Override
 	public AnalyticsOperations getAnalyticsOperations() {
 		return analyticsOperations;
+	}
+
+	@Override
+	public SupportOperations getSupportOperations() {
+		return supportOperations;
 	}
 }

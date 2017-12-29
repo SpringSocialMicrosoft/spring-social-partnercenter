@@ -60,7 +60,7 @@ public class SubscriptionOperationsTest {
 		SoftAssertions.assertSoftly(softly -> {
 			softly.assertThat(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'").format(subscription.getCommitmentEndDate())).isEqualTo("9999-12-04T00:00:00Z");
 			softly.assertThat(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'").format(subscription.getEffectiveStartDate())).isEqualTo("2017-10-04T00:00:00Z");
-			softly.assertThat(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").format(subscription.getCreationDate())).isEqualTo("2017-11-06T15:28:31.600Z");
+			softly.assertThat(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").format(subscription.getCreationDate())).isEqualTo("2017-12-05T02:38:29.400Z");
 		});
 	}
 
