@@ -1,5 +1,9 @@
 # Release Notes: Spring Social for Microsoft Partner Center
 
+## 6.2.0
+#### Added
+1. ServiceRequestOperations added to allow for creating and retrieving service requests through the API
+
 ## 6.1.0
 
 #### Bug Fixes

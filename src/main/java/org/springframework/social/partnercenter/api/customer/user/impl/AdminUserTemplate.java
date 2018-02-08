@@ -1,10 +1,14 @@
 package org.springframework.social.partnercenter.api.customer.user.impl;
 
+import static org.springframework.social.partnercenter.serialization.Json.toJson;
+
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.ResponseEntity;
 import org.springframework.social.partnercenter.PartnerCenterAdmin;
 import org.springframework.social.partnercenter.api.PartnerCenterResponse;
 import org.springframework.social.partnercenter.api.customer.Role;
+import org.springframework.social.partnercenter.api.customer.query.Filter;
+import org.springframework.social.partnercenter.api.customer.query.Operator;
 import org.springframework.social.partnercenter.api.customer.user.AdminUserOperations;
 import org.springframework.social.partnercenter.api.customer.user.CustomerUser;
 import org.springframework.social.partnercenter.api.customer.user.License;
@@ -106,6 +110,23 @@ public class AdminUserTemplate extends UserTemplate implements AdminUserOperatio
 		return restResource.request()
 				.pathSegment(customerTenantId, "users", roleId, "directoryroles")
 				.get(new ParameterizedTypeReference<PartnerCenterResponse<Role>>() {});
+	}
+
+	@Override
+	public ResponseEntity<PartnerCenterResponse<CustomerUser>> getDeletedUsers(String customerId) {
+		return restResource.request()
+				.pathSegment(customerId, "users")
+				.queryParam("filter", toJson(Filter.builder().field("UserState").operator(Operator.EQUALS).value("Inactive").build()))
+				.get(new ParameterizedTypeReference<PartnerCenterResponse<CustomerUser>>() {});
+	}
+
+	@Override
+	public ResponseEntity<PartnerCenterResponse<CustomerUser>> getDeletedUsers(String customerId, Integer size) {
+		return restResource.request()
+				.pathSegment(customerId, "users")
+				.queryParam("size", size)
+				.queryParam("filter", toJson(Filter.builder().field("UserState").operator(Operator.EQUALS).value("Inactive").build()))
+				.get(new ParameterizedTypeReference<PartnerCenterResponse<CustomerUser>>() {});
 	}
 
 	@Override

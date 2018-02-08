@@ -13,6 +13,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 public class ServiceRequest {
 	private String id;
 	private String title;
+	private String description;
+	private String supportTopicId;
+	private String supportTopicName;
 	private ServiceRequestSeverity severity;
 	private ServiceRequestStatus status;
 	private ServiceRequestOrganization organization;
@@ -28,6 +31,9 @@ public class ServiceRequest {
 	private ZonedDateTime lastClosedDate;
 	private String countryCode;
 	private ResourceAttributes attributes;
+
+	public ServiceRequest() {
+	}
 
 	public String getTitle() {
 		return title;
@@ -163,5 +169,118 @@ public class ServiceRequest {
 
 	public void setCountryCode(String countryCode) {
 		this.countryCode = countryCode;
+	}
+
+	public static Builder builder() {
+		return new Builder();
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getSupportTopicId() {
+		return supportTopicId;
+	}
+
+	public void setSupportTopicId(String supportTopicId) {
+		this.supportTopicId = supportTopicId;
+	}
+
+	public String getSupportTopicName() {
+		return supportTopicName;
+	}
+
+	public void setSupportTopicName(String supportTopicName) {
+		this.supportTopicName = supportTopicName;
+	}
+
+	public static class Builder {
+		private String title;
+		private String description;
+		private ServiceRequestSeverity severity;
+		private ServiceRequestOrganization organization;
+		private ServiceRequestContact primaryContact;
+		private String supportTopicId;
+		private String supportTopicName;
+		private String productName;
+		private String productId;
+		private ServiceRequestNote newNote;
+		private String countryCode;
+
+		public Builder title(String title) {
+			this.title = title;
+			return this;
+		}
+
+		public Builder severity(ServiceRequestSeverity severity) {
+			this.severity = severity;
+			return this;
+		}
+
+		public Builder organization(ServiceRequestOrganization organization) {
+			this.organization = organization;
+			return this;
+		}
+
+		public Builder primaryContact(ServiceRequestContact primaryContact) {
+			this.primaryContact = primaryContact;
+			return this;
+		}
+
+		public Builder productName(String productName) {
+			this.productName = productName;
+			return this;
+		}
+
+		public Builder productId(String productId) {
+			this.productId = productId;
+			return this;
+		}
+
+		public Builder newNote(ServiceRequestNote newNote) {
+			this.newNote = newNote;
+			return this;
+		}
+
+		public Builder countryCode(String countryCode) {
+			this.countryCode = countryCode;
+			return this;
+		}
+
+		public Builder description(String description) {
+			this.description = description;
+			return this;
+		}
+
+		public ServiceRequest build() {
+			ServiceRequest request = new ServiceRequest();
+			request.setTitle(title);
+			request.setCountryCode(countryCode);
+			request.setSeverity(severity);
+			request.setOrganization(organization);
+			request.setPrimaryContact(primaryContact);
+			request.setProductName(productName);
+			request.setProductId(productId);
+			request.setNewNote(newNote);
+			request.setSupportTopicId(supportTopicId);
+			request.setSupportTopicName(supportTopicName);
+			request.setDescription(description);
+			return request;
+		}
+
+		public Builder supportTopicId(String supportTopicId) {
+			this.supportTopicId = supportTopicId;
+			return this;
+		}
+
+		public Builder supportTopicName(String supportTopicName) {
+			this.supportTopicName = supportTopicName;
+			return this;
+		}
 	}
 }
