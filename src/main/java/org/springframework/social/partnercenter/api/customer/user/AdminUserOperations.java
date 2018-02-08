@@ -24,7 +24,7 @@ public interface AdminUserOperations extends UserOperations{
 	 * Gets a list of deleted CustomerUser resources for a customer by customer ID.
 	 *
 	 * @param customerId The value is a GUID formatted customer-id that identifies the customer.
-	 * @return
+	 * @return List of deleted CustomerUsers
 	 */
 	ResponseEntity<PartnerCenterResponse<CustomerUser>> getDeletedUsers(String customerId);
 
@@ -33,7 +33,7 @@ public interface AdminUserOperations extends UserOperations{
 	 *
 	 * @param customerId The value is a GUID formatted customer-id that identifies the customer.
 	 * @param size The maximum size of the list to be returned
-	 * @return
+	 * @return List of deleted CustomerUsers
 	 */
 	ResponseEntity<PartnerCenterResponse<CustomerUser>> getDeletedUsers(String customerId, Integer size);
 }
