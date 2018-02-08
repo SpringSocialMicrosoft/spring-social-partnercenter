@@ -3,12 +3,15 @@ package org.springframework.social.partnercenter.api.utilities.impl;
 import static java.time.ZoneId.of;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.http.ResponseEntity.ok;
 import static org.springframework.social.partnercenter.serialization.Json.toJson;
 import static org.springframework.social.partnercenter.time.PartnerCenterDateTimeFormatter.PARTNER_CENTER_UTC;
 
 import java.time.Instant;
+import java.util.Objects;
 
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.social.partnercenter.PartnerCenter;
 import org.springframework.social.partnercenter.api.AbstractTemplate;
@@ -47,7 +50,8 @@ public class UtilityTemplate extends AbstractTemplate implements UtilityOperatio
 			return !restResource.request()
 					.pathSegment("domains", domain)
 					.noRetry()
-					.head().getStatusCode().equals(OK);
+					.head().getStatusCode()
+					.equals(OK);
 		} catch (ApiFaultException fault){
 			return fault.getHttpStatus().equals(NOT_FOUND);
 		}
@@ -55,9 +59,17 @@ public class UtilityTemplate extends AbstractTemplate implements UtilityOperatio
 
 	@Override
 	public ResponseEntity<Boolean> validateAddress(Address address) {
-		return restResource.request()
-				.pathSegment("validations", "address")
-				.post(address, Boolean.class);
+		try {
+			return restResource.request()
+					.pathSegment("validations", "address")
+					.post(address, Boolean.class);
+		} catch (ApiFaultException fault) {
+			if (Objects.equals(fault.getStatusCode(), HttpStatus.BAD_REQUEST)) {
+				return ok(false);
+			} else {
+				throw fault;
+			}
+		}
 	}
 
 	@Override

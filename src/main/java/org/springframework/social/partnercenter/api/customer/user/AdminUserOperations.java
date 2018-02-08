@@ -19,4 +19,21 @@ public interface AdminUserOperations extends UserOperations{
 	ResponseEntity<PartnerCenterResponse<Role>> getUserRoles(String customerTenantId, String userId);
 	ResponseEntity<PartnerCenterResponse<Role>> getAllRoles(String customerTenantId);
 	ResponseEntity<PartnerCenterResponse<Role>> getRolesByRoleId(String customerTenantId, String RoleId);
+
+	/**
+	 * Gets a list of deleted CustomerUser resources for a customer by customer ID.
+	 *
+	 * @param customerId The value is a GUID formatted customer-id that identifies the customer.
+	 * @return
+	 */
+	ResponseEntity<PartnerCenterResponse<CustomerUser>> getDeletedUsers(String customerId);
+
+	/**
+	 * Gets a list of deleted CustomerUser resources for a customer by customer ID.
+	 *
+	 * @param customerId The value is a GUID formatted customer-id that identifies the customer.
+	 * @param size The maximum size of the list to be returned
+	 * @return
+	 */
+	ResponseEntity<PartnerCenterResponse<CustomerUser>> getDeletedUsers(String customerId, Integer size);
 }

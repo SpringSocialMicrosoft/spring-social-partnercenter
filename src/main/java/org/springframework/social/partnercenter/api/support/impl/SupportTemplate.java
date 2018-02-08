@@ -1,5 +1,7 @@
 package org.springframework.social.partnercenter.api.support.impl;
 
+import java.util.Locale;
+
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.ResponseEntity;
 import org.springframework.social.partnercenter.PartnerCenter;
@@ -69,9 +71,9 @@ public class SupportTemplate extends AbstractTemplate implements SupportOperatio
 	}
 
 	@Override
-	public ResponseEntity<ServiceRequest> createServiceRequest(ServiceRequest request) {
+	public ResponseEntity<ServiceRequest> createServiceRequest(ServiceRequest request, Locale locale) {
 		return restResource.request()
-				.pathSegment(SERVICE_REQUESTS)
+				.pathSegment(SERVICE_REQUESTS, locale.toLanguageTag())
 				.post(request, ServiceRequest.class);
 	}
 

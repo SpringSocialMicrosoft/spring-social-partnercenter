@@ -1,5 +1,7 @@
 package org.springframework.social.partnercenter.api.support;
 
+import java.util.Locale;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.social.partnercenter.api.PartnerCenterResponse;
 import org.springframework.social.partnercenter.api.support.managedservice.ManagedService;
@@ -12,5 +14,5 @@ public interface SupportOperations {
 	ResponseEntity<PartnerCenterResponse<SupportTopic>> getSupportTopics();
 	ResponseEntity<PartnerCenterResponse<ServiceRequest>> getServiceRequests(String customerId);
 	ResponseEntity<ServiceRequest> updateServiceRequest(ServiceRequest request);
-	ResponseEntity<ServiceRequest> createServiceRequest(ServiceRequest request);
+	ResponseEntity<ServiceRequest> createServiceRequest(ServiceRequest request, Locale locale);
 }

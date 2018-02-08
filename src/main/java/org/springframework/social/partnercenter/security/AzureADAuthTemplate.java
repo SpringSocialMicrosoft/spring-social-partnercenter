@@ -4,8 +4,6 @@ import static java.util.Optional.ofNullable;
 import static org.springframework.social.partnercenter.api.uri.UriProvider.DEFAULT_URL_PROVIDER;
 import static org.springframework.util.Assert.notNull;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -19,7 +17,6 @@ import org.springframework.http.converter.FormHttpMessageConverter;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.social.oauth2.AccessGrant;
-import org.springframework.social.oauth2.GrantType;
 import org.springframework.social.partnercenter.api.ApiAuthorizationException;
 import org.springframework.social.partnercenter.api.AuthorizationFault;
 import org.springframework.social.partnercenter.api.uri.UriProvider;
@@ -32,7 +29,7 @@ import org.springframework.social.support.ClientHttpRequestFactorySelector;
 import org.springframework.social.support.FormMapHttpMessageConverter;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 
 public class AzureADAuthTemplate implements AzureADAuthOperations {
@@ -136,7 +133,7 @@ public class AzureADAuthTemplate implements AzureADAuthOperations {
 		}
 		try {
 			return postForAccessGrant(accessTokenUrl, headers, params);
-		} catch (HttpClientErrorException e){
+		} catch (HttpStatusCodeException e){
 			throw buildAuthFault(e);
 		}
 	}
@@ -209,7 +206,11 @@ public class AzureADAuthTemplate implements AzureADAuthOperations {
 		if (additionalParameters != null) {
 			params.putAll(additionalParameters);
 		}
-		return postForAccessGrant(authorizeUrl, params);
+		try {
+			return postForAccessGrant(authorizeUrl, params);
+		} catch (HttpStatusCodeException e) {
+			throw buildAuthFault(e);
+		}
 	}
 
 	@Override
@@ -276,7 +277,7 @@ public class AzureADAuthTemplate implements AzureADAuthOperations {
 		params.set("resource", uriProvider.getResourceUri());
 		try {
 			return getRestTemplate().postForObject(authorizeUrl, params, AzureADSecurityToken.class);
-		} catch (HttpClientErrorException e){
+		} catch (HttpStatusCodeException e){
 			throw buildAuthFault(e);
 		}
 	}
@@ -300,16 +301,6 @@ public class AzureADAuthTemplate implements AzureADAuthOperations {
 		return createAccessGrant((String) result.get("access_token"), (String) result.get("scope"), (String) result.get("refresh_token"), getIntegerValue(result, "expires_in"), (String) result.get("id_token"), result);
 	}
 
-	private String formEncode(String data) {
-		try {
-			return URLEncoder.encode(data, "UTF-8");
-		}
-		catch (UnsupportedEncodingException ex) {
-			// should not happen, UTF-8 is always supported
-			throw new IllegalStateException(ex);
-		}
-	}
-
 	// Retrieves object from map into an Integer, regardless of the object's actual type. Allows for flexibility in object type (eg, "3600" vs 3600).
 	private Long getIntegerValue(Map<String, Object> map, String key) {
 		try {
@@ -319,7 +310,7 @@ public class AzureADAuthTemplate implements AzureADAuthOperations {
 		}
 	}
 
-	private ApiAuthorizationException buildAuthFault(HttpClientErrorException e){
+	private ApiAuthorizationException buildAuthFault(HttpStatusCodeException e){
 		String responseBody = e.getResponseBodyAsString();
 		try {
 			AuthorizationFault authorizationFault = Json.fromJson(responseBody, AuthorizationFault.class);
@@ -331,9 +322,6 @@ public class AzureADAuthTemplate implements AzureADAuthOperations {
 		}
 	}
 
-	private PartnerCenterGrantType convertGrantType(GrantType grantType){
-		return grantType.equals(GrantType.AUTHORIZATION_CODE) ? PartnerCenterGrantType.JWT_TOKEN : PartnerCenterGrantType.CLIENT_CREDENTIALS;
-	}
 }
 
 

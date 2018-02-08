@@ -35,4 +35,30 @@ public class ServiceRequestNote {
 	public void setText(String text) {
 		this.text = text;
 	}
+
+	public static Builder builder() {
+		return new Builder();
+	}
+
+	public static class Builder {
+		private String createdByName;
+		private String text;
+
+		public Builder createdByName(String createdByName) {
+			this.createdByName = createdByName;
+			return this;
+		}
+
+		public Builder text(String text) {
+			this.text = text;
+			return this;
+		}
+
+		public ServiceRequestNote build() {
+			ServiceRequestNote note = new ServiceRequestNote();
+			note.setCreatedByName(createdByName);
+			note.setText(text);
+			return note;
+		}
+	}
 }
