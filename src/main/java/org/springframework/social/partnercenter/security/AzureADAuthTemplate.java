@@ -247,7 +247,11 @@ public class AzureADAuthTemplate implements AzureADAuthOperations {
 	protected AccessGrant postForAccessGrant(String accessTokenUrl, HttpHeaders headers, MultiValueMap<String, String> parameters) {
 		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 		HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(parameters, headers);
-		return extractAccessGrant(getRestTemplate().postForObject(accessTokenUrl, request, Map.class));
+		try {
+			return extractAccessGrant(getRestTemplate().postForObject(accessTokenUrl, request, Map.class));
+		} catch (HttpStatusCodeException e) {
+			throw buildAuthFault(e);
+		}
 	}
 
 	/**
@@ -265,8 +269,11 @@ public class AzureADAuthTemplate implements AzureADAuthOperations {
 	protected AccessGrant postForAccessGrant(String accessTokenUrl, MultiValueMap<String, String> parameters) {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-
-		return extractAccessGrant(getRestTemplate().postForObject(accessTokenUrl, new HttpEntity<>(parameters, headers), Map.class));
+		try {
+			return extractAccessGrant(getRestTemplate().postForObject(accessTokenUrl, new HttpEntity<>(parameters, headers), Map.class));
+		} catch (HttpStatusCodeException e) {
+			throw buildAuthFault(e);
+		}
 	}
 
 	private AzureADSecurityToken postForADToken(){
