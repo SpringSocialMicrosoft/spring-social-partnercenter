@@ -5,6 +5,7 @@ import static org.springframework.social.partnercenter.serialization.Json.fromJs
 import java.io.BufferedReader;
 import java.io.Closeable;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.Scanner;
@@ -20,6 +21,7 @@ public class Resource implements Closeable {
 
 	public Resource(String filePath) throws IOException {
 		URL f = Resource.class.getClassLoader().getResource(filePath);
+		final InputStream resourceAsStream = Resource.class.getClassLoader().getResourceAsStream(filePath);
 		reader = new BufferedReader(
 				new InputStreamReader(f.openStream()));
 		scan = new Scanner(reader);

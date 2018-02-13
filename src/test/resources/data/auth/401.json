@@ -1,0 +1,11 @@
+{
+  "error": "invalid_grant",
+  "error_description": "AADSTS70002: Error validating credentials. AADSTS50126: Invalid username or password\r\nTrace ID: 753be5e9-0eeb-4229-b3d8-28a2b1832f00\r\nCorrelation ID: bc4e18ac-bffe-4d33-80b8-20a101392ec2\r\nTimestamp: 2018-02-13 18:12:08Z",
+  "error_codes": [
+	70002,
+	50126
+  ],
+  "timestamp": "2018-02-13 18:12:08Z",
+  "trace_id": "753be5e9-0eeb-4229-b3d8-28a2b1832f00",
+  "correlation_id": "bc4e18ac-bffe-4d33-80b8-20a101392ec2"
+}
