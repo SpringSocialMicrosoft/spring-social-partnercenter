@@ -1,6 +1,12 @@
 # Release Notes: Spring Social for Microsoft Partner Center
 
+## 6.2.1
+
+#### Bug Fixes
+1. Fixed AuthorizationTemplate to ensure failed rest calls get wrapped as ApiAuthorizationException.
+
 ## 6.2.0
+
 #### Added
 1. ServiceRequestOperations added to allow for creating and retrieving service requests through the API
 
