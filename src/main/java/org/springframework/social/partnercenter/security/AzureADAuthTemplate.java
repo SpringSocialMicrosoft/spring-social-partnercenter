@@ -32,6 +32,8 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 
+import com.google.common.annotations.VisibleForTesting;
+
 public class AzureADAuthTemplate implements AzureADAuthOperations {
 	private final String webAppId;
 	private final String nativeAppId;
@@ -276,7 +278,8 @@ public class AzureADAuthTemplate implements AzureADAuthOperations {
 		}
 	}
 
-	private AzureADSecurityToken postForADToken(){
+	@VisibleForTesting
+	AzureADSecurityToken postForADToken(){
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
 		params.set("grant_type", PartnerCenterGrantType.CLIENT_CREDENTIALS.asString());
 		params.set("client_id", webAppId);
