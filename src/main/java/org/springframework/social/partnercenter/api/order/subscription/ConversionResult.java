@@ -6,22 +6,40 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(NON_NULL)
 public class ConversionResult {
-	private String code;
-	private String description;
+	private String subscriptionId;
+	private String offerId;
+	private String targetOfferId;
+	private ConversionError error;
 
-	public String getCode() {
-		return code;
+	public String getSubscriptionId() {
+		return subscriptionId;
 	}
 
-	public void setCode(String code) {
-		this.code = code;
+	public void setSubscriptionId(String subscriptionId) {
+		this.subscriptionId = subscriptionId;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getOfferId() {
+		return offerId;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setOfferId(String offerId) {
+		this.offerId = offerId;
+	}
+
+	public String getTargetOfferId() {
+		return targetOfferId;
+	}
+
+	public void setTargetOfferId(String targetOfferId) {
+		this.targetOfferId = targetOfferId;
+	}
+
+	public ConversionError getError() {
+		return error;
+	}
+
+	public void setError(ConversionError error) {
+		this.error = error;
 	}
 }
