@@ -1,5 +1,10 @@
 # Release Notes: Spring Social for Microsoft Partner Center
 
+## 6.2.2
+
+#### Bug Fixes
+1. Fixed Conversion Result message contract. The properties from ConversionError and ConversionResult were swapped
+
 ## 6.2.1
 
 #### Bug Fixes
@@ -41,6 +46,11 @@ This release changes several date fields to java.date types instead of _string_ 
 1. Fixed bug passing Locale to **org.springframework.social.partnercenter.api.billing.pricing.PricingOperations. getAzurePricing**
 1. Fixed bug in **org.springframework.social.partnercenter.api.customer.user.AdminUserOperations.assignLicensesToUser**
 1. Changed parameter object for  **AdminUserOperations.assignLicensesToUser**. Previous contract was incorrect and lead to the aforementioned bug.
+
+## 5.0.3 (Merge back fixes in 6.2.2) 
+
+#### Bug Fixes
+1. Fixed Conversion Result message contract. The properties from ConversionError and ConversionResult were swapped
 
 ## 5.0.2
 
