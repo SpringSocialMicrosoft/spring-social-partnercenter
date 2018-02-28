@@ -1,5 +1,10 @@
 # Release Notes: Spring Social for Microsoft Partner Center
 
+## 6.2.3
+
+#### Bug Fixes
+1. Fixed failure in PartnerCenterAdminConnection constructor `PartnerCenterAdminConnection(ConnectionData, ApiAdaptor, ServiceProvider)`.
+
 ## 6.2.2
 
 #### Bug Fixes
