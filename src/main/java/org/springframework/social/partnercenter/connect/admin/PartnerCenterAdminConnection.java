@@ -36,11 +36,11 @@ public class PartnerCenterAdminConnection extends AbstractConnection<PartnerCent
 	 */
 	public PartnerCenterAdminConnection(ConnectionData data, ApiAdapter<PartnerCenter> apiAdapter, PartnerCenterServiceProvider serviceProvider) {
 		super(data, apiAdapter);
+		this.serviceProvider = serviceProvider;
 		initAccessAttributes(data.getAccessToken(), data.getExpireTime(), data.getRefreshToken());
 		initApi();
 		initApiProxy();
 		initKey(data.getProviderId(), data.getProviderUserId());
-		this.serviceProvider = serviceProvider;
 		if (this.hasExpired()) {
 			refresh();
 		}

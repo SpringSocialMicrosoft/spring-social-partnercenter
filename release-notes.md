@@ -1,5 +1,10 @@
 # Release Notes: Spring Social for Microsoft Partner Center
 
+## 6.2.3
+
+#### Bug Fixes
+1. Fixed failure in PartnerCenterAdminConnection constructor `PartnerCenterAdminConnection(ConnectionData, ApiAdaptor, ServiceProvider)`.
+
 ## 6.2.2
 
 #### Bug Fixes
@@ -25,6 +30,11 @@ on `org.springframework.social.partnercenter.api.PartnerCenterTemplate` and `org
 #### Bug Fixes
 1. Fixed logging issue where multiple redundant loggers were added when logging was enabled through `enableSlf4j(LogLevel level)` 
 on `org.springframework.social.partnercenter.api.PartnerCenterTemplate` and `org.springframework.social.partnercenter.security.AzureADAuthTemplate`
+
+## 5.1.1 (Merge back fixes in 6.2.2) 
+
+#### Bug Fixes
+1. Fixed Conversion Result message contract. The properties from ConversionError and ConversionResult were swapped
 
 ## 4.0.17
 
