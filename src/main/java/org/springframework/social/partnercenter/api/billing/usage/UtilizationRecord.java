@@ -1,16 +1,16 @@
 package org.springframework.social.partnercenter.api.billing.usage;
 
 import java.math.BigDecimal;
-import java.util.Map;
 
-public class UtilizationRecord {
+import org.springframework.social.partnercenter.api.ResourceBase;
+
+public class UtilizationRecord extends ResourceBase {
 	private String usageStartTime;
 	private String usageEndTime;
 	private AzureResource resource;
 	private BigDecimal quantity;
 	private String unit;
 	private InfoFields infoFields;
-	private Map<String, String> attributes;
 
 	public String getUsageStartTime() {
 		return usageStartTime;
@@ -58,13 +58,5 @@ public class UtilizationRecord {
 
 	public void setInfoFields(InfoFields infoFields) {
 		this.infoFields = infoFields;
-	}
-
-	public Map<String, String> getAttributes() {
-		return attributes;
-	}
-
-	public void setAttributes(Map<String, String> attributes) {
-		this.attributes = attributes;
 	}
 }
