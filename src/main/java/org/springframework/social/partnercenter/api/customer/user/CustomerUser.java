@@ -3,7 +3,6 @@ package org.springframework.social.partnercenter.api.customer.user;
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
 import org.springframework.social.partnercenter.api.ResourceAttributes;
-import org.springframework.social.partnercenter.api.ResourceLinks;
 import org.springframework.social.partnercenter.api.customer.PasswordProfile;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -40,7 +39,6 @@ public class CustomerUser extends User{
 		private String userDomainType;
 		private UserState state;
 		private String softDeletionTime;
-		private ResourceLinks links;
 		private String usageLocation;
 
 		public Builder id(String id) {
@@ -98,11 +96,6 @@ public class CustomerUser extends User{
 			return this;
 		}
 
-		public Builder links(ResourceLinks links) {
-			this.links = links;
-			return this;
-		}
-
 		public Builder usageLocation(String usageLocation) {
 			this.usageLocation = usageLocation;
 			return this;
@@ -122,7 +115,6 @@ public class CustomerUser extends User{
 			user.setPasswordProfile(passwordProfile);
 			user.setState(state);
 			user.setSoftDeletionTime(softDeletionTime);
-			user.setLinks(links);
 			return user;
 		}
 	}

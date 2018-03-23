@@ -1,17 +1,19 @@
 package org.springframework.social.partnercenter.api.billing.usage;
 
-import java.util.Map;
+import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
-public class AzureResourceMonthlyUsageRecord {
+import java.math.BigDecimal;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+@JsonInclude(NON_NULL)
+public class AzureResourceMonthlyUsageRecord extends UsageRecordBase {
 	private String category;
 	private String subcategory;
-	private double quantityUsed;
+	private BigDecimal quantityUsed;
 	private String unit;
 	private String id;
 	private String name;
-	private double totalCost;
-	private String currencyLocale;
-	private Map<String, String> attributes;
 
 	public String getCategory() {
 		return category;
@@ -31,11 +33,11 @@ public class AzureResourceMonthlyUsageRecord {
 		return this;
 	}
 
-	public double getQuantityUsed() {
+	public BigDecimal getQuantityUsed() {
 		return quantityUsed;
 	}
 
-	public AzureResourceMonthlyUsageRecord setQuantityUsed(double quantityUsed) {
+	public AzureResourceMonthlyUsageRecord setQuantityUsed(BigDecimal quantityUsed) {
 		this.quantityUsed = quantityUsed;
 		return this;
 	}
@@ -64,33 +66,6 @@ public class AzureResourceMonthlyUsageRecord {
 
 	public AzureResourceMonthlyUsageRecord setName(String name) {
 		this.name = name;
-		return this;
-	}
-
-	public double getTotalCost() {
-		return totalCost;
-	}
-
-	public AzureResourceMonthlyUsageRecord setTotalCost(double totalCost) {
-		this.totalCost = totalCost;
-		return this;
-	}
-
-	public String getCurrencyLocale() {
-		return currencyLocale;
-	}
-
-	public AzureResourceMonthlyUsageRecord setCurrencyLocale(String currencyLocale) {
-		this.currencyLocale = currencyLocale;
-		return this;
-	}
-
-	public Map<String, String> getAttributes() {
-		return attributes;
-	}
-
-	public AzureResourceMonthlyUsageRecord setAttributes(Map<String, String> attributes) {
-		this.attributes = attributes;
 		return this;
 	}
 }

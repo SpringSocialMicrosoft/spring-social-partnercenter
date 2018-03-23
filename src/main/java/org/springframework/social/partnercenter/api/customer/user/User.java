@@ -1,10 +1,12 @@
 package org.springframework.social.partnercenter.api.customer.user;
 
 import org.springframework.social.partnercenter.api.ResourceAttributes;
+import org.springframework.social.partnercenter.api.ResourceBaseWithLinks;
 import org.springframework.social.partnercenter.api.ResourceLinks;
+import org.springframework.social.partnercenter.api.StandardResourceLinks;
 import org.springframework.social.partnercenter.api.customer.PasswordProfile;
 
-public class User {
+public class User extends ResourceBaseWithLinks<StandardResourceLinks> {
 	private String id;
 	private String userPrincipalName;
 	private String firstName;
@@ -12,11 +14,9 @@ public class User {
 	private String displayName;
 	private PasswordProfile passwordProfile;
 	private String lastDirectorySyncTime;
-	private ResourceAttributes attributes;
 	private String userDomainType;
 	private UserState state;
 	private String softDeletionTime;
-	private ResourceLinks links;
 
 	public String getId() {
 		return id;
@@ -73,15 +73,6 @@ public class User {
 	public void setLastDirectorySyncTime(String lastDirectorySyncTime) {
 		this.lastDirectorySyncTime = lastDirectorySyncTime;
 	}
-
-	public ResourceAttributes getAttributes() {
-		return attributes;
-	}
-
-	public void setAttributes(ResourceAttributes attributes) {
-		this.attributes = attributes;
-	}
-
 	public String getUserDomainType() {
 		return userDomainType;
 	}
@@ -104,14 +95,6 @@ public class User {
 
 	public void setSoftDeletionTime(String softDeletionTime) {
 		this.softDeletionTime = softDeletionTime;
-	}
-
-	public ResourceLinks getLinks() {
-		return links;
-	}
-
-	public void setLinks(ResourceLinks links) {
-		this.links = links;
 	}
 
 	public static class Builder {
