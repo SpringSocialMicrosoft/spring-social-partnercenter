@@ -8,14 +8,14 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(NON_NULL)
 public class CustomerMonthlyUsageRecord extends UsageRecordBase {
-	private Budget budget;
+	private SpendingBudget budget;
 	private BigDecimal percentUsed;
 
-	public Budget getBudget() {
+	public SpendingBudget getBudget() {
 		return budget;
 	}
 
-	public void setBudget(Budget budget) {
+	public void setBudget(SpendingBudget budget) {
 		this.budget = budget;
 	}
 

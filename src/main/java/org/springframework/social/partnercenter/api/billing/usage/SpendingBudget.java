@@ -2,14 +2,17 @@ package org.springframework.social.partnercenter.api.billing.usage;
 
 import java.math.BigDecimal;
 
-public class SpendingBudget {
-	private BigDecimal amount;
+import org.springframework.social.partnercenter.api.ResourceBase;
 
-	public BigDecimal getAmount() {
-		return amount;
+public class SpendingBudget extends ResourceBase{
+	private BigDecimal ammount;
+
+	public BigDecimal getAmmount() {
+		return ammount;
 	}
 
-	public void setAmount(BigDecimal amount) {
-		this.amount = amount;
+	public SpendingBudget setAmmount(BigDecimal ammount) {
+		this.ammount = ammount;
+		return this;
 	}
 }
