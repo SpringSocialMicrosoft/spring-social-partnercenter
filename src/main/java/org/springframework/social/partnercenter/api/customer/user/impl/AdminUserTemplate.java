@@ -6,19 +6,15 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.ResponseEntity;
 import org.springframework.social.partnercenter.PartnerCenterAdmin;
 import org.springframework.social.partnercenter.api.PartnerCenterResponse;
-import org.springframework.social.partnercenter.api.customer.Role;
 import org.springframework.social.partnercenter.api.customer.query.Filter;
 import org.springframework.social.partnercenter.api.customer.query.Operator;
 import org.springframework.social.partnercenter.api.customer.user.AdminUserOperations;
 import org.springframework.social.partnercenter.api.customer.user.CustomerUser;
 import org.springframework.social.partnercenter.api.customer.user.License;
-import org.springframework.social.partnercenter.api.customer.user.UserMember;
 import org.springframework.social.partnercenter.api.customer.user.request.CustomerUserAssignLicenses;
 import org.springframework.social.partnercenter.http.client.RestResource;
 
 public class AdminUserTemplate extends UserTemplate implements AdminUserOperations {
-	private static final String DIRECTORY_ROLES = "directoryroles";
-	private static final String USER_MEMBERS = "usermembers";
 	private final RestResource restResource;
 
 	public AdminUserTemplate(RestResource restResource, boolean isAuthorized) {
@@ -92,41 +88,6 @@ public class AdminUserTemplate extends UserTemplate implements AdminUserOperatio
 		return restResource.request()
 				.pathSegment(customerTenantId, "users", userId)
 				.patch(request, CustomerUser.class);
-	}
-
-	@Override
-	public ResponseEntity<UserMember> setUserRole(String customerTenantId, String roleId, UserMember userMember) {
-		return restResource.request()
-				.pathSegment(customerTenantId, DIRECTORY_ROLES, roleId, USER_MEMBERS)
-				.post(userMember, UserMember.class);
-	}
-
-	@Override
-	public ResponseEntity removeUserRole(String customerTenantId, String roleId, String userId) {
-		return restResource.request()
-				.pathSegment(customerTenantId, DIRECTORY_ROLES, roleId, USER_MEMBERS, userId)
-				.delete();
-	}
-
-	@Override
-	public ResponseEntity<PartnerCenterResponse<Role>> getUserRoles(String customerTenantId, String userId) {
-		return restResource.request()
-				.pathSegment(customerTenantId, "users", userId, DIRECTORY_ROLES)
-				.get(new ParameterizedTypeReference<PartnerCenterResponse<Role>>() {});
-	}
-
-	@Override
-	public ResponseEntity<PartnerCenterResponse<Role>> getAllRoles(String customerTenantId) {
-		return restResource.request()
-				.pathSegment(customerTenantId, "users", DIRECTORY_ROLES)
-				.get(new ParameterizedTypeReference<PartnerCenterResponse<Role>>() {});
-	}
-
-	@Override
-	public ResponseEntity<PartnerCenterResponse<Role>> getRolesByRoleId(String customerTenantId, String roleId) {
-		return restResource.request()
-				.pathSegment(customerTenantId, "users", roleId, DIRECTORY_ROLES)
-				.get(new ParameterizedTypeReference<PartnerCenterResponse<Role>>() {});
 	}
 
 	@Override

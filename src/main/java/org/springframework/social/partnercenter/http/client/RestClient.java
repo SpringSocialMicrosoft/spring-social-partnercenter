@@ -27,15 +27,24 @@ public class RestClient implements RestResource {
 		this.resourceBaseUri = resourceBaseUri;
 	}
 
+	@Override
 	public HttpRequestBuilder request(){
 		return new HttpRequestBuilder(this, UriComponentsBuilder.fromUri(resourceBaseUri));
 	}
+
+	@Override
 	public HttpRequestBuilder request(String msRequestId, String msCorrelationId){
 		return new HttpRequestBuilder(this, UriComponentsBuilder.fromUri(resourceBaseUri), msRequestId, msCorrelationId);
 	}
 
+	@Override
 	public HttpRequestBuilder request(MediaType mediaType){
 		return new HttpRequestBuilder(this, UriComponentsBuilder.fromUri(resourceBaseUri)).header(HttpHeaders.CONTENT_TYPE, singletonList(mediaType.toString()));
+	}
+
+	@Override
+	public HttpRequestBuilder request(URI baseUri) {
+		return new HttpRequestBuilder(this, UriComponentsBuilder.fromUri(baseUri));
 	}
 
 	public ResponseEntity delete(URI uri, HttpHeaders headers){

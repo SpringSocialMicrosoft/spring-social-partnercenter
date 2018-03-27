@@ -1,11 +1,15 @@
 package org.springframework.social.partnercenter.api;
 
 public enum SeekOperation  {
-	NEXT, PREVIOUS, FIRST, LAST, PAGE_INDEX;
+	NEXT("next"), PREVIOUS("previous"), FIRST("first"), LAST("last"), PAGE_INDEX("pageIndex");
 
-	public static final String NEXT_VALUE = "Next";
-	public static final String PREVIOUS_VALUE = "Previous";
-	public static final String FIRST_VALUE = "First";
-	public static final String LAST_VALUE = "Last";
-	public static final String PAGE_INDEX_VALUE = "pageIndex";
+	private final String value;
+
+	SeekOperation(String value) {
+		this.value = value;
+	}
+
+	public String getValue() {
+		return value;
+	}
 }

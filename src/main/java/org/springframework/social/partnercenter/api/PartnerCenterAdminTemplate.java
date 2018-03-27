@@ -9,6 +9,10 @@ import org.springframework.social.partnercenter.api.customer.AdminCustomerOperat
 import org.springframework.social.partnercenter.api.customer.impl.AdminCustomerTemplate;
 import org.springframework.social.partnercenter.api.customer.user.AdminUserOperations;
 import org.springframework.social.partnercenter.api.customer.user.impl.AdminUserTemplate;
+import org.springframework.social.partnercenter.api.customer.user.role.DirectoryRoleOperations;
+import org.springframework.social.partnercenter.api.customer.user.role.RoleOperations;
+import org.springframework.social.partnercenter.api.customer.user.role.impl.DirectoryRoleTemplate;
+import org.springframework.social.partnercenter.api.customer.user.role.impl.RoleTemplate;
 import org.springframework.social.partnercenter.api.order.AdminOrderOperations;
 import org.springframework.social.partnercenter.api.order.impl.AdminOrderTemplate;
 import org.springframework.social.partnercenter.api.order.subscription.AdminSubscriptionOperations;
@@ -26,6 +30,8 @@ public class PartnerCenterAdminTemplate extends PartnerCenterTemplate implements
 	private final AdminSubscriptionOperations adminSubscriptionOperations;
 	private final AnalyticsOperations analyticsOperations;
 	private final SupportOperations supportOperations;
+	private final DirectoryRoleOperations directoryRoleOperations;
+	private final RoleOperations roleOperations;
 
 	public PartnerCenterAdminTemplate(UriProvider uriProvider, String accessToken, String version){
 		super(uriProvider, accessToken, version);
@@ -35,6 +41,8 @@ public class PartnerCenterAdminTemplate extends PartnerCenterTemplate implements
 		adminSubscriptionOperations = new AdminSubscriptionTemplate(createRestResource(uriProvider.partnerCenterCustomerUri().build().toUri()), isAuthorized());
 		analyticsOperations = new AnalyticsTemplate(createRestResource(uriProvider.partnerBaseUri().build().toUri()), isAuthorized());
 		supportOperations = new SupportTemplate(createRestResource(uriProvider.partnerBaseUri().build().toUri()), isAuthorized());
+		directoryRoleOperations = new DirectoryRoleTemplate(createRestResource(uriProvider.partnerCenterCustomerUri().build().toUri()), isAuthorized());
+		roleOperations = new RoleTemplate(createRestResource(uriProvider.partnerBaseUri().build().toUri()), isAuthorized());
 	}
 
 	private RestResource createRestResource(URI baseUri){
@@ -69,5 +77,15 @@ public class PartnerCenterAdminTemplate extends PartnerCenterTemplate implements
 	@Override
 	public SupportOperations getSupportOperations() {
 		return supportOperations;
+	}
+
+	@Override
+	public DirectoryRoleOperations getDirectoryRoleOperations() {
+		return directoryRoleOperations;
+	}
+
+	@Override
+	public RoleOperations getRoleOperations() {
+		return roleOperations;
 	}
 }
