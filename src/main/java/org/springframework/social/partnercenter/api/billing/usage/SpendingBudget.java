@@ -5,14 +5,14 @@ import java.math.BigDecimal;
 import org.springframework.social.partnercenter.api.ResourceBase;
 
 public class SpendingBudget extends ResourceBase{
-	private BigDecimal ammount;
+	private BigDecimal amount;
 
-	public BigDecimal getAmmount() {
-		return ammount;
+	public BigDecimal getAmount() {
+		return amount;
 	}
 
-	public SpendingBudget setAmmount(BigDecimal ammount) {
-		this.ammount = ammount;
+	public SpendingBudget setAmount(BigDecimal amount) {
+		this.amount = amount;
 		return this;
 	}
 }
