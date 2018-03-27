@@ -1,13 +1,13 @@
 package org.springframework.social.partnercenter.api.billing.usage;
 
 public final class CustomerUsageSummary extends UsageSummaryBase {
-	private Budget budget;
+	private SpendingBudget budget;
 
-	public Budget getBudget() {
+	public SpendingBudget getBudget() {
 		return budget;
 	}
 
-	public CustomerUsageSummary setBudget(Budget budget) {
+	public CustomerUsageSummary setBudget(SpendingBudget budget) {
 		this.budget = budget;
 		return this;
 	}
