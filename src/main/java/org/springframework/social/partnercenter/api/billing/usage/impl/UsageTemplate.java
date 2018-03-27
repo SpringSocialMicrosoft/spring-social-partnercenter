@@ -1,8 +1,8 @@
 package org.springframework.social.partnercenter.api.billing.usage.impl;
 
 import static java.time.ZoneId.of;
-import static java.time.format.DateTimeFormatter.ISO_OFFSET_DATE_TIME;
 import static org.springframework.social.partnercenter.api.billing.usage.Granularity.DAILY;
+import static org.springframework.social.partnercenter.time.PartnerCenterDateTimeFormatter.PARTNER_CENTER_UTC;
 
 import java.time.Instant;
 
@@ -20,6 +20,7 @@ import org.springframework.social.partnercenter.api.billing.usage.SubscriptionMo
 import org.springframework.social.partnercenter.api.billing.usage.SubscriptionUsageSummary;
 import org.springframework.social.partnercenter.api.billing.usage.UsageOperations;
 import org.springframework.social.partnercenter.api.billing.usage.UtilizationRecord;
+import org.springframework.social.partnercenter.api.uri.UriProvider;
 import org.springframework.social.partnercenter.http.client.RestResource;
 
 public class UsageTemplate extends PagingResourceTemplate<UtilizationRecord> implements UsageOperations {
@@ -27,10 +28,12 @@ public class UsageTemplate extends PagingResourceTemplate<UtilizationRecord> imp
 	private static final String USAGE_SUMMARY = "usagesummary";
 	private static final String USAGE_RECORDS = "usagerecords";
 	private RestResource restResource;
+	private UriProvider uriProvider;
 
-	public UsageTemplate(RestResource restResource, boolean isAuthorized) {
+	public UsageTemplate(UriProvider uriProvider, RestResource restResource, boolean isAuthorized) {
 		super(restResource, isAuthorized, new ParameterizedTypeReference<PartnerCenterResponse<UtilizationRecord>>() {});
 		this.restResource = restResource;
+		this.uriProvider = uriProvider;
 	}
 
 	@Override
@@ -52,8 +55,8 @@ public class UsageTemplate extends PagingResourceTemplate<UtilizationRecord> imp
 	public ResponseEntity<PartnerCenterResponse<UtilizationRecord>> getUtilizationRecords(String customerId, String subscriptionId, Instant startDateTime, Instant endDateTime, Granularity granularity, boolean showDetails, int size) {
 		return restResource.request()
 				.pathSegment(customerId, SUBSCRIPTIONS, subscriptionId, "utilizations", "azure")
-				.queryParam("start_time", startDateTime.atZone(of("UTC")).format(ISO_OFFSET_DATE_TIME))
-				.queryParam("end_time", endDateTime.atZone(of("UTC")).format(ISO_OFFSET_DATE_TIME))
+				.queryParam("start_time", startDateTime.atZone(of("UTC")).format(PARTNER_CENTER_UTC))
+				.queryParam("end_time", endDateTime.atZone(of("UTC")).format(PARTNER_CENTER_UTC))
 				.queryParam("granularity", granularity.jsonValue())
 				.queryParam("show_details", showDetails)
 				.queryParam("size", size)
@@ -117,8 +120,8 @@ public class UsageTemplate extends PagingResourceTemplate<UtilizationRecord> imp
 
 	@Override
 	public ResponseEntity<PartnerUsageSummary> getPartnerUsage() {
-		return restResource.request()
-				.path(USAGE_SUMMARY)
+		return restResource.request(uriProvider.partnerBaseUri().build().toUri())
+				.pathSegment(USAGE_SUMMARY)
 				.get(PartnerUsageSummary.class);
 	}
 

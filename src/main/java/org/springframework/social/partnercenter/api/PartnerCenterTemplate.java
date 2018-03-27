@@ -71,7 +71,7 @@ public class PartnerCenterTemplate extends AbstractOAuth2ApiBinding implements P
 		offerOperations = new OfferTemplate(createRestResource(
 				uriProvider.partnerCenterOfferUri().build().toUri()), isAuthorized());
 
-		usageOperations = new UsageTemplate(createRestResource(
+		usageOperations = new UsageTemplate(uriProvider, createRestResource(
 				uriProvider.partnerCenterCustomerUri().build().toUri()), isAuthorized());
 
 		pricingOperations = new PricingTemplate(createRestResource(
