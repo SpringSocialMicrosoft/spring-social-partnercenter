@@ -21,23 +21,23 @@ public class DirectoryRoleTemplate extends PagingResourceTemplate<DirectoryRole>
 	}
 
 	@Override
-	public ResponseEntity<PartnerCenterResponse<DirectoryRole>> getDirectoryRoles(String customerTenantId) {
+	public ResponseEntity<PartnerCenterResponse<DirectoryRole>> getDirectoryRoles(String customerId) {
 		return restResource.request()
-				.pathSegment(customerTenantId, DIRECTORY_ROLES)
+				.pathSegment(customerId, DIRECTORY_ROLES)
 				.get(new ParameterizedTypeReference<PartnerCenterResponse<DirectoryRole>>() {});
 	}
 
 	@Override
-	public ResponseEntity<PartnerCenterResponse<DirectoryRole>> getUserRoles(String customerTenantId, String userId) {
+	public ResponseEntity<PartnerCenterResponse<DirectoryRole>> getUserRoles(String customerId, String userId) {
 		return restResource.request()
-				.pathSegment(customerTenantId, "users", userId, DIRECTORY_ROLES)
+				.pathSegment(customerId, "users", userId, DIRECTORY_ROLES)
 				.get(new ParameterizedTypeReference<PartnerCenterResponse<DirectoryRole>>() {});
 	}
 
 	@Override
-	public ResponseEntity<PartnerCenterResponse<UserMember>> getUserMembersWithRole(String customerTenantId, String roleId) {
+	public ResponseEntity<PartnerCenterResponse<UserMember>> getUserMembersWithRole(String customerId, String roleId) {
 		return restResource.request()
-				.pathSegment(customerTenantId, DIRECTORY_ROLES, roleId, USER_MEMBERS)
+				.pathSegment(customerId, DIRECTORY_ROLES, roleId, USER_MEMBERS)
 				.get(new ParameterizedTypeReference<PartnerCenterResponse<UserMember>>() {});
 	}
 
@@ -49,10 +49,10 @@ public class DirectoryRoleTemplate extends PagingResourceTemplate<DirectoryRole>
 	}
 
 	@Override
-	public ResponseEntity<UserMember> addRoleToMember(String customerTenantId, String roleId, UserMember userMember) {
+	public ResponseEntity<UserMember> addRoleToMember(String customerId, String roleId, UserMember userMember) {
 		return restResource.request()
 				.queryParam("role_id", roleId)
-				.pathSegment(customerTenantId, DIRECTORY_ROLES, roleId, USER_MEMBERS)
+				.pathSegment(customerId, DIRECTORY_ROLES, roleId, USER_MEMBERS)
 				.post(userMember, UserMember.class);
 	}
 

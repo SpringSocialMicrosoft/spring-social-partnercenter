@@ -1,30 +1,31 @@
 package org.springframework.social.partnercenter.api.billing.usage;
 
 import java.math.BigDecimal;
+import java.time.ZonedDateTime;
 
 import org.springframework.social.partnercenter.api.ResourceBase;
 
 public class UtilizationRecord extends ResourceBase {
-	private String usageStartTime;
-	private String usageEndTime;
+	private ZonedDateTime usageStartTime;
+	private ZonedDateTime usageEndTime;
 	private AzureResource resource;
 	private BigDecimal quantity;
 	private String unit;
 	private InfoFields infoFields;
 
-	public String getUsageStartTime() {
+	public ZonedDateTime getUsageStartTime() {
 		return usageStartTime;
 	}
 
-	public void setUsageStartTime(String usageStartTime) {
+	public void setUsageStartTime(ZonedDateTime usageStartTime) {
 		this.usageStartTime = usageStartTime;
 	}
 
-	public String getUsageEndTime() {
+	public ZonedDateTime getUsageEndTime() {
 		return usageEndTime;
 	}
 
-	public void setUsageEndTime(String usageEndTime) {
+	public void setUsageEndTime(ZonedDateTime usageEndTime) {
 		this.usageEndTime = usageEndTime;
 	}
 
