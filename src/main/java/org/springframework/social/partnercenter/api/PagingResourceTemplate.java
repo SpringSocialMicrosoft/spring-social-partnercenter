@@ -20,7 +20,7 @@ public class PagingResourceTemplate<T> extends AbstractTemplate implements Pagin
 	public ResponseEntity<PartnerCenterResponse<T>> next(String continuationToken){
 		return restResource.request()
 				.header(MS_CONTINUATION_TOKEN, continuationToken)
-				.queryParam("seekOperation", SeekOperation.NEXT_VALUE)
+				.queryParam("seekOperation", SeekOperation.NEXT.getValue())
 				.get(typeReference);
 	}
 
@@ -28,7 +28,7 @@ public class PagingResourceTemplate<T> extends AbstractTemplate implements Pagin
 	public ResponseEntity<PartnerCenterResponse<T>> previous(String continuationToken) {
 		return restResource.request()
 				.header(MS_CONTINUATION_TOKEN, continuationToken)
-				.queryParam("seekOperation", SeekOperation.PREVIOUS_VALUE)
+				.queryParam("seekOperation", SeekOperation.PREVIOUS.getValue())
 				.get(typeReference);
 	}
 
@@ -36,7 +36,7 @@ public class PagingResourceTemplate<T> extends AbstractTemplate implements Pagin
 	public ResponseEntity<PartnerCenterResponse<T>> first(String continuationToken) {
 		return restResource.request()
 				.header(MS_CONTINUATION_TOKEN, continuationToken)
-				.queryParam("seekOperation", SeekOperation.FIRST_VALUE)
+				.queryParam("seekOperation", SeekOperation.FIRST.getValue())
 				.get(typeReference);
 	}
 
@@ -44,7 +44,7 @@ public class PagingResourceTemplate<T> extends AbstractTemplate implements Pagin
 	public ResponseEntity<PartnerCenterResponse<T>> last(String continuationToken) {
 		return restResource.request()
 				.header(MS_CONTINUATION_TOKEN, continuationToken)
-				.queryParam("seekOperation", SeekOperation.LAST_VALUE)
+				.queryParam("seekOperation", SeekOperation.LAST.getValue())
 				.get(typeReference);
 	}
 
@@ -52,7 +52,7 @@ public class PagingResourceTemplate<T> extends AbstractTemplate implements Pagin
 	public ResponseEntity<PartnerCenterResponse<T>> page(String continuationToken, int pageIndex) {
 		return restResource.request()
 				.header(MS_CONTINUATION_TOKEN, continuationToken)
-				.queryParam("seekOperation", SeekOperation.PAGE_INDEX_VALUE)
+				.queryParam("seekOperation", SeekOperation.PAGE_INDEX.getValue())
 				.queryParam("page", pageIndex)
 				.get(typeReference);
 	}

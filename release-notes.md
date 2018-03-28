@@ -1,5 +1,13 @@
 # Release Notes: Spring Social for Microsoft Partner Center
 
+## 7.0.0
+#### Added
+1. Added DirectoryRole and Role operations.
+2. Added new Usage operations for getting usage totals
+
+#### Improvements
+1. Updated UtilizationRecord to use ZonedDateTime instead of string for DateTime fields.
+
 ## 6.2.3
 
 #### Bug Fixes

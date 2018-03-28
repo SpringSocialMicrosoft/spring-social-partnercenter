@@ -6,7 +6,6 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.ResponseEntity;
 import org.springframework.social.partnercenter.PartnerCenterAdmin;
 import org.springframework.social.partnercenter.api.PartnerCenterResponse;
-import org.springframework.social.partnercenter.api.customer.Role;
 import org.springframework.social.partnercenter.api.customer.query.Filter;
 import org.springframework.social.partnercenter.api.customer.query.Operator;
 import org.springframework.social.partnercenter.api.customer.user.AdminUserOperations;
@@ -89,27 +88,6 @@ public class AdminUserTemplate extends UserTemplate implements AdminUserOperatio
 		return restResource.request()
 				.pathSegment(customerTenantId, "users", userId)
 				.patch(request, CustomerUser.class);
-	}
-
-	@Override
-	public ResponseEntity<PartnerCenterResponse<Role>> getUserRoles(String customerTenantId, String userId) {
-		return restResource.request()
-				.pathSegment(customerTenantId, "users", userId, "directoryroles")
-				.get(new ParameterizedTypeReference<PartnerCenterResponse<Role>>() {});
-	}
-
-	@Override
-	public ResponseEntity<PartnerCenterResponse<Role>> getAllRoles(String customerTenantId) {
-		return restResource.request()
-				.pathSegment(customerTenantId, "users", "directoryroles")
-				.get(new ParameterizedTypeReference<PartnerCenterResponse<Role>>() {});
-	}
-
-	@Override
-	public ResponseEntity<PartnerCenterResponse<Role>> getRolesByRoleId(String customerTenantId, String roleId) {
-		return restResource.request()
-				.pathSegment(customerTenantId, "users", roleId, "directoryroles")
-				.get(new ParameterizedTypeReference<PartnerCenterResponse<Role>>() {});
 	}
 
 	@Override

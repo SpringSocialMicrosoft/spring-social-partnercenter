@@ -23,4 +23,8 @@ public class StubURI {
 				.build()
 				.toUri();
 	}
+
+	public static URI customersBase(int port) {
+		return baseURI(port, "v1", "customers");
+	}
 }

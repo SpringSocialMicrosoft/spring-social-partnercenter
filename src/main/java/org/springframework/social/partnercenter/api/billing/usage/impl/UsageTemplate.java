@@ -14,17 +14,26 @@ import org.springframework.social.partnercenter.api.PartnerCenterResponse;
 import org.springframework.social.partnercenter.api.billing.usage.AzureResourceMonthlyUsageRecord;
 import org.springframework.social.partnercenter.api.billing.usage.CustomerUsageSummary;
 import org.springframework.social.partnercenter.api.billing.usage.Granularity;
+import org.springframework.social.partnercenter.api.billing.usage.PartnerUsageSummary;
+import org.springframework.social.partnercenter.api.billing.usage.SubscriptionDailyUsage;
+import org.springframework.social.partnercenter.api.billing.usage.SubscriptionMonthlyUsageRecord;
+import org.springframework.social.partnercenter.api.billing.usage.SubscriptionUsageSummary;
 import org.springframework.social.partnercenter.api.billing.usage.UsageOperations;
 import org.springframework.social.partnercenter.api.billing.usage.UtilizationRecord;
+import org.springframework.social.partnercenter.api.uri.UriProvider;
 import org.springframework.social.partnercenter.http.client.RestResource;
 
 public class UsageTemplate extends PagingResourceTemplate<UtilizationRecord> implements UsageOperations {
-	public static final String SUBSCRIPTIONS = "subscriptions";
+	private static final String SUBSCRIPTIONS = "subscriptions";
+	private static final String USAGE_SUMMARY = "usagesummary";
+	private static final String USAGE_RECORDS = "usagerecords";
 	private RestResource restResource;
+	private UriProvider uriProvider;
 
-	public UsageTemplate(RestResource restResource, boolean isAuthorized) {
+	public UsageTemplate(UriProvider uriProvider, RestResource restResource, boolean isAuthorized) {
 		super(restResource, isAuthorized, new ParameterizedTypeReference<PartnerCenterResponse<UtilizationRecord>>() {});
 		this.restResource = restResource;
+		this.uriProvider = uriProvider;
 	}
 
 	@Override
@@ -77,15 +86,43 @@ public class UsageTemplate extends PagingResourceTemplate<UtilizationRecord> imp
 	@Override
 	public ResponseEntity<CustomerUsageSummary> getUsageSummary(String customerId) {
 		return restResource.request()
-				.pathSegment(customerId, "usagesummary")
+				.pathSegment(customerId, USAGE_SUMMARY)
 				.get(CustomerUsageSummary.class);
 	}
 
 	@Override
 	public ResponseEntity<PartnerCenterResponse<AzureResourceMonthlyUsageRecord>> getSubscriptionResourceUsageInformation(String customerId, String subscriptionId) {
 		return restResource.request()
-				.pathSegment(customerId, SUBSCRIPTIONS, subscriptionId, "usagerecords", "resources")
+				.pathSegment(customerId, SUBSCRIPTIONS, subscriptionId, USAGE_RECORDS, "resources")
 				.get(new ParameterizedTypeReference<PartnerCenterResponse<AzureResourceMonthlyUsageRecord>>() {});
+	}
+
+	@Override
+	public ResponseEntity<SubscriptionUsageSummary> getSubscriptionUsageSummary(String customerId, String subscriptionId) {
+		return restResource.request()
+				.pathSegment(customerId, SUBSCRIPTIONS, USAGE_SUMMARY)
+				.get(SubscriptionUsageSummary.class);
+	}
+
+	@Override
+	public ResponseEntity<PartnerCenterResponse<SubscriptionDailyUsage>> getDailySubscriptionUsage(String customerId, String subscriptionId) {
+		return restResource.request()
+				.pathSegment(customerId, SUBSCRIPTIONS, subscriptionId, USAGE_RECORDS, "daily")
+				.get(new ParameterizedTypeReference<PartnerCenterResponse<SubscriptionDailyUsage>>() {});
+	}
+
+	@Override
+	public ResponseEntity<PartnerCenterResponse<SubscriptionMonthlyUsageRecord>> getMonthlyUsageForSubscriptions(String customerId) {
+		return restResource.request()
+				.pathSegment(customerId, SUBSCRIPTIONS, USAGE_RECORDS)
+				.get(new ParameterizedTypeReference<PartnerCenterResponse<SubscriptionMonthlyUsageRecord>>() {});
+	}
+
+	@Override
+	public ResponseEntity<PartnerUsageSummary> getPartnerUsage() {
+		return restResource.request(uriProvider.partnerBaseUri().build().toUri())
+				.pathSegment(USAGE_SUMMARY)
+				.get(PartnerUsageSummary.class);
 	}
 
 	@Override

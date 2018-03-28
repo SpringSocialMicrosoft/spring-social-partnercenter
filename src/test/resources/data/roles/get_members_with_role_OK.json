@@ -1,0 +1,24 @@
+{
+  "totalCount": 1,
+  "items": [
+	{
+	  "displayName": "1jonQ6HXb8NBAfbymfR7",
+	  "userPrincipalName": "admin@1jonq6hxb8nbafbymfr7.onmicrosoft.com",
+	  "roleId": "62e90394-69f5-4237-9190-012177145e10",
+	  "id": "705cd3c1-028f-41eb-9ffb-16ee8c5ae3af",
+	  "attributes": {
+		"objectType": "UserMember"
+	  }
+	}
+  ],
+  "links": {
+	"self": {
+	  "uri": "/customers/2b4917b2-83f5-48b2-b652-2b10dba0fe04/directoryroles/62e90394-69f5-4237-9190-012177145e10/usermembers",
+	  "method": "GET",
+	  "headers": []
+	}
+  },
+  "attributes": {
+	"objectType": "Collection"
+  }
+}

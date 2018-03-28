@@ -1,0 +1,843 @@
+{
+  "totalCount": 36,
+  "items": [
+	{
+	  "usageStartTime": "2018-03-25T00:00:00+00:00",
+	  "usageEndTime": "2018-03-26T00:00:00+00:00",
+	  "resource": {
+		"id": "27a287f3-2919-4084-99e8-03404a652117",
+		"name": "Standard Managed Disk/S4 (Units)",
+		"category": "Storage",
+		"subcategory": "Locally Redundant",
+		"region": "JA East"
+	  },
+	  "quantity": 0.001344,
+	  "unit": "Units",
+	  "infoFields": {},
+	  "instanceData": {
+		"resourceUri": "/subscriptions/7f331a73-e8b2-4719-84f9-92ef40459f27/resourceGroups/RGL2411/providers/Microsoft.Compute/disks/xfzsyl_xfzsyl_15_OsDisk_1_48b01a4256504aabbdb2af6d9e8faedd",
+		"location": "jaeast",
+		"partNumber": "",
+		"orderNumber": ""
+	  },
+	  "attributes": {
+		"objectType": "AzureUtilizationRecord"
+	  }
+	},
+	{
+	  "usageStartTime": "2018-03-25T00:00:00+00:00",
+	  "usageEndTime": "2018-03-26T00:00:00+00:00",
+	  "resource": {
+		"id": "27a287f3-2919-4084-99e8-03404a652117",
+		"name": "Standard Managed Disk/S4 (Units)",
+		"category": "Storage",
+		"subcategory": "Locally Redundant",
+		"region": "JA East"
+	  },
+	  "quantity": 0.001344,
+	  "unit": "Units",
+	  "infoFields": {},
+	  "instanceData": {
+		"resourceUri": "/subscriptions/7f331a73-e8b2-4719-84f9-92ef40459f27/resourceGroups/RGL2411/providers/Microsoft.Compute/disks/xfzsyl_xfzsyl_26_OsDisk_1_69755c5fc71a4a529dcc387a03295df6",
+		"location": "jaeast",
+		"partNumber": "",
+		"orderNumber": ""
+	  },
+	  "attributes": {
+		"objectType": "AzureUtilizationRecord"
+	  }
+	},
+	{
+	  "usageStartTime": "2018-03-25T00:00:00+00:00",
+	  "usageEndTime": "2018-03-26T00:00:00+00:00",
+	  "resource": {
+		"id": "27a287f3-2919-4084-99e8-03404a652117",
+		"name": "Standard Managed Disk/S4 (Units)",
+		"category": "Storage",
+		"subcategory": "Locally Redundant",
+		"region": "JA East"
+	  },
+	  "quantity": 0.001344,
+	  "unit": "Units",
+	  "infoFields": {},
+	  "instanceData": {
+		"resourceUri": "/subscriptions/7f331a73-e8b2-4719-84f9-92ef40459f27/resourceGroups/RGL2411/providers/Microsoft.Compute/disks/xfzsyl_xfzsyl_9_OsDisk_1_afdfcdbcc66f4058940dc0545102e07a",
+		"location": "jaeast",
+		"partNumber": "",
+		"orderNumber": ""
+	  },
+	  "attributes": {
+		"objectType": "AzureUtilizationRecord"
+	  }
+	},
+	{
+	  "usageStartTime": "2018-03-25T00:00:00+00:00",
+	  "usageEndTime": "2018-03-26T00:00:00+00:00",
+	  "resource": {
+		"id": "27a287f3-2919-4084-99e8-03404a652117",
+		"name": "Standard Managed Disk/S4 (Units)",
+		"category": "Storage",
+		"subcategory": "Locally Redundant",
+		"region": "JA East"
+	  },
+	  "quantity": 0.001344,
+	  "unit": "Units",
+	  "infoFields": {},
+	  "instanceData": {
+		"resourceUri": "/subscriptions/7f331a73-e8b2-4719-84f9-92ef40459f27/resourceGroups/RGL2411/providers/Microsoft.Compute/disks/xfzsyl_xfzsyl_29_OsDisk_1_c020ca24126846599708c786aadabcbb",
+		"location": "jaeast",
+		"partNumber": "",
+		"orderNumber": ""
+	  },
+	  "attributes": {
+		"objectType": "AzureUtilizationRecord"
+	  }
+	},
+	{
+	  "usageStartTime": "2018-03-25T00:00:00+00:00",
+	  "usageEndTime": "2018-03-26T00:00:00+00:00",
+	  "resource": {
+		"id": "27a287f3-2919-4084-99e8-03404a652117",
+		"name": "Standard Managed Disk/S4 (Units)",
+		"category": "Storage",
+		"subcategory": "Locally Redundant",
+		"region": "JA East"
+	  },
+	  "quantity": 0.001344,
+	  "unit": "Units",
+	  "infoFields": {},
+	  "instanceData": {
+		"resourceUri": "/subscriptions/7f331a73-e8b2-4719-84f9-92ef40459f27/resourceGroups/RGL2411/providers/Microsoft.Compute/disks/xfzsyl_xfzsyl_11_OsDisk_1_2bef8a30a1e94e75b8532ce660723d38",
+		"location": "jaeast",
+		"partNumber": "",
+		"orderNumber": ""
+	  },
+	  "attributes": {
+		"objectType": "AzureUtilizationRecord"
+	  }
+	},
+	{
+	  "usageStartTime": "2018-03-25T00:00:00+00:00",
+	  "usageEndTime": "2018-03-26T00:00:00+00:00",
+	  "resource": {
+		"id": "27a287f3-2919-4084-99e8-03404a652117",
+		"name": "Standard Managed Disk/S4 (Units)",
+		"category": "Storage",
+		"subcategory": "Locally Redundant",
+		"region": "JA East"
+	  },
+	  "quantity": 0.001344,
+	  "unit": "Units",
+	  "infoFields": {},
+	  "instanceData": {
+		"resourceUri": "/subscriptions/7f331a73-e8b2-4719-84f9-92ef40459f27/resourceGroups/RGL2411/providers/Microsoft.Compute/disks/xfzsyl_xfzsyl_6_OsDisk_1_922a0e00390d4cca9f1d777f8363b49d",
+		"location": "jaeast",
+		"partNumber": "",
+		"orderNumber": ""
+	  },
+	  "attributes": {
+		"objectType": "AzureUtilizationRecord"
+	  }
+	},
+	{
+	  "usageStartTime": "2018-03-25T00:00:00+00:00",
+	  "usageEndTime": "2018-03-26T00:00:00+00:00",
+	  "resource": {
+		"id": "27a287f3-2919-4084-99e8-03404a652117",
+		"name": "Standard Managed Disk/S4 (Units)",
+		"category": "Storage",
+		"subcategory": "Locally Redundant",
+		"region": "JA East"
+	  },
+	  "quantity": 0.001344,
+	  "unit": "Units",
+	  "infoFields": {},
+	  "instanceData": {
+		"resourceUri": "/subscriptions/7f331a73-e8b2-4719-84f9-92ef40459f27/resourceGroups/RGL2411/providers/Microsoft.Compute/disks/xfzsyl_xfzsyl_41_OsDisk_1_5089d5b4961f47c39f7b3f17230d76a5",
+		"location": "jaeast",
+		"partNumber": "",
+		"orderNumber": ""
+	  },
+	  "attributes": {
+		"objectType": "AzureUtilizationRecord"
+	  }
+	},
+	{
+	  "usageStartTime": "2018-03-25T00:00:00+00:00",
+	  "usageEndTime": "2018-03-26T00:00:00+00:00",
+	  "resource": {
+		"id": "27a287f3-2919-4084-99e8-03404a652117",
+		"name": "Standard Managed Disk/S4 (Units)",
+		"category": "Storage",
+		"subcategory": "Locally Redundant",
+		"region": "JA East"
+	  },
+	  "quantity": 0.001344,
+	  "unit": "Units",
+	  "infoFields": {},
+	  "instanceData": {
+		"resourceUri": "/subscriptions/7f331a73-e8b2-4719-84f9-92ef40459f27/resourceGroups/RGL2411/providers/Microsoft.Compute/disks/xfzsyl_xfzsyl_5_OsDisk_1_4faf80d101594933bc4c13c68a016f41",
+		"location": "jaeast",
+		"partNumber": "",
+		"orderNumber": ""
+	  },
+	  "attributes": {
+		"objectType": "AzureUtilizationRecord"
+	  }
+	},
+	{
+	  "usageStartTime": "2018-03-25T00:00:00+00:00",
+	  "usageEndTime": "2018-03-26T00:00:00+00:00",
+	  "resource": {
+		"id": "27a287f3-2919-4084-99e8-03404a652117",
+		"name": "Standard Managed Disk/S4 (Units)",
+		"category": "Storage",
+		"subcategory": "Locally Redundant",
+		"region": "JA East"
+	  },
+	  "quantity": 0.001344,
+	  "unit": "Units",
+	  "infoFields": {},
+	  "instanceData": {
+		"resourceUri": "/subscriptions/7f331a73-e8b2-4719-84f9-92ef40459f27/resourceGroups/RGL2411/providers/Microsoft.Compute/disks/xfzsyl_xfzsyl_42_OsDisk_1_8e1814c271254ee98308d46ca4130c49",
+		"location": "jaeast",
+		"partNumber": "",
+		"orderNumber": ""
+	  },
+	  "attributes": {
+		"objectType": "AzureUtilizationRecord"
+	  }
+	},
+	{
+	  "usageStartTime": "2018-03-25T00:00:00+00:00",
+	  "usageEndTime": "2018-03-26T00:00:00+00:00",
+	  "resource": {
+		"id": "27a287f3-2919-4084-99e8-03404a652117",
+		"name": "Standard Managed Disk/S4 (Units)",
+		"category": "Storage",
+		"subcategory": "Locally Redundant",
+		"region": "JA East"
+	  },
+	  "quantity": 0.001344,
+	  "unit": "Units",
+	  "infoFields": {},
+	  "instanceData": {
+		"resourceUri": "/subscriptions/7f331a73-e8b2-4719-84f9-92ef40459f27/resourceGroups/RGL2411/providers/Microsoft.Compute/disks/xfzsyl_xfzsyl_24_OsDisk_1_8c056cec353740618d543cb905f129f9",
+		"location": "jaeast",
+		"partNumber": "",
+		"orderNumber": ""
+	  },
+	  "attributes": {
+		"objectType": "AzureUtilizationRecord"
+	  }
+	},
+	{
+	  "usageStartTime": "2018-03-25T00:00:00+00:00",
+	  "usageEndTime": "2018-03-26T00:00:00+00:00",
+	  "resource": {
+		"id": "27a287f3-2919-4084-99e8-03404a652117",
+		"name": "Standard Managed Disk/S4 (Units)",
+		"category": "Storage",
+		"subcategory": "Locally Redundant",
+		"region": "JA East"
+	  },
+	  "quantity": 0.001344,
+	  "unit": "Units",
+	  "infoFields": {},
+	  "instanceData": {
+		"resourceUri": "/subscriptions/7f331a73-e8b2-4719-84f9-92ef40459f27/resourceGroups/RGL2411/providers/Microsoft.Compute/disks/xfzsyl_xfzsyl_32_OsDisk_1_82cd77b5b1e74390bfc9d96e3a366d47",
+		"location": "jaeast",
+		"partNumber": "",
+		"orderNumber": ""
+	  },
+	  "attributes": {
+		"objectType": "AzureUtilizationRecord"
+	  }
+	},
+	{
+	  "usageStartTime": "2018-03-25T00:00:00+00:00",
+	  "usageEndTime": "2018-03-26T00:00:00+00:00",
+	  "resource": {
+		"id": "27a287f3-2919-4084-99e8-03404a652117",
+		"name": "Standard Managed Disk/S4 (Units)",
+		"category": "Storage",
+		"subcategory": "Locally Redundant",
+		"region": "JA East"
+	  },
+	  "quantity": 0.001344,
+	  "unit": "Units",
+	  "infoFields": {},
+	  "instanceData": {
+		"resourceUri": "/subscriptions/7f331a73-e8b2-4719-84f9-92ef40459f27/resourceGroups/RGL2411/providers/Microsoft.Compute/disks/xfzsyl_xfzsyl_8_OsDisk_1_fd05898b4fde4777a83e0a8942e2ea3b",
+		"location": "jaeast",
+		"partNumber": "",
+		"orderNumber": ""
+	  },
+	  "attributes": {
+		"objectType": "AzureUtilizationRecord"
+	  }
+	},
+	{
+	  "usageStartTime": "2018-03-26T00:00:00+00:00",
+	  "usageEndTime": "2018-03-27T00:00:00+00:00",
+	  "resource": {
+		"id": "27a287f3-2919-4084-99e8-03404a652117",
+		"name": "Standard Managed Disk/S4 (Units)",
+		"category": "Storage",
+		"subcategory": "Locally Redundant",
+		"region": "JA East"
+	  },
+	  "quantity": 0.032256,
+	  "unit": "Units",
+	  "infoFields": {},
+	  "instanceData": {
+		"resourceUri": "/subscriptions/7f331a73-e8b2-4719-84f9-92ef40459f27/resourceGroups/RGL2411/providers/Microsoft.Compute/disks/xfzsyl_xfzsyl_15_OsDisk_1_48b01a4256504aabbdb2af6d9e8faedd",
+		"location": "jaeast",
+		"partNumber": "",
+		"orderNumber": ""
+	  },
+	  "attributes": {
+		"objectType": "AzureUtilizationRecord"
+	  }
+	},
+	{
+	  "usageStartTime": "2018-03-26T00:00:00+00:00",
+	  "usageEndTime": "2018-03-27T00:00:00+00:00",
+	  "resource": {
+		"id": "27a287f3-2919-4084-99e8-03404a652117",
+		"name": "Standard Managed Disk/S4 (Units)",
+		"category": "Storage",
+		"subcategory": "Locally Redundant",
+		"region": "JA East"
+	  },
+	  "quantity": 0.032256,
+	  "unit": "Units",
+	  "infoFields": {},
+	  "instanceData": {
+		"resourceUri": "/subscriptions/7f331a73-e8b2-4719-84f9-92ef40459f27/resourceGroups/RGL2411/providers/Microsoft.Compute/disks/xfzsyl_xfzsyl_26_OsDisk_1_69755c5fc71a4a529dcc387a03295df6",
+		"location": "jaeast",
+		"partNumber": "",
+		"orderNumber": ""
+	  },
+	  "attributes": {
+		"objectType": "AzureUtilizationRecord"
+	  }
+	},
+	{
+	  "usageStartTime": "2018-03-26T00:00:00+00:00",
+	  "usageEndTime": "2018-03-27T00:00:00+00:00",
+	  "resource": {
+		"id": "27a287f3-2919-4084-99e8-03404a652117",
+		"name": "Standard Managed Disk/S4 (Units)",
+		"category": "Storage",
+		"subcategory": "Locally Redundant",
+		"region": "JA East"
+	  },
+	  "quantity": 0.032256,
+	  "unit": "Units",
+	  "infoFields": {},
+	  "instanceData": {
+		"resourceUri": "/subscriptions/7f331a73-e8b2-4719-84f9-92ef40459f27/resourceGroups/RGL2411/providers/Microsoft.Compute/disks/xfzsyl_xfzsyl_9_OsDisk_1_afdfcdbcc66f4058940dc0545102e07a",
+		"location": "jaeast",
+		"partNumber": "",
+		"orderNumber": ""
+	  },
+	  "attributes": {
+		"objectType": "AzureUtilizationRecord"
+	  }
+	},
+	{
+	  "usageStartTime": "2018-03-26T00:00:00+00:00",
+	  "usageEndTime": "2018-03-27T00:00:00+00:00",
+	  "resource": {
+		"id": "27a287f3-2919-4084-99e8-03404a652117",
+		"name": "Standard Managed Disk/S4 (Units)",
+		"category": "Storage",
+		"subcategory": "Locally Redundant",
+		"region": "JA East"
+	  },
+	  "quantity": 0.032256,
+	  "unit": "Units",
+	  "infoFields": {},
+	  "instanceData": {
+		"resourceUri": "/subscriptions/7f331a73-e8b2-4719-84f9-92ef40459f27/resourceGroups/RGL2411/providers/Microsoft.Compute/disks/xfzsyl_xfzsyl_29_OsDisk_1_c020ca24126846599708c786aadabcbb",
+		"location": "jaeast",
+		"partNumber": "",
+		"orderNumber": ""
+	  },
+	  "attributes": {
+		"objectType": "AzureUtilizationRecord"
+	  }
+	},
+	{
+	  "usageStartTime": "2018-03-26T00:00:00+00:00",
+	  "usageEndTime": "2018-03-27T00:00:00+00:00",
+	  "resource": {
+		"id": "27a287f3-2919-4084-99e8-03404a652117",
+		"name": "Standard Managed Disk/S4 (Units)",
+		"category": "Storage",
+		"subcategory": "Locally Redundant",
+		"region": "JA East"
+	  },
+	  "quantity": 0.032256,
+	  "unit": "Units",
+	  "infoFields": {},
+	  "instanceData": {
+		"resourceUri": "/subscriptions/7f331a73-e8b2-4719-84f9-92ef40459f27/resourceGroups/RGL2411/providers/Microsoft.Compute/disks/xfzsyl_xfzsyl_11_OsDisk_1_2bef8a30a1e94e75b8532ce660723d38",
+		"location": "jaeast",
+		"partNumber": "",
+		"orderNumber": ""
+	  },
+	  "attributes": {
+		"objectType": "AzureUtilizationRecord"
+	  }
+	},
+	{
+	  "usageStartTime": "2018-03-26T00:00:00+00:00",
+	  "usageEndTime": "2018-03-27T00:00:00+00:00",
+	  "resource": {
+		"id": "27a287f3-2919-4084-99e8-03404a652117",
+		"name": "Standard Managed Disk/S4 (Units)",
+		"category": "Storage",
+		"subcategory": "Locally Redundant",
+		"region": "JA East"
+	  },
+	  "quantity": 0.032256,
+	  "unit": "Units",
+	  "infoFields": {},
+	  "instanceData": {
+		"resourceUri": "/subscriptions/7f331a73-e8b2-4719-84f9-92ef40459f27/resourceGroups/RGL2411/providers/Microsoft.Compute/disks/xfzsyl_xfzsyl_6_OsDisk_1_922a0e00390d4cca9f1d777f8363b49d",
+		"location": "jaeast",
+		"partNumber": "",
+		"orderNumber": ""
+	  },
+	  "attributes": {
+		"objectType": "AzureUtilizationRecord"
+	  }
+	},
+	{
+	  "usageStartTime": "2018-03-26T00:00:00+00:00",
+	  "usageEndTime": "2018-03-27T00:00:00+00:00",
+	  "resource": {
+		"id": "27a287f3-2919-4084-99e8-03404a652117",
+		"name": "Standard Managed Disk/S4 (Units)",
+		"category": "Storage",
+		"subcategory": "Locally Redundant",
+		"region": "JA East"
+	  },
+	  "quantity": 0.032256,
+	  "unit": "Units",
+	  "infoFields": {},
+	  "instanceData": {
+		"resourceUri": "/subscriptions/7f331a73-e8b2-4719-84f9-92ef40459f27/resourceGroups/RGL2411/providers/Microsoft.Compute/disks/xfzsyl_xfzsyl_41_OsDisk_1_5089d5b4961f47c39f7b3f17230d76a5",
+		"location": "jaeast",
+		"partNumber": "",
+		"orderNumber": ""
+	  },
+	  "attributes": {
+		"objectType": "AzureUtilizationRecord"
+	  }
+	},
+	{
+	  "usageStartTime": "2018-03-26T00:00:00+00:00",
+	  "usageEndTime": "2018-03-27T00:00:00+00:00",
+	  "resource": {
+		"id": "27a287f3-2919-4084-99e8-03404a652117",
+		"name": "Standard Managed Disk/S4 (Units)",
+		"category": "Storage",
+		"subcategory": "Locally Redundant",
+		"region": "JA East"
+	  },
+	  "quantity": 0.032256,
+	  "unit": "Units",
+	  "infoFields": {},
+	  "instanceData": {
+		"resourceUri": "/subscriptions/7f331a73-e8b2-4719-84f9-92ef40459f27/resourceGroups/RGL2411/providers/Microsoft.Compute/disks/xfzsyl_xfzsyl_5_OsDisk_1_4faf80d101594933bc4c13c68a016f41",
+		"location": "jaeast",
+		"partNumber": "",
+		"orderNumber": ""
+	  },
+	  "attributes": {
+		"objectType": "AzureUtilizationRecord"
+	  }
+	},
+	{
+	  "usageStartTime": "2018-03-26T00:00:00+00:00",
+	  "usageEndTime": "2018-03-27T00:00:00+00:00",
+	  "resource": {
+		"id": "27a287f3-2919-4084-99e8-03404a652117",
+		"name": "Standard Managed Disk/S4 (Units)",
+		"category": "Storage",
+		"subcategory": "Locally Redundant",
+		"region": "JA East"
+	  },
+	  "quantity": 0.032256,
+	  "unit": "Units",
+	  "infoFields": {},
+	  "instanceData": {
+		"resourceUri": "/subscriptions/7f331a73-e8b2-4719-84f9-92ef40459f27/resourceGroups/RGL2411/providers/Microsoft.Compute/disks/xfzsyl_xfzsyl_42_OsDisk_1_8e1814c271254ee98308d46ca4130c49",
+		"location": "jaeast",
+		"partNumber": "",
+		"orderNumber": ""
+	  },
+	  "attributes": {
+		"objectType": "AzureUtilizationRecord"
+	  }
+	},
+	{
+	  "usageStartTime": "2018-03-26T00:00:00+00:00",
+	  "usageEndTime": "2018-03-27T00:00:00+00:00",
+	  "resource": {
+		"id": "27a287f3-2919-4084-99e8-03404a652117",
+		"name": "Standard Managed Disk/S4 (Units)",
+		"category": "Storage",
+		"subcategory": "Locally Redundant",
+		"region": "JA East"
+	  },
+	  "quantity": 0.032256,
+	  "unit": "Units",
+	  "infoFields": {},
+	  "instanceData": {
+		"resourceUri": "/subscriptions/7f331a73-e8b2-4719-84f9-92ef40459f27/resourceGroups/RGL2411/providers/Microsoft.Compute/disks/xfzsyl_xfzsyl_24_OsDisk_1_8c056cec353740618d543cb905f129f9",
+		"location": "jaeast",
+		"partNumber": "",
+		"orderNumber": ""
+	  },
+	  "attributes": {
+		"objectType": "AzureUtilizationRecord"
+	  }
+	},
+	{
+	  "usageStartTime": "2018-03-26T00:00:00+00:00",
+	  "usageEndTime": "2018-03-27T00:00:00+00:00",
+	  "resource": {
+		"id": "27a287f3-2919-4084-99e8-03404a652117",
+		"name": "Standard Managed Disk/S4 (Units)",
+		"category": "Storage",
+		"subcategory": "Locally Redundant",
+		"region": "JA East"
+	  },
+	  "quantity": 0.032256,
+	  "unit": "Units",
+	  "infoFields": {},
+	  "instanceData": {
+		"resourceUri": "/subscriptions/7f331a73-e8b2-4719-84f9-92ef40459f27/resourceGroups/RGL2411/providers/Microsoft.Compute/disks/xfzsyl_xfzsyl_32_OsDisk_1_82cd77b5b1e74390bfc9d96e3a366d47",
+		"location": "jaeast",
+		"partNumber": "",
+		"orderNumber": ""
+	  },
+	  "attributes": {
+		"objectType": "AzureUtilizationRecord"
+	  }
+	},
+	{
+	  "usageStartTime": "2018-03-26T00:00:00+00:00",
+	  "usageEndTime": "2018-03-27T00:00:00+00:00",
+	  "resource": {
+		"id": "27a287f3-2919-4084-99e8-03404a652117",
+		"name": "Standard Managed Disk/S4 (Units)",
+		"category": "Storage",
+		"subcategory": "Locally Redundant",
+		"region": "JA East"
+	  },
+	  "quantity": 0.032256,
+	  "unit": "Units",
+	  "infoFields": {},
+	  "instanceData": {
+		"resourceUri": "/subscriptions/7f331a73-e8b2-4719-84f9-92ef40459f27/resourceGroups/RGL2411/providers/Microsoft.Compute/disks/xfzsyl_xfzsyl_8_OsDisk_1_fd05898b4fde4777a83e0a8942e2ea3b",
+		"location": "jaeast",
+		"partNumber": "",
+		"orderNumber": ""
+	  },
+	  "attributes": {
+		"objectType": "AzureUtilizationRecord"
+	  }
+	},
+	{
+	  "usageStartTime": "2018-03-27T00:00:00+00:00",
+	  "usageEndTime": "2018-03-28T00:00:00+00:00",
+	  "resource": {
+		"id": "27a287f3-2919-4084-99e8-03404a652117",
+		"name": "Standard Managed Disk/S4 (Units)",
+		"category": "Storage",
+		"subcategory": "Locally Redundant",
+		"region": "JA East"
+	  },
+	  "quantity": 0.030912,
+	  "unit": "Units",
+	  "infoFields": {},
+	  "instanceData": {
+		"resourceUri": "/subscriptions/7f331a73-e8b2-4719-84f9-92ef40459f27/resourceGroups/RGL2411/providers/Microsoft.Compute/disks/xfzsyl_xfzsyl_15_OsDisk_1_48b01a4256504aabbdb2af6d9e8faedd",
+		"location": "jaeast",
+		"partNumber": "",
+		"orderNumber": ""
+	  },
+	  "attributes": {
+		"objectType": "AzureUtilizationRecord"
+	  }
+	},
+	{
+	  "usageStartTime": "2018-03-27T00:00:00+00:00",
+	  "usageEndTime": "2018-03-28T00:00:00+00:00",
+	  "resource": {
+		"id": "27a287f3-2919-4084-99e8-03404a652117",
+		"name": "Standard Managed Disk/S4 (Units)",
+		"category": "Storage",
+		"subcategory": "Locally Redundant",
+		"region": "JA East"
+	  },
+	  "quantity": 0.030912,
+	  "unit": "Units",
+	  "infoFields": {},
+	  "instanceData": {
+		"resourceUri": "/subscriptions/7f331a73-e8b2-4719-84f9-92ef40459f27/resourceGroups/RGL2411/providers/Microsoft.Compute/disks/xfzsyl_xfzsyl_26_OsDisk_1_69755c5fc71a4a529dcc387a03295df6",
+		"location": "jaeast",
+		"partNumber": "",
+		"orderNumber": ""
+	  },
+	  "attributes": {
+		"objectType": "AzureUtilizationRecord"
+	  }
+	},
+	{
+	  "usageStartTime": "2018-03-27T00:00:00+00:00",
+	  "usageEndTime": "2018-03-28T00:00:00+00:00",
+	  "resource": {
+		"id": "27a287f3-2919-4084-99e8-03404a652117",
+		"name": "Standard Managed Disk/S4 (Units)",
+		"category": "Storage",
+		"subcategory": "Locally Redundant",
+		"region": "JA East"
+	  },
+	  "quantity": 0.030912,
+	  "unit": "Units",
+	  "infoFields": {},
+	  "instanceData": {
+		"resourceUri": "/subscriptions/7f331a73-e8b2-4719-84f9-92ef40459f27/resourceGroups/RGL2411/providers/Microsoft.Compute/disks/xfzsyl_xfzsyl_9_OsDisk_1_afdfcdbcc66f4058940dc0545102e07a",
+		"location": "jaeast",
+		"partNumber": "",
+		"orderNumber": ""
+	  },
+	  "attributes": {
+		"objectType": "AzureUtilizationRecord"
+	  }
+	},
+	{
+	  "usageStartTime": "2018-03-27T00:00:00+00:00",
+	  "usageEndTime": "2018-03-28T00:00:00+00:00",
+	  "resource": {
+		"id": "27a287f3-2919-4084-99e8-03404a652117",
+		"name": "Standard Managed Disk/S4 (Units)",
+		"category": "Storage",
+		"subcategory": "Locally Redundant",
+		"region": "JA East"
+	  },
+	  "quantity": 0.030912,
+	  "unit": "Units",
+	  "infoFields": {},
+	  "instanceData": {
+		"resourceUri": "/subscriptions/7f331a73-e8b2-4719-84f9-92ef40459f27/resourceGroups/RGL2411/providers/Microsoft.Compute/disks/xfzsyl_xfzsyl_29_OsDisk_1_c020ca24126846599708c786aadabcbb",
+		"location": "jaeast",
+		"partNumber": "",
+		"orderNumber": ""
+	  },
+	  "attributes": {
+		"objectType": "AzureUtilizationRecord"
+	  }
+	},
+	{
+	  "usageStartTime": "2018-03-27T00:00:00+00:00",
+	  "usageEndTime": "2018-03-28T00:00:00+00:00",
+	  "resource": {
+		"id": "27a287f3-2919-4084-99e8-03404a652117",
+		"name": "Standard Managed Disk/S4 (Units)",
+		"category": "Storage",
+		"subcategory": "Locally Redundant",
+		"region": "JA East"
+	  },
+	  "quantity": 0.030912,
+	  "unit": "Units",
+	  "infoFields": {},
+	  "instanceData": {
+		"resourceUri": "/subscriptions/7f331a73-e8b2-4719-84f9-92ef40459f27/resourceGroups/RGL2411/providers/Microsoft.Compute/disks/xfzsyl_xfzsyl_11_OsDisk_1_2bef8a30a1e94e75b8532ce660723d38",
+		"location": "jaeast",
+		"partNumber": "",
+		"orderNumber": ""
+	  },
+	  "attributes": {
+		"objectType": "AzureUtilizationRecord"
+	  }
+	},
+	{
+	  "usageStartTime": "2018-03-27T00:00:00+00:00",
+	  "usageEndTime": "2018-03-28T00:00:00+00:00",
+	  "resource": {
+		"id": "27a287f3-2919-4084-99e8-03404a652117",
+		"name": "Standard Managed Disk/S4 (Units)",
+		"category": "Storage",
+		"subcategory": "Locally Redundant",
+		"region": "JA East"
+	  },
+	  "quantity": 0.030912,
+	  "unit": "Units",
+	  "infoFields": {},
+	  "instanceData": {
+		"resourceUri": "/subscriptions/7f331a73-e8b2-4719-84f9-92ef40459f27/resourceGroups/RGL2411/providers/Microsoft.Compute/disks/xfzsyl_xfzsyl_6_OsDisk_1_922a0e00390d4cca9f1d777f8363b49d",
+		"location": "jaeast",
+		"partNumber": "",
+		"orderNumber": ""
+	  },
+	  "attributes": {
+		"objectType": "AzureUtilizationRecord"
+	  }
+	},
+	{
+	  "usageStartTime": "2018-03-27T00:00:00+00:00",
+	  "usageEndTime": "2018-03-28T00:00:00+00:00",
+	  "resource": {
+		"id": "27a287f3-2919-4084-99e8-03404a652117",
+		"name": "Standard Managed Disk/S4 (Units)",
+		"category": "Storage",
+		"subcategory": "Locally Redundant",
+		"region": "JA East"
+	  },
+	  "quantity": 0.030912,
+	  "unit": "Units",
+	  "infoFields": {},
+	  "instanceData": {
+		"resourceUri": "/subscriptions/7f331a73-e8b2-4719-84f9-92ef40459f27/resourceGroups/RGL2411/providers/Microsoft.Compute/disks/xfzsyl_xfzsyl_41_OsDisk_1_5089d5b4961f47c39f7b3f17230d76a5",
+		"location": "jaeast",
+		"partNumber": "",
+		"orderNumber": ""
+	  },
+	  "attributes": {
+		"objectType": "AzureUtilizationRecord"
+	  }
+	},
+	{
+	  "usageStartTime": "2018-03-27T00:00:00+00:00",
+	  "usageEndTime": "2018-03-28T00:00:00+00:00",
+	  "resource": {
+		"id": "27a287f3-2919-4084-99e8-03404a652117",
+		"name": "Standard Managed Disk/S4 (Units)",
+		"category": "Storage",
+		"subcategory": "Locally Redundant",
+		"region": "JA East"
+	  },
+	  "quantity": 0.030912,
+	  "unit": "Units",
+	  "infoFields": {},
+	  "instanceData": {
+		"resourceUri": "/subscriptions/7f331a73-e8b2-4719-84f9-92ef40459f27/resourceGroups/RGL2411/providers/Microsoft.Compute/disks/xfzsyl_xfzsyl_5_OsDisk_1_4faf80d101594933bc4c13c68a016f41",
+		"location": "jaeast",
+		"partNumber": "",
+		"orderNumber": ""
+	  },
+	  "attributes": {
+		"objectType": "AzureUtilizationRecord"
+	  }
+	},
+	{
+	  "usageStartTime": "2018-03-27T00:00:00+00:00",
+	  "usageEndTime": "2018-03-28T00:00:00+00:00",
+	  "resource": {
+		"id": "27a287f3-2919-4084-99e8-03404a652117",
+		"name": "Standard Managed Disk/S4 (Units)",
+		"category": "Storage",
+		"subcategory": "Locally Redundant",
+		"region": "JA East"
+	  },
+	  "quantity": 0.030912,
+	  "unit": "Units",
+	  "infoFields": {},
+	  "instanceData": {
+		"resourceUri": "/subscriptions/7f331a73-e8b2-4719-84f9-92ef40459f27/resourceGroups/RGL2411/providers/Microsoft.Compute/disks/xfzsyl_xfzsyl_42_OsDisk_1_8e1814c271254ee98308d46ca4130c49",
+		"location": "jaeast",
+		"partNumber": "",
+		"orderNumber": ""
+	  },
+	  "attributes": {
+		"objectType": "AzureUtilizationRecord"
+	  }
+	},
+	{
+	  "usageStartTime": "2018-03-27T00:00:00+00:00",
+	  "usageEndTime": "2018-03-28T00:00:00+00:00",
+	  "resource": {
+		"id": "27a287f3-2919-4084-99e8-03404a652117",
+		"name": "Standard Managed Disk/S4 (Units)",
+		"category": "Storage",
+		"subcategory": "Locally Redundant",
+		"region": "JA East"
+	  },
+	  "quantity": 0.030912,
+	  "unit": "Units",
+	  "infoFields": {},
+	  "instanceData": {
+		"resourceUri": "/subscriptions/7f331a73-e8b2-4719-84f9-92ef40459f27/resourceGroups/RGL2411/providers/Microsoft.Compute/disks/xfzsyl_xfzsyl_24_OsDisk_1_8c056cec353740618d543cb905f129f9",
+		"location": "jaeast",
+		"partNumber": "",
+		"orderNumber": ""
+	  },
+	  "attributes": {
+		"objectType": "AzureUtilizationRecord"
+	  }
+	},
+	{
+	  "usageStartTime": "2018-03-27T00:00:00+00:00",
+	  "usageEndTime": "2018-03-28T00:00:00+00:00",
+	  "resource": {
+		"id": "27a287f3-2919-4084-99e8-03404a652117",
+		"name": "Standard Managed Disk/S4 (Units)",
+		"category": "Storage",
+		"subcategory": "Locally Redundant",
+		"region": "JA East"
+	  },
+	  "quantity": 0.030912,
+	  "unit": "Units",
+	  "infoFields": {},
+	  "instanceData": {
+		"resourceUri": "/subscriptions/7f331a73-e8b2-4719-84f9-92ef40459f27/resourceGroups/RGL2411/providers/Microsoft.Compute/disks/xfzsyl_xfzsyl_32_OsDisk_1_82cd77b5b1e74390bfc9d96e3a366d47",
+		"location": "jaeast",
+		"partNumber": "",
+		"orderNumber": ""
+	  },
+	  "attributes": {
+		"objectType": "AzureUtilizationRecord"
+	  }
+	},
+	{
+	  "usageStartTime": "2018-03-27T00:00:00+00:00",
+	  "usageEndTime": "2018-03-28T00:00:00+00:00",
+	  "resource": {
+		"id": "27a287f3-2919-4084-99e8-03404a652117",
+		"name": "Standard Managed Disk/S4 (Units)",
+		"category": "Storage",
+		"subcategory": "Locally Redundant",
+		"region": "JA East"
+	  },
+	  "quantity": 0.030912,
+	  "unit": "Units",
+	  "infoFields": {},
+	  "instanceData": {
+		"resourceUri": "/subscriptions/7f331a73-e8b2-4719-84f9-92ef40459f27/resourceGroups/RGL2411/providers/Microsoft.Compute/disks/xfzsyl_xfzsyl_8_OsDisk_1_fd05898b4fde4777a83e0a8942e2ea3b",
+		"location": "jaeast",
+		"partNumber": "",
+		"orderNumber": ""
+	  },
+	  "attributes": {
+		"objectType": "AzureUtilizationRecord"
+	  }
+	}
+  ],
+  "links": {
+	"self": {
+	  "uri": "customers/49d6ebdb-65de-43f1-b250-e770b65a3a98/subscriptions/7f331a73-e8b2-4719-84f9-92ef40459f27/utilizations/azure?start_time=2018-03-26T00:00:00Z&end_time=2018-03-28T00:00:00Z&granularity=Daily&show_details=True&size=1000",
+	  "method": "GET",
+	  "headers": []
+	}
+  },
+  "attributes": {
+	"objectType": "Collection"
+  }
+}

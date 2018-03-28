@@ -1,0 +1,15 @@
+{
+  "totalCount": 1,
+  "items": [
+	{
+		"name": "Company Administrator",
+	  "id": "62e90394-69f5-4237-9190-012177145e10",
+	  "attributes": {
+		"objectType": "DirectoryRole"
+	  }
+	}
+  ],
+  "attributes": {
+	"objectType": "Collection"
+  }
+}
