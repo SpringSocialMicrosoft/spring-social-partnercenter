@@ -17,6 +17,8 @@ import org.springframework.social.partnercenter.api.order.AdminOrderOperations;
 import org.springframework.social.partnercenter.api.order.impl.AdminOrderTemplate;
 import org.springframework.social.partnercenter.api.order.subscription.AdminSubscriptionOperations;
 import org.springframework.social.partnercenter.api.order.subscription.impl.AdminSubscriptionTemplate;
+import org.springframework.social.partnercenter.api.relationships.AdminRelationshipOperations;
+import org.springframework.social.partnercenter.api.relationships.impl.AdminRelationshipTemplate;
 import org.springframework.social.partnercenter.api.support.SupportOperations;
 import org.springframework.social.partnercenter.api.support.impl.SupportTemplate;
 import org.springframework.social.partnercenter.api.uri.UriProvider;
@@ -32,6 +34,7 @@ public class PartnerCenterAdminTemplate extends PartnerCenterTemplate implements
 	private final SupportOperations supportOperations;
 	private final DirectoryRoleOperations directoryRoleOperations;
 	private final RoleOperations roleOperations;
+	private final AdminRelationshipOperations adminRelationshipOperations;
 
 	public PartnerCenterAdminTemplate(UriProvider uriProvider, String accessToken, String version){
 		super(uriProvider, accessToken, version);
@@ -43,6 +46,7 @@ public class PartnerCenterAdminTemplate extends PartnerCenterTemplate implements
 		supportOperations = new SupportTemplate(createRestResource(uriProvider.partnerBaseUri().build().toUri()), isAuthorized());
 		directoryRoleOperations = new DirectoryRoleTemplate(createRestResource(uriProvider.partnerCenterCustomerUri().build().toUri()), isAuthorized());
 		roleOperations = new RoleTemplate(createRestResource(uriProvider.partnerBaseUri().build().toUri()), isAuthorized());
+		adminRelationshipOperations = new AdminRelationshipTemplate(createRestResource(uriProvider.partnerCenterRelationshipsUri().build().toUri()), isAuthorized());
 	}
 
 	private RestResource createRestResource(URI baseUri){
@@ -87,5 +91,10 @@ public class PartnerCenterAdminTemplate extends PartnerCenterTemplate implements
 	@Override
 	public RoleOperations getRoleOperations() {
 		return roleOperations;
+	}
+
+	@Override
+	public AdminRelationshipOperations getRelationshipOperations() {
+		return adminRelationshipOperations;
 	}
 }
