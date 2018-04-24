@@ -1,5 +1,9 @@
 # Release Notes: Spring Social for Microsoft Partner Center
 
+## Unreleased
+#### Added
+1. Added Partner Relationships Operations
+
 ## 7.0.0
 #### Added
 1. Added DirectoryRole and Role operations.
