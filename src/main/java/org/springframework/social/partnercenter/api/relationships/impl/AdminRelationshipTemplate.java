@@ -9,6 +9,7 @@ import org.springframework.social.partnercenter.api.relationships.AdminRelations
 import org.springframework.social.partnercenter.api.relationships.PartnerRelationship;
 import org.springframework.social.partnercenter.api.relationships.PartnerRelationshipType;
 import org.springframework.social.partnercenter.http.client.RestResource;
+import org.springframework.social.partnercenter.serialization.Json;
 
 public class AdminRelationshipTemplate extends PagingResourceTemplate<PartnerRelationship> implements AdminRelationshipOperations {
     public static final String RELATIONSHIP_TYPE = "relationship_type";
@@ -24,7 +25,7 @@ public class AdminRelationshipTemplate extends PagingResourceTemplate<PartnerRel
     @Override
     public ResponseEntity<PartnerCenterResponse<PartnerRelationship>> getPartnerRelationships(PartnerRelationshipType relationshipType) {
         return restResource.request()
-                .queryParam(RELATIONSHIP_TYPE, relationshipType)
+                .queryParam(RELATIONSHIP_TYPE, relationshipType.urlEncodedValue())
                 .get(new ParameterizedTypeReference<PartnerCenterResponse<PartnerRelationship>>() {});
     }
 
@@ -32,7 +33,7 @@ public class AdminRelationshipTemplate extends PagingResourceTemplate<PartnerRel
     public ResponseEntity<PartnerCenterResponse<PartnerRelationship>> getPartnerRelationships(PartnerRelationshipType relationshipType, String partnerId) {
         return restResource.request()
                 .pathSegment(partnerId, CUSTOMER)
-                .queryParam(RELATIONSHIP_TYPE, relationshipType)
+                .queryParam(RELATIONSHIP_TYPE, relationshipType.urlEncodedValue())
                 .get(new ParameterizedTypeReference<PartnerCenterResponse<PartnerRelationship>>() {});
     }
 
