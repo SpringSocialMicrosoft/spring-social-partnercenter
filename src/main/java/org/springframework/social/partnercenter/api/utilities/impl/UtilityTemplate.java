@@ -80,27 +80,6 @@ public class UtilityTemplate extends AbstractTemplate implements UtilityOperatio
 	}
 
 	@Override
-	@Deprecated
-	public ResponseEntity<PartnerCenterResponse<AuditRecord>> getActivityByUser(Instant startDate, Instant endDate, Filter filter) {
-		return restResource.request()
-				.pathSegment("auditrecords")
-				.queryParam("startDate", startDate.atZone(of("UTC")).format(PARTNER_CENTER_UTC))
-				.queryParam("endDate", endDate.atZone(of("UTC")).format(PARTNER_CENTER_UTC))
-				.queryParam("filter", toJson(filter))
-				.get(new ParameterizedTypeReference<PartnerCenterResponse<AuditRecord>>() {});
-	}
-
-	@Override
-	public ResponseEntity<PartnerCenterResponse<AuditRecord>> getActivityByUser(Instant startDate, Instant endDate, String filter) {
-		return restResource.request()
-				.pathSegment("auditrecords")
-				.queryParam("startDate", startDate.atZone(of("UTC")).format(PARTNER_CENTER_UTC))
-				.queryParam("endDate", endDate.atZone(of("UTC")).format(PARTNER_CENTER_UTC))
-				.queryParam("filter", filter)
-				.get(new ParameterizedTypeReference<PartnerCenterResponse<AuditRecord>>() {});
-	}
-
-	@Override
 	public ResponseEntity<PartnerCenterResponse<AuditRecord>> getActivityByUser(Instant startDate, Instant endDate) {
 		return restResource.request()
 				.pathSegment("auditrecords")

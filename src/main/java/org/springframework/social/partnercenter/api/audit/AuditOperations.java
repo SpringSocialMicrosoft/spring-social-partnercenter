@@ -15,7 +15,6 @@ public interface AuditOperations {
 	 *
 	 * @param startDate Beginning of audit period
 	 * @return list of activity
-	 * @deprecated This method will be removed in release 7.0.0
 	 * @see <a href="https://msdn.microsoft.com/en-us/library/partnercenter/mt725332.aspx">MSDN: Get a record of Partner Center activity</a>
 	 */
 	ResponseEntity<PartnerCenterResponse<AuditRecord>> getPartnerCenterActivity(Instant startDate);
@@ -29,7 +28,6 @@ public interface AuditOperations {
 	 * @param startDate Beginning of audit period
 	 * @param endDate End of audit Period
 	 * @return list of activity
-	 * @deprecated This method will be removed in release 7.0.0
 	 * @see <a href="https://msdn.microsoft.com/en-us/library/partnercenter/mt725332.aspx">MSDN: Get a record of Partner Center activity</a>
 	 */
 	ResponseEntity<PartnerCenterResponse<AuditRecord>> getPartnerCenterActivity(Instant startDate, Instant endDate);
@@ -44,7 +42,6 @@ public interface AuditOperations {
 	 * @param endDate End of audit Period
 	 * @param companyName records can be filtered by 'CompanyName', 'CustomerId' or 'ResourceType
 	 * @return list of activity
-	 * @deprecated This method will be removed in release 7.0.0
 	 * @see <a href="https://msdn.microsoft.com/en-us/library/partnercenter/mt725332.aspx">MSDN: Get a record of Partner Center activity</a>
 	 */
 	ResponseEntity<PartnerCenterResponse<AuditRecord>> getPartnerCenterActivityByCompanyName(Instant startDate, Instant endDate, String companyName);
@@ -59,7 +56,6 @@ public interface AuditOperations {
 	 * @param endDate End of audit Period
 	 * @param customerId records are filtered by 'customerId'
 	 * @return list of activity
-	 * @deprecated This method will be removed in release 7.0.0
 	 * @see <a href="https://msdn.microsoft.com/en-us/library/partnercenter/mt725332.aspx">MSDN: Get a record of Partner Center activity</a>
 	 */
 	ResponseEntity<PartnerCenterResponse<AuditRecord>> getPartnerCenterActivityByCustomerId(Instant startDate, Instant endDate, String customerId);
@@ -74,7 +70,6 @@ public interface AuditOperations {
 	 * @param endDate End of audit Period
 	 * @param resourceType records are filtered by 'resourceType'
 	 * @return list of activity
-	 * @deprecated This method will be removed in release 7.0.0
 	 * @see <a href="https://msdn.microsoft.com/en-us/library/partnercenter/mt725332.aspx">MSDN: Get a record of Partner Center activity</a>
 	 */
 	ResponseEntity<PartnerCenterResponse<AuditRecord>> getPartnerCenterActivityByResourceType(Instant startDate, Instant endDate, ResourceType resourceType);
