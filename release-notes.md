@@ -1,8 +1,12 @@
 # Release Notes: Spring Social for Microsoft Partner Center
 
-## Unreleased
+## 7.1.0
 #### Added
 1. Added Partner Relationships Operations
+
+#### Removed
+1. Removed deprecated methods from UtilityOperations
+2. Removed deprecation warnings from AuditOperations that were marked as deprecated erroneously
 
 ## 7.0.0
 #### Added
