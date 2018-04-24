@@ -2,11 +2,13 @@ package org.springframework.social.partnercenter.api.relationships;
 
 import java.util.Map;
 
+import org.springframework.social.partnercenter.api.ResourceBase;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class PartnerRelationship {
+public class PartnerRelationship extends ResourceBase {
     @JsonProperty("id")
     private String id;
     @JsonProperty("name")
@@ -19,9 +21,6 @@ public class PartnerRelationship {
     private String mpnId;
     @JsonProperty("location")
     private String location;
-
-    @JsonProperty("attributes")
-    private Map<String, String> attributes;
 
     public String getId() {
         return id;
@@ -70,13 +69,4 @@ public class PartnerRelationship {
     public void setLocation(String location) {
         this.location = location;
     }
-
-    public Map<String, String> getAttributes() {
-        return attributes;
-    }
-
-    public void setAttributes(Map<String, String> attributes) {
-        this.attributes = attributes;
-    }
-
 }
