@@ -1,5 +1,9 @@
 # Release Notes: Spring Social for Microsoft Partner Center
 
+## Unreleased
+#### Added
+1. Added profileType to `Partner` in profile operations
+
 ## 7.1.0
 #### Added
 1. Added Partner Relationships Operations
