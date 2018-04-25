@@ -9,6 +9,7 @@ import org.springframework.social.partnercenter.api.Link;
 public class Partner {
 	private String partnerName;
 	private String mpnId;
+	private String profileType;
 	private Map<String, Link> links;
 	private Map<String, String> attributes;
 
@@ -46,5 +47,13 @@ public class Partner {
 	public Partner setAttributes(Map<String, String> attributes) {
 		this.attributes = attributes;
 		return this;
+	}
+
+	public String getProfileType() {
+		return profileType;
+	}
+
+	public void setProfileType(String profileType) {
+		this.profileType = profileType;
 	}
 }
