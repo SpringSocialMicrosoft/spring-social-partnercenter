@@ -1,5 +1,7 @@
 package org.springframework.social.partnercenter.api.billing.pricing.impl;
 
+import static org.springframework.util.Assert.notNull;
+
 import java.util.Locale;
 
 import org.springframework.http.ResponseEntity;
@@ -25,6 +27,8 @@ public class PricingTemplate extends AbstractTemplate implements PricingOperatio
 
 	@Override
 	public ResponseEntity<AzureResourcePricing> getAzurePricing(String currency, String region) {
+		notNull(currency, "[Assertion failed] - currency argument must be null");
+		notNull(region, "[Assertion failed] - region argument must be null");
 		return restResource.request()
 				.queryParam("currency", currency)
 				.queryParam("region", region)
@@ -33,6 +37,9 @@ public class PricingTemplate extends AbstractTemplate implements PricingOperatio
 
 	@Override
 	public ResponseEntity<AzureResourcePricing> getAzurePricing(String currency, String region, Locale locale) {
+		notNull(currency, "[Assertion failed] - currency argument must be null");
+		notNull(region, "[Assertion failed] - region argument must be null");
+		notNull(locale, "[Assertion failed] - locale argument must be null");
 		return restResource.request()
 				.queryParam("currency", currency)
 				.queryParam("region", region)

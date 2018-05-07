@@ -1,5 +1,7 @@
 package org.springframework.social.partnercenter.api.order.impl;
 
+import static org.springframework.util.Assert.notNull;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.social.partnercenter.api.order.AdminOrderOperations;
 import org.springframework.social.partnercenter.api.order.subscription.SubscriptionProvisioningState;
@@ -14,9 +16,10 @@ public class AdminOrderTemplate extends OrderTemplate implements AdminOrderOpera
 	}
 
 	@Override
-	public ResponseEntity<SubscriptionProvisioningState> getSubscriptionProvisioningState(String customerTenantId, String subscriptionId) {
+	public ResponseEntity<SubscriptionProvisioningState> getSubscriptionProvisioningState(String customerId, String subscriptionId) {
+		notNull(customerId, "[Assertion failed] - customerId argument must be null");
 		return restResource.request()
-				.pathSegment(customerTenantId, "subscriptions", subscriptionId, "provisioningstatus")
+				.pathSegment(customerId, "subscriptions", subscriptionId, "provisioningstatus")
 				.get(SubscriptionProvisioningState.class);
 	}
 }

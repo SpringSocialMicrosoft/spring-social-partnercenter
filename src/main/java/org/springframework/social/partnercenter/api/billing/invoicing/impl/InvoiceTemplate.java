@@ -1,5 +1,7 @@
 package org.springframework.social.partnercenter.api.billing.invoicing.impl;
 
+import static org.springframework.util.Assert.notNull;
+
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.ResponseEntity;
 import org.springframework.social.partnercenter.PartnerCenter;
@@ -25,6 +27,7 @@ public class InvoiceTemplate extends AbstractTemplate implements InvoiceOperatio
 
 	@Override
 	public ResponseEntity<Invoice> getById(String id) {
+		notNull(id, "[Assertion failed] - id argument must be null");
 		return restResource.request()
 				.pathSegment(id)
 				.get(Invoice.class);
