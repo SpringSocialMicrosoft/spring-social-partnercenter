@@ -39,7 +39,7 @@ public class UsageTemplate extends PagingResourceTemplate<UtilizationRecord> imp
 
 	@Override
 	public ResponseEntity<PartnerCenterResponse<UtilizationRecord>> getUtilizationRecords(String customerId, String subscriptionId, Instant startDateTime, Instant endDateTime) {
-		notNull(customerId, "[Assertion failed] - currency argument must be null");
+		notNull(customerId, "[Assertion failed] - customerId argument must be null");
 		notNull(subscriptionId, "[Assertion failed] - subscriptionId argument must be null");
 		notNull(startDateTime, "[Assertion failed] - startDateTime argument must be null");
 		notNull(endDateTime, "[Assertion failed] - endDateTime argument must be null");
@@ -48,7 +48,7 @@ public class UsageTemplate extends PagingResourceTemplate<UtilizationRecord> imp
 
 	@Override
 	public ResponseEntity<PartnerCenterResponse<UtilizationRecord>> getUtilizationRecords(String customerId, String subscriptionId, Instant startDateTime, Instant endDateTime, Granularity granularity) {
-		notNull(customerId, "[Assertion failed] - currency argument must be null");
+		notNull(customerId, "[Assertion failed] - customerId argument must be null");
 		notNull(subscriptionId, "[Assertion failed] - subscriptionId argument must be null");
 		notNull(startDateTime, "[Assertion failed] - startDateTime argument must be null");
 		notNull(endDateTime, "[Assertion failed] - endDateTime argument must be null");
@@ -58,7 +58,7 @@ public class UsageTemplate extends PagingResourceTemplate<UtilizationRecord> imp
 
 	@Override
 	public ResponseEntity<PartnerCenterResponse<UtilizationRecord>> getUtilizationRecords(String customerId, String subscriptionId, Instant startDateTime, Instant endDateTime, Granularity granularity, Boolean showDetails) {
-		notNull(customerId, "[Assertion failed] - currency argument must be null");
+		notNull(customerId, "[Assertion failed] - customerId argument must be null");
 		notNull(subscriptionId, "[Assertion failed] - subscriptionId argument must be null");
 		notNull(startDateTime, "[Assertion failed] - startDateTime argument must be null");
 		notNull(endDateTime, "[Assertion failed] - endDateTime argument must be null");
@@ -69,7 +69,7 @@ public class UsageTemplate extends PagingResourceTemplate<UtilizationRecord> imp
 
 	@Override
 	public ResponseEntity<PartnerCenterResponse<UtilizationRecord>> getUtilizationRecords(String customerId, String subscriptionId, Instant startDateTime, Instant endDateTime, Granularity granularity, Boolean showDetails, Integer size) {
-		notNull(customerId, "[Assertion failed] - currency argument must be null");
+		notNull(customerId, "[Assertion failed] - customerId argument must be null");
 		notNull(subscriptionId, "[Assertion failed] - subscriptionId argument must be null");
 		notNull(startDateTime, "[Assertion failed] - startDateTime argument must be null");
 		notNull(endDateTime, "[Assertion failed] - endDateTime argument must be null");
@@ -88,7 +88,7 @@ public class UsageTemplate extends PagingResourceTemplate<UtilizationRecord> imp
 
 	@Override
 	public ResponseEntity<PartnerCenterResponse<UtilizationRecord>> getUtilizationRecords(String customerId, String subscriptionId, Instant startDateTime, Instant endDateTime, Granularity granularity, Integer size) {
-		notNull(customerId, "[Assertion failed] - currency argument must be null");
+		notNull(customerId, "[Assertion failed] - customerId argument must be null");
 		notNull(subscriptionId, "[Assertion failed] - subscriptionId argument must be null");
 		notNull(startDateTime, "[Assertion failed] - startDateTime argument must be null");
 		notNull(endDateTime, "[Assertion failed] - endDateTime argument must be null");
@@ -99,7 +99,7 @@ public class UsageTemplate extends PagingResourceTemplate<UtilizationRecord> imp
 
 	@Override
 	public ResponseEntity<PartnerCenterResponse<UtilizationRecord>> getUtilizationRecords(String customerId, String subscriptionId, Instant startDateTime, Instant endDateTime, Boolean showDetails, Integer size) {
-		notNull(customerId, "[Assertion failed] - currency argument must be null");
+		notNull(customerId, "[Assertion failed] - customerId argument must be null");
 		notNull(subscriptionId, "[Assertion failed] - subscriptionId argument must be null");
 		notNull(startDateTime, "[Assertion failed] - startDateTime argument must be null");
 		notNull(endDateTime, "[Assertion failed] - endDateTime argument must be null");
@@ -110,7 +110,7 @@ public class UsageTemplate extends PagingResourceTemplate<UtilizationRecord> imp
 
 	@Override
 	public ResponseEntity<PartnerCenterResponse<UtilizationRecord>> getUtilizationRecords(String customerId, String subscriptionId, Instant startDateTime, Instant endDateTime, Boolean showDetails) {
-		notNull(customerId, "[Assertion failed] - currency argument must be null");
+		notNull(customerId, "[Assertion failed] - customerId argument must be null");
 		notNull(subscriptionId, "[Assertion failed] - subscriptionId argument must be null");
 		notNull(startDateTime, "[Assertion failed] - startDateTime argument must be null");
 		notNull(endDateTime, "[Assertion failed] - endDateTime argument must be null");
@@ -120,7 +120,7 @@ public class UsageTemplate extends PagingResourceTemplate<UtilizationRecord> imp
 
 	@Override
 	public ResponseEntity<PartnerCenterResponse<UtilizationRecord>> getUtilizationRecords(String customerId, String subscriptionId, Instant startDateTime, Instant endDateTime, Integer size) {
-		notNull(customerId, "[Assertion failed] - currency argument must be null");
+		notNull(customerId, "[Assertion failed] - customerId argument must be null");
 		notNull(subscriptionId, "[Assertion failed] - subscriptionId argument must be null");
 		notNull(startDateTime, "[Assertion failed] - startDateTime argument must be null");
 		notNull(endDateTime, "[Assertion failed] - endDateTime argument must be null");
