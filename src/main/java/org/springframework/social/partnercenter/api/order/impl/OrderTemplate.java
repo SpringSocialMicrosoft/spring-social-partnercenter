@@ -1,5 +1,7 @@
 package org.springframework.social.partnercenter.api.order.impl;
 
+import static org.springframework.social.partnercenter.api.validation.Assertion.notNull;
+
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.ResponseEntity;
 import org.springframework.social.partnercenter.PartnerCenter;
@@ -19,6 +21,7 @@ public class OrderTemplate extends PagingResourceTemplate<Order> implements Orde
 
 	@Override
 	public ResponseEntity<PartnerCenterResponse<Order>> getACustomersOrders(String customerId) {
+		notNull(customerId, "customerId");
 		return restResource.request()
 				.pathSegment(customerId, "orders")
 				.get(new ParameterizedTypeReference<PartnerCenterResponse<Order>>() {});
@@ -26,6 +29,8 @@ public class OrderTemplate extends PagingResourceTemplate<Order> implements Orde
 
 	@Override
 	public ResponseEntity<Order> getById(String customerId, String orderId) {
+		notNull(customerId, "customerId");
+		notNull(orderId, "orderId");
 		return restResource.request()
 				.pathSegment(customerId, "orders", orderId)
 				.get(Order.class);
@@ -33,6 +38,9 @@ public class OrderTemplate extends PagingResourceTemplate<Order> implements Orde
 
 	@Override
 	public ResponseEntity<Order> createAddOnOrder(String customerId, String orderId, Order order) {
+		notNull(customerId, "customerId");
+		notNull(orderId, "orderId");
+		notNull(order, "order");
 		return restResource.request()
 				.pathSegment(customerId, "orders", orderId)
 				.patch(order, Order.class);
@@ -40,6 +48,8 @@ public class OrderTemplate extends PagingResourceTemplate<Order> implements Orde
 
 	@Override
 	public ResponseEntity<Order> createOrder(String customerId, Order request) {
+		notNull(customerId, "customerId");
+		notNull(request, "request");
 		return restResource.request()
 				.pathSegment(customerId, "orders")
 				.post(request, Order.class);

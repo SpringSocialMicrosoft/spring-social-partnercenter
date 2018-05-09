@@ -1,5 +1,10 @@
 # Release Notes: Spring Social for Microsoft Partner Center
 
+
+## 7.1.1
+#### Added
+1. Added null checks for method parameters. (All Operations)
+
 ## 7.1.0
 #### Added
 1. Added Partner Relationships Operations

@@ -1,6 +1,7 @@
 package org.springframework.social.partnercenter.api.audit.impl;
 
 import static java.time.ZoneOffset.UTC;
+import static org.springframework.social.partnercenter.api.validation.Assertion.notNull;
 import static org.springframework.social.partnercenter.time.PartnerCenterDateTimeFormatter.PARTNER_CENTER_SHORT;
 
 import java.time.Instant;
@@ -24,6 +25,7 @@ public class AuditTemplate implements AuditOperations {
 
 	@Override
 	public ResponseEntity<PartnerCenterResponse<AuditRecord>> getPartnerCenterActivity(Instant startDate) {
+		notNull(startDate, "startDate");
 		return restResource.request()
 				.queryParam("startDate", startDate.atZone(UTC).format(PARTNER_CENTER_SHORT))
 				.get(new ParameterizedTypeReference<PartnerCenterResponse<AuditRecord>>() {});
@@ -31,6 +33,8 @@ public class AuditTemplate implements AuditOperations {
 
 	@Override
 	public ResponseEntity<PartnerCenterResponse<AuditRecord>> getPartnerCenterActivity(Instant startDate, Instant endDate) {
+		notNull(startDate, "startDate");
+		notNull(endDate, "endDate");
 		return restResource.request()
 				.queryParam("startDate", startDate.atZone(UTC).format(PARTNER_CENTER_SHORT))
 				.queryParam("endDate", endDate.atZone(UTC).format(PARTNER_CENTER_SHORT))
@@ -39,6 +43,9 @@ public class AuditTemplate implements AuditOperations {
 
 	@Override
 	public ResponseEntity<PartnerCenterResponse<AuditRecord>> getPartnerCenterActivityByCompanyName(Instant startDate, Instant endDate, String companyName) {
+		notNull(startDate, "startDate");
+		notNull(endDate, "endDate");
+		notNull(companyName, "companyName");
 		return restResource.request()
 				.queryParam("startDate", startDate.atZone(UTC).format(PARTNER_CENTER_SHORT))
 				.queryParam("endDate", endDate.atZone(UTC).format(PARTNER_CENTER_SHORT))
@@ -48,6 +55,9 @@ public class AuditTemplate implements AuditOperations {
 
 	@Override
 	public ResponseEntity<PartnerCenterResponse<AuditRecord>> getPartnerCenterActivityByCustomerId(Instant startDate, Instant endDate, String customerId) {
+		notNull(startDate, "startDate");
+		notNull(endDate, "endDate");
+		notNull(customerId, "customerId");
 		return restResource.request()
 				.queryParam("startDate", startDate.atZone(UTC).format(PARTNER_CENTER_SHORT))
 				.queryParam("endDate", endDate.atZone(UTC).format(PARTNER_CENTER_SHORT))
@@ -57,6 +67,9 @@ public class AuditTemplate implements AuditOperations {
 
 	@Override
 	public ResponseEntity<PartnerCenterResponse<AuditRecord>> getPartnerCenterActivityByResourceType(Instant startDate, Instant endDate, ResourceType resourceType) {
+		notNull(startDate, "startDate");
+		notNull(endDate, "endDate");
+		notNull(resourceType, "resourceType");
 		return restResource.request()
 				.queryParam("startDate", startDate.atZone(UTC).format(PARTNER_CENTER_SHORT))
 				.queryParam("endDate", endDate.atZone(UTC).format(PARTNER_CENTER_SHORT))

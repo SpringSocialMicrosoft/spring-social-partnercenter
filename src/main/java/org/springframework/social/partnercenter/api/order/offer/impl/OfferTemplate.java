@@ -1,5 +1,7 @@
 package org.springframework.social.partnercenter.api.order.offer.impl;
 
+import static org.springframework.social.partnercenter.api.validation.Assertion.notNull;
+
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.ResponseEntity;
 import org.springframework.social.partnercenter.PartnerCenter;
@@ -21,6 +23,7 @@ public class OfferTemplate extends AbstractTemplate implements OfferOperations{
 
 	@Override
 	public ResponseEntity<PartnerCenterResponse<OfferCategory>> getOfferCategories(String countryId) {
+		notNull(countryId, "countryId");
 		return restResource.request().pathSegment("v1", "offercategories")
 				.queryParam(COUNTRY, countryId)
 				.get(new ParameterizedTypeReference<PartnerCenterResponse<OfferCategory>>() {});
@@ -28,6 +31,7 @@ public class OfferTemplate extends AbstractTemplate implements OfferOperations{
 
 	@Override
 	public ResponseEntity<PartnerCenterResponse<Offer>> getOffersForMarket(String countryId) {
+		notNull(countryId, "countryId");
 		return restResource.request()
 				.queryParam(COUNTRY, countryId)
 				.get(new ParameterizedTypeReference<PartnerCenterResponse<Offer>>() {});
@@ -35,6 +39,8 @@ public class OfferTemplate extends AbstractTemplate implements OfferOperations{
 
 	@Override
 	public ResponseEntity<Offer> getOfferById(String offerId, String countryId) {
+		notNull(countryId, "countryId");
+		notNull(offerId, "offerId");
 		return restResource.request()
 				.pathSegment(offerId)
 				.queryParam(COUNTRY, countryId)
@@ -43,6 +49,8 @@ public class OfferTemplate extends AbstractTemplate implements OfferOperations{
 
 	@Override
 	public ResponseEntity<PartnerCenterResponse<Offer>> getAddOnOffersForOffer(String offerId, String countryId) {
+		notNull(countryId, "countryId");
+		notNull(offerId, "offerId");
 		return restResource.request()
 				.pathSegment(offerId, "addons")
 				.queryParam(COUNTRY, countryId)

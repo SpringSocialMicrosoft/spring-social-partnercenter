@@ -1,5 +1,7 @@
 package org.springframework.social.partnercenter.api.profile.impl;
 
+import static org.springframework.social.partnercenter.api.validation.Assertion.notNull;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.social.partnercenter.PartnerCenter;
 import org.springframework.social.partnercenter.api.AbstractTemplate;
@@ -29,6 +31,7 @@ public class ProfileTemplate extends AbstractTemplate implements ProfileOperatio
 
 	@Override
 	public ResponseEntity<LegalBusinessProfile> updateLegalBusinessProfile(LegalBusinessProfile legalBusinessProfile) {
+		notNull(legalBusinessProfile, "legalBusinessProfile");
 		return restResource.request()
 				.pathSegment("legalbusiness")
 				.put(legalBusinessProfile, LegalBusinessProfile.class);
@@ -43,6 +46,7 @@ public class ProfileTemplate extends AbstractTemplate implements ProfileOperatio
 
 	@Override
 	public ResponseEntity<OrganizationProfile> updateOrganizationProfile(OrganizationProfile organizationProfile) {
+		notNull(organizationProfile, "organizationProfile");
 		return restResource.request()
 				.pathSegment("organization")
 				.put(organizationProfile, OrganizationProfile.class);
@@ -57,6 +61,7 @@ public class ProfileTemplate extends AbstractTemplate implements ProfileOperatio
 
 	@Override
 	public ResponseEntity<BillingProfile> updatePartnerBillingProfile(BillingProfile billingProfile) {
+		notNull(billingProfile, "billingProfile");
 		return restResource.request()
 				.pathSegment("billing")
 				.put(billingProfile, BillingProfile.class);
@@ -78,6 +83,7 @@ public class ProfileTemplate extends AbstractTemplate implements ProfileOperatio
 
 	@Override
 	public ResponseEntity<SupportProfile> updateSupportProfile(SupportProfile supportProfile) {
+		notNull(supportProfile, "supportProfile");
 		return restResource.request()
 				.pathSegment("support")
 				.put(supportProfile, SupportProfile.class);
@@ -85,6 +91,7 @@ public class ProfileTemplate extends AbstractTemplate implements ProfileOperatio
 
 	@Override
 	public ResponseEntity<Partner> getPartner(String mpnId) {
+		notNull(mpnId, "mpnId");
 		return restResource.request()
 				.pathSegment("mpn")
 				.queryParam("mpnId", mpnId)

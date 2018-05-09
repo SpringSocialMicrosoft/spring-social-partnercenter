@@ -1,6 +1,7 @@
 package org.springframework.social.partnercenter.api.customer.impl;
 
 import static org.springframework.social.partnercenter.api.customer.query.Operator.STARTS_WITH;
+import static org.springframework.social.partnercenter.api.validation.Assertion.notNull;
 import static org.springframework.social.partnercenter.serialization.Json.toJson;
 
 import org.springframework.core.ParameterizedTypeReference;
@@ -24,6 +25,7 @@ public class AdminCustomerTemplate extends CustomerTemplate implements AdminCust
 
 	@Override
 	public ResponseEntity<CustomerBillingProfile> getBillingProfile(String customerId) {
+		notNull(customerId, "customerId");
 		return restResource.request()
 				.pathSegment(customerId, "profiles", "billing")
 				.get(CustomerBillingProfile.class);
@@ -31,6 +33,7 @@ public class AdminCustomerTemplate extends CustomerTemplate implements AdminCust
 
 	@Override
 	public ResponseEntity<PartnerCenterResponse<Customer>> getCompanyByDomain(int size, String domain) {
+		notNull(domain, "domain");
 		return restResource.request()
 				.queryParam("size", size)
 				.queryParam("filter", toJson(Filter.builder().field("Domain").operator(STARTS_WITH).value(domain).build()))
@@ -38,14 +41,18 @@ public class AdminCustomerTemplate extends CustomerTemplate implements AdminCust
 	}
 
 	@Override
-	public ResponseEntity<PartnerCenterResponse<SubscribedSku>> subscribedSkus(String customerTenantId) {
+	public ResponseEntity<PartnerCenterResponse<SubscribedSku>> subscribedSkus(String customerId) {
+		notNull(customerId, "customerId");
 		return restResource.request()
-				.pathSegment(customerTenantId, "subscribedskus")
+				.pathSegment(customerId, "subscribedskus")
 				.get(new ParameterizedTypeReference<PartnerCenterResponse<SubscribedSku>>() {});
 	}
 
 	@Override
 	public ResponseEntity<CustomerBillingProfile> updateBillingProfile(String customerId, String etag, CustomerBillingProfile billingProfile) {
+		notNull(customerId, "customerId");
+		notNull(etag, "etag");
+		notNull(billingProfile, "billingProfile");
 		return  restResource.request()
 				.pathSegment(customerId, "profiles", "billing")
 				.header("If-Match", etag)

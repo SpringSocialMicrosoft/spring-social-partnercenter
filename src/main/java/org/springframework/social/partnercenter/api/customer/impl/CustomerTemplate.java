@@ -1,6 +1,7 @@
 package org.springframework.social.partnercenter.api.customer.impl;
 
 import static org.springframework.social.partnercenter.api.customer.query.Operator.STARTS_WITH;
+import static org.springframework.social.partnercenter.api.validation.Assertion.notNull;
 
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.ResponseEntity;
@@ -25,19 +26,22 @@ public class CustomerTemplate extends PagingResourceTemplate<Customer> implement
 
 	@Override
 	public ResponseEntity<Customer> create(Customer customer) {
+		notNull(customer, "customer");
 		return restResource.request()
 				.post(customer, Customer.class);
 	}
 
 	@Override
-	public ResponseEntity<Customer> getById(String tenantId) {
+	public ResponseEntity<Customer> getById(String customerId) {
+		notNull(customerId, "customerId");
 		return restResource.request()
-				.pathSegment(tenantId)
+				.pathSegment(customerId)
 				.get(Customer.class);
 	}
 
 	@Override
 	public ResponseEntity<PartnerCenterResponse<Customer>> getCompanyByDomain(int size, String domain) {
+		notNull(domain, "domain");
 		return restResource.request()
 				.queryParam("size", size)
 				.queryParam("filter", Json.toJson(Filter.builder().field("Domain").operator(STARTS_WITH).value(domain).build()))
@@ -46,6 +50,7 @@ public class CustomerTemplate extends PagingResourceTemplate<Customer> implement
 
 	@Override
 	public ResponseEntity<PartnerCenterResponse<Customer>> getCompanyByCompanyName(int size, String companyName) {
+		notNull(companyName, "companyName");
 		return restResource.request()
 				.queryParam("size", size)
 				.queryParam("filter", Json.toJson(Filter.builder().value(companyName).operator(STARTS_WITH).field("CompanyName").build()))
@@ -61,23 +66,29 @@ public class CustomerTemplate extends PagingResourceTemplate<Customer> implement
 
 	@Override
 	public ResponseEntity<CustomerCompanyProfile> getCustomersCompanyProfile(String customerId) {
+		notNull(customerId, "customerId");
 		return restResource.request()
 				.pathSegment(customerId, "profiles", "profiles")
 				.get(CustomerCompanyProfile.class);
 	}
 
 	@Override
-	public ResponseEntity<Subscription> updateFriendlyName(String customerTenantId, String subscriptionId, String nickname) {
-		ResponseEntity<Subscription> subscription = getPartnerCenterSubscription(customerTenantId, subscriptionId);
+	public ResponseEntity<Subscription> updateFriendlyName(String customerId, String subscriptionId, String nickname) {
+		notNull(customerId, "customerId");
+		notNull(subscriptionId, "subscriptionId");
+		notNull(nickname, "nickname");
+		ResponseEntity<Subscription> subscription = getPartnerCenterSubscription(customerId, subscriptionId);
 		subscription.getBody().setFriendlyName(nickname);
 		return restResource.request()
-				.pathSegment(customerTenantId, "subscriptions", subscriptionId)
+				.pathSegment(customerId, "subscriptions", subscriptionId)
 				.post(subscription, Subscription.class);
 	}
 
-	private ResponseEntity<Subscription> getPartnerCenterSubscription(String customerTenantId, String subscriptionId) {
+	private ResponseEntity<Subscription> getPartnerCenterSubscription(String customerId, String subscriptionId) {
+		notNull(customerId, "customerId");
+		notNull(subscriptionId, "subscriptionId");
 		return restResource.request()
-				.pathSegment(customerTenantId, "subscriptions", subscriptionId)
+				.pathSegment(customerId, "subscriptions", subscriptionId)
 				.get(Subscription.class);
 	}
 
