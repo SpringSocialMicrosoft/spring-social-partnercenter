@@ -2,7 +2,7 @@ package org.springframework.social.partnercenter.security;
 
 import static java.util.Optional.ofNullable;
 import static org.springframework.social.partnercenter.api.uri.UriProvider.DEFAULT_URL_PROVIDER;
-import static org.springframework.util.Assert.notNull;
+import static org.springframework.social.partnercenter.api.validation.Assertion.notNull;
 
 import java.util.ArrayList;
 import java.util.Map;

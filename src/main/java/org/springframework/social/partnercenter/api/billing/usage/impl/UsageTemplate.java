@@ -2,8 +2,8 @@ package org.springframework.social.partnercenter.api.billing.usage.impl;
 
 import static java.time.ZoneId.of;
 import static org.springframework.social.partnercenter.api.billing.usage.Granularity.DAILY;
+import static org.springframework.social.partnercenter.api.validation.Assertion.notNull;
 import static org.springframework.social.partnercenter.time.PartnerCenterDateTimeFormatter.PARTNER_CENTER_UTC;
-import static org.springframework.util.Assert.notNull;
 
 import java.time.Instant;
 
@@ -39,43 +39,42 @@ public class UsageTemplate extends PagingResourceTemplate<UtilizationRecord> imp
 
 	@Override
 	public ResponseEntity<PartnerCenterResponse<UtilizationRecord>> getUtilizationRecords(String customerId, String subscriptionId, Instant startDateTime, Instant endDateTime) {
-		notNull(customerId, "[Assertion failed] - customerId argument must be null");
-		notNull(subscriptionId, "[Assertion failed] - subscriptionId argument must be null");
-		notNull(startDateTime, "[Assertion failed] - startDateTime argument must be null");
-		notNull(endDateTime, "[Assertion failed] - endDateTime argument must be null");
+		notNull(customerId, "customerId");
+		notNull(subscriptionId, "subscriptionId");
+		notNull(startDateTime, "startDateTime");
+		notNull(endDateTime, "endDateTime");
 		return getUtilizationRecords(customerId, subscriptionId, startDateTime, endDateTime, DAILY, true, 1000);
 	}
-
 	@Override
 	public ResponseEntity<PartnerCenterResponse<UtilizationRecord>> getUtilizationRecords(String customerId, String subscriptionId, Instant startDateTime, Instant endDateTime, Granularity granularity) {
-		notNull(customerId, "[Assertion failed] - customerId argument must be null");
-		notNull(subscriptionId, "[Assertion failed] - subscriptionId argument must be null");
-		notNull(startDateTime, "[Assertion failed] - startDateTime argument must be null");
-		notNull(endDateTime, "[Assertion failed] - endDateTime argument must be null");
-		notNull(granularity, "[Assertion failed] - granularity argument must be null");
+		notNull(customerId, "customerId");
+		notNull(subscriptionId, "subscriptionId");
+		notNull(startDateTime, "startDateTime");
+		notNull(endDateTime, "endDateTime");
+		notNull(granularity, "granularity");
 		return getUtilizationRecords(customerId, subscriptionId, startDateTime, endDateTime, granularity, true, 1000);
 	}
 
 	@Override
 	public ResponseEntity<PartnerCenterResponse<UtilizationRecord>> getUtilizationRecords(String customerId, String subscriptionId, Instant startDateTime, Instant endDateTime, Granularity granularity, Boolean showDetails) {
-		notNull(customerId, "[Assertion failed] - customerId argument must be null");
-		notNull(subscriptionId, "[Assertion failed] - subscriptionId argument must be null");
-		notNull(startDateTime, "[Assertion failed] - startDateTime argument must be null");
-		notNull(endDateTime, "[Assertion failed] - endDateTime argument must be null");
-		notNull(granularity, "[Assertion failed] - granularity argument must be null");
-		notNull(showDetails, "[Assertion failed] - showDetails argument must be null");
+		notNull(customerId, "customerId");
+		notNull(subscriptionId, "subscriptionId");
+		notNull(startDateTime, "startDateTime");
+		notNull(endDateTime, "endDateTime");
+		notNull(granularity, "granularity");
+		notNull(showDetails, "showDetails");
 		return getUtilizationRecords(customerId, subscriptionId, startDateTime, endDateTime, granularity, showDetails, 1000);
 	}
 
 	@Override
 	public ResponseEntity<PartnerCenterResponse<UtilizationRecord>> getUtilizationRecords(String customerId, String subscriptionId, Instant startDateTime, Instant endDateTime, Granularity granularity, Boolean showDetails, Integer size) {
-		notNull(customerId, "[Assertion failed] - customerId argument must be null");
-		notNull(subscriptionId, "[Assertion failed] - subscriptionId argument must be null");
-		notNull(startDateTime, "[Assertion failed] - startDateTime argument must be null");
-		notNull(endDateTime, "[Assertion failed] - endDateTime argument must be null");
-		notNull(granularity, "[Assertion failed] - granularity argument must be null");
-		notNull(showDetails, "[Assertion failed] - showDetails argument must be null");
-		notNull(size, "[Assertion failed] - size argument must be null");
+		notNull(customerId, "customerId");
+		notNull(subscriptionId, "subscriptionId");
+		notNull(startDateTime, "startDateTime");
+		notNull(endDateTime, "endDateTime");
+		notNull(granularity, "granularity");
+		notNull(showDetails, "showDetails");
+		notNull(size, "size");
 		return restResource.request()
 				.pathSegment(customerId, SUBSCRIPTIONS, subscriptionId, "utilizations", "azure")
 				.queryParam("start_time", startDateTime.atZone(of("UTC")).format(PARTNER_CENTER_UTC))
@@ -88,49 +87,49 @@ public class UsageTemplate extends PagingResourceTemplate<UtilizationRecord> imp
 
 	@Override
 	public ResponseEntity<PartnerCenterResponse<UtilizationRecord>> getUtilizationRecords(String customerId, String subscriptionId, Instant startDateTime, Instant endDateTime, Granularity granularity, Integer size) {
-		notNull(customerId, "[Assertion failed] - customerId argument must be null");
-		notNull(subscriptionId, "[Assertion failed] - subscriptionId argument must be null");
-		notNull(startDateTime, "[Assertion failed] - startDateTime argument must be null");
-		notNull(endDateTime, "[Assertion failed] - endDateTime argument must be null");
-		notNull(granularity, "[Assertion failed] - granularity argument must be null");
-		notNull(size, "[Assertion failed] - size argument must be null");
+		notNull(customerId, "customerId");
+		notNull(subscriptionId, "subscriptionId");
+		notNull(startDateTime, "startDateTime");
+		notNull(endDateTime, "endDateTime");
+		notNull(granularity, "granularity");
+		notNull(size, "size");
 		return getUtilizationRecords(customerId, subscriptionId, startDateTime, endDateTime, granularity, true, size);
 	}
 
 	@Override
 	public ResponseEntity<PartnerCenterResponse<UtilizationRecord>> getUtilizationRecords(String customerId, String subscriptionId, Instant startDateTime, Instant endDateTime, Boolean showDetails, Integer size) {
-		notNull(customerId, "[Assertion failed] - customerId argument must be null");
-		notNull(subscriptionId, "[Assertion failed] - subscriptionId argument must be null");
-		notNull(startDateTime, "[Assertion failed] - startDateTime argument must be null");
-		notNull(endDateTime, "[Assertion failed] - endDateTime argument must be null");
-		notNull(size, "[Assertion failed] - size argument must be null");
-		notNull(showDetails, "[Assertion failed] - showDetails argument must be null");
+		notNull(customerId, "customerId");
+		notNull(subscriptionId, "subscriptionId");
+		notNull(startDateTime, "startDateTime");
+		notNull(endDateTime, "endDateTime");
+		notNull(size, "size");
+		notNull(showDetails, "showDetails");
 		return getUtilizationRecords(customerId, subscriptionId, startDateTime, endDateTime, DAILY, showDetails, size);
 	}
 
 	@Override
 	public ResponseEntity<PartnerCenterResponse<UtilizationRecord>> getUtilizationRecords(String customerId, String subscriptionId, Instant startDateTime, Instant endDateTime, Boolean showDetails) {
-		notNull(customerId, "[Assertion failed] - customerId argument must be null");
-		notNull(subscriptionId, "[Assertion failed] - subscriptionId argument must be null");
-		notNull(startDateTime, "[Assertion failed] - startDateTime argument must be null");
-		notNull(endDateTime, "[Assertion failed] - endDateTime argument must be null");
-		notNull(showDetails, "[Assertion failed] - showDetails argument must be null");
+		notNull(customerId, "customerId");
+		notNull(subscriptionId, "subscriptionId");
+		notNull(startDateTime, "startDateTime");
+		notNull(endDateTime, "endDateTime");
+		notNull(showDetails, "showDetails");
 		return getUtilizationRecords(customerId, subscriptionId, startDateTime, endDateTime, DAILY, showDetails, 1000);
 	}
 
 	@Override
 	public ResponseEntity<PartnerCenterResponse<UtilizationRecord>> getUtilizationRecords(String customerId, String subscriptionId, Instant startDateTime, Instant endDateTime, Integer size) {
-		notNull(customerId, "[Assertion failed] - customerId argument must be null");
-		notNull(subscriptionId, "[Assertion failed] - subscriptionId argument must be null");
-		notNull(startDateTime, "[Assertion failed] - startDateTime argument must be null");
-		notNull(endDateTime, "[Assertion failed] - endDateTime argument must be null");
-		notNull(size, "[Assertion failed] - size argument must be null");
+		notNull(customerId, "customerId");
+		notNull(subscriptionId, "subscriptionId");
+		notNull(startDateTime, "startDateTime");
+		notNull(endDateTime, "endDateTime");
+		notNull(size, "size");
 		return getUtilizationRecords(customerId, subscriptionId, startDateTime, endDateTime, DAILY, true, size);
 	}
 
 	@Override
 	public ResponseEntity<CustomerUsageSummary> getUsageSummary(String customerId) {
-		notNull(customerId, "[Assertion failed] - customerId argument must be null");
+		notNull(customerId, "customerId");
 		return restResource.request()
 				.pathSegment(customerId, USAGE_SUMMARY)
 				.get(CustomerUsageSummary.class);
@@ -138,8 +137,8 @@ public class UsageTemplate extends PagingResourceTemplate<UtilizationRecord> imp
 
 	@Override
 	public ResponseEntity<PartnerCenterResponse<AzureResourceMonthlyUsageRecord>> getSubscriptionResourceUsageInformation(String customerId, String subscriptionId) {
-		notNull(customerId, "[Assertion failed] - customerId argument must be null");
-		notNull(subscriptionId, "[Assertion failed] - subscriptionId argument must be null");
+		notNull(customerId, "customerId");
+		notNull(subscriptionId, "subscriptionId");
 		return restResource.request()
 				.pathSegment(customerId, SUBSCRIPTIONS, subscriptionId, USAGE_RECORDS, "resources")
 				.get(new ParameterizedTypeReference<PartnerCenterResponse<AzureResourceMonthlyUsageRecord>>() {});
@@ -147,8 +146,8 @@ public class UsageTemplate extends PagingResourceTemplate<UtilizationRecord> imp
 
 	@Override
 	public ResponseEntity<SubscriptionUsageSummary> getSubscriptionUsageSummary(String customerId, String subscriptionId) {
-		notNull(customerId, "[Assertion failed] - customerId argument must be null");
-		notNull(subscriptionId, "[Assertion failed] - subscriptionId argument must be null");
+		notNull(customerId, "customerId");
+		notNull(subscriptionId, "subscriptionId");
 		return restResource.request()
 				.pathSegment(customerId, SUBSCRIPTIONS, USAGE_SUMMARY)
 				.get(SubscriptionUsageSummary.class);
@@ -156,8 +155,8 @@ public class UsageTemplate extends PagingResourceTemplate<UtilizationRecord> imp
 
 	@Override
 	public ResponseEntity<PartnerCenterResponse<SubscriptionDailyUsage>> getDailySubscriptionUsage(String customerId, String subscriptionId) {
-		notNull(customerId, "[Assertion failed] - customerId argument must be null");
-		notNull(subscriptionId, "[Assertion failed] - subscriptionId argument must be null");
+		notNull(customerId, "customerId");
+		notNull(subscriptionId, "subscriptionId");
 		return restResource.request()
 				.pathSegment(customerId, SUBSCRIPTIONS, subscriptionId, USAGE_RECORDS, "daily")
 				.get(new ParameterizedTypeReference<PartnerCenterResponse<SubscriptionDailyUsage>>() {});
@@ -165,7 +164,7 @@ public class UsageTemplate extends PagingResourceTemplate<UtilizationRecord> imp
 
 	@Override
 	public ResponseEntity<PartnerCenterResponse<SubscriptionMonthlyUsageRecord>> getMonthlyUsageForSubscriptions(String customerId) {
-		notNull(customerId, "[Assertion failed] - customerId argument must be null");
+		notNull(customerId, "customerId");
 		return restResource.request()
 				.pathSegment(customerId, SUBSCRIPTIONS, USAGE_RECORDS)
 				.get(new ParameterizedTypeReference<PartnerCenterResponse<SubscriptionMonthlyUsageRecord>>() {});

@@ -1,7 +1,7 @@
 package org.springframework.social.partnercenter.api.customer.impl;
 
 import static org.springframework.social.partnercenter.api.customer.query.Operator.STARTS_WITH;
-import static org.springframework.util.Assert.notNull;
+import static org.springframework.social.partnercenter.api.validation.Assertion.notNull;
 
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.ResponseEntity;
@@ -26,14 +26,14 @@ public class CustomerTemplate extends PagingResourceTemplate<Customer> implement
 
 	@Override
 	public ResponseEntity<Customer> create(Customer customer) {
-		notNull(customer, "[Assertion failed] - customer argument must be null");
+		notNull(customer, "customer");
 		return restResource.request()
 				.post(customer, Customer.class);
 	}
 
 	@Override
 	public ResponseEntity<Customer> getById(String customerId) {
-		notNull(customerId, "[Assertion failed] - customerId argument must be null");
+		notNull(customerId, "customerId");
 		return restResource.request()
 				.pathSegment(customerId)
 				.get(Customer.class);
@@ -41,7 +41,7 @@ public class CustomerTemplate extends PagingResourceTemplate<Customer> implement
 
 	@Override
 	public ResponseEntity<PartnerCenterResponse<Customer>> getCompanyByDomain(int size, String domain) {
-		notNull(domain, "[Assertion failed] - domain argument must be null");
+		notNull(domain, "domain");
 		return restResource.request()
 				.queryParam("size", size)
 				.queryParam("filter", Json.toJson(Filter.builder().field("Domain").operator(STARTS_WITH).value(domain).build()))
@@ -50,7 +50,7 @@ public class CustomerTemplate extends PagingResourceTemplate<Customer> implement
 
 	@Override
 	public ResponseEntity<PartnerCenterResponse<Customer>> getCompanyByCompanyName(int size, String companyName) {
-		notNull(companyName, "[Assertion failed] - companyName argument must be null");
+		notNull(companyName, "companyName");
 		return restResource.request()
 				.queryParam("size", size)
 				.queryParam("filter", Json.toJson(Filter.builder().value(companyName).operator(STARTS_WITH).field("CompanyName").build()))
@@ -66,7 +66,7 @@ public class CustomerTemplate extends PagingResourceTemplate<Customer> implement
 
 	@Override
 	public ResponseEntity<CustomerCompanyProfile> getCustomersCompanyProfile(String customerId) {
-		notNull(customerId, "[Assertion failed] - customerId argument must be null");
+		notNull(customerId, "customerId");
 		return restResource.request()
 				.pathSegment(customerId, "profiles", "profiles")
 				.get(CustomerCompanyProfile.class);
@@ -74,9 +74,9 @@ public class CustomerTemplate extends PagingResourceTemplate<Customer> implement
 
 	@Override
 	public ResponseEntity<Subscription> updateFriendlyName(String customerId, String subscriptionId, String nickname) {
-		notNull(customerId, "[Assertion failed] - customerId argument must be null");
-		notNull(subscriptionId, "[Assertion failed] - subscriptionId argument must be null");
-		notNull(nickname, "[Assertion failed] - nickname argument must be null");
+		notNull(customerId, "customerId");
+		notNull(subscriptionId, "subscriptionId");
+		notNull(nickname, "nickname");
 		ResponseEntity<Subscription> subscription = getPartnerCenterSubscription(customerId, subscriptionId);
 		subscription.getBody().setFriendlyName(nickname);
 		return restResource.request()
@@ -85,8 +85,8 @@ public class CustomerTemplate extends PagingResourceTemplate<Customer> implement
 	}
 
 	private ResponseEntity<Subscription> getPartnerCenterSubscription(String customerId, String subscriptionId) {
-		notNull(customerId, "[Assertion failed] - customerId argument must be null");
-		notNull(subscriptionId, "[Assertion failed] - subscriptionId argument must be null");
+		notNull(customerId, "customerId");
+		notNull(subscriptionId, "subscriptionId");
 		return restResource.request()
 				.pathSegment(customerId, "subscriptions", subscriptionId)
 				.get(Subscription.class);

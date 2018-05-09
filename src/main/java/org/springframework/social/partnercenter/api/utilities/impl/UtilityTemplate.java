@@ -3,7 +3,7 @@ package org.springframework.social.partnercenter.api.utilities.impl;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.http.ResponseEntity.ok;
-import static org.springframework.util.Assert.notNull;
+import static org.springframework.social.partnercenter.api.validation.Assertion.notNull;
 
 import java.util.Objects;
 
@@ -32,7 +32,7 @@ public class UtilityTemplate extends AbstractTemplate implements UtilityOperatio
 
 	@Override
 	public ResponseEntity<CountryInformation> getAddressFormattingRulesByMarket(String isoCodeId) {
-		notNull(isoCodeId, "[Assertion failed] - isoCodeId argument must be null");
+		notNull(isoCodeId, "isoCodeId");
 		return restResource.request()
 				.pathSegment("countryvalidationrules", isoCodeId)
 				.get(CountryInformation.class);
@@ -40,7 +40,7 @@ public class UtilityTemplate extends AbstractTemplate implements UtilityOperatio
 
 	@Override
 	public Boolean isDomainAvailable(String domain) {
-		notNull(domain, "[Assertion failed] - domain argument must be null");
+		notNull(domain, "domain");
 		try {
 			return !restResource.request()
 					.pathSegment("domains", domain)
@@ -54,7 +54,7 @@ public class UtilityTemplate extends AbstractTemplate implements UtilityOperatio
 
 	@Override
 	public ResponseEntity<Boolean> validateAddress(Address address) {
-		notNull(address, "[Assertion failed] - address argument must be null");
+		notNull(address, "address");
 		try {
 			return restResource.request()
 					.pathSegment("validations", "address")
@@ -70,7 +70,7 @@ public class UtilityTemplate extends AbstractTemplate implements UtilityOperatio
 
 	@Override
 	public ResponseEntity deleteCustomer(String customerId) {
-		notNull(customerId, "[Assertion failed] - customerId argument must be null");
+		notNull(customerId, "customerId");
 		return restResource.request()
 				.pathSegment("customers", customerId)
 				.delete();

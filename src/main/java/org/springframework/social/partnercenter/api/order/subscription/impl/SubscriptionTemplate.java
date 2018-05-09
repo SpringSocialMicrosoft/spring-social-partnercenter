@@ -2,7 +2,7 @@ package org.springframework.social.partnercenter.api.order.subscription.impl;
 
 import static org.springframework.social.partnercenter.api.order.subscription.SubscriptionStatus.ACTIVE;
 import static org.springframework.social.partnercenter.api.order.subscription.SubscriptionStatus.SUSPENDED;
-import static org.springframework.util.Assert.notNull;
+import static org.springframework.social.partnercenter.api.validation.Assertion.notNull;
 
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.ResponseEntity;
@@ -30,8 +30,8 @@ public class SubscriptionTemplate extends PagingResourceTemplate<Subscription> i
 
 	@Override
 	public ResponseEntity<Subscription> getById(String customerId, String subscriptionId) {
-		notNull(customerId, "[Assertion failed] - customerId argument must be null");
-		notNull(subscriptionId, "[Assertion failed] - subscriptionId argument must be null");
+		notNull(customerId, "customerId");
+		notNull(subscriptionId, "subscriptionId");
 
 		return restResource.request()
 				.pathSegment(customerId, SUBSCRIPTIONS, subscriptionId)
@@ -40,7 +40,7 @@ public class SubscriptionTemplate extends PagingResourceTemplate<Subscription> i
 
 	@Override
 	public ResponseEntity<PartnerCenterResponse<Subscription>> getCustomersSubscriptions(String customerId) {
-		notNull(customerId, "[Assertion failed] - customerId argument must be null");
+		notNull(customerId, "customerId");
 		return restResource.request()
 				.pathSegment(customerId, SUBSCRIPTIONS)
 				.get(new ParameterizedTypeReference<PartnerCenterResponse<Subscription>>(){});
@@ -48,8 +48,8 @@ public class SubscriptionTemplate extends PagingResourceTemplate<Subscription> i
 
 	@Override
 	public ResponseEntity<PartnerCenterResponse<Subscription>> getSubscriptionsByOrderId(String customerId, String orderId) {
-		notNull(customerId, "[Assertion failed] - customerId argument must be null");
-		notNull(orderId, "[Assertion failed] - orderId argument must be null");
+		notNull(customerId, "customerId");
+		notNull(orderId, "orderId");
 
 		return restResource.request()
 				.pathSegment(customerId, SUBSCRIPTIONS)
@@ -59,8 +59,8 @@ public class SubscriptionTemplate extends PagingResourceTemplate<Subscription> i
 
 	@Override
 	public ResponseEntity<PartnerCenterResponse<Subscription>> getAddOnsForBySubscriptionId(String customerId, String subscriptionId) {
-		notNull(customerId, "[Assertion failed] - customerId argument must be null");
-		notNull(subscriptionId, "[Assertion failed] - subscriptionId argument must be null");
+		notNull(customerId, "customerId");
+		notNull(subscriptionId, "subscriptionId");
 
 		return restResource.request()
 				.pathSegment(customerId, SUBSCRIPTIONS, subscriptionId, "addons")
@@ -69,9 +69,9 @@ public class SubscriptionTemplate extends PagingResourceTemplate<Subscription> i
 
 	@Override
 	public ResponseEntity<Subscription> updateSubscription(String customerId, String subscriptionId, Subscription subscription) {
-		notNull(customerId, "[Assertion failed] - customerId argument must be null");
-		notNull(subscriptionId, "[Assertion failed] - subscriptionId argument must be null");
-		notNull(subscription, "[Assertion failed] - subscription argument must be null");
+		notNull(customerId, "customerId");
+		notNull(subscriptionId, "subscriptionId");
+		notNull(subscription, "subscription");
 
 		return restResource.request()
 				.pathSegment(customerId, SUBSCRIPTIONS, subscriptionId)
@@ -80,8 +80,8 @@ public class SubscriptionTemplate extends PagingResourceTemplate<Subscription> i
 
 	@Override
 	public ResponseEntity<Subscription> suspendSubscription(String customerId, String subscriptionId) {
-		notNull(customerId, "[Assertion failed] - customerId argument must be null");
-		notNull(subscriptionId, "[Assertion failed] - subscriptionId argument must be null");
+		notNull(customerId, "customerId");
+		notNull(subscriptionId, "subscriptionId");
 
 		ResponseEntity<Subscription> subscription = getById(customerId, subscriptionId);
 		subscription.getBody().setStatus(SUSPENDED);
@@ -90,8 +90,8 @@ public class SubscriptionTemplate extends PagingResourceTemplate<Subscription> i
 
 	@Override
 	public ResponseEntity<Subscription> reactivateSubscription(String customerId, String subscriptionId) {
-		notNull(customerId, "[Assertion failed] - customerId argument must be null");
-		notNull(subscriptionId, "[Assertion failed] - subscriptionId argument must be null");
+		notNull(customerId, "customerId");
+		notNull(subscriptionId, "subscriptionId");
 
 		ResponseEntity<Subscription> subscription = getById(customerId, subscriptionId);
 		subscription.getBody().setStatus(ACTIVE);
@@ -100,8 +100,8 @@ public class SubscriptionTemplate extends PagingResourceTemplate<Subscription> i
 
 	@Override
 	public ResponseEntity<PartnerCenterResponse<Subscription>> getAllSubscriptionsForPartner(String customerId, String mpnId, int offset, int size) {
-		notNull(customerId, "[Assertion failed] - customerId argument must be null");
-		notNull(mpnId, "[Assertion failed] - mpnId argument must be null");
+		notNull(customerId, "customerId");
+		notNull(mpnId, "mpnId");
 
 		return restResource.request()
 				.pathSegment(customerId, SUBSCRIPTIONS)
@@ -114,8 +114,8 @@ public class SubscriptionTemplate extends PagingResourceTemplate<Subscription> i
 
 	@Override
 	public ResponseEntity<Subscription> updateSubscriptionQuantity(String customerId, String subscriptionId, int qty) {
-		notNull(customerId, "[Assertion failed] - customerId argument must be null");
-		notNull(subscriptionId, "[Assertion failed] - subscriptionId argument must be null");
+		notNull(customerId, "customerId");
+		notNull(subscriptionId, "subscriptionId");
 
 		ResponseEntity<Subscription> subscription = getById(customerId, subscriptionId);
 		subscription.getBody().setQuantity(qty);

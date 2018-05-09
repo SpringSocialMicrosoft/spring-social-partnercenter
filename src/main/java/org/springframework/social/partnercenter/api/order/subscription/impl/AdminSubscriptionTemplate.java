@@ -1,6 +1,6 @@
 package org.springframework.social.partnercenter.api.order.subscription.impl;
 
-import static org.springframework.util.Assert.notNull;
+import static org.springframework.social.partnercenter.api.validation.Assertion.notNull;
 
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.ResponseEntity;
@@ -23,8 +23,8 @@ public class AdminSubscriptionTemplate extends SubscriptionTemplate implements A
 
 	@Override
 	public ResponseEntity<PartnerCenterResponse<Conversion>> conversions(String customerId, String subscriptionId) {
-		notNull(customerId, "[Assertion failed] - customerId argument must be null");
-		notNull(subscriptionId, "[Assertion failed] - subscriptionId argument must be null");
+		notNull(customerId, "customerId");
+		notNull(subscriptionId, "subscriptionId");
 		return restResource.request()
 				.pathSegment(customerId, SUBSCRIPTIONS, subscriptionId, CONVERSIONS)
 				.get(new ParameterizedTypeReference<PartnerCenterResponse<Conversion>>() {});
@@ -32,9 +32,9 @@ public class AdminSubscriptionTemplate extends SubscriptionTemplate implements A
 
 	@Override
 	public ResponseEntity<ConversionResult> convertTrial(String customerId, String subscriptionId, Conversion conversion) {
-		notNull(customerId, "[Assertion failed] - customerId argument must be null");
-		notNull(subscriptionId, "[Assertion failed] - subscriptionId argument must be null");
-		notNull(conversion, "[Assertion failed] - conversion argument must be null");
+		notNull(customerId, "customerId");
+		notNull(subscriptionId, "subscriptionId");
+		notNull(conversion, "conversion");
 
 		return restResource.request()
 				.pathSegment(customerId, SUBSCRIPTIONS, subscriptionId, CONVERSIONS)
@@ -43,8 +43,8 @@ public class AdminSubscriptionTemplate extends SubscriptionTemplate implements A
 
 	@Override
 	public ResponseEntity<PartnerCenterResponse<Upgrade>> getAvailableUpgrades(String customerId, String subscriptionId) {
-		notNull(customerId, "[Assertion failed] - customerId argument must be null");
-		notNull(subscriptionId, "[Assertion failed] - subscriptionId argument must be null");
+		notNull(customerId, "customerId");
+		notNull(subscriptionId, "subscriptionId");
 		return restResource.request()
 				.pathSegment(customerId, SUBSCRIPTIONS, subscriptionId, "upgrades")
 				.get(new ParameterizedTypeReference<PartnerCenterResponse<Upgrade>>() {});
@@ -52,10 +52,10 @@ public class AdminSubscriptionTemplate extends SubscriptionTemplate implements A
 
 	@Override
 	public ResponseEntity<UpgradeResult> upgradeSubscription(String customerId, String sourceSubscriptionId, Upgrade upgrade) {
-		notNull(customerId, "[Assertion failed] - customerId argument must be null");
-		notNull(sourceSubscriptionId, "[Assertion failed] - sourceSubscriptionId argument must be null");
-		notNull(upgrade, "[Assertion failed] - upgrade argument must be null");
-		
+		notNull(customerId, "customerId");
+		notNull(sourceSubscriptionId, "sourceSubscriptionId");
+		notNull(upgrade, "upgrade");
+
 		return restResource.request()
 				.pathSegment(customerId, SUBSCRIPTIONS, sourceSubscriptionId, "upgrades")
 				.post(upgrade, UpgradeResult.class);

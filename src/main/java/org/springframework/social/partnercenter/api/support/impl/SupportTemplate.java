@@ -1,6 +1,6 @@
 package org.springframework.social.partnercenter.api.support.impl;
 
-import static org.springframework.util.Assert.notNull;
+import static org.springframework.social.partnercenter.api.validation.Assertion.notNull;
 
 import java.util.Locale;
 
@@ -32,8 +32,8 @@ public class SupportTemplate extends AbstractTemplate implements SupportOperatio
 
 	@Override
 	public ResponseEntity<SupportContact> getSupportContact(String customerId, String subscriptionId) {
-		notNull(customerId, "[Assertion failed] - customerId argument must be null");
-		notNull(subscriptionId, "[Assertion failed] - subscriptionId argument must be null");
+		notNull(customerId, "customerId");
+		notNull(subscriptionId, "subscriptionId");
 		return restResource.request()
 				.pathSegment(CUSTOMERS, customerId, SUBSCRIPTIONS, subscriptionId, SUPPORT_CONTACT)
 				.get(SupportContact.class);
@@ -41,9 +41,9 @@ public class SupportTemplate extends AbstractTemplate implements SupportOperatio
 
 	@Override
 	public ResponseEntity<SupportContact> updateSupportContact(String customerId, String subscriptionId, SupportContact supportContact) {
-		notNull(customerId, "[Assertion failed] - customerId argument must be null");
-		notNull(subscriptionId, "[Assertion failed] - subscriptionId argument must be null");
-		notNull(supportContact, "[Assertion failed] - supportContact argument must be null");
+		notNull(customerId, "customerId");
+		notNull(subscriptionId, "subscriptionId");
+		notNull(supportContact, "supportContact");
 		return restResource.request()
 				.pathSegment(CUSTOMERS, customerId, SUBSCRIPTIONS, subscriptionId, SUPPORT_CONTACT)
 				.put(supportContact, SupportContact.class);
@@ -65,7 +65,7 @@ public class SupportTemplate extends AbstractTemplate implements SupportOperatio
 
 	@Override
 	public ResponseEntity<PartnerCenterResponse<ServiceRequest>> getServiceRequests(String customerId) {
-		notNull(customerId, "[Assertion failed] - customerId argument must be null");
+		notNull(customerId, "customerId");
 		return restResource.request()
 				.pathSegment(CUSTOMERS, customerId, SERVICE_REQUESTS)
 				.get(new ParameterizedTypeReference<PartnerCenterResponse<ServiceRequest>>() {});
@@ -73,7 +73,7 @@ public class SupportTemplate extends AbstractTemplate implements SupportOperatio
 
 	@Override
 	public ResponseEntity<ServiceRequest> updateServiceRequest(ServiceRequest serviceRequest) {
-		notNull(serviceRequest, "[Assertion failed] - serviceRequest argument must be null");
+		notNull(serviceRequest, "serviceRequest");
 		return restResource.request()
 				.pathSegment(SERVICE_REQUESTS, serviceRequest.getId())
 				.patch(serviceRequest, ServiceRequest.class);
@@ -81,8 +81,8 @@ public class SupportTemplate extends AbstractTemplate implements SupportOperatio
 
 	@Override
 	public ResponseEntity<ServiceRequest> createServiceRequest(ServiceRequest serviceRequest, Locale locale) {
-		notNull(serviceRequest, "[Assertion failed] - serviceRequest argument must be null");
-		notNull(locale, "[Assertion failed] - locale argument must be null");
+		notNull(serviceRequest, "serviceRequest");
+		notNull(locale, "locale");
 		return restResource.request()
 				.pathSegment(SERVICE_REQUESTS, locale.toLanguageTag())
 				.post(serviceRequest, ServiceRequest.class);
