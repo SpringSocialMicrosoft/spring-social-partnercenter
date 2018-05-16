@@ -7,6 +7,7 @@ import org.springframework.social.partnercenter.api.customer.user.role.Directory
 import org.springframework.social.partnercenter.api.customer.user.role.RoleOperations;
 import org.springframework.social.partnercenter.api.order.AdminOrderOperations;
 import org.springframework.social.partnercenter.api.order.subscription.AdminSubscriptionOperations;
+import org.springframework.social.partnercenter.api.partner.AdminPartnerOperations;
 import org.springframework.social.partnercenter.api.relationships.AdminRelationshipOperations;
 import org.springframework.social.partnercenter.api.support.SupportOperations;
 
@@ -21,6 +22,7 @@ public interface PartnerCenterAdmin extends PartnerCenter {
 	SupportOperations getSupportOperations();
 	DirectoryRoleOperations getDirectoryRoleOperations();
 	RoleOperations getRoleOperations();
+	AdminPartnerOperations getPartnerOperations();
 
 	AdminRelationshipOperations getRelationshipOperations();
 }
