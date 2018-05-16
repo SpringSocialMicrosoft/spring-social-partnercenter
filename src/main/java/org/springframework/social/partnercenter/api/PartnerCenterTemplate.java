@@ -1,6 +1,7 @@
 package org.springframework.social.partnercenter.api;
 
 import java.net.URI;
+import java.util.Locale;
 import java.util.stream.IntStream;
 
 import org.springframework.http.client.BufferingClientHttpRequestFactory;
@@ -31,6 +32,7 @@ import org.springframework.social.partnercenter.api.profile.impl.ProfileTemplate
 import org.springframework.social.partnercenter.api.uri.UriProvider;
 import org.springframework.social.partnercenter.api.utilities.UtilityOperations;
 import org.springframework.social.partnercenter.api.utilities.impl.UtilityTemplate;
+import org.springframework.social.partnercenter.connect.AddHeaderRequestInterceptor;
 import org.springframework.social.partnercenter.connect.ApiVersionParameterRequestInterceptor;
 import org.springframework.social.partnercenter.http.client.RestClient;
 import org.springframework.social.partnercenter.http.client.RestResource;
@@ -169,6 +171,12 @@ public class PartnerCenterTemplate extends AbstractOAuth2ApiBinding implements P
 			getRestTemplate().getInterceptors()
 					.add(new LoggingRequestInterceptor(HttpRequestResponseLoggerFactory.createSlf4jApiLogger(getClass(), level)));
 		}
+	}
+
+	@Override
+	public void setLocale(Locale locale) {
+		getRestTemplate().getInterceptors().removeIf(AddHeaderRequestInterceptor.class::isInstance);
+		getRestTemplate().getInterceptors().add(new AddHeaderRequestInterceptor("X-Locale", locale.toLanguageTag()));
 	}
 
 	@Override
