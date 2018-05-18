@@ -9,6 +9,7 @@ import org.springframework.social.oauth2.AccessGrant;
 import org.springframework.social.oauth2.OAuth2Operations;
 import org.springframework.social.partnercenter.PartnerCenter;
 import org.springframework.social.partnercenter.connect.admin.PartnerCenterAdminConnection;
+import org.springframework.social.partnercenter.http.logging.LogLevel;
 import org.springframework.social.partnercenter.security.AzureADAuthOperations;
 import org.springframework.social.partnercenter.security.PartnerCenterAccessGrant;
 import org.springframework.social.partnercenter.security.PartnerCenterServiceProvider;
@@ -69,6 +70,10 @@ public class BasePartnerCenterConnectionFactory extends ConnectionFactory<Partne
 		} catch (Exception e) {
 			return null;
 		}
+	}
+
+	public void enableSl4fjForAuthRequests(LogLevel logLevel){
+		getAuthOperations().enableSlf4j(logLevel);
 	}
 
 	// internal helpers
