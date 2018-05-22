@@ -18,7 +18,7 @@ public class PartnerCenterUserConnectionFactory extends BasePartnerCenterConnect
 	}
 
 	public PartnerCenterUserConnectionFactory(String clientId, String domain, SecurityRegion region){
-		super(PartnerCenter.PROVIDER_ID, new PartnerCenterServiceProvider(clientId, null, domain, region), new PartnerCenterApiAdapter());
+		super(PartnerCenter.PROVIDER_ID, new PartnerCenterServiceProvider(null, null, clientId, domain, "v1", region), new PartnerCenterApiAdapter());
 	}
 
 	public PartnerCenterAdminConnection createConnection(String username, String password){

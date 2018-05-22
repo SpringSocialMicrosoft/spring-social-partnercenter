@@ -17,34 +17,41 @@ public class PartnerCenterServiceProvider extends AbstractAzureADServiceProvider
 	private final UriProvider uriProvider;
 
 	public PartnerCenterServiceProvider(String clientId, String clientSecret, String domain){
-		super(new AzureADAuthTemplate(clientId, clientSecret, domain, DEFAULT_URL_PROVIDER));
+		super(new AzureADAuthTemplate(clientId, clientSecret, null, domain, DEFAULT_URL_PROVIDER));
 		apiVersion = DEFAULT_API_VERSION;
 		this.uriProvider = DEFAULT_URL_PROVIDER;
 	}
 
 	public PartnerCenterServiceProvider(String clientId, String clientSecret, String domain, SecurityRegion securityRegion){
-		super(new AzureADAuthTemplate(clientId, clientSecret, domain, UriProvider.fromSecurityRegion(securityRegion)));
+		super(new AzureADAuthTemplate(clientId, clientSecret, null, domain, UriProvider.fromSecurityRegion(securityRegion)));
 		apiVersion = DEFAULT_API_VERSION;
 		this.uriProvider = UriProvider.fromSecurityRegion(securityRegion);
 	}
 
 	@Deprecated
 	public PartnerCenterServiceProvider(String clientId, String clientSecret, String nativeAppId, String domain, String authority, String resourceUrl, String partnerServiceApiRoot){
-		super(new AzureADAuthTemplate(clientId, clientSecret, domain, authority, resourceUrl, partnerServiceApiRoot));
+		super(new AzureADAuthTemplate(clientId, clientSecret, nativeAppId, domain, authority, resourceUrl, partnerServiceApiRoot));
 		apiVersion = DEFAULT_API_VERSION;
 		uriProvider = UriProvider.builder().authority(authority).partnerServiceApiRoot(partnerServiceApiRoot).resourceUrl(resourceUrl).build();
 	}
 
 	public PartnerCenterServiceProvider(String clientId, String clientSecret, String domain, String apiVersion, SecurityRegion region){
-		super(new AzureADAuthTemplate(clientId, clientSecret, domain, fromSecurityRegion(region)));
+		super(new AzureADAuthTemplate(clientId, clientSecret, null, domain, fromSecurityRegion(region)));
 		uriProvider = UriProvider.fromSecurityRegion(region);
 		this.apiVersion = apiVersion;
 	}
 
 	@Deprecated
 	public PartnerCenterServiceProvider(String clientId, String clientSecret, String nativeAppId, String domain, String apiVersion, String authority, String resourceUrl, String partnerServiceApiRoot){
-		super(new AzureADAuthTemplate(clientId, clientSecret, domain, authority, resourceUrl, partnerServiceApiRoot));
+		super(new AzureADAuthTemplate(clientId, clientSecret, nativeAppId, domain, authority, resourceUrl, partnerServiceApiRoot));
 		uriProvider = UriProvider.builder().authority(authority).partnerServiceApiRoot(partnerServiceApiRoot).resourceUrl(resourceUrl).build();
+		this.apiVersion = apiVersion;
+	}
+
+	@Deprecated
+	public PartnerCenterServiceProvider(String clientId, String clientSecret, String nativeAppId, String domain, String apiVersion, SecurityRegion region){
+		super(new AzureADAuthTemplate(clientId, clientSecret, nativeAppId, domain, region.getAuthority(), region.getResourceUrl(), region.getPartnerServiceApiRoot()));
+		uriProvider = UriProvider.fromSecurityRegion(region);
 		this.apiVersion = apiVersion;
 	}
 

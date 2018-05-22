@@ -1,5 +1,6 @@
 package org.springframework.social.partnercenter.api.customer;
 
+import java.util.Collection;
 import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -20,6 +21,8 @@ public class Customer {
 	private CustomerPartnerRelationship relationshipToPartner;
 	@JsonProperty("userCredentials")
 	private UserCredentials userCredentials;
+	@JsonProperty("customDomains")
+	private Collection<String> customDomains;
 	@JsonProperty("attributes")
 	private Map<String, String> attributes;
 
@@ -79,4 +82,11 @@ public class Customer {
 		this.attributes = attributes;
 	}
 
+	public Collection<String> getCustomDomains() {
+		return customDomains;
+	}
+
+	public void setCustomDomains(Collection<String> customDomains) {
+		this.customDomains = customDomains;
+	}
 }
