@@ -1,6 +1,8 @@
 package org.springframework.social.partnercenter.api.customer.impl;
 
-import static org.springframework.social.partnercenter.api.customer.query.Operator.STARTS_WITH;
+import static org.springframework.social.partnercenter.api.customer.CustomerSearchField.COMPANY_NAME;
+import static org.springframework.social.partnercenter.api.customer.CustomerSearchField.DOMAIN;
+import static org.springframework.social.partnercenter.api.query.Operator.STARTS_WITH;
 import static org.springframework.social.partnercenter.api.validation.Assertion.notNull;
 
 import org.springframework.core.ParameterizedTypeReference;
@@ -11,10 +13,9 @@ import org.springframework.social.partnercenter.api.PartnerCenterResponse;
 import org.springframework.social.partnercenter.api.customer.Customer;
 import org.springframework.social.partnercenter.api.customer.CustomerCompanyProfile;
 import org.springframework.social.partnercenter.api.customer.CustomerOperations;
-import org.springframework.social.partnercenter.api.customer.query.Filter;
 import org.springframework.social.partnercenter.api.order.subscription.Subscription;
+import org.springframework.social.partnercenter.api.query.Filter;
 import org.springframework.social.partnercenter.http.client.RestResource;
-import org.springframework.social.partnercenter.serialization.Json;
 
 public class CustomerTemplate extends PagingResourceTemplate<Customer> implements CustomerOperations {
 	private RestResource restResource;
@@ -44,7 +45,7 @@ public class CustomerTemplate extends PagingResourceTemplate<Customer> implement
 		notNull(domain, "domain");
 		return restResource.request()
 				.queryParam("size", size)
-				.queryParam("filter", Json.toJson(Filter.builder().field("Domain").operator(STARTS_WITH).value(domain).build()))
+				.queryParam("filter", Filter.create(DOMAIN, STARTS_WITH, domain))
 				.get(new ParameterizedTypeReference<PartnerCenterResponse<Customer>>() {});
 	}
 
@@ -53,7 +54,7 @@ public class CustomerTemplate extends PagingResourceTemplate<Customer> implement
 		notNull(companyName, "companyName");
 		return restResource.request()
 				.queryParam("size", size)
-				.queryParam("filter", Json.toJson(Filter.builder().value(companyName).operator(STARTS_WITH).field("CompanyName").build()))
+				.queryParam("filter", Filter.create(COMPANY_NAME, STARTS_WITH, companyName))
 				.get(new ParameterizedTypeReference<PartnerCenterResponse<Customer>>() {});
 	}
 

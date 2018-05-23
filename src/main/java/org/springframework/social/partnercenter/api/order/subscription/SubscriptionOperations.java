@@ -3,8 +3,6 @@ package org.springframework.social.partnercenter.api.order.subscription;
 import org.springframework.http.ResponseEntity;
 import org.springframework.social.partnercenter.api.PagingResourceOperations;
 import org.springframework.social.partnercenter.api.PartnerCenterResponse;
-import org.springframework.social.partnercenter.api.order.subscription.upgrade.Upgrade;
-import org.springframework.social.partnercenter.api.order.subscription.upgrade.UpgradeResult;
 
 public interface SubscriptionOperations extends PagingResourceOperations<Subscription>{
 	ResponseEntity<Subscription> getById(String customerTenantId, String id);
@@ -14,7 +12,7 @@ public interface SubscriptionOperations extends PagingResourceOperations<Subscri
 	ResponseEntity<Subscription> updateSubscription(String customerId, String subscriptionId, Subscription subscription);
 	ResponseEntity<Subscription> suspendSubscription(String customerId, String subscriptionId);
 	ResponseEntity<Subscription> reactivateSubscription(String customerId, String subscriptionId);
-	ResponseEntity<PartnerCenterResponse<Subscription>> getAllSubscriptionsForPartner(String customerId, String mpnId, int offset, int size);
+	ResponseEntity<PartnerCenterResponse<Subscription>> getAllSubscriptionsForPartner(String customerId, String mpnId);
 
 	/**
 	 * Updates a subscription to increase or decrease the number of subscriptions.
