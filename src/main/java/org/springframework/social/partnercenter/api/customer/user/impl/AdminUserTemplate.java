@@ -9,6 +9,7 @@ import org.springframework.social.partnercenter.api.PartnerCenterResponse;
 import org.springframework.social.partnercenter.api.customer.user.AdminUserOperations;
 import org.springframework.social.partnercenter.api.customer.user.CustomerUser;
 import org.springframework.social.partnercenter.api.customer.user.License;
+import org.springframework.social.partnercenter.api.customer.user.UserState;
 import org.springframework.social.partnercenter.api.customer.user.request.CustomerUserAssignLicenses;
 import org.springframework.social.partnercenter.api.query.Filter;
 import org.springframework.social.partnercenter.http.client.RestResource;
@@ -80,6 +81,12 @@ public class AdminUserTemplate extends UserTemplate implements AdminUserOperatio
 	@Override
 	public ResponseEntity deleteUser(String customerTenantId, String userId) {
 		return restResource.request().pathSegment(customerTenantId, "users", userId).delete();
+	}
+
+	@Override
+	public ResponseEntity<CustomerUser> restoreDeletedUser(String customerTenantId, String userId) {
+		return restResource.request().pathSegment(customerTenantId, "users", userId)
+				.patch(CustomerUser.builder().state(UserState.ACTIVE).build(), CustomerUser.class);
 	}
 
 	@Override

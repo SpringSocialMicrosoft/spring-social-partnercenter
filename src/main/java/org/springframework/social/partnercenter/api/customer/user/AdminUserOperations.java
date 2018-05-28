@@ -14,6 +14,7 @@ public interface AdminUserOperations extends UserOperations{
 	ResponseEntity<CustomerUser> updateUser(String customerTenantId, CustomerUser request);
 	ResponseEntity<CustomerUser> updateUser(String customerTenantId, CustomerUser request, String userId);
 	ResponseEntity deleteUser(String customerTenantId, String userId);
+	ResponseEntity<CustomerUser> restoreDeletedUser(String customerTenantId, String userId);
 	ResponseEntity<CustomerUser> updateUserPassword(String customerTenantId, String userId, CustomerUser request);
 	/**
 	 * Gets a list of deleted CustomerUser resources for a customer by customer ID.
