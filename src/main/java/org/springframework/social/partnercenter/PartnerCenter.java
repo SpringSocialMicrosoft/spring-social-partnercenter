@@ -1,5 +1,7 @@
 package org.springframework.social.partnercenter;
 
+import java.util.Locale;
+
 import org.springframework.social.ApiBinding;
 import org.springframework.social.partnercenter.api.audit.AuditOperations;
 import org.springframework.social.partnercenter.api.billing.invoicing.InvoiceOperations;
@@ -28,6 +30,7 @@ public interface PartnerCenter extends ApiBinding {
 	UserOperations getUserOperations();
 	AuditOperations getAuditOperations();
 	void enableSlf4j(LogLevel level);
+	void setLocale(Locale locale);
 	boolean isSlf4jEnabled();
 	String getDomain();
 }

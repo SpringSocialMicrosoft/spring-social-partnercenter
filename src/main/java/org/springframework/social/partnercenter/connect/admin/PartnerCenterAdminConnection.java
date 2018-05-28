@@ -1,9 +1,12 @@
 package org.springframework.social.partnercenter.connect.admin;
 
+import static java.util.Optional.ofNullable;
+
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.util.Locale;
 
 import org.springframework.social.ExpiredAuthorizationException;
 import org.springframework.social.connect.ApiAdapter;
@@ -14,9 +17,11 @@ import org.springframework.social.oauth2.AccessGrant;
 import org.springframework.social.oauth2.OAuth2Parameters;
 import org.springframework.social.partnercenter.PartnerCenter;
 import org.springframework.social.partnercenter.PartnerCenterAdmin;
+import org.springframework.social.partnercenter.api.validation.Assertion;
+import org.springframework.social.partnercenter.connect.LocalizedConnection;
 import org.springframework.social.partnercenter.security.PartnerCenterServiceProvider;
 
-public class PartnerCenterAdminConnection extends AbstractConnection<PartnerCenter> {
+public class PartnerCenterAdminConnection extends AbstractConnection<PartnerCenter> implements LocalizedConnection {
 
 	private String accessToken;
 	private String refreshToken;
@@ -88,6 +93,22 @@ public class PartnerCenterAdminConnection extends AbstractConnection<PartnerCent
 				return adminApi;
 			}
 		}
+	}
+
+	@Override
+	public PartnerCenterAdmin getApi(Locale locale) {
+		Assertion.notNull(locale, "locale");
+		return ofNullable(adminApiProxy)
+				.map(proxy -> {
+					proxy.setLocale(locale);
+					return proxy;
+				})
+				.orElseGet(() -> {
+					synchronized (getMonitor()) {
+						adminApi.setLocale(locale);
+						return adminApi;
+					}
+				});
 	}
 
 	@Override

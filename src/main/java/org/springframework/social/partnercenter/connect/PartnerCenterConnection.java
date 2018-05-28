@@ -4,6 +4,7 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.util.Locale;
 
 import org.springframework.core.GenericTypeResolver;
 import org.springframework.social.ExpiredAuthorizationException;
@@ -13,9 +14,10 @@ import org.springframework.social.connect.ConnectionData;
 import org.springframework.social.connect.support.AbstractConnection;
 import org.springframework.social.oauth2.AccessGrant;
 import org.springframework.social.partnercenter.PartnerCenter;
+import org.springframework.social.partnercenter.api.validation.Assertion;
 import org.springframework.social.partnercenter.security.PartnerCenterServiceProvider;
 
-public class PartnerCenterConnection extends AbstractConnection<PartnerCenter> {
+public class PartnerCenterConnection extends AbstractConnection<PartnerCenter> implements LocalizedConnection{
 	private static final long serialVersionUID = 4057584084077577480L;
 
 	private transient final PartnerCenterServiceProvider serviceProvider;
@@ -70,6 +72,20 @@ public class PartnerCenterConnection extends AbstractConnection<PartnerCenter> {
 			return apiProxy;
 		} else {
 			synchronized (getMonitor()) {
+				return api;
+			}
+		}
+	}
+
+	@Override
+	public PartnerCenter getApi(Locale locale) {
+		Assertion.notNull(locale, "locale");
+		if (apiProxy != null) {
+			apiProxy.setLocale(locale);
+			return apiProxy;
+		} else {
+			synchronized (getMonitor()) {
+				api.setLocale(locale);
 				return api;
 			}
 		}
