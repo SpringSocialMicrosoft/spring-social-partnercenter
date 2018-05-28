@@ -66,7 +66,7 @@ public class Filter {
 	}
 
 	/**
-	 * @deprecated Please use {@link Filter::of}. As all properties are required it makes more sense to only allow creation in ways that enforce this.
+	 * @deprecated Please use {@link Filter#of(String, Operator, String)}. As all properties are required it makes more sense to only allow creation in ways that enforce this.
 	 * @return a new {@link Filter}
 	 */
 	@Deprecated
