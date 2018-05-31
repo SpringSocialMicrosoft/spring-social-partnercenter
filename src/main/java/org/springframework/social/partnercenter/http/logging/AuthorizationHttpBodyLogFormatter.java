@@ -56,7 +56,7 @@ public class AuthorizationHttpBodyLogFormatter implements HttpBodyLogFormatter {
 
 	private String obfuscateSensitiveFieldsInRequest(String bodyString) {
 		final List<NameValuePair> obfuscatedBody = URLEncodedUtils.parse(bodyString, UTF_8).stream().map(pair -> {
-			if (asList("client_secret", "password").contains(pair.getName())) {
+			if (asList("client_secret", "password", "refresh_token").contains(pair.getName())) {
 				return new BasicNameValuePair(pair.getName(), "*");
 			}
 			return pair;

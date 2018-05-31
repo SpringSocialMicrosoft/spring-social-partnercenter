@@ -18,11 +18,21 @@ import net.minidev.json.JSONObject;
 public class AuthorizationHttpBodyLogFormatterTest {
 
 	@Test
-	public void testFormatResquestLogs_whenFormattingRequestBody_theCorrectFieldsAreObfuscated() {
+	public void testFormatRequestLogs_whenFormattingRequestBody_theCorrectFieldsAreObfuscated() {
 		String requestBody = "grant_type=password&username=paul.smelser%40gmail.com&password=password1234&client_id=asdfjklfgdhsjakfdsa&client_secret=bhfdksafdhsafdsa=";
 		String expectedBody = requestBody
 				.replace("password1234", "*")
 				.replace("bhfdksafdhsafdsa=", "*");
+		final String result = new AuthorizationHttpBodyLogFormatter().formatRequestLogs(requestBody.getBytes());
+		assertThat(result).isEqualTo("Body:\n\t"+ expectedBody);
+	}
+
+	@Test
+	public void testFormatRequestLogs_whenFormattingRequestBodyWithRefreshToken_theCorrectFieldsAreObfuscated() {
+		final String refreshToken = "hfjkdlshafhdsavghfbdsjfklhdsajfkldsabfbdsajhklfdsa";
+		String requestBody = "grant_type=refresh_token&refresh_token=" + refreshToken + "&client_id=asdfjklfgdhsjakfdsa&scope=openid";
+		String expectedBody = requestBody
+				.replace("hfjkdlshafhdsavghfbdsjfklhdsajfkldsabfbdsajhklfdsa", "*");
 		final String result = new AuthorizationHttpBodyLogFormatter().formatRequestLogs(requestBody.getBytes());
 		assertThat(result).isEqualTo("Body:\n\t"+ expectedBody);
 	}
