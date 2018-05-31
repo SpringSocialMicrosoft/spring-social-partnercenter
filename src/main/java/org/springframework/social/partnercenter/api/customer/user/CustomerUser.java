@@ -36,7 +36,7 @@ public class CustomerUser extends User{
 		private PasswordProfile passwordProfile;
 		private String lastDirectorySyncTime;
 		private ResourceAttributes attributes;
-		private String userDomainType;
+		private UserDomainType userDomainType;
 		private UserState state;
 		private String softDeletionTime;
 		private String usageLocation;
@@ -81,7 +81,7 @@ public class CustomerUser extends User{
 			return this;
 		}
 
-		public Builder userDomainType(String userDomainType) {
+		public Builder userDomainType(UserDomainType userDomainType) {
 			this.userDomainType = userDomainType;
 			return this;
 		}

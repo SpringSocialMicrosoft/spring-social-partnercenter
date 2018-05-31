@@ -5,8 +5,9 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import org.junit.Test;
 import org.springframework.social.connect.ConnectionFactory;
-import org.springframework.social.partnercenter.PartnerCenter;
 import org.springframework.social.connect.support.MultiTenantConnectionFactoryRegistry;
+import org.springframework.social.partnercenter.PartnerCenter;
+import org.springframework.social.partnercenter.api.uri.SecurityRegion;
 
 public class MultiTenantConnectionFactoryRegistryTest {
 
@@ -98,7 +99,7 @@ public class MultiTenantConnectionFactoryRegistryTest {
 	}
 
 	private PartnerCenterConnectionFactory createTestConnectionFactory() {
-		return new PartnerCenterConnectionFactory("applicationId", "applicationSecret", "clientSecret", "tenant");
+		return new PartnerCenterConnectionFactory("applicationId", "applicationSecret", "clientSecret", SecurityRegion.USA);
 	}
 
 

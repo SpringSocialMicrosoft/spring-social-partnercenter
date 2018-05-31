@@ -14,7 +14,7 @@ public class User extends ResourceBaseWithLinks<StandardResourceLinks> {
 	private String displayName;
 	private PasswordProfile passwordProfile;
 	private String lastDirectorySyncTime;
-	private String userDomainType;
+	private UserDomainType userDomainType;
 	private UserState state;
 	private String softDeletionTime;
 
@@ -73,11 +73,11 @@ public class User extends ResourceBaseWithLinks<StandardResourceLinks> {
 	public void setLastDirectorySyncTime(String lastDirectorySyncTime) {
 		this.lastDirectorySyncTime = lastDirectorySyncTime;
 	}
-	public String getUserDomainType() {
+	public UserDomainType getUserDomainType() {
 		return userDomainType;
 	}
 
-	public void setUserDomainType(String userDomainType) {
+	public void setUserDomainType(UserDomainType userDomainType) {
 		this.userDomainType = userDomainType;
 	}
 

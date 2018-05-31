@@ -21,9 +21,22 @@ public class UriProvider {
 		this.partnerServiceApiRoot = partnerServiceApiRoot;
 	}
 
-	private UriProvider() {}
+	private UriProvider() {
+	}
 
-	public String buildPartnerCenterOAuth2Uri(String tenantId){
+	public static UriProvider fromSecurityRegion(SecurityRegion region) {
+		return UriProvider.builder()
+				.authority(region.getAuthority())
+				.resourceUrl(region.getResourceUrl())
+				.partnerServiceApiRoot(region.getPartnerServiceApiRoot())
+				.build();
+	}
+
+	public static UriProviderBuilder builder() {
+		return new UriProviderBuilder();
+	}
+
+	public String buildPartnerCenterOAuth2Uri(String tenantId) {
 		this.domain = tenantId;
 		return UriComponentsBuilder.fromUriString(authority)
 				.pathSegment(tenantId)
@@ -33,41 +46,45 @@ public class UriProvider {
 				.toString();
 	}
 
-	public  String getResourceUri(){
+	public String getAppResource() {
 		return resourceUrl;
 	}
 
-	public  String getPartnerServiceApiRoot(){
+	public String getUserPlusAppResource() {
+		return resourceUrl;
+	}
+
+	public String getPartnerServiceApiRoot() {
 		return partnerServiceApiRoot;
 	}
 
-	public String getAuthority(){
+	public String getAuthority() {
 		return authority;
 	}
 
-	public  String buildPartnerCenterTokenUri(){
+	public String buildPartnerCenterTokenUri() {
 		return UriComponentsBuilder.fromUriString(partnerServiceApiRoot)
 				.pathSegment("generatetoken")
 				.build().toString();
 	}
 
-	public  UriComponentsBuilder partnerCenterBuilder(){
-		return UriComponentsBuilder.fromUriString(partnerServiceApiRoot);
-	}
-
-	public  UriComponentsBuilder partnerCenterInvoiceUri(){
+	public UriComponentsBuilder partnerCenterInvoiceUri() {
 		return partnerCenterBuilder().pathSegment("v1", "invoices");
 	}
 
-	public  UriComponentsBuilder partnerCenterPricingUri(){
+	public UriComponentsBuilder partnerCenterBuilder() {
+		return UriComponentsBuilder.fromUriString(partnerServiceApiRoot);
+	}
+
+	public UriComponentsBuilder partnerCenterPricingUri() {
 		return partnerCenterBuilder().pathSegment("v1", "ratecards", "azure");
 	}
 
-	public  UriComponentsBuilder partnerCenterOfferUri(){
+	public UriComponentsBuilder partnerCenterOfferUri() {
 		return partnerCenterBuilder().pathSegment("v1", "offers");
 	}
 
-	public  UriComponentsBuilder partnerCenterCustomerUri(){
+	public UriComponentsBuilder partnerCenterCustomerUri() {
 		return partnerCenterBuilder().pathSegment("v1", "customers");
 	}
 
@@ -75,28 +92,16 @@ public class UriProvider {
 		return partnerCenterBuilder().pathSegment("v1", "relationships");
 	}
 
-	public  UriComponentsBuilder partnerBaseUri(){
+	public UriComponentsBuilder partnerBaseUri() {
 		return partnerCenterBuilder().pathSegment("v1");
 	}
 
-	public  UriComponentsBuilder auditUri(){
+	public UriComponentsBuilder auditUri() {
 		return partnerCenterBuilder().pathSegment("v1/auditrecords");
 	}
 
-	public  UriComponentsBuilder partnerCenterProfileUri(){
+	public UriComponentsBuilder partnerCenterProfileUri() {
 		return partnerCenterBuilder().pathSegment("v1", "profiles");
-	}
-
-	public static UriProviderBuilder builder(){
-		return new UriProviderBuilder();
-	}
-
-	public static UriProvider fromSecurityRegion(SecurityRegion region){
-		return UriProvider.builder()
-				.authority(region.getAuthority())
-				.resourceUrl(region.getResourceUrl())
-				.partnerServiceApiRoot(region.getPartnerServiceApiRoot())
-				.build();
 	}
 
 	public String getDomain() {
@@ -107,7 +112,7 @@ public class UriProvider {
 		this.domain = domain;
 	}
 
-	public static class UriProviderBuilder{
+	public static class UriProviderBuilder {
 		private String authority;
 		private String resourceUrl;
 		private String partnerServiceApiRoot;
@@ -127,7 +132,7 @@ public class UriProvider {
 			return this;
 		}
 
-		public UriProvider build(){
+		public UriProvider build() {
 			return new UriProvider(authority, resourceUrl, partnerServiceApiRoot);
 		}
 	}
