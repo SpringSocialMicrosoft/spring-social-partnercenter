@@ -222,16 +222,14 @@ public class AzureADAuthTemplate implements AzureADAuthOperations {
 			HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory();
 			BufferingClientHttpRequestFactory requestFactory = new BufferingClientHttpRequestFactory(factory);
 			getRestTemplate().setRequestFactory(requestFactory);
-
-			getRestTemplate().getInterceptors()
-					.add(new LoggingRequestInterceptor(HttpRequestResponseLoggerFactory.createSlf4jAuthorizationLogger(getClass(), logLevel)));
 		}
+		getRestTemplate().getInterceptors().removeIf(LoggingRequestInterceptor.class::isInstance);
+		getRestTemplate().getInterceptors().add(new LoggingRequestInterceptor(HttpRequestResponseLoggerFactory.createSlf4jAuthorizationLogger(getClass(), logLevel)));
 	}
 
 	@Override
 	public boolean isSlf4jEnabled() {
-		return getRestTemplate().getInterceptors().stream()
-				.anyMatch(i -> i.getClass().isInstance(HttpRequestResponseLoggerFactory.class));
+		return getRestTemplate().getInterceptors().stream().anyMatch(LoggingRequestInterceptor.class::isInstance);
 	}
 
 	/**
