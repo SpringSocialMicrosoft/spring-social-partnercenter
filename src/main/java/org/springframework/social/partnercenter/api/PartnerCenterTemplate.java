@@ -167,10 +167,8 @@ public class PartnerCenterTemplate extends AbstractOAuth2ApiBinding implements P
 
 	@Override
 	public void enableSlf4j(LogLevel level) {
-	    if (!isSlf4jEnabled()) {
-			getRestTemplate().getInterceptors()
-					.add(new LoggingRequestInterceptor(HttpRequestResponseLoggerFactory.createSlf4jApiLogger(getClass(), level)));
-		}
+		getRestTemplate().getInterceptors().removeIf(LoggingRequestInterceptor.class::isInstance);
+		getRestTemplate().getInterceptors().add(new LoggingRequestInterceptor(HttpRequestResponseLoggerFactory.createSlf4jApiLogger(getClass(), level)));
 	}
 
 	@Override
@@ -181,8 +179,7 @@ public class PartnerCenterTemplate extends AbstractOAuth2ApiBinding implements P
 
 	@Override
 	public boolean isSlf4jEnabled() {
-		return getRestTemplate().getInterceptors().stream()
-				.anyMatch(i -> i.getClass().isInstance(HttpRequestResponseLoggerFactory.class));
+		return getRestTemplate().getInterceptors().stream().anyMatch(LoggingRequestInterceptor.class::isInstance);
 	}
 
 	public String getDomain(){
