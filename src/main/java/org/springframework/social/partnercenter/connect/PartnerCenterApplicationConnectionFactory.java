@@ -1,6 +1,8 @@
 package org.springframework.social.partnercenter.connect;
 
+import org.springframework.social.connect.Connection;
 import org.springframework.social.oauth2.AccessGrant;
+import org.springframework.social.oauth2.OAuth2Operations;
 import org.springframework.social.partnercenter.PartnerCenter;
 import org.springframework.social.partnercenter.api.uri.SecurityRegion;
 import org.springframework.social.partnercenter.security.PartnerCenterServiceProvider;
@@ -22,6 +24,17 @@ public class PartnerCenterApplicationConnectionFactory extends BasePartnerCenter
 	public PartnerCenterConnection createConnection(){
 		AccessGrant accessGrant = getAuthOperations().exchangeForAccess();
 		return (PartnerCenterConnection) createConnection(accessGrant);
+	}
+
+	/**
+	 * Create a OAuth2-based {@link Connection} from the {@link AccessGrant} returned after {@link #getAuthOperations() completing the OAuth2 flow}.
+	 * @param accessGrant the access grant
+	 * @return the new service provider connection
+	 * @see OAuth2Operations#exchangeForAccess(String, String, org.springframework.util.MultiValueMap)
+	 */
+	public Connection<PartnerCenter> createConnection(AccessGrant accessGrant) {
+		return new PartnerCenterConnection(getProviderId(), extractProviderUserId(accessGrant), accessGrant.getAccessToken(),
+				accessGrant.getExpireTime(), getPartnerCenterServiceProvider(), getApiAdapter());
 	}
 
 	public boolean canConnect(){

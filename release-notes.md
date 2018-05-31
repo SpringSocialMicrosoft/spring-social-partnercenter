@@ -1,5 +1,11 @@
 # Release Notes: Spring Social for Microsoft Partner Center
 
+## 7.2.0
+#### Added
+1. Added new Connection factories to separate App and User + App authentications. 
+
+#### Changed
+1. Added currencySymbol, amendments, documentType, amendsOf and invoiceType to Invoice DTO 
 
 ## 7.1.1
 #### Added

@@ -6,7 +6,6 @@ import org.springframework.social.connect.ConnectionData;
 import org.springframework.social.connect.ConnectionFactory;
 import org.springframework.social.connect.support.OAuth2ConnectionFactory;
 import org.springframework.social.oauth2.AccessGrant;
-import org.springframework.social.oauth2.OAuth2Operations;
 import org.springframework.social.partnercenter.PartnerCenter;
 import org.springframework.social.partnercenter.connect.admin.PartnerCenterAdminConnection;
 import org.springframework.social.partnercenter.http.logging.LogLevel;
@@ -32,17 +31,6 @@ public class BasePartnerCenterConnectionFactory extends ConnectionFactory<Partne
 	 */
 	public AzureADAuthOperations getAuthOperations() {
 		return getPartnerCenterServiceProvider().getAzureADAuthOperations();
-	}
-
-	/**
-	 * Create a OAuth2-based {@link Connection} from the {@link AccessGrant} returned after {@link #getAuthOperations() completing the OAuth2 flow}.
-	 * @param accessGrant the access grant
-	 * @return the new service provider connection
-	 * @see OAuth2Operations#exchangeForAccess(String, String, org.springframework.util.MultiValueMap)
-	 */
-	public Connection<PartnerCenter> createConnection(AccessGrant accessGrant) {
-		return new PartnerCenterConnection(getProviderId(), extractProviderUserId(accessGrant), accessGrant.getAccessToken(),
-				accessGrant.getExpireTime(), getPartnerCenterServiceProvider(), getApiAdapter());
 	}
 
 	/**

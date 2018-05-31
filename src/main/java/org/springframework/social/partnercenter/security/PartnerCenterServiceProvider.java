@@ -70,7 +70,7 @@ public class PartnerCenterServiceProvider extends AbstractAzureADServiceProvider
 	 * @param clientSecret The App Key generated in the Partner Center portal for the client application
 	 * @param domain domain associated with the CSP Provider account
 	 * @param securityRegion The cloud instance of Partner Center. Either DE for cloud germany or US for global
-	 * @return
+	 * @return {@link PartnerCenterServiceProvider}
 	 */
 	public static PartnerCenterServiceProvider withApplicationCredentials(String clientId, String clientSecret, String domain, SecurityRegion securityRegion) {
 		return new PartnerCenterServiceProvider(clientId, clientSecret, domain, securityRegion);
@@ -81,7 +81,7 @@ public class PartnerCenterServiceProvider extends AbstractAzureADServiceProvider
 	 * @param clientId Native App App ID configured in partner center
 	 * @param domain domain associated with the CSP Provider account
 	 * @param securityRegion The cloud instance of Partner Center. Either DE for cloud germany or US for global
-	 * @return
+	 * @return {@link PartnerCenterServiceProvider}
 	 */
 	public static PartnerCenterServiceProvider withUserCredentials(String clientId, String domain, SecurityRegion securityRegion) {
 		return new PartnerCenterServiceProvider(clientId, null, domain, securityRegion);

@@ -34,6 +34,10 @@ import org.springframework.web.client.RestTemplate;
 
 import com.google.common.annotations.VisibleForTesting;
 
+/**
+ * @deprecated When the {@link org.springframework.social.partnercenter.connect.PartnerCenterConnectionFactory} is removed we will start using the AzureADOAuthTemplate as it is more concise.
+ */
+@Deprecated
 public class AzureADAuthTemplate implements AzureADAuthOperations {
 	private final String webAppId;
 	private final String nativeAppId;

@@ -16,7 +16,7 @@ public enum DocumentType {
 	}
 
 	@JsonValue
-	public Integer getValue() {
+	public Integer toOrdinalValue() {
 		return value;
 	}
 
