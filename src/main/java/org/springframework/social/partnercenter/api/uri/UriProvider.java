@@ -51,7 +51,7 @@ public class UriProvider {
 	}
 
 	public String getUserPlusAppResource() {
-		return resourceUrl;
+		return partnerServiceApiRoot;
 	}
 
 	public String getPartnerServiceApiRoot() {

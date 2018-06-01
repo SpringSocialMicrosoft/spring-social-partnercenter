@@ -1,5 +1,13 @@
 # Release Notes: Spring Social for Microsoft Partner Center
 
+## 7.2.2
+#### Bug Fixes
+1. Fixed bug in authentication flow for user + app. Only present in version 7.2.1
+
+## 7.2.1
+#### Warning
+1. This change has a bug in auth flows. Please use 7.2.2
+
 ## 7.2.0
 #### Added
 1. Added new Connection factories to separate App and User + App authentications. 
