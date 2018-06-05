@@ -99,15 +99,13 @@ public class SubscriptionTemplate extends PagingResourceTemplate<Subscription> i
 	}
 
 	@Override
-	public ResponseEntity<PartnerCenterResponse<Subscription>> getAllSubscriptionsForPartner(String customerId, String mpnId, int offset, int size) {
+	public ResponseEntity<PartnerCenterResponse<Subscription>> getAllSubscriptionsForPartner(String customerId, String mpnId) {
 		notNull(customerId, "customerId");
 		notNull(mpnId, "mpnId");
 
 		return restResource.request()
 				.pathSegment(customerId, SUBSCRIPTIONS)
 				.queryParam("mpn_id", mpnId)
-				.queryParam("offset", offset)
-				.queryParam("size", size)
 				.get(new ParameterizedTypeReference<PartnerCenterResponse<Subscription>>() {
 				});
 	}

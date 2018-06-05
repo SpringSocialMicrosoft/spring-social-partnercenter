@@ -1,8 +1,9 @@
 package org.springframework.social.partnercenter.api.customer.impl;
 
-import static org.springframework.social.partnercenter.api.customer.query.Operator.STARTS_WITH;
+import static org.springframework.social.partnercenter.api.customer.CustomerSearchField.DOMAIN;
+import static org.springframework.social.partnercenter.api.customer.CustomerSearchField.INDIRECT_RESELLER;
+import static org.springframework.social.partnercenter.api.query.Operator.STARTS_WITH;
 import static org.springframework.social.partnercenter.api.validation.Assertion.notNull;
-import static org.springframework.social.partnercenter.serialization.Json.toJson;
 
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.ResponseEntity;
@@ -11,8 +12,10 @@ import org.springframework.social.partnercenter.api.PartnerCenterResponse;
 import org.springframework.social.partnercenter.api.customer.AdminCustomerOperations;
 import org.springframework.social.partnercenter.api.customer.Customer;
 import org.springframework.social.partnercenter.api.customer.CustomerBillingProfile;
+import org.springframework.social.partnercenter.api.customer.CustomerSearchField;
 import org.springframework.social.partnercenter.api.customer.SubscribedSku;
-import org.springframework.social.partnercenter.api.customer.query.Filter;
+import org.springframework.social.partnercenter.api.query.Filter;
+import org.springframework.social.partnercenter.api.query.Operator;
 import org.springframework.social.partnercenter.http.client.RestResource;
 
 public class AdminCustomerTemplate extends CustomerTemplate implements AdminCustomerOperations {
@@ -36,7 +39,7 @@ public class AdminCustomerTemplate extends CustomerTemplate implements AdminCust
 		notNull(domain, "domain");
 		return restResource.request()
 				.queryParam("size", size)
-				.queryParam("filter", toJson(Filter.builder().field("Domain").operator(STARTS_WITH).value(domain).build()))
+				.queryParam("filter", Filter.create(DOMAIN, STARTS_WITH, domain))
 				.get(new ParameterizedTypeReference<PartnerCenterResponse<Customer>>() {});
 	}
 
@@ -57,6 +60,24 @@ public class AdminCustomerTemplate extends CustomerTemplate implements AdminCust
 				.pathSegment(customerId, "profiles", "billing")
 				.header("If-Match", etag)
 				.put(billingProfile, CustomerBillingProfile.class);
+	}
+
+	@Override
+	public ResponseEntity<PartnerCenterResponse<Customer>> getCustomersOfAnIndirectReseller(String resellerID, int offset, int size) {
+		return restResource.request()
+				.queryParam("size", size)
+				.queryParam("filter", Filter.create(INDIRECT_RESELLER, STARTS_WITH, resellerID))
+				.get(new ParameterizedTypeReference<PartnerCenterResponse<Customer>>() {
+				});
+	}
+
+	@Override
+	public ResponseEntity<PartnerCenterResponse<Customer>> queryCustomers(int size, CustomerSearchField customerSearchField, Operator operator, String targetValue) {
+		return restResource.request()
+				.queryParam("size", size)
+				.queryParam("filter", Filter.create(customerSearchField, operator, targetValue))
+				.get(new ParameterizedTypeReference<PartnerCenterResponse<Customer>>() {});
+
 	}
 
 	@Override

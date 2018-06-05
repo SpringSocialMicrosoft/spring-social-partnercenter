@@ -12,7 +12,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 public class CustomerUser extends User{
 	private String usageLocation;
 
-
 	public String getUsageLocation() {
 		return usageLocation;
 	}
@@ -115,6 +114,9 @@ public class CustomerUser extends User{
 			user.setPasswordProfile(passwordProfile);
 			user.setState(state);
 			user.setSoftDeletionTime(softDeletionTime);
+			ResourceAttributes resourceAttributes = new ResourceAttributes();
+			resourceAttributes.setObjectType("CustomerUser");
+			user.setAttributes(resourceAttributes);
 			return user;
 		}
 	}

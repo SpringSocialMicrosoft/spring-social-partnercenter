@@ -1,17 +1,17 @@
 package org.springframework.social.partnercenter.api.customer.user.impl;
 
-import static org.springframework.social.partnercenter.serialization.Json.toJson;
+import static org.springframework.social.partnercenter.api.query.Operator.EQUALS;
 
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.ResponseEntity;
 import org.springframework.social.partnercenter.PartnerCenterAdmin;
 import org.springframework.social.partnercenter.api.PartnerCenterResponse;
-import org.springframework.social.partnercenter.api.customer.query.Filter;
-import org.springframework.social.partnercenter.api.customer.query.Operator;
 import org.springframework.social.partnercenter.api.customer.user.AdminUserOperations;
 import org.springframework.social.partnercenter.api.customer.user.CustomerUser;
 import org.springframework.social.partnercenter.api.customer.user.License;
+import org.springframework.social.partnercenter.api.customer.user.UserState;
 import org.springframework.social.partnercenter.api.customer.user.request.CustomerUserAssignLicenses;
+import org.springframework.social.partnercenter.api.query.Filter;
 import org.springframework.social.partnercenter.http.client.RestResource;
 
 public class AdminUserTemplate extends UserTemplate implements AdminUserOperations {
@@ -84,6 +84,12 @@ public class AdminUserTemplate extends UserTemplate implements AdminUserOperatio
 	}
 
 	@Override
+	public ResponseEntity<CustomerUser> restoreDeletedUser(String customerTenantId, String userId) {
+		return restResource.request().pathSegment(customerTenantId, "users", userId)
+				.patch(CustomerUser.builder().state(UserState.ACTIVE).build(), CustomerUser.class);
+	}
+
+	@Override
 	public ResponseEntity<CustomerUser> updateUserPassword(String customerTenantId, String userId, CustomerUser request) {
 		return restResource.request()
 				.pathSegment(customerTenantId, "users", userId)
@@ -94,7 +100,7 @@ public class AdminUserTemplate extends UserTemplate implements AdminUserOperatio
 	public ResponseEntity<PartnerCenterResponse<CustomerUser>> getDeletedUsers(String customerId) {
 		return restResource.request()
 				.pathSegment(customerId, "users")
-				.queryParam("filter", toJson(Filter.builder().field("UserState").operator(Operator.EQUALS).value("Inactive").build()))
+				.queryParam("filter", Filter.create("UserState", EQUALS, "Inactive"))
 				.get(new ParameterizedTypeReference<PartnerCenterResponse<CustomerUser>>() {});
 	}
 
@@ -103,7 +109,7 @@ public class AdminUserTemplate extends UserTemplate implements AdminUserOperatio
 		return restResource.request()
 				.pathSegment(customerId, "users")
 				.queryParam("size", size)
-				.queryParam("filter", toJson(Filter.builder().field("UserState").operator(Operator.EQUALS).value("Inactive").build()))
+				.queryParam("filter", Filter.create("UserState", EQUALS, "Inactive"))
 				.get(new ParameterizedTypeReference<PartnerCenterResponse<CustomerUser>>() {});
 	}
 

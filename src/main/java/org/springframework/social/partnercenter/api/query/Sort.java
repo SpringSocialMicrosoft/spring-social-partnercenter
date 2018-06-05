@@ -1,4 +1,4 @@
-package org.springframework.social.partnercenter.api.customer.query;
+package org.springframework.social.partnercenter.api.query;
 
 public class Sort {
 	private String sortField;

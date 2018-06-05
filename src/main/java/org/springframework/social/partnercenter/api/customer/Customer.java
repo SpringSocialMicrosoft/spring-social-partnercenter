@@ -19,6 +19,8 @@ public class Customer {
 	private CustomerBillingProfile billingProfile;
 	@JsonProperty("relationshipToPartner")
 	private CustomerPartnerRelationship relationshipToPartner;
+	@JsonProperty("associatedPartnerId")
+	private String associatedPartnerId;
 	@JsonProperty("userCredentials")
 	private UserCredentials userCredentials;
 	@JsonProperty("customDomains")
@@ -64,6 +66,14 @@ public class Customer {
 
 	public void setRelationshipToPartner(CustomerPartnerRelationship relationshipToPartner) {
 		this.relationshipToPartner = relationshipToPartner;
+	}
+
+	public String getAssociatedPartnerId() {
+		return associatedPartnerId;
+	}
+
+	public void setAssociatedPartnerId(String associatedPartnerId) {
+		this.associatedPartnerId = associatedPartnerId;
 	}
 
 	public UserCredentials getUserCredentials() {

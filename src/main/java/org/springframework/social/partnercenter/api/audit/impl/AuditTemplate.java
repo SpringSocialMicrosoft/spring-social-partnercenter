@@ -11,9 +11,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.social.partnercenter.api.PartnerCenterResponse;
 import org.springframework.social.partnercenter.api.audit.AuditOperations;
 import org.springframework.social.partnercenter.api.audit.AuditRecord;
+import org.springframework.social.partnercenter.api.audit.AuditRecordSearchField;
 import org.springframework.social.partnercenter.api.audit.ResourceType;
-import org.springframework.social.partnercenter.api.customer.query.Filter;
-import org.springframework.social.partnercenter.api.customer.query.Operator;
+import org.springframework.social.partnercenter.api.query.Filter;
+import org.springframework.social.partnercenter.api.query.Operator;
 import org.springframework.social.partnercenter.http.client.RestResource;
 
 public class AuditTemplate implements AuditOperations {
@@ -49,7 +50,7 @@ public class AuditTemplate implements AuditOperations {
 		return restResource.request()
 				.queryParam("startDate", startDate.atZone(UTC).format(PARTNER_CENTER_SHORT))
 				.queryParam("endDate", endDate.atZone(UTC).format(PARTNER_CENTER_SHORT))
-				.queryParam("filter", Filter.builder().operator(Operator.EQUALS).field("CompanyName").value(companyName))
+				.queryParam("filter", Filter.create(AuditRecordSearchField.COMPANY_NAME, Operator.EQUALS, companyName))
 				.get(new ParameterizedTypeReference<PartnerCenterResponse<AuditRecord>>() {});
 	}
 
@@ -61,7 +62,7 @@ public class AuditTemplate implements AuditOperations {
 		return restResource.request()
 				.queryParam("startDate", startDate.atZone(UTC).format(PARTNER_CENTER_SHORT))
 				.queryParam("endDate", endDate.atZone(UTC).format(PARTNER_CENTER_SHORT))
-				.queryParam("filter", Filter.builder().operator(Operator.EQUALS).field("CustomerId").value(customerId))
+					.queryParam("filter", Filter.create(AuditRecordSearchField.CUSTOMER_ID, Operator.EQUALS, customerId))
 				.get(new ParameterizedTypeReference<PartnerCenterResponse<AuditRecord>>() {});
 	}
 
@@ -73,7 +74,7 @@ public class AuditTemplate implements AuditOperations {
 		return restResource.request()
 				.queryParam("startDate", startDate.atZone(UTC).format(PARTNER_CENTER_SHORT))
 				.queryParam("endDate", endDate.atZone(UTC).format(PARTNER_CENTER_SHORT))
-				.queryParam("filter", Filter.builder().operator(Operator.EQUALS).field("ResourceType").value(resourceType.getValue()))
+				.queryParam("filter", Filter.create(AuditRecordSearchField.RESOURCE_TYPE, Operator.EQUALS, resourceType.getValue()))
 				.get(new ParameterizedTypeReference<PartnerCenterResponse<AuditRecord>>() {});
 	}
 }
