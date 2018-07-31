@@ -9,6 +9,8 @@ import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.social.oauth2.AbstractOAuth2ApiBinding;
 import org.springframework.social.partnercenter.PartnerCenter;
+import org.springframework.social.partnercenter.api.analytics.AnalyticsOperations;
+import org.springframework.social.partnercenter.api.analytics.impl.AnalyticsTemplate;
 import org.springframework.social.partnercenter.api.audit.AuditOperations;
 import org.springframework.social.partnercenter.api.audit.impl.AuditTemplate;
 import org.springframework.social.partnercenter.api.billing.invoicing.InvoiceOperations;
@@ -21,6 +23,10 @@ import org.springframework.social.partnercenter.api.customer.CustomerOperations;
 import org.springframework.social.partnercenter.api.customer.impl.CustomerTemplate;
 import org.springframework.social.partnercenter.api.customer.user.UserOperations;
 import org.springframework.social.partnercenter.api.customer.user.impl.UserTemplate;
+import org.springframework.social.partnercenter.api.customer.user.role.DirectoryRoleOperations;
+import org.springframework.social.partnercenter.api.customer.user.role.RoleOperations;
+import org.springframework.social.partnercenter.api.customer.user.role.impl.DirectoryRoleTemplate;
+import org.springframework.social.partnercenter.api.customer.user.role.impl.RoleTemplate;
 import org.springframework.social.partnercenter.api.order.OrderOperations;
 import org.springframework.social.partnercenter.api.order.impl.OrderTemplate;
 import org.springframework.social.partnercenter.api.order.offer.OfferOperations;
@@ -29,6 +35,10 @@ import org.springframework.social.partnercenter.api.order.subscription.Subscript
 import org.springframework.social.partnercenter.api.order.subscription.impl.SubscriptionTemplate;
 import org.springframework.social.partnercenter.api.profile.ProfileOperations;
 import org.springframework.social.partnercenter.api.profile.impl.ProfileTemplate;
+import org.springframework.social.partnercenter.api.relationships.RelationshipOperations;
+import org.springframework.social.partnercenter.api.relationships.impl.RelationshipTemplate;
+import org.springframework.social.partnercenter.api.support.SupportOperations;
+import org.springframework.social.partnercenter.api.support.impl.SupportTemplate;
 import org.springframework.social.partnercenter.api.uri.UriProvider;
 import org.springframework.social.partnercenter.api.utilities.UtilityOperations;
 import org.springframework.social.partnercenter.api.utilities.impl.UtilityTemplate;
@@ -55,6 +65,11 @@ public class PartnerCenterTemplate extends AbstractOAuth2ApiBinding implements P
 	private final UtilityOperations utilityOperations;
 	private final UserOperations userOperations;
 	private final AuditOperations auditOperations;
+	private final RelationshipOperations relationshipOperations;
+	private final AnalyticsOperations analyticsOperations;
+	private final SupportOperations supportOperations;
+	private final DirectoryRoleOperations directoryRoleOperations;
+	private final RoleOperations roleOperations;
 
 	public PartnerCenterTemplate(UriProvider uriProvider, String accessToken, String version){
 		super(accessToken);
@@ -92,6 +107,16 @@ public class PartnerCenterTemplate extends AbstractOAuth2ApiBinding implements P
 				uriProvider.partnerCenterCustomerUri().build().toUri()), isAuthorized());
 
 		auditOperations = new AuditTemplate(createRestResource(uriProvider.auditUri().build().toUri()));
+
+		relationshipOperations = new RelationshipTemplate(createRestResource(uriProvider.partnerCenterRelationshipsUri().build().toUri()), isAuthorized());
+
+		analyticsOperations = new AnalyticsTemplate(createRestResource(uriProvider.partnerBaseUri().build().toUri()), isAuthorized());
+
+		supportOperations = new SupportTemplate(createRestResource(uriProvider.partnerBaseUri().build().toUri()), isAuthorized());
+
+		directoryRoleOperations = new DirectoryRoleTemplate(createRestResource(uriProvider.partnerCenterCustomerUri().build().toUri()), isAuthorized());
+
+		roleOperations = new RoleTemplate(createRestResource(uriProvider.partnerBaseUri().build().toUri()), isAuthorized());
 	}
 
 	private RestResource createRestResource(URI baseUri){
@@ -163,6 +188,31 @@ public class PartnerCenterTemplate extends AbstractOAuth2ApiBinding implements P
 	@Override
 	public AuditOperations getAuditOperations() {
 		return auditOperations;
+	}
+
+	@Override
+	public RelationshipOperations getRelationshipOperations() {
+		return relationshipOperations;
+	}
+
+	@Override
+	public AnalyticsOperations getAnalyticsOperations() {
+		return analyticsOperations;
+	}
+
+	@Override
+	public SupportOperations getSupportOperations() {
+		return supportOperations;
+	}
+
+	@Override
+	public DirectoryRoleOperations getDirectoryRoleOperations() {
+		return directoryRoleOperations;
+	}
+
+	@Override
+	public RoleOperations getRoleOperations() {
+		return roleOperations;
 	}
 
 	@Override
