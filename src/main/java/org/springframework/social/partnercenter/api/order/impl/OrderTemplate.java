@@ -9,6 +9,7 @@ import org.springframework.social.partnercenter.api.PagingResourceTemplate;
 import org.springframework.social.partnercenter.api.PartnerCenterResponse;
 import org.springframework.social.partnercenter.api.order.Order;
 import org.springframework.social.partnercenter.api.order.OrderOperations;
+import org.springframework.social.partnercenter.api.order.subscription.SubscriptionProvisioningState;
 import org.springframework.social.partnercenter.http.client.RestResource;
 
 public class OrderTemplate extends PagingResourceTemplate<Order> implements OrderOperations {
@@ -53,6 +54,14 @@ public class OrderTemplate extends PagingResourceTemplate<Order> implements Orde
 		return restResource.request()
 				.pathSegment(customerId, "orders")
 				.post(request, Order.class);
+	}
+
+	@Override
+	public ResponseEntity<SubscriptionProvisioningState> getSubscriptionProvisioningState(String customerId, String subscriptionId) {
+		notNull(customerId, "customerId");
+		return restResource.request()
+				.pathSegment(customerId, "subscriptions", subscriptionId, "provisioningstatus")
+				.get(SubscriptionProvisioningState.class);
 	}
 
 	@Override
