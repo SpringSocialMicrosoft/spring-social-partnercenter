@@ -26,11 +26,16 @@ class ApiHttpBodyLogFormatter implements HttpBodyLogFormatter {
 	private Optional<String> getResponseBodyAsString(ClientHttpResponse response) {
 		try {
 			try (BufferedReader buffer = new BufferedReader(new InputStreamReader(response.getBody()))) {
-				return of(buffer.lines().collect(Collectors.joining("\n")));
+				return of(buffer.lines().collect(Collectors.joining("\n")))
+						.map(this::obfuscateSensitiveFields);
 			}
 		} catch (IOException e) {
 			return Optional.of("Could not read response body for logging");
 		}
+	}
+
+	private String obfuscateSensitiveFields(String bodyString) {
+		return bodyString.replaceAll("(\\n?\\s*\"password\"\\s?:\\s?\")[^\\n\"]*(\",?\\n?)", "$1*****$2");
 	}
 
 	private Optional<String> getRequestBodyAsString(byte[] body) {

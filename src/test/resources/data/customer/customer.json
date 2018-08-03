@@ -1,0 +1,40 @@
+{
+  "id": "dfd8cc0a-c592-468c-8461-869a38d24738",
+  "commerceId": "0a4ce58a-6f96-4273-8035-d9c7d31b9ba4",
+  "companyProfile": {
+	"tenantId": "dfd8cc0a-c592-468c-8461-869a38d24738",
+	"domain": "xyz.ccsctp.net",
+	"attributes": {
+	  "objectType": "CustomerCompanyProfile"
+	}
+  },
+  "billingProfile": {
+	"id": "d17c0275-da92-5c33-9032-782ef1d0b69b",
+	"email": "test@outlook.com",
+	"culture": "en-US",
+	"language": "en",
+	"companyName": "test company",
+	"defaultAddress": {
+	  "country": "US",
+	  "city": "Redmond",
+	  "state": "WA",
+	  "addressLine1": "One Microsoft Way",
+	  "postalCode": "98052",
+	  "firstName": "Test",
+	  "lastName": "Test",
+	  "phoneNumber": ""
+	},
+	"attributes": {
+	  "etag": "5920358838484612121",
+	  "objectType": "CustomerBillingProfile"
+	}
+  },
+  "relationshipToPartner": "none",
+  "userCredentials": {
+	"userName": "admin",
+	"password": "gfhsdafhjdkslafda"
+  },
+  "attributes": {
+	"objectType": "Customer"
+  }
+}
