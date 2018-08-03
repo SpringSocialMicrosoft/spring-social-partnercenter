@@ -12,6 +12,7 @@ import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 import org.springframework.http.client.ClientHttpResponse;
+import org.springframework.social.partnercenter.test.Resource;
 
 public class ApiHttpBodyLogFormatterTest {
 
@@ -38,5 +39,16 @@ public class ApiHttpBodyLogFormatterTest {
 		doThrow(new IOException()).when(httpResponse).getBody();
 		final String result = new ApiHttpBodyLogFormatter().formatResponseLogs(httpResponse);
 		assertThat(result).isEqualTo("Body:\n\t"+ "Could not read response body for logging");
+	}
+
+	@Test
+	public void testFormatResponseLogs_whenPasswordIsInJSON_thenItMustBeObfuscated() throws IOException {
+		final ClientHttpResponse httpResponse = spy(ClientHttpResponse.class);
+		final String password = "gfhsdafhjdkslafda";
+		final String customer = Resource.parseFile("data/customer/customer.json").getAsString();
+		InputStream responseBodyStream = new ByteArrayInputStream(customer.getBytes(StandardCharsets.UTF_8.name()));
+		doReturn(responseBodyStream).when(httpResponse).getBody();
+		final String result = new ApiHttpBodyLogFormatter().formatResponseLogs(httpResponse);
+		assertThat(result).isEqualTo("Body:\n\t"+ customer.replace(password, "*****"));
 	}
 }
