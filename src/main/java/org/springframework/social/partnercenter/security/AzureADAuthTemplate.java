@@ -188,7 +188,7 @@ public class AzureADAuthTemplate implements AzureADAuthOperations {
 				additionalParameterMap.forEach(params::put));
 
 		return postForAccessGrant(authorizeUrl, params);
-//		return exchangeForAccess(accessGrant.getAccessToken(), null);
+//		return exchangeRefreshTokenForAccess(accessGrant.getAccessToken(), null);
 	}
 
 	@Override

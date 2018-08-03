@@ -25,14 +25,14 @@ public class PartnerCenterMultiTenantConnectionFactory extends BasePartnerCenter
 
     /**
      * Create a connection to Partner Center
-     * @param refreshToken obtained from {@link AzureADMultiTenantOAuthOperations#exchangeForRefresh}
+     * @param refreshToken obtained from {@link AzureADMultiTenantOAuthOperations#exchangeForRefreshToken}
      * @param partnerTenantId tenantId of the csp account for which the connection is created
      * @param domain domain of the csp account
      * @param securityRegion security region of the csp account if null will default to US
      */
     public PartnerCenterConnection createConnection(String refreshToken, String partnerTenantId, String domain, SecurityRegion securityRegion) {
         AccessGrant accessGrant = multiTenantOAuthOperations
-                .exchangeForAccess(refreshToken, securityRegion.getPartnerServiceApiRoot(), partnerTenantId);
+                .exchangeRefreshTokenForAccess(refreshToken, securityRegion.getPartnerServiceApiRoot(), partnerTenantId);
 
         return new PartnerCenterConnection(getProviderId(),
                 extractProviderUserId(accessGrant),

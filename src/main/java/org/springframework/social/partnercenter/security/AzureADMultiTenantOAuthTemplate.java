@@ -69,7 +69,7 @@ public class AzureADMultiTenantOAuthTemplate implements AzureADMultiTenantOAuthO
 	}
 
 	@Override
-	public String exchangeForRefresh(String authorizationCode, String partnerTenantId, String redirectUri, MultiValueMap<String, String> additionalParameters) {
+	public String exchangeForRefreshToken(String authorizationCode, String partnerTenantId, String redirectUri, MultiValueMap<String, String> additionalParameters) {
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
 		params.set("client_id", clientId);
 		params.set("client_secret", clientSecret);
@@ -82,24 +82,20 @@ public class AzureADMultiTenantOAuthTemplate implements AzureADMultiTenantOAuthO
 						.filter(entry -> !ImmutableList.of("client_id", "redirect_uri", "code", "client_secret", "grant_type").contains(entry.getKey()))
 						.forEach(entry -> params.put(entry.getKey(), entry.getValue())));
 
-		UriComponentsBuilder uriComponentsBuilder = UriComponentsBuilder
-				.fromUriString("https://login.microsoftonline.com")
-				.pathSegment(partnerTenantId, "oauth2", "token");
-
-		return postForAccessGrant(uriComponentsBuilder.toUriString(), params).getRefreshToken();
+		return postForAccessGrant(uriProvider.buildPartnerCenterOAuth2Uri(partnerTenantId), params).getRefreshToken();
 	}
 
 	@Override
-	public MicrosoftRedirectAccessGrant extractRedirectAccessGrant(String body) {
+	public DelegatedAccessGrant extractDelegatedAccessGrant(String body) {
 		final Map<String, String> response = Splitter.on('&').trimResults().withKeyValueSeparator("=").split(body);
 		final String code = response.get("code");
 		final PartnerCenterJWT partnerJWT = PartnerCenterJWT.fromTokenString(response.get("id_token"));
 
-		return new MicrosoftRedirectAccessGrant(code, response.get("state"), partnerJWT.getTid());
+		return new DelegatedAccessGrant(code, response.get("state"), partnerJWT.getTid());
 	}
 
 	@Override
-	public AccessGrant exchangeForAccess(String refreshToken, String resource, String partnerTenantId) {
+	public AccessGrant exchangeRefreshTokenForAccess(String refreshToken, String resource, String partnerTenantId) {
 		final MultiValueMap params = new LinkedMultiValueMap();
 		params.add("resource", resource);
 		params.add("client_id", clientId);
@@ -108,10 +104,7 @@ public class AzureADMultiTenantOAuthTemplate implements AzureADMultiTenantOAuthO
 		params.add("refresh_token", refreshToken);
 		params.add("scope", "openid");
 
-		UriComponentsBuilder uriComponentsBuilder = UriComponentsBuilder.fromUriString("https://login.microsoftonline.com")
-				.pathSegment(partnerTenantId, "oauth2", "token");
-
-		return postForAccessGrant(uriComponentsBuilder.toUriString(), params);
+		return postForAccessGrant(uriProvider.buildPartnerCenterOAuth2Uri(partnerTenantId), params);
 	}
 
 	@Override

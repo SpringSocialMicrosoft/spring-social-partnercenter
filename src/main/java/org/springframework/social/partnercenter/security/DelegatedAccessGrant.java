@@ -2,12 +2,12 @@ package org.springframework.social.partnercenter.security;
 
 import java.util.UUID;
 
-public class MicrosoftRedirectAccessGrant {
+public class DelegatedAccessGrant {
     private String authorizationCode;
     private String state;
     private UUID tenantId;
 
-    public MicrosoftRedirectAccessGrant(String authorizationCode, String state, UUID tenantId) {
+    public DelegatedAccessGrant(String authorizationCode, String state, UUID tenantId) {
         this.authorizationCode = authorizationCode;
         this.state = state;
         this.tenantId = tenantId;

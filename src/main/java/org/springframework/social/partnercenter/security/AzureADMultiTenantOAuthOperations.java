@@ -18,18 +18,18 @@ public interface AzureADMultiTenantOAuthOperations {
      * @param additionalParameters any additional parameters to be sent when exchanging the authorization code for an access grant. Should not be encoded.
      * @return the access grant.
      */
-    String exchangeForRefresh(String authorizationCode, String partnerTenantId, String redirectUri, MultiValueMap<String, String> additionalParameters);
+    String exchangeForRefreshToken(String authorizationCode, String partnerTenantId, String redirectUri, MultiValueMap<String, String> additionalParameters);
 
-    MicrosoftRedirectAccessGrant extractRedirectAccessGrant(String body);
+    DelegatedAccessGrant extractDelegatedAccessGrant(String body);
 
     /**
      * Exchange the refresh token for an access token
-     * @param refreshToken the refresh token returned by {@link #exchangeForRefresh}
+     * @param refreshToken the refresh token returned by {@link #exchangeForRefreshToken}
      * @param partnerTenantId the tenantId of the tenant that is being authorized
      * @param resource the resource for the access grant
      * @return the access grant.
      */
-    AccessGrant exchangeForAccess(String refreshToken, String resource, String partnerTenantId);
+    AccessGrant exchangeRefreshTokenForAccess(String refreshToken, String resource, String partnerTenantId);
 
     /**
      * adds request and response logging to restTemplate
