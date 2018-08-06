@@ -33,7 +33,6 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import com.google.common.base.Splitter;
 import com.google.common.collect.ImmutableList;
@@ -59,12 +58,12 @@ public class AzureADMultiTenantOAuthTemplate implements AzureADMultiTenantOAuthO
 	}
 
 	@Override
-	public String buildAuthorizeUrl(String clientId, String redirectUri, String state) {
+	public String buildAuthorizeUrl(String redirectUri, String state) {
 		return uriProvider.buildAuthorizeUrl(clientId, redirectUri, state);
 	}
 
 	@Override
-	public String buildAuthorizeUrl(String clientId, OAuth2Parameters additionalParams) {
+	public String buildAuthorizeUrl(OAuth2Parameters additionalParams) {
 		return uriProvider.buildAuthorizeUrl(clientId, additionalParams);
 	}
 

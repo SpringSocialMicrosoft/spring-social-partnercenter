@@ -6,9 +6,9 @@ import org.springframework.social.partnercenter.http.logging.LogLevel;
 import org.springframework.util.MultiValueMap;
 
 public interface AzureADMultiTenantOAuthOperations {
-    String buildAuthorizeUrl(String clientId, String redirectUri, String state);
+    String buildAuthorizeUrl(String redirectUri, String state);
 
-    String buildAuthorizeUrl(String clientId, OAuth2Parameters additionalParams);
+    String buildAuthorizeUrl(OAuth2Parameters additionalParams);
 
     /**
      * Exchange the authorization code for a refresh token
