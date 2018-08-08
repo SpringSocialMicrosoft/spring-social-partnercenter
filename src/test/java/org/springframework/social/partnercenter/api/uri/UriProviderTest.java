@@ -13,7 +13,7 @@ public class UriProviderTest {
 			softly.assertThat(UriProvider.DE.getAuthority()).isEqualTo("https://login.microsoftonline.de");
 
 			softly.assertThat(UriProvider.US.getUserPlusAppResource()).isEqualTo("https://api.partnercenter.microsoft.com");
-			softly.assertThat(UriProvider.US.getAuthority()).isEqualTo("https://login.windows.net");
+			softly.assertThat(UriProvider.US.getAuthority()).isEqualTo("https://login.microsoftonline.com");
 			softly.assertThat(UriProvider.US.getAppResource()).isEqualTo("https://graph.windows.net");
 		});
 
