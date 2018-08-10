@@ -4,8 +4,11 @@ import static java.util.Optional.ofNullable;
 import static org.springframework.social.partnercenter.api.uri.UriProvider.DEFAULT_URL_PROVIDER;
 import static org.springframework.social.partnercenter.api.validation.Assertion.notNull;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -34,6 +37,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 
+import com.google.common.base.Charsets;
 import com.google.common.base.Splitter;
 import com.google.common.collect.ImmutableList;
 
@@ -86,11 +90,22 @@ public class AzureADMultiTenantOAuthTemplate implements AzureADMultiTenantOAuthO
 
 	@Override
 	public DelegatedAccessGrant extractDelegatedAccessGrant(String body) {
-		final Map<String, String> response = Splitter.on('&').trimResults().withKeyValueSeparator("=").split(body);
+		final Map<String, String> response = Splitter.on('&').trimResults().withKeyValueSeparator("=").split(body)
+				.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, e -> urlDecode(e.getValue())));
+
 		final String code = response.get("code");
 		final PartnerCenterJWT partnerJWT = PartnerCenterJWT.fromTokenString(response.get("id_token"));
 
-		return new DelegatedAccessGrant(code, response.get("state"), partnerJWT.getTid());
+		String state = response.get("state");
+		return new DelegatedAccessGrant(code, state, partnerJWT.getTid());
+	}
+
+	private String urlDecode(String param) {
+		try {
+			return URLDecoder.decode(param, Charsets.UTF_8.toString());
+		} catch (UnsupportedEncodingException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	@Override
