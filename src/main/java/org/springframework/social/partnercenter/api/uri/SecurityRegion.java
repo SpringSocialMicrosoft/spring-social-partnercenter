@@ -34,4 +34,10 @@ public enum SecurityRegion {
 				.filter(region -> authority.equalsIgnoreCase(region.getAuthority()))
 				.findFirst();
 	}
+
+	public static Optional<SecurityRegion> fromString(String name) {
+		return Stream.of(values())
+				.filter(region -> region.name().equalsIgnoreCase(name))
+				.findFirst();
+	}
 }
