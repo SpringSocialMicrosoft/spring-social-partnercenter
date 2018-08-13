@@ -9,7 +9,7 @@ public class SecurityRegionTest {
 
 	@Test
 	public void testForAuthority() {
-		final Optional<SecurityRegion> usSecurityRegion = SecurityRegion.forAuthority("https://login.windows.net");
+		final Optional<SecurityRegion> usSecurityRegion = SecurityRegion.forAuthority("https://login.microsoftonline.com");
 		final Optional<SecurityRegion> deSecurityRegion = SecurityRegion.forAuthority("https://login.microsoftonline.de");
 		final Optional<SecurityRegion> noSecurityRegion = SecurityRegion.forAuthority("https://login.microsoftonline.uk");
 

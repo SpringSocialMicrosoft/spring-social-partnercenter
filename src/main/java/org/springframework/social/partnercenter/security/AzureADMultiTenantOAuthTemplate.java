@@ -4,8 +4,11 @@ import static java.util.Optional.ofNullable;
 import static org.springframework.social.partnercenter.api.uri.UriProvider.DEFAULT_URL_PROVIDER;
 import static org.springframework.social.partnercenter.api.validation.Assertion.notNull;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -17,9 +20,11 @@ import org.springframework.http.converter.FormHttpMessageConverter;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.social.oauth2.AccessGrant;
+import org.springframework.social.oauth2.OAuth2Parameters;
 import org.springframework.social.partnercenter.api.ApiAuthorizationException;
 import org.springframework.social.partnercenter.api.AuthorizationFault;
 import org.springframework.social.partnercenter.api.uri.UriProvider;
+import org.springframework.social.partnercenter.connect.PartnerCenterJWT;
 import org.springframework.social.partnercenter.http.logging.HttpRequestResponseLoggerFactory;
 import org.springframework.social.partnercenter.http.logging.LogLevel;
 import org.springframework.social.partnercenter.http.logging.LoggingRequestInterceptor;
@@ -32,113 +37,104 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 
-import com.google.common.annotations.VisibleForTesting;
+import com.google.common.base.Charsets;
+import com.google.common.base.Splitter;
+import com.google.common.collect.ImmutableList;
 
-/**
- * @deprecated When the {@link org.springframework.social.partnercenter.connect.PartnerCenterConnectionFactory} is removed we will start using the AzureADOAuthTemplate as it is more concise.
- */
-@Deprecated
-public class AzureADAuthTemplate implements AzureADAuthOperations {
-	private final String webAppId;
-	private final String nativeAppId;
-	private final String webAppKey;
-	private String accessTokenUrl;
-	private String authorizeUrl;
+public class AzureADMultiTenantOAuthTemplate implements AzureADMultiTenantOAuthOperations {
+	private final String clientId;
+	private final String clientSecret;
 	private RestTemplate restTemplate;
-	private boolean useParametersForClientAuthentication;
 	private final UriProvider uriProvider;
 
 	/**
 	 * Constructs an OAuth2Template for a given set of client credentials.
-	 * @param webAppId the application ID
-	 * @param webAppKey the application secret
-	 * @param domain the reseller domain
-	 * @param nativeAppId the client id for login with credentials
-	 * @param authority domain of the reseller including .onmicrosoft.com
-	 * @param resourceUrl see Partner Center documentation
-	 * @param partnerServiceApiRoot root of the Partner Center API
-	 */
-	public AzureADAuthTemplate(String webAppId, String webAppKey, String nativeAppId, String domain, String authority, String resourceUrl, String partnerServiceApiRoot){
-		this(webAppId,
-				webAppKey,
-				nativeAppId,
-				domain,
-				UriProvider.builder()
-						.authority(authority)
-						.partnerServiceApiRoot(partnerServiceApiRoot)
-						.resourceUrl(resourceUrl)
-						.build());
-	}
-	/**
-	 * Constructs an OAuth2Template for a given set of client credentials.
-	 * @param webAppId the application ID
-	 * @param webAppKey the application secret
-	 * @param domain the reseller domain
-	 * @param nativeAppId the client id for login with credentials
-	 */
-	public AzureADAuthTemplate(String webAppId, String webAppKey, String nativeAppId, String domain){
-		this(webAppId,
-				webAppKey,
-				nativeAppId,
-				domain,
-				DEFAULT_URL_PROVIDER);
-	}
-	/**
-	 * Constructs an OAuth2Template for a given set of client credentials.
-	 * @param webAppId the application ID
-	 * @param webAppKey the application secret
-	 * @param domain the reseller domain
-	 * @param nativeAppId the client id for login with credentials
-	 * @param restTemplate restTemplate to make auth requests
-	 */
-	public AzureADAuthTemplate(String webAppId, String webAppKey, String nativeAppId, String domain, RestTemplate restTemplate){
-		this(webAppId,
-				webAppKey,
-				nativeAppId,
-				domain,
-				DEFAULT_URL_PROVIDER);
-		this.restTemplate = configureRestTemplate(restTemplate);
-	}
-
-	/**
-	 * Constructs an OAuth2Template for a given set of client credentials.
-	 * @param webAppId the Web App 'App ID'
-	 * @param webAppKey the Web App 'Key'
-	 * @param domain the reseller domain
-	 * @param nativeAppId the Native App 'App ID'
+	 * @param clientId the multi tenant application ID
+	 * @param clientSecret the multi tenant application secret
 	 * @param uriProvider builds auth urls
 	 */
-	public AzureADAuthTemplate(String webAppId, String webAppKey, String nativeAppId, String domain, UriProvider uriProvider) {
-		notNull(domain, "The authorizeUrl property cannot be null");
+	public AzureADMultiTenantOAuthTemplate(String clientId, String clientSecret, UriProvider uriProvider) {
+		notNull(clientId, "The clientId property cannot be null");
+		notNull(clientSecret, "The clientSecret property cannot be null");
 		this.uriProvider = ofNullable(uriProvider).orElse(DEFAULT_URL_PROVIDER);
-		this.webAppId = webAppId;
-		this.webAppKey = webAppKey;
-		this.nativeAppId = nativeAppId;
-		this.authorizeUrl = uriProvider.buildPartnerCenterOAuth2Uri(domain);
-		this.useParametersForClientAuthentication = true;
-		this.accessTokenUrl = uriProvider.buildPartnerCenterTokenUri();
+		this.clientId = clientId;
+		this.clientSecret = clientSecret;
 	}
 
 	@Override
-	public AccessGrant exchangeForAccess(){
-		AzureADSecurityToken azureADSecurityToken = postForADToken();
-		return exchangeForAccess(azureADSecurityToken.getAccessToken(), null);
+	public String buildAuthorizeUrl(String redirectUri, String state) {
+		return uriProvider.buildAuthorizeUrl(clientId, redirectUri, state);
 	}
 
 	@Override
-	public AccessGrant exchangeForAccess(String authorizationCode, MultiValueMap<String, String> additionalParameters) {
-		HttpHeaders headers = new HttpHeaders();
-		headers.set("Authorization", "Bearer "  + authorizationCode);
+	public String buildAuthorizeUrl(OAuth2Parameters additionalParams) {
+		return uriProvider.buildAuthorizeUrl(clientId, additionalParams);
+	}
+
+	@Override
+	public String exchangeForRefreshToken(String authorizationCode, String partnerTenantId, String redirectUri, MultiValueMap<String, String> additionalParameters) {
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-		params.set("grant_type", "jwt_token");
-		if (additionalParameters != null) {
-			params.putAll(additionalParameters);
-		}
+		params.set("client_id", clientId);
+		params.set("client_secret", clientSecret);
+		params.set("code", authorizationCode);
+		params.set("redirect_uri", redirectUri);
+		params.set("grant_type", "authorization_code");
+
+		ofNullable(additionalParameters).ifPresent(additionalParameterMap ->
+				additionalParameterMap.entrySet().stream()
+						.filter(entry -> !ImmutableList.of("client_id", "redirect_uri", "code", "client_secret", "grant_type").contains(entry.getKey()))
+						.forEach(entry -> params.put(entry.getKey(), entry.getValue())));
+
+		return postForAccessGrant(uriProvider.buildPartnerCenterOAuth2Uri(partnerTenantId), params).getRefreshToken();
+	}
+
+	@Override
+	public DelegatedAccessGrant extractDelegatedAccessGrant(String body) {
+		final Map<String, String> response = Splitter.on('&').trimResults().withKeyValueSeparator("=").split(body)
+				.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, e -> urlDecode(e.getValue())));
+
+		final String code = response.get("code");
+		final PartnerCenterJWT partnerJWT = PartnerCenterJWT.fromTokenString(response.get("id_token"));
+
+		String state = response.get("state");
+		return new DelegatedAccessGrant(code, state, partnerJWT.getTid());
+	}
+
+	private String urlDecode(String param) {
 		try {
-			return postForAccessGrant(accessTokenUrl, headers, params);
-		} catch (HttpStatusCodeException e){
-			throw buildAuthFault(e);
+			return URLDecoder.decode(param, Charsets.UTF_8.toString());
+		} catch (UnsupportedEncodingException e) {
+			throw new RuntimeException(e);
 		}
+	}
+
+	@Override
+	public AccessGrant exchangeRefreshTokenForAccess(String refreshToken, String resource, String partnerTenantId) {
+		final MultiValueMap params = new LinkedMultiValueMap();
+		params.add("resource", resource);
+		params.add("client_id", clientId);
+		params.add("client_secret", clientSecret);
+		params.add("grant_type", "refresh_token");
+		params.add("refresh_token", refreshToken);
+		params.add("scope", "openid");
+
+		return postForAccessGrant(uriProvider.buildPartnerCenterOAuth2Uri(partnerTenantId), params);
+	}
+
+	@Override
+	public void enableSlf4j(LogLevel logLevel) {
+		if (!isSlf4jEnabled()) {
+			HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory();
+			BufferingClientHttpRequestFactory requestFactory = new BufferingClientHttpRequestFactory(factory);
+			getRestTemplate().setRequestFactory(requestFactory);
+		}
+		getRestTemplate().getInterceptors().removeIf(LoggingRequestInterceptor.class::isInstance);
+		getRestTemplate().getInterceptors().add(new LoggingRequestInterceptor(HttpRequestResponseLoggerFactory.createSlf4jAuthorizationLogger(getClass(), logLevel)));
+	}
+
+	@Override
+	public boolean isSlf4jEnabled() {
+		return getRestTemplate().getInterceptors().stream().anyMatch(LoggingRequestInterceptor.class::isInstance);
 	}
 
 	/**
@@ -170,66 +166,6 @@ public class AzureADAuthTemplate implements AzureADAuthOperations {
 			restTemplate = createRestTemplate();
 		}
 		return restTemplate;
-	}
-
-	@Override
-	public AccessGrant exchangeCredentialsForAccess(String username, String password, MultiValueMap<String, String> additionalParameters) {
-		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-		if (useParametersForClientAuthentication) {
-			params.set("client_id", nativeAppId);
-		}
-		params.set("username", username);
-		params.set("password", password);
-		params.set("resource", uriProvider.getUserPlusAppResource());
-		params.set("scope", "openid");
-		params.set("grant_type", PartnerCenterGrantType.PASSWORD.asString());
-
-		ofNullable(additionalParameters).ifPresent(additionalParameterMap ->
-				additionalParameterMap.forEach(params::put));
-
-		return postForAccessGrant(authorizeUrl, params);
-//		return exchangeRefreshTokenForAccess(accessGrant.getAccessToken(), null);
-	}
-
-	@Override
-	public AccessGrant refreshAccess(MultiValueMap<String, String> additionalParameters) {
-		AzureADSecurityToken azureADSecurityToken = postForADToken();
-		return exchangeForAccess(azureADSecurityToken.getAccessToken(), additionalParameters);
-	}
-
-	@Override
-	public AccessGrant refreshAccess(String refreshToken, MultiValueMap<String, String> additionalParameters) {
-		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-		if (useParametersForClientAuthentication) {
-			params.set("client_id", nativeAppId);
-		}
-		params.set("refresh_token", refreshToken);
-		params.set("grant_type", "refresh_token");
-		params.set("scope", "openid");
-		if (additionalParameters != null) {
-			params.putAll(additionalParameters);
-		}
-		try {
-			return postForAccessGrant(authorizeUrl, params);
-		} catch (HttpStatusCodeException e) {
-			throw buildAuthFault(e);
-		}
-	}
-
-	@Override
-	public void enableSlf4j(LogLevel logLevel) {
-		if (!isSlf4jEnabled()) {
-			HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory();
-			BufferingClientHttpRequestFactory requestFactory = new BufferingClientHttpRequestFactory(factory);
-			getRestTemplate().setRequestFactory(requestFactory);
-		}
-		getRestTemplate().getInterceptors().removeIf(LoggingRequestInterceptor.class::isInstance);
-		getRestTemplate().getInterceptors().add(new LoggingRequestInterceptor(HttpRequestResponseLoggerFactory.createSlf4jAuthorizationLogger(getClass(), logLevel)));
-	}
-
-	@Override
-	public boolean isSlf4jEnabled() {
-		return getRestTemplate().getInterceptors().stream().anyMatch(LoggingRequestInterceptor.class::isInstance);
 	}
 
 	/**
@@ -273,20 +209,6 @@ public class AzureADAuthTemplate implements AzureADAuthOperations {
 		try {
 			return extractAccessGrant(getRestTemplate().postForObject(accessTokenUrl, new HttpEntity<>(parameters, headers), Map.class));
 		} catch (HttpStatusCodeException e) {
-			throw buildAuthFault(e);
-		}
-	}
-
-	@VisibleForTesting
-	AzureADSecurityToken postForADToken(){
-		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-		params.set("grant_type", PartnerCenterGrantType.CLIENT_CREDENTIALS.asString());
-		params.set("client_id", webAppId);
-		params.set("client_secret", webAppKey);
-		params.set("resource", uriProvider.getAppResource());
-		try {
-			return getRestTemplate().postForObject(authorizeUrl, params, AzureADSecurityToken.class);
-		} catch (HttpStatusCodeException e){
 			throw buildAuthFault(e);
 		}
 	}

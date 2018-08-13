@@ -3,7 +3,18 @@ package org.springframework.social.partnercenter.api.uri;
 import static org.springframework.social.partnercenter.api.uri.SecurityRegion.DEU;
 import static org.springframework.social.partnercenter.api.uri.SecurityRegion.USA;
 
+import java.util.AbstractMap;
+import java.util.Map;
+import java.util.Optional;
+import java.util.UUID;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import org.springframework.social.oauth2.OAuth2Parameters;
 import org.springframework.web.util.UriComponentsBuilder;
+
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
 
 public class UriProvider {
 	public static final UriProvider US = fromSecurityRegion(USA);
@@ -66,6 +77,39 @@ public class UriProvider {
 		return UriComponentsBuilder.fromUriString(partnerServiceApiRoot)
 				.pathSegment("generatetoken")
 				.build().toString();
+	}
+
+	public String buildAuthorizeUrl(String clientId, String redirectUri, String state) {
+		final OAuth2Parameters parameters = new OAuth2Parameters(Stream.of(
+				new AbstractMap.SimpleEntry<>("redirect_uri", Lists.newArrayList(redirectUri)),
+				new AbstractMap.SimpleEntry<>("state", Lists.newArrayList(state)))
+				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue)));
+		return buildAuthorizeUrl(clientId, parameters);
+	}
+
+	public String buildAuthorizeUrl(String clientId, OAuth2Parameters parameters) {
+		final UriComponentsBuilder uriComponentsBuilder = UriComponentsBuilder.fromUriString("https://login.microsoftonline.com").pathSegment("common", "oauth2", "authorize");
+
+		final String clientSecretKey = "client_secret";
+		if (parameters.containsKey(clientSecretKey)) {
+			uriComponentsBuilder.queryParam(clientSecretKey, parameters.getFirst(clientSecretKey));
+		}
+
+		uriComponentsBuilder.queryParam("response_mode", "form_post")
+				.queryParam("response_type", "code id_token")
+				.queryParam("client_id", clientId)
+				.queryParam("redirect_uri", parameters.getRedirectUri())
+				.queryParam("nonce", UUID.randomUUID().toString())
+				.queryParam("scope", "openid profile")
+				.queryParam("state", parameters.getState());
+
+		Optional.ofNullable(parameters).ifPresent(otherParams -> otherParams.entrySet().stream()
+				.filter(entry -> !ImmutableList.of("client_id", "redirect_uri", "state", "scope", "client_secret").contains(entry.getKey()))
+				.forEach(entry -> uriComponentsBuilder.queryParam(entry.getKey(), entry.getValue())));
+
+		return uriComponentsBuilder
+				.build()
+				.toString();
 	}
 
 	public UriComponentsBuilder partnerCenterInvoiceUri() {
