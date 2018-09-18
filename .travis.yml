@@ -4,7 +4,6 @@ dist: trusty
 branches:
   only:
   - master
-script: "./.travis/scripts/before.sh"
 jobs:
   include:
   - stage: Tests
