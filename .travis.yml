@@ -2,9 +2,9 @@ language: java
 sudo: enabled
 dist: trusty
 branches:
-  only:
-  - master
-script: "./.travis/scripts/before.sh"
+  except:
+  - spring-social-partner-center-(.*)
+  - release-(.*)
 jobs:
   include:
   - stage: Tests
