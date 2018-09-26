@@ -1,5 +1,14 @@
 # Release Notes: Spring Social for Microsoft Partner Center
 
+## 7.3.1
+#### Added
+1. Consent api to give customer consent to certain APIs as a delegated customer access
+2. Pagination method for users
+
+## 7.3.0
+#### Added
+1. New Multi tenant connection factory that implements new authentication method to be used during an interactive login with Microsoft.
+
 ## 7.2.2
 #### Bug Fixes
 1. Fixed bug in authentication flow for user + app. Only present in version 7.2.1
