@@ -11,6 +11,11 @@ public interface UserOperations {
     ResponseEntity deleteUserAccountsForCustomer(String customerTenantId);
     ResponseEntity<CustomerUser> getUser(String customerTenantId, String userId);
     ResponseEntity<PartnerCenterResponse<CustomerUser>> getUsers(String customerTenantId);
+
+    ResponseEntity<PartnerCenterResponse<CustomerUser>> getUsers(String customerTenantId, int size);
+
+    ResponseEntity<PartnerCenterResponse<CustomerUser>> getNextUsers(String customerTenantId, String continuationToken);
+
     ResponseEntity<CustomerUser> updateUser(String customerTenantId, CustomerUser request);
     ResponseEntity<CustomerUser> updateUser(String customerTenantId, CustomerUser request, String userId);
     ResponseEntity deleteUser(String customerTenantId, String userId);

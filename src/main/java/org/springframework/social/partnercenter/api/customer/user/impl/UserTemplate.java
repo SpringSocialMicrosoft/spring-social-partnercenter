@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.social.partnercenter.PartnerCenter;
 import org.springframework.social.partnercenter.api.PagingResourceTemplate;
 import org.springframework.social.partnercenter.api.PartnerCenterResponse;
+import org.springframework.social.partnercenter.api.SeekOperation;
 import org.springframework.social.partnercenter.api.customer.query.Filter;
 import org.springframework.social.partnercenter.api.customer.query.Operator;
 import org.springframework.social.partnercenter.api.customer.user.CustomerUser;
@@ -62,6 +63,23 @@ public class UserTemplate extends PagingResourceTemplate<CustomerUser> implement
 	public ResponseEntity<PartnerCenterResponse<CustomerUser>> getUsers(String customerTenantId) {
 		return restResource.request()
 				.pathSegment(customerTenantId, "users")
+				.get(new ParameterizedTypeReference<PartnerCenterResponse<CustomerUser>>() {});
+	}
+
+	@Override
+	public ResponseEntity<PartnerCenterResponse<CustomerUser>> getUsers(String customerTenantId, int size) {
+		return restResource.request()
+				.pathSegment(customerTenantId, "users")
+				.queryParam("size", size)
+				.get(new ParameterizedTypeReference<PartnerCenterResponse<CustomerUser>>() {});
+	}
+
+	@Override
+	public ResponseEntity<PartnerCenterResponse<CustomerUser>> getNextUsers(String customerTenantId, String continuationToken) {
+		return restResource.request()
+                .header("MS-ContinuationToken", continuationToken)
+				.pathSegment(customerTenantId, "users")
+				.queryParam("seekOperation", SeekOperation.NEXT.getValue())
 				.get(new ParameterizedTypeReference<PartnerCenterResponse<CustomerUser>>() {});
 	}
 
