@@ -19,6 +19,8 @@ import org.springframework.social.partnercenter.api.billing.pricing.PricingOpera
 import org.springframework.social.partnercenter.api.billing.pricing.impl.PricingTemplate;
 import org.springframework.social.partnercenter.api.billing.usage.UsageOperations;
 import org.springframework.social.partnercenter.api.billing.usage.impl.UsageTemplate;
+import org.springframework.social.partnercenter.api.consent.ConsentOperations;
+import org.springframework.social.partnercenter.api.consent.impl.ConsentTemplate;
 import org.springframework.social.partnercenter.api.customer.CustomerOperations;
 import org.springframework.social.partnercenter.api.customer.impl.CustomerTemplate;
 import org.springframework.social.partnercenter.api.customer.user.UserOperations;
@@ -70,6 +72,7 @@ public class PartnerCenterTemplate extends AbstractOAuth2ApiBinding implements P
 	private final SupportOperations supportOperations;
 	private final DirectoryRoleOperations directoryRoleOperations;
 	private final RoleOperations roleOperations;
+	private final ConsentOperations consentOperations;
 
 	public PartnerCenterTemplate(UriProvider uriProvider, String accessToken, String version){
 		super(accessToken);
@@ -117,6 +120,8 @@ public class PartnerCenterTemplate extends AbstractOAuth2ApiBinding implements P
 		directoryRoleOperations = new DirectoryRoleTemplate(createRestResource(uriProvider.partnerCenterCustomerUri().build().toUri()), isAuthorized());
 
 		roleOperations = new RoleTemplate(createRestResource(uriProvider.partnerBaseUri().build().toUri()), isAuthorized());
+
+		consentOperations = new ConsentTemplate(createRestResource(uriProvider.partnerCenterCustomerUri().build().toUri()), isAuthorized());
 	}
 
 	private RestResource createRestResource(URI baseUri){
