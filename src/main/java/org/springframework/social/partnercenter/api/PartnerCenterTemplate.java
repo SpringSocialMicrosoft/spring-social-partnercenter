@@ -221,6 +221,11 @@ public class PartnerCenterTemplate extends AbstractOAuth2ApiBinding implements P
 	}
 
 	@Override
+	public ConsentOperations getConsentOperations() {
+		return consentOperations;
+	}
+
+	@Override
 	public void enableSlf4j(LogLevel level) {
 		getRestTemplate().getInterceptors().removeIf(LoggingRequestInterceptor.class::isInstance);
 		getRestTemplate().getInterceptors().add(new LoggingRequestInterceptor(HttpRequestResponseLoggerFactory.createSlf4jApiLogger(getClass(), level)));
