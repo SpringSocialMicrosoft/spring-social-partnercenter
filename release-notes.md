@@ -1,6 +1,10 @@
 # Release Notes: Spring Social for Microsoft Partner Center
 
-## 7.3.1
+## 7.5.0
+#### Added
+1. [Agreement api](https://docs.microsoft.com/en-us/partner-center/develop/get-agreement-metadata) to give customer consent on behalf of the reseller
+
+## 7.4.0
 #### Added
 1. Consent api to give customer consent to certain APIs as a delegated customer access
 2. Pagination method for usersOperations
