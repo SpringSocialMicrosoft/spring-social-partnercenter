@@ -75,15 +75,6 @@ public class UserTemplate extends PagingResourceTemplate<CustomerUser> implement
 	}
 
 	@Override
-	public ResponseEntity<PartnerCenterResponse<CustomerUser>> getNextUsers(String customerTenantId, String continuationToken) {
-		return restResource.request()
-                .header("MS-ContinuationToken", continuationToken)
-				.pathSegment(customerTenantId, "users")
-				.queryParam("seekOperation", SeekOperation.NEXT.getValue())
-				.get(new ParameterizedTypeReference<PartnerCenterResponse<CustomerUser>>() {});
-	}
-
-	@Override
 	public ResponseEntity<CustomerUser> updateUser(String customerTenantId, CustomerUser request) {
 		return restResource.request()
 				.pathSegment(customerTenantId, "users")

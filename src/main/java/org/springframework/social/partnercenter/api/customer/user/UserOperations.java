@@ -1,10 +1,11 @@
 package org.springframework.social.partnercenter.api.customer.user;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.social.partnercenter.api.PagingResourceOperations;
 import org.springframework.social.partnercenter.api.PartnerCenterResponse;
 import org.springframework.social.partnercenter.api.customer.user.request.CustomerUserAssignLicenses;
 
-public interface UserOperations {
+public interface UserOperations extends PagingResourceOperations<CustomerUser> {
     ResponseEntity<String> assignLicensesToUser(String customerId, String userId, CustomerUserAssignLicenses request);
     ResponseEntity<PartnerCenterResponse<License>> getLicensesAssignToAUser(String customerTenantId, String userId);
     ResponseEntity<CustomerUser> createUserAccountsForCustomer(String customerTenantId, CustomerUser request);
@@ -13,8 +14,6 @@ public interface UserOperations {
     ResponseEntity<PartnerCenterResponse<CustomerUser>> getUsers(String customerTenantId);
 
     ResponseEntity<PartnerCenterResponse<CustomerUser>> getUsers(String customerTenantId, int size);
-
-    ResponseEntity<PartnerCenterResponse<CustomerUser>> getNextUsers(String customerTenantId, String continuationToken);
 
     ResponseEntity<CustomerUser> updateUser(String customerTenantId, CustomerUser request);
     ResponseEntity<CustomerUser> updateUser(String customerTenantId, CustomerUser request, String userId);
