@@ -19,17 +19,17 @@ public class ConsentTemplate extends AbstractTemplate implements ConsentOperatio
     }
 
     @Override
-    public ResponseEntity<Void> getConsent(String customerTenantId, String multiTenantApplicationId) {
+    public ResponseEntity<Consent> getConsent(String customerTenantId, String multiTenantApplicationId) {
         return restResource.request()
                 .pathSegment(customerTenantId, APPLICATIONCONSENTS, multiTenantApplicationId)
-                .get(Void.class);
+                .get(Consent.class);
     }
 
     @Override
-    public ResponseEntity<Void> createConsent(String customerTenantId, Consent consent) {
+    public ResponseEntity<Consent> createConsent(String customerTenantId, Consent consent) {
         return restResource.request()
                 .pathSegment(customerTenantId, APPLICATIONCONSENTS)
-                .post(consent, Void.class);
+                .post(consent, Consent.class);
     }
 
     @Override
