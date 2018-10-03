@@ -3,7 +3,7 @@
 ## 7.3.1
 #### Added
 1. Consent api to give customer consent to certain APIs as a delegated customer access
-2. Pagination method for users
+2. Pagination method for usersOperations
 
 ## 7.3.0
 #### Added
