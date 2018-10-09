@@ -13,6 +13,7 @@ public class PartnerCenterMultiTenantConnectionFactory extends BasePartnerCenter
     private final AzureADMultiTenantOAuthOperations multiTenantOAuthOperations;
     private final String clientId;
     private final String clientSecret;
+
     private final SecurityRegion securityRegion;
 
     public PartnerCenterMultiTenantConnectionFactory(String clientId, String clientSecret, SecurityRegion securityRegion) {
@@ -59,5 +60,9 @@ public class PartnerCenterMultiTenantConnectionFactory extends BasePartnerCenter
     public void enableSl4fjForAuthRequests(LogLevel logLevel) {
         super.enableSl4fjForAuthRequests(logLevel);
         multiTenantOAuthOperations.enableSlf4j(logLevel);
+    }
+
+    public SecurityRegion getSecurityRegion() {
+        return securityRegion;
     }
 }
