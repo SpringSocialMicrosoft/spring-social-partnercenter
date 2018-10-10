@@ -9,6 +9,8 @@ import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.social.oauth2.AbstractOAuth2ApiBinding;
 import org.springframework.social.partnercenter.PartnerCenter;
+import org.springframework.social.partnercenter.api.agreement.AgreementOperations;
+import org.springframework.social.partnercenter.api.agreement.AgreementTemplate;
 import org.springframework.social.partnercenter.api.analytics.AnalyticsOperations;
 import org.springframework.social.partnercenter.api.analytics.impl.AnalyticsTemplate;
 import org.springframework.social.partnercenter.api.audit.AuditOperations;
@@ -73,8 +75,9 @@ public class PartnerCenterTemplate extends AbstractOAuth2ApiBinding implements P
 	private final DirectoryRoleOperations directoryRoleOperations;
 	private final RoleOperations roleOperations;
 	private final ConsentOperations consentOperations;
+	private final AgreementOperations agreementOperations;
 
-	public PartnerCenterTemplate(UriProvider uriProvider, String accessToken, String version){
+	public PartnerCenterTemplate(UriProvider uriProvider, String accessToken, String version) {
 		super(accessToken);
 		addVersionInterceptor(version);
 		this.uriProvider = uriProvider;
@@ -122,6 +125,9 @@ public class PartnerCenterTemplate extends AbstractOAuth2ApiBinding implements P
 		roleOperations = new RoleTemplate(createRestResource(uriProvider.partnerBaseUri().build().toUri()), isAuthorized());
 
 		consentOperations = new ConsentTemplate(createRestResource(uriProvider.partnerCenterCustomerUri().build().toUri()), isAuthorized());
+
+		agreementOperations = new AgreementTemplate(createRestResource(
+				uriProvider.partnerCenterBuilder().pathSegment("v1").build().toUri()), isAuthorized());
 	}
 
 	private RestResource createRestResource(URI baseUri){
@@ -223,6 +229,11 @@ public class PartnerCenterTemplate extends AbstractOAuth2ApiBinding implements P
 	@Override
 	public ConsentOperations getConsentOperations() {
 		return consentOperations;
+	}
+
+	@Override
+	public AgreementOperations getAgreementOperations() {
+		return agreementOperations;
 	}
 
 	@Override

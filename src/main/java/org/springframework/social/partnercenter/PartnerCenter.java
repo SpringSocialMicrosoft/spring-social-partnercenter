@@ -3,6 +3,7 @@ package org.springframework.social.partnercenter;
 import java.util.Locale;
 
 import org.springframework.social.ApiBinding;
+import org.springframework.social.partnercenter.api.agreement.AgreementOperations;
 import org.springframework.social.partnercenter.api.analytics.AnalyticsOperations;
 import org.springframework.social.partnercenter.api.audit.AuditOperations;
 import org.springframework.social.partnercenter.api.billing.invoicing.InvoiceOperations;
@@ -41,6 +42,7 @@ public interface PartnerCenter extends ApiBinding {
 	DirectoryRoleOperations getDirectoryRoleOperations();
 	RoleOperations getRoleOperations();
 	ConsentOperations getConsentOperations();
+	AgreementOperations getAgreementOperations();
 	void enableSlf4j(LogLevel level);
 	void setLocale(Locale locale);
 	boolean isSlf4jEnabled();
