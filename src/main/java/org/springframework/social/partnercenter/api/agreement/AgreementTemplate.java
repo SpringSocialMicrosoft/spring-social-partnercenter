@@ -8,19 +8,12 @@ import org.springframework.social.partnercenter.api.PagingResourceTemplate;
 import org.springframework.social.partnercenter.api.PartnerCenterResponse;
 import org.springframework.social.partnercenter.http.client.RestResource;
 
-public class AgreementTemplate extends PagingResourceTemplate<AgreementMetaData> implements AgreementOperations {
+public class AgreementTemplate extends PagingResourceTemplate<Agreement> implements AgreementOperations {
 	private RestResource restResource;
 
 	public AgreementTemplate(RestResource restResource, boolean isAuthorized) {
-		super(restResource, isAuthorized, new ParameterizedTypeReference<PartnerCenterResponse<AgreementMetaData>>() {});
+		super(restResource, isAuthorized, new ParameterizedTypeReference<PartnerCenterResponse<Agreement>>() {});
 		this.restResource = restResource;
-	}
-
-	@Override
-	public ResponseEntity<PartnerCenterResponse<AgreementMetaData>> getAgreementMetadatas() {
-		return restResource.request()
-				.pathSegment("agreements")
-				.get(new ParameterizedTypeReference<PartnerCenterResponse<AgreementMetaData>>() {});
 	}
 
 	@Override

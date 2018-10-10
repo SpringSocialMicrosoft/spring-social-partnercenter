@@ -1,5 +1,11 @@
 # Release Notes: Spring Social for Microsoft Partner Center
 
+## 8.0.0
+#### Changed
+1. SecurityRegion is no longer an enum. It is now a class so that anyone can create their own custom SecurityRegion if necessary
+2. Move out AgreementMetaData operations of AgreementOperations, now in AgreementMetaDataOperations
+3. PartnerCenterMultiTenantConnectionFactory now requires a `SecurityRegion` to be instantiated and the `createConnection` method doesn't
+
 ## 7.5.0
 #### Added
 1. [Agreement api](https://docs.microsoft.com/en-us/partner-center/develop/get-agreement-metadata) to give customer consent on behalf of the reseller

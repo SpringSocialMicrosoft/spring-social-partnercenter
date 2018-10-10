@@ -5,7 +5,6 @@ import static java.time.Instant.now;
 import static java.time.Instant.parse;
 import static org.springframework.social.partnercenter.api.agreement.AgreementType.MICROSOFT_CLOUD_AGREEMENT;
 import static org.springframework.social.partnercenter.test.stubs.AgreementOperationStubs.given_confirmCustomerAcceptance_201_Created;
-import static org.springframework.social.partnercenter.test.stubs.AgreementOperationStubs.given_getAgreementMetadata_200_OK;
 import static org.springframework.social.partnercenter.test.stubs.AgreementOperationStubs.given_getConfirmations_200_OK;
 import static org.springframework.social.partnercenter.test.stubs.StubURI.baseURI;
 import static org.springframework.social.partnercenter.test.stubs.TestRestTemplateFactory.createRestTemplate;
@@ -24,27 +23,6 @@ public class AgreementOperationsTest {
 
 	@Rule
 	public WireMockRule wireMockRule = new WireMockRule(options().dynamicPort());
-
-	@Test
-	public void getAgreementMetadatas_whenCalled_thenResponseIsParsedCorrectly() {
-		given_getAgreementMetadata_200_OK();
-
-		AgreementOperations agreementOperations = new AgreementTemplate(new RestClient(createRestTemplate(),
-		                                                                               baseURI(wireMockRule.port(), "v1")),
-		                                                                true);
-
-		PartnerCenterResponse<AgreementMetaData> res = agreementOperations.getAgreementMetadatas().getBody();
-
-		SoftAssertions.assertSoftly(softly -> {
-			softly.assertThat(res.getItems()).hasSize(1);
-
-			AgreementMetaData agreementMetaData = res.getItems().get(0);
-			softly.assertThat(agreementMetaData.getTemplateId()).isEqualTo("00001111-2222-3333-4444-555566667777");
-			softly.assertThat(agreementMetaData.getAgreementType()).isEqualTo(MICROSOFT_CLOUD_AGREEMENT);
-			softly.assertThat(agreementMetaData.getAgreementLink()).isEqualTo("https://domain.com");
-			softly.assertThat(agreementMetaData.getVersionRank()).isEqualTo(0);
-		});
-	}
 
 	@Test
 	public void confirmCustomerAcceptance_whenCalled_thenResponseIsParsedCorrectly() {
