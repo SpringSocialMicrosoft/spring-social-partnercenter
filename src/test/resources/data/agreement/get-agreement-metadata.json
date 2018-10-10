@@ -1,0 +1,21 @@
+{
+  "totalCount": 1,
+  "items": [
+    {
+      "templateId": "00001111-2222-3333-4444-555566667777",
+      "agreementType": "MicrosoftCloudAgreement",
+      "agreementLink": "https://domain.com",
+      "versionRank": 0
+    }
+  ],
+  "links": {
+    "self": {
+      "uri": "/agreements",
+      "method": "GET",
+      "headers": []
+    }
+  },
+  "attributes": {
+    "objectType": "Collection"
+  }
+}
