@@ -14,14 +14,6 @@ import org.springframework.social.partnercenter.test.Resource;
 
 public class AgreementOperationStubs {
 
-	public static void given_getAgreementMetadata_200_OK() {
-		stubFor(get(anyUrl())
-				        .willReturn(aResponse()
-						                    .withStatus(200)
-						                    .withHeader(CONTENT_TYPE, APPLICATION_JSON_VALUE)
-						                    .withBody(Resource.parseFile("data/agreement/get-agreement-metadata.json").getAsString())));
-	}
-
 	public static void given_confirmCustomerAcceptance_201_Created(Agreement agreement) {
 		stubFor(post(anyUrl())
 				        .willReturn(aResponse()
