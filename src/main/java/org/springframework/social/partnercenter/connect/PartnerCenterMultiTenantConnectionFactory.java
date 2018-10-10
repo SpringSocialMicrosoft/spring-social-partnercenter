@@ -30,6 +30,7 @@ public class PartnerCenterMultiTenantConnectionFactory extends BasePartnerCenter
      * @param refreshToken    obtained from {@link AzureADMultiTenantOAuthOperations#exchangeForRefreshToken}
      * @param partnerTenantId tenantId of the csp account for which the connection is created
      * @param domain          domain of the csp account
+     * @return the PartnerCenterConnection that allows operations with Partner Center APIs
      */
     public PartnerCenterConnection createConnection(String refreshToken, String partnerTenantId, String domain) {
         AccessGrant accessGrant = multiTenantOAuthOperations

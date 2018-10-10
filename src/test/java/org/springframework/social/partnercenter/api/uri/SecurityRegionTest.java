@@ -15,9 +15,9 @@ public class SecurityRegionTest {
 
 		SoftAssertions.assertSoftly(softly -> {
 			softly.assertThat(usSecurityRegion.isPresent()).isTrue();
-			softly.assertThat(usSecurityRegion.get()).isEqualByComparingTo(SecurityRegion.USA);
+			softly.assertThat(usSecurityRegion.get()).isEqualTo(SecurityRegion.USA);
 			softly.assertThat(deSecurityRegion.isPresent()).isTrue();
-			softly.assertThat(deSecurityRegion.get()).isEqualByComparingTo(SecurityRegion.DEU);
+			softly.assertThat(deSecurityRegion.get()).isEqualTo(SecurityRegion.DEU);
 			softly.assertThat(noSecurityRegion.isPresent()).isFalse();
 		});
 	}

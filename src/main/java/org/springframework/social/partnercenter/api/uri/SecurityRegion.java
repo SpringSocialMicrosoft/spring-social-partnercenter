@@ -1,6 +1,7 @@
 package org.springframework.social.partnercenter.api.uri;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import com.google.common.collect.ImmutableList;
@@ -53,4 +54,20 @@ public class SecurityRegion {
                 .findFirst();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SecurityRegion that = (SecurityRegion) o;
+        return name.equals(that.name) &&
+                authority.equals(that.authority) &&
+                resourceUrl.equals(that.resourceUrl) &&
+                partnerServiceApiRoot.equals(that.partnerServiceApiRoot);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(name, authority, resourceUrl, partnerServiceApiRoot);
+    }
 }
