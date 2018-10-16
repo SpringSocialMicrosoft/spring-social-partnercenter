@@ -88,7 +88,7 @@ public class UriProvider {
 	}
 
 	public String buildAuthorizeUrl(String clientId, OAuth2Parameters parameters) {
-		final UriComponentsBuilder uriComponentsBuilder = UriComponentsBuilder.fromUriString("https://login.microsoftonline.com").pathSegment("common", "oauth2", "authorize");
+		final UriComponentsBuilder uriComponentsBuilder = UriComponentsBuilder.fromUriString(authority).pathSegment("common", "oauth2", "authorize");
 
 		final String clientSecretKey = "client_secret";
 		if (parameters.containsKey(clientSecretKey)) {
