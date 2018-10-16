@@ -1,5 +1,10 @@
 # Release Notes: Spring Social for Microsoft Partner Center
 
+## 8.0.1
+#### Fixed
+- `buildAuthorizeUrl` on `UriProvider` used a constant authority instead of taking the authority from the `UriProvider`
+ instance
+
 ## 8.0.0
 #### Changed
 1. SecurityRegion is no longer an enum. It is now a class so that anyone can create their own custom SecurityRegion if necessary
