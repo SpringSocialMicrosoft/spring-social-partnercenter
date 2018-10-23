@@ -1,8 +1,6 @@
 package org.springframework.social.partnercenter.api.agreement;
 
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
-import static java.time.Instant.now;
-import static java.time.Instant.parse;
 import static org.springframework.social.partnercenter.api.agreement.AgreementType.MICROSOFT_CLOUD_AGREEMENT;
 import static org.springframework.social.partnercenter.test.stubs.AgreementOperationStubs.given_confirmCustomerAcceptance_201_Created;
 import static org.springframework.social.partnercenter.test.stubs.AgreementOperationStubs.given_getConfirmations_200_OK;
@@ -60,7 +58,7 @@ public class AgreementOperationsTest {
 
 			Agreement agreement = res.getItems().get(0);
 			softly.assertThat(agreement.getTemplateId()).isEqualTo("00001111-2222-3333-4444-555566667777");
-			softly.assertThat(agreement.getDateAgreed()).isEqualTo(parse("2018-10-01T00:00:00.123Z"));
+			softly.assertThat(agreement.getDateAgreed()).isEqualTo("2018-10-01T00:00:00.123Z");
 			softly.assertThat(agreement.getType()).isEqualTo(MICROSOFT_CLOUD_AGREEMENT);
 			softly.assertThat(agreement.getAgreementLink()).isEqualTo("https://domain.com");
 
@@ -76,7 +74,7 @@ public class AgreementOperationsTest {
 	private Agreement anAgreement() {
 		Agreement agreement = new Agreement();
 		agreement.setUserId(createUUIDAsString(1));
-		agreement.setDateAgreed(now());
+		agreement.setDateAgreed("2018-10-23T00:00:00.123Z");
 		agreement.setTemplateId(createUUIDAsString(2));
 		agreement.setType(MICROSOFT_CLOUD_AGREEMENT);
 

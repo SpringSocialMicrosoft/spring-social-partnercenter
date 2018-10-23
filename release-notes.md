@@ -1,5 +1,9 @@
 # Release Notes: Spring Social for Microsoft Partner Center
 
+## 8.0.2
+#### Changed
+- Change `dateAgreed` type from `Instant` to `String` due to API inconsistencies
+
 ## 8.0.1
 #### Fixed
 - `buildAuthorizeUrl` on `UriProvider` used a constant authority instead of taking the authority from the `UriProvider`

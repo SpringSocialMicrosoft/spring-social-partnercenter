@@ -2,8 +2,6 @@ package org.springframework.social.partnercenter.api.agreement;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
-import java.time.Instant;
-
 import org.springframework.social.partnercenter.api.profile.Contact;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -13,7 +11,7 @@ public class Agreement {
 
 	private String userId;
 	private Contact primaryContact;
-	private Instant dateAgreed;
+	private String dateAgreed;
 	private String templateId;
 	private AgreementType type;
 	private String agreementLink;
@@ -34,11 +32,11 @@ public class Agreement {
 		this.primaryContact = primaryContact;
 	}
 
-	public Instant getDateAgreed() {
+	public String getDateAgreed() {
 		return dateAgreed;
 	}
 
-	public void setDateAgreed(Instant dateAgreed) {
+	public void setDateAgreed(String dateAgreed) {
 		this.dateAgreed = dateAgreed;
 	}
 
