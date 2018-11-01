@@ -1,5 +1,6 @@
 package org.springframework.social.partnercenter.api.analytics;
 
+import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
 import static org.springframework.social.partnercenter.test.stubs.AnalyticsOperationStubs.given_getPartnerLicensesDeploymentInsights_200_OK;
 import static org.springframework.social.partnercenter.test.stubs.AnalyticsOperationStubs.given_getPartnerLicensesUsageInsights_200_OK;
 import static org.springframework.social.partnercenter.test.stubs.TestURIs.baseURI;
@@ -12,19 +13,20 @@ import org.junit.Test;
 import org.springframework.social.partnercenter.api.PartnerCenterResponse;
 import org.springframework.social.partnercenter.api.analytics.impl.AnalyticsTemplate;
 import org.springframework.social.partnercenter.http.client.RestClient;
+import org.springframework.social.partnercenter.test.stubs.StubURI;
 import org.springframework.social.partnercenter.test.stubs.TestRestTemplateFactory;
 
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 
 public class AnalyticsOperationsTest {
 	@Rule
-	public WireMockRule wireMockRule = new WireMockRule();
+	public WireMockRule wireMockRule = new WireMockRule(options().dynamicPort());
 
 	@Test
 	public void testGetPartnerLicensesDeploymentInsights() {
 		given_getPartnerLicensesDeploymentInsights_200_OK();
 
-		final AnalyticsOperations analyticsOperations = new AnalyticsTemplate(new RestClient(TestRestTemplateFactory.createRestTemplate(), baseURI("v1")), true);
+		final AnalyticsOperations analyticsOperations = new AnalyticsTemplate(new RestClient(TestRestTemplateFactory.createRestTemplate(), StubURI.baseURI(wireMockRule.port(), "v1")), true);
 		final PartnerCenterResponse<PartnerLicensesDeploymentInsights> insightsPartnerCenterResponse = analyticsOperations.getPartnerLicensesDeploymentInsights().getBody();
 
 		SoftAssertions.assertSoftly(softly -> {
@@ -47,7 +49,7 @@ public class AnalyticsOperationsTest {
 	public void testGetPartnerLicensesUsageInsights() {
 		given_getPartnerLicensesUsageInsights_200_OK();
 
-		final AnalyticsOperations analyticsOperations = new AnalyticsTemplate(new RestClient(TestRestTemplateFactory.createRestTemplate(), baseURI("v1")), true);
+		final AnalyticsOperations analyticsOperations = new AnalyticsTemplate(new RestClient(TestRestTemplateFactory.createRestTemplate(), StubURI.baseURI(wireMockRule.port(), "v1")), true);
 		final PartnerCenterResponse<PartnerLicensesUsageInsights> insightsPartnerCenterResponse = analyticsOperations.getPartnerLicensesUsageInsights().getBody();
 
 		SoftAssertions.assertSoftly(softly -> {

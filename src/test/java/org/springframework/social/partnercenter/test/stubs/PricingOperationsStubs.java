@@ -19,11 +19,11 @@ public class PricingOperationsStubs {
 
 	public static void given_getAzurePricingForCurrencyAndRegion_returningRealRates(String currency, String region) {
 		String testUrl = String.format("/v1/ratecards/azure?currency=%s&region=%s", currency, region);
-		String resultJsonTemplate =  String.format("data/pricing/rates_%s_%s.json", currency, region);
+		String resultJsonTemplateFile =  String.format("data/pricing/rates_%s_%s.json", currency.toLowerCase(), region.toLowerCase());
 		stubFor(get(urlEqualTo(testUrl))
 				.willReturn(aResponse()
 						.withStatus(200)
 						.withHeader(CONTENT_TYPE, APPLICATION_JSON_VALUE)
-						.withBody(parseFile(resultJsonTemplate).getAsString())));
+						.withBody(parseFile(resultJsonTemplateFile).getAsString())));
 	}
 }
