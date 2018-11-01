@@ -1,5 +1,6 @@
 package org.springframework.social.partnercenter.api.billing.pricing;
 
+import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
@@ -11,7 +12,7 @@ public class PricingMeter {
 	private String id;
 	private String name;
 	private List<String> tags;
-	private Map<String, Double> rates;
+	private Map<String, BigDecimal> rates;
 	private String category;
 	private String subcategory;
 	private String region;
@@ -46,11 +47,11 @@ public class PricingMeter {
 		return this;
 	}
 
-	public Map<String, Double> getRates() {
+	public Map<String, BigDecimal> getRates() {
 		return rates;
 	}
 
-	public PricingMeter setRates(Map<String, Double> rates) {
+	public PricingMeter setRates(Map<String, BigDecimal> rates) {
 		this.rates = rates;
 		return this;
 	}

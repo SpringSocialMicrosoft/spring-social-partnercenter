@@ -1,0 +1,77 @@
+{
+  "locale": "de-DE",
+  "currency": "EUR",
+  "isTaxIncluded": false,
+  "meters": [
+    {
+      "id": "d0bf9053-17c4-4fec-8502-4eb8376343a7",
+      "name": "F2/F2s mit niedriger Priorität",
+      "rates": {
+        "0": 0.055193985123456789
+      },
+      "tags": [],
+      "category": "Virtual Machines",
+      "subcategory": "F/FS-Serie – Windows ",
+      "region": "USA, Westen 2",
+      "unit": "1 Stunde",
+      "includedQuantity": 0,
+      "effectiveDate": "2017-04-01T00:00:00Z"
+    },
+    {
+      "id": "8b7672d4-16fc-446e-9935-cf2223c5290f",
+      "name": "S3-Sekundär-DTUs",
+      "rates": {
+        "0": 2.8799074485
+      },
+      "tags": [],
+      "category": "SQL-Datenbank",
+      "subcategory": "Single Standard",
+      "region": "Südkorea, Süden",
+      "unit": "1/Tag",
+      "includedQuantity": 0,
+      "effectiveDate": "2017-02-01T00:00:00Z"
+    },
+    {
+      "id": "c9c058cb-822e-46ae-86fb-6b583f91b4b5",
+      "name": "H16r mit niedriger Priorität",
+      "rates": {
+        "0": 3.35178018
+      },
+      "tags": [],
+      "category": "Cloud Services",
+      "subcategory": "H-Serie",
+      "region": "Australien, Osten",
+      "unit": "1 Stunde",
+      "includedQuantity": 0,
+      "effectiveDate": "2017-10-20T00:00:00Z"
+    },
+    {
+      "id": "0aaf975b-8e33-404b-93f7-de7d69774ca1",
+      "name": "D1 v2",
+      "rates": {
+        "0": 0.1003527
+      },
+      "tags": [],
+      "category": "Cloud Services",
+      "subcategory": "Dv2-Serie",
+      "region": "USA, Westen",
+      "unit": "1 Stunde",
+      "includedQuantity": 0,
+      "effectiveDate": "2016-02-01T00:00:00Z"
+    },
+    {
+      "id": "2a9b16cf-2b54-4f0a-93ca-232f83502b7b",
+      "name": "S2-Einheit",
+      "rates": {
+        "0": 16.185919239225
+      },
+      "tags": [],
+      "category": "Cognitive Services",
+      "subcategory": "Custom Recognition",
+      "region": "",
+      "unit": "1/Tag",
+      "includedQuantity": 0,
+      "effectiveDate": "2016-10-01T00:00:00Z"
+    }
+  ]
+}

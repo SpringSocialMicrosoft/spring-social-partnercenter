@@ -1,5 +1,9 @@
 # Release Notes: Spring Social for Microsoft Partner Center
 
+## 9.0.0
+#### Changed
+- Change data type for rates in the `PricingMeter` class to use `BigDecimal` instead of `double` to avoid loss of precision with large number of decimals
+
 ## 8.0.2
 #### Changed
 - Change `dateAgreed` type from `Instant` to `String` due to API inconsistencies
