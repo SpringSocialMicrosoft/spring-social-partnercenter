@@ -25,6 +25,10 @@ public class Customer {
 	private Collection<String> customDomains;
 	@JsonProperty("attributes")
 	private Map<String, String> attributes;
+	@JsonProperty("allowDelegatedAccess")
+	private boolean allowDelegatedAccess;
+	@JsonProperty("associatedPartnerId")
+	private String associatedPartnerId;
 
 	public String getId() {
 		return id;
@@ -89,4 +93,12 @@ public class Customer {
 	public void setCustomDomains(Collection<String> customDomains) {
 		this.customDomains = customDomains;
 	}
+
+	public boolean isAllowDelegatedAccess() { return allowDelegatedAccess; }
+
+	public void setAllowDelegatedAccess(boolean allowDelegatedAccess) { this.allowDelegatedAccess = allowDelegatedAccess; }
+
+	public String getAssociatedPartnerId() { return associatedPartnerId; }
+
+	public void setAssociatedPartnerId(String associatedPartnerId) { this.associatedPartnerId = associatedPartnerId; }
 }
