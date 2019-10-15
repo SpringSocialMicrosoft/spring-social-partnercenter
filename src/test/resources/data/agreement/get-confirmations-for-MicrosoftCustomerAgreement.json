@@ -1,0 +1,19 @@
+{
+  "totalCount": 1,
+  "items":
+  [
+    {
+      "primaryContact":
+      {
+        "firstName":"John",
+        "lastName":"Doe",
+        "email":"john.doe@domain.com",
+        "phoneNumber":"1234567890"
+      },
+      "templateId":"00001111-2222-3333-4444-555566667777",
+      "dateAgreed":"2018-10-01T00:00:00.123Z",
+      "type":"MicrosoftCustomerAgreement",
+      "agreementLink":"https://domain.com"
+    }
+  ]
+}

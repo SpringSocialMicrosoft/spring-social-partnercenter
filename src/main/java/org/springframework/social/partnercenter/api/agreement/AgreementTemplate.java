@@ -26,10 +26,11 @@ public class AgreementTemplate extends PagingResourceTemplate<Agreement> impleme
 	}
 
 	@Override
-	public ResponseEntity<PartnerCenterResponse<Agreement>> getConfirmations(String customerTenantId) {
+	public ResponseEntity<PartnerCenterResponse<Agreement>> getConfirmations(String customerTenantId, AgreementType agreementType) {
 		notNull(customerTenantId, "customerTenantId");
 		return restResource.request()
-				.pathSegment("customers", customerTenantId, "agreements")
-				.get(new ParameterizedTypeReference<PartnerCenterResponse<Agreement>>() {});
+			.pathSegment("customers", customerTenantId, "agreements")
+			.queryParam("AgreementType", agreementType != null? agreementType.jsonValue() : "")
+			.get(new ParameterizedTypeReference<PartnerCenterResponse<Agreement>>() {});
 	}
 }
