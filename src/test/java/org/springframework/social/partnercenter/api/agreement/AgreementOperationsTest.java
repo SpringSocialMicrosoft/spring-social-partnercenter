@@ -2,8 +2,11 @@ package org.springframework.social.partnercenter.api.agreement;
 
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
 import static org.springframework.social.partnercenter.api.agreement.AgreementType.MICROSOFT_CLOUD_AGREEMENT;
+import static org.springframework.social.partnercenter.api.agreement.AgreementType.MICROSOFT_CUSTOMER_AGREEMENT;
 import static org.springframework.social.partnercenter.test.stubs.AgreementOperationStubs.given_confirmCustomerAcceptance_201_Created;
 import static org.springframework.social.partnercenter.test.stubs.AgreementOperationStubs.given_getConfirmations_200_OK;
+import static org.springframework.social.partnercenter.test.stubs.AgreementOperationStubs.given_getConfirmations_forMicrosoftCloudAgreement_200_OK;
+import static org.springframework.social.partnercenter.test.stubs.AgreementOperationStubs.given_getConfirmations_forMicrosoftCustomerAgreement_200_OK;
 import static org.springframework.social.partnercenter.test.stubs.StubURI.baseURI;
 import static org.springframework.social.partnercenter.test.stubs.TestRestTemplateFactory.createRestTemplate;
 import static org.springframework.social.partnercenter.test.utils.UUIDUtils.createUUIDAsString;
@@ -19,6 +22,8 @@ import com.github.tomakehurst.wiremock.junit.WireMockRule;
 
 public class AgreementOperationsTest {
 
+	public static final String CUSTOMER_TENANT_ID = "tenantId";
+	
 	@Rule
 	public WireMockRule wireMockRule = new WireMockRule(options().dynamicPort());
 
@@ -31,7 +36,7 @@ public class AgreementOperationsTest {
 		                                                                               baseURI(wireMockRule.port(), "v1")),
 		                                                                true);
 
-		Agreement agreement = agreementOperations.confirmCustomerAcceptance("tenantId", givenAgreement).getBody();
+		Agreement agreement = agreementOperations.confirmCustomerAcceptance(CUSTOMER_TENANT_ID, givenAgreement).getBody();
 
 		SoftAssertions.assertSoftly(softly -> {
 			softly.assertThat(agreement.getUserId()).isEqualTo(givenAgreement.getUserId());
@@ -51,7 +56,7 @@ public class AgreementOperationsTest {
 		                                                                               baseURI(wireMockRule.port(), "v1")),
 		                                                                true);
 
-		PartnerCenterResponse<Agreement> res = agreementOperations.getConfirmations("tenantId").getBody();
+		PartnerCenterResponse<Agreement> res = agreementOperations.getConfirmations(CUSTOMER_TENANT_ID, null).getBody();
 
 		SoftAssertions.assertSoftly(softly -> {
 			softly.assertThat(res.getItems()).hasSize(1);
@@ -71,6 +76,62 @@ public class AgreementOperationsTest {
 		});
 	}
 
+	@Test
+	public void getConfirmations_forMicrosoftCloudAgreement_whenCalled_thenResponseIsParsedCorrectly() {
+		given_getConfirmations_forMicrosoftCloudAgreement_200_OK();
+
+		AgreementOperations agreementOperations = new AgreementTemplate(new RestClient(createRestTemplate(),
+			baseURI(wireMockRule.port(), "v1")),
+			true);
+
+		PartnerCenterResponse<Agreement> res = agreementOperations.getConfirmations(CUSTOMER_TENANT_ID, MICROSOFT_CLOUD_AGREEMENT).getBody();
+
+		SoftAssertions.assertSoftly(softly -> {
+			softly.assertThat(res.getItems()).hasSize(1);
+
+			Agreement agreement = res.getItems().get(0);
+			softly.assertThat(agreement.getTemplateId()).isEqualTo("00001111-2222-3333-4444-555566667777");
+			softly.assertThat(agreement.getDateAgreed()).isEqualTo("2018-10-01T00:00:00.123Z");
+			softly.assertThat(agreement.getType()).isEqualTo(MICROSOFT_CLOUD_AGREEMENT);
+			softly.assertThat(agreement.getAgreementLink()).isEqualTo("https://domain.com");
+
+			Contact primaryContact = agreement.getPrimaryContact();
+			softly.assertThat(primaryContact).isNotNull();
+			softly.assertThat(primaryContact.getFirstName()).isEqualTo("John");
+			softly.assertThat(primaryContact.getLastName()).isEqualTo("Doe");
+			softly.assertThat(primaryContact.getEmail()).isEqualTo("john.doe@domain.com");
+			softly.assertThat(primaryContact.getPhoneNumber()).isEqualTo("1234567890");
+		});
+	}
+	
+	@Test
+	public void getConfirmations_forMicrosoftCustomerAgreement_whenCalled_thenResponseIsParsedCorrectly() {
+		given_getConfirmations_forMicrosoftCustomerAgreement_200_OK();
+
+		AgreementOperations agreementOperations = new AgreementTemplate(new RestClient(createRestTemplate(),
+			baseURI(wireMockRule.port(), "v1")),
+			true);
+
+		PartnerCenterResponse<Agreement> res = agreementOperations.getConfirmations(CUSTOMER_TENANT_ID, MICROSOFT_CUSTOMER_AGREEMENT).getBody();
+		
+		SoftAssertions.assertSoftly(softly -> {
+			softly.assertThat(res.getItems()).hasSize(1);
+
+			Agreement agreement = res.getItems().get(0);
+			softly.assertThat(agreement.getTemplateId()).isEqualTo("00001111-2222-3333-4444-555566667777");
+			softly.assertThat(agreement.getDateAgreed()).isEqualTo("2018-10-01T00:00:00.123Z");
+			softly.assertThat(agreement.getType()).isEqualTo(MICROSOFT_CUSTOMER_AGREEMENT);
+			softly.assertThat(agreement.getAgreementLink()).isEqualTo("https://domain.com");
+
+			Contact primaryContact = agreement.getPrimaryContact();
+			softly.assertThat(primaryContact).isNotNull();
+			softly.assertThat(primaryContact.getFirstName()).isEqualTo("John");
+			softly.assertThat(primaryContact.getLastName()).isEqualTo("Doe");
+			softly.assertThat(primaryContact.getEmail()).isEqualTo("john.doe@domain.com");
+			softly.assertThat(primaryContact.getPhoneNumber()).isEqualTo("1234567890");
+		});
+	}
+	
 	private Agreement anAgreement() {
 		Agreement agreement = new Agreement();
 		agreement.setUserId(createUUIDAsString(1));
