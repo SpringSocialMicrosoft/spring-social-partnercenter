@@ -1,5 +1,9 @@
 # Release Notes: Spring Social for Microsoft Partner Center
 
+## 9.0.2
+#### Added
+- Added MicrosoftCustomerAgreement, and the templateId of each agreement to AgreementType
+
 ## 9.0.1
 #### Added
 - Added DAP (Delegated Admin Privileges) `allowDelegatedAccess` and `associatedPartnerId` fields to Customer

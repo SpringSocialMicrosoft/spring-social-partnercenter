@@ -53,6 +53,14 @@ dependencies {
 	compile('org.apache.httpcomponents:httpclient:4.3.3') {
 		exclude group: 'commons-logging', module: 'commons-logging'
 	}
+	
+	compileOnly(
+			[group: 'org.projectlombok', 			name: 'lombok', 							version: '1.16.16']
+	)
+
+	testCompileOnly(
+			[group: 'org.projectlombok', 			name: 'lombok', 							version: '1.16.16']
+	)
 
 	testCompile(
 			[ group: "junit",							name: "junit",					version: "${junit4Version}"],
