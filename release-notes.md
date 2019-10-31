@@ -1,5 +1,11 @@
 # Release Notes: Spring Social for Microsoft Partner Center
 
+## 9.4.0
+#### Added
+- Added missing `upgradeTargetOffers` attribute to `Offer` bean
+#### Changed
+- Change explicit `getters`, `setters` and `builder` by Lombok annotations.
+
 ## 9.0.2
 #### Added
 - Added MicrosoftCustomerAgreement, and the templateId of each agreement to AgreementType
