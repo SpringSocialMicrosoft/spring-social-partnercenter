@@ -4,6 +4,9 @@ import static org.springframework.util.StringUtils.isEmpty;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -58,12 +61,23 @@ public class PartnerCenterResponse<T> {
 	}
 
 	public String getContinuationToken() {
-		return continuationToken;
+		return extractContinuationToken().orElse(null);
 	}
 
-	public PartnerCenterResponse setContinuationToken(String continuationToken) {
-		this.continuationToken = continuationToken;
-		return this;
+	public Optional<String> extractContinuationToken() {
+		return links.getNext().getHeaders()
+			.stream()
+			.filter(header -> header.key.equals("MS-ContinuationToken"))
+			.map(h -> h.value)
+			.map(this::parseContinuationToken)
+			.filter(Objects::nonNull)
+			.findFirst();
+	}
+
+	private String parseContinuationToken(String uri) {
+		return UriComponentsBuilder.fromUriString(uri)
+			.build()
+			.getQueryParams().getFirst("continuation_token");
 	}
 
 	public boolean hasNext(){
