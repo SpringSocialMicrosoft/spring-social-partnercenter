@@ -63,7 +63,7 @@ public class PagingResourceTemplate<T> extends AbstractTemplate implements Pagin
 	public ResponseEntity<PartnerCenterResponse<UtilizationRecord>> next(String continuationToken, String customerId, String subscriptionId) {
 		return restResource.request()
 			.header(MS_CONTINUATION_TOKEN, continuationToken)
-			.pathSegment(customerId, SUBSCRIPTIONS, subscriptionId)
+			.pathSegment(customerId, SUBSCRIPTIONS, subscriptionId, "utilizations", "azure")
 			.queryParam("seekOperation", SeekOperation.PREVIOUS.getValue())
 			.get((new ParameterizedTypeReference<PartnerCenterResponse<UtilizationRecord>>() {}));
 	}
