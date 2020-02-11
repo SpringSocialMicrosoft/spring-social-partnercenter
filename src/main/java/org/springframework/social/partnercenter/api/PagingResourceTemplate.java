@@ -11,6 +11,8 @@ import org.springframework.social.partnercenter.http.client.RestResource;
 public class PagingResourceTemplate<T> extends AbstractTemplate implements PagingResourceOperations<T>{
 	private final RestResource restResource;
 	private static final String SUBSCRIPTIONS = "subscriptions";
+	private static final String UTILIZATIONS = "utilizations";
+	private static final String AZURE = "azure";
 	private ParameterizedTypeReference<PartnerCenterResponse<T>> typeReference;
 	protected PagingResourceTemplate(RestResource restResource, boolean isAuthorized, ParameterizedTypeReference<PartnerCenterResponse<T>> typeReference) {
 		super(isAuthorized);
@@ -63,7 +65,7 @@ public class PagingResourceTemplate<T> extends AbstractTemplate implements Pagin
 	public ResponseEntity<PartnerCenterResponse<UtilizationRecord>> next(String continuationToken, String customerId, String subscriptionId) {
 		return restResource.request()
 			.header(MS_CONTINUATION_TOKEN, continuationToken)
-			.pathSegment(customerId, SUBSCRIPTIONS, subscriptionId)
+			.pathSegment(customerId, SUBSCRIPTIONS, subscriptionId, UTILIZATIONS, AZURE)
 			.queryParam("seekOperation", SeekOperation.PREVIOUS.getValue())
 			.get((new ParameterizedTypeReference<PartnerCenterResponse<UtilizationRecord>>() {}));
 	}

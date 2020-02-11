@@ -1,8 +1,11 @@
 # Release Notes: Spring Social for Microsoft Partner Center
 
+
 ## 9.5.0
 #### Added
 - Added new next method `ResponseEntity<PartnerCenterResponse<UtilizationRecord>> next(String continuationToken, String customerId, String subscriptionId)`
+#### Changed
+- Change definition of new next method `ResponseEntity<PartnerCenterResponse<UtilizationRecord>> next(String continuationToken, String customerId, String subscriptionId)`
 
 ## 9.4.0
 #### Added
