@@ -1,6 +1,10 @@
 # Release Notes: Spring Social for Microsoft Partner Center
 
-## 10.1.1
+## 10.3.0
+#### Changed
+- Changed queryParam to seek_operation
+
+## 10.2.0
 #### Changed
 - Changed next method to used operationSeek NEXT
 
