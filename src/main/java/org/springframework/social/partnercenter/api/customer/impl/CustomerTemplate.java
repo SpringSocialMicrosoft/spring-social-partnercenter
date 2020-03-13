@@ -17,7 +17,6 @@ import org.springframework.social.partnercenter.api.customer.SubscribedSku;
 import org.springframework.social.partnercenter.api.customer.query.Filter;
 import org.springframework.social.partnercenter.api.order.subscription.Subscription;
 import org.springframework.social.partnercenter.http.client.RestResource;
-import org.springframework.social.partnercenter.serialization.Json;
 
 public class CustomerTemplate extends PagingResourceTemplate<Customer> implements CustomerOperations {
 	private RestResource restResource;
@@ -126,5 +125,13 @@ public class CustomerTemplate extends PagingResourceTemplate<Customer> implement
 	@Override
 	protected String getProviderId() {
 		return PartnerCenter.PROVIDER_ID;
+	}
+
+	@Override
+	public ResponseEntity deleteCustomer(String customerId) {
+		notNull(customerId, "customerId");
+		return restResource.request()
+			.pathSegment(customerId)
+			.delete();
 	}
 }

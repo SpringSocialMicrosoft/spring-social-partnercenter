@@ -1,5 +1,9 @@
 # Release Notes: Spring Social for Microsoft Partner Center
 
+## 10.4.0
+#### Added
+- Added new API to Customer Operations
+
 ## 10.3.0
 #### Changed
 - Changed queryParam to seek_operation

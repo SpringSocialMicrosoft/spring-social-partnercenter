@@ -16,4 +16,6 @@ public interface CustomerOperations extends PagingResourceOperations<Customer>{
 	ResponseEntity<CustomerBillingProfile> getBillingProfile(String customerTenantId);
 	ResponseEntity<CustomerBillingProfile> updateBillingProfile(String customerTenantId, String etag, CustomerBillingProfile billingProfile);
 	ResponseEntity<PartnerCenterResponse<SubscribedSku>> subscribedSkus(String customerId);
+	ResponseEntity deleteCustomer(String tenantId);
+
 }
