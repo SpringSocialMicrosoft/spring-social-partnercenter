@@ -7,6 +7,8 @@ import static org.springframework.social.partnercenter.api.validation.Assertion.
 import java.util.ArrayList;
 import java.util.Map;
 
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -35,6 +37,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.google.common.collect.ImmutableList;
 
+@Slf4j
 public class AzureADMultiTenantOAuthTemplate implements AzureADMultiTenantOAuthOperations {
 	private final String clientId;
 	private final String clientSecret;
@@ -181,6 +184,7 @@ public class AzureADMultiTenantOAuthTemplate implements AzureADMultiTenantOAuthO
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 		try {
+			log.info("AccessTokenUrl={}", accessTokenUrl);
 			return extractAccessGrant(getRestTemplate().postForObject(accessTokenUrl, new HttpEntity<>(parameters, headers), Map.class));
 		} catch (HttpStatusCodeException e) {
 			throw buildAuthFault(e);
@@ -216,7 +220,9 @@ public class AzureADMultiTenantOAuthTemplate implements AzureADMultiTenantOAuthO
 	}
 
 	private ApiAuthorizationException buildAuthFault(HttpStatusCodeException e){
+		log.info("Exception Message={}", e.getMessage());
 		String responseBody = e.getResponseBodyAsString();
+		log.info("Response Body json={}", responseBody);
 		try {
 			AuthorizationFault authorizationFault = Json.fromJson(responseBody, AuthorizationFault.class);
 			return new ApiAuthorizationException(authorizationFault.getErrorDescription(), e, authorizationFault);
