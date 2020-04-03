@@ -1,5 +1,9 @@
 # Release Notes: Spring Social for Microsoft Partner Center
 
+## 10.5.0
+#### Added
+- Added some logs to AzureADMultiTenantOAuthTemplate
+
 ## 10.4.0
 #### Added
 - Added new API to Customer Operations
