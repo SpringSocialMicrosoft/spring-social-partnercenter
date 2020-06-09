@@ -69,6 +69,14 @@ public class UtilityTemplate extends AbstractTemplate implements UtilityOperatio
 	}
 
 	@Override
+	public ResponseEntity validateAddressWithErrorMessage(Address address) {
+		notNull(address, "address");
+		return restResource.request()
+			.pathSegment("validations", "address")
+			.post(address, String.class);
+	}
+
+	@Override
 	public ResponseEntity deleteCustomer(String customerId) {
 		notNull(customerId, "customerId");
 		return restResource.request()
