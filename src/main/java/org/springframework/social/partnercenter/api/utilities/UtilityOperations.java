@@ -7,5 +7,6 @@ public interface UtilityOperations {
 	ResponseEntity<CountryInformation> getAddressFormattingRulesByMarket(String isoCodeId);
 	Boolean isDomainAvailable(String domainId);
 	ResponseEntity<Boolean> validateAddress(Address address);
+	ResponseEntity validateAddressWithErrorMessage(Address address);
 	ResponseEntity deleteCustomer(String customerId);
 }
