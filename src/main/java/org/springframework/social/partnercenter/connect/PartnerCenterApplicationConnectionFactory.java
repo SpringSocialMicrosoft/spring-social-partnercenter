@@ -34,7 +34,7 @@ public class PartnerCenterApplicationConnectionFactory extends BasePartnerCenter
 	 */
 	public Connection<PartnerCenter> createConnection(AccessGrant accessGrant) {
 		return new PartnerCenterConnection(getProviderId(), extractProviderUserId(accessGrant), accessGrant.getAccessToken(),
-				accessGrant.getExpireTime(), getPartnerCenterServiceProvider(), getApiAdapter());
+				accessGrant.getRefreshToken(), accessGrant.getExpireTime(), getPartnerCenterServiceProvider(), getApiAdapter());
 	}
 
 	public boolean canConnect(){
