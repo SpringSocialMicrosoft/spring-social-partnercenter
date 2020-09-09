@@ -10,7 +10,7 @@ import org.springframework.social.partnercenter.PartnerCenter;
 import org.springframework.social.partnercenter.security.AzureADAuthOperations;
 import org.springframework.social.partnercenter.security.PartnerCenterServiceProvider;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
 public class PartnerCenterConnectionTest {
