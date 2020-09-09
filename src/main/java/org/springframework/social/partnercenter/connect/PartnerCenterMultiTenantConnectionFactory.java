@@ -39,6 +39,7 @@ public class PartnerCenterMultiTenantConnectionFactory extends BasePartnerCenter
         return new PartnerCenterConnection(getProviderId(),
                 extractProviderUserId(accessGrant),
                 accessGrant.getAccessToken(),
+                accessGrant.getRefreshToken(),
                 accessGrant.getExpireTime(),
                 new PartnerCenterServiceProvider(clientId, clientSecret, domain, securityRegion),
                 getApiAdapter());

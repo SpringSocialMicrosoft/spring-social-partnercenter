@@ -22,9 +22,33 @@ public class PartnerCenterConnection extends AbstractConnection<PartnerCenter> i
 
 	private transient final PartnerCenterServiceProvider serviceProvider;
 	private String accessToken;
+	private String refreshToken;
 	private Long expireTime;
 	private transient PartnerCenter api;
 	private transient PartnerCenter apiProxy;
+
+	/**
+	 * Creates a new {@link PartnerCenterConnection} from a access grant response.
+	 * Designed to be called to establish a new {@link PartnerCenterConnection} after receiving an access grant successfully.
+	 * The providerUserId may be null in this case: if so, this constructor will try to resolve it using the service API obtained from
+	 * the {@link PartnerCenterServiceProvider}.
+	 * @param providerId the provider id e.g. "facebook".
+	 * @param providerUserId the provider user id (may be null if not returned as part of the access grant)
+	 * @param accessToken the granted access token
+	 * @param refreshToken the granted refresh token
+	 * @param expireTime the access token expiration time
+	 * @param serviceProvider the OAuth2-based ServiceProvider
+	 * @param apiAdapter the ApiAdapter for the ServiceProvider
+	 */
+	PartnerCenterConnection(String providerId, String providerUserId, String accessToken, String refreshToken, Long expireTime,
+							PartnerCenterServiceProvider serviceProvider, ApiAdapter<PartnerCenter> apiAdapter) {
+		super(apiAdapter);
+		this.serviceProvider = serviceProvider;
+		initAccessTokens(accessToken, refreshToken, expireTime);
+		initApi();
+		initApiProxy();
+		initKey(providerId, providerUserId);
+	}
 
 	/**
 	 * Creates a new {@link PartnerCenterConnection} from a access grant response.
@@ -40,12 +64,7 @@ public class PartnerCenterConnection extends AbstractConnection<PartnerCenter> i
 	 */
 	PartnerCenterConnection(String providerId, String providerUserId, String accessToken, Long expireTime,
 							PartnerCenterServiceProvider serviceProvider, ApiAdapter<PartnerCenter> apiAdapter) {
-		super(apiAdapter);
-		this.serviceProvider = serviceProvider;
-		initAccessTokens(accessToken, expireTime);
-		initApi();
-		initApiProxy();
-		initKey(providerId, providerUserId);
+		this(providerId, providerUserId, accessToken, null, expireTime, serviceProvider, apiAdapter);
 	}
 
 	// implementing Connection
@@ -61,7 +80,7 @@ public class PartnerCenterConnection extends AbstractConnection<PartnerCenter> i
 	public void refresh() {
 		synchronized (getMonitor()) {
 			AccessGrant accessGrant = serviceProvider.getAzureADAuthOperations().refreshAccess(null);
-			initAccessTokens(accessGrant.getAccessToken(), accessGrant.getExpireTime());
+			initAccessTokens(accessGrant.getAccessToken(), accessGrant.getRefreshToken(), accessGrant.getExpireTime());
 			initApi();
 		}
 	}
@@ -95,14 +114,15 @@ public class PartnerCenterConnection extends AbstractConnection<PartnerCenter> i
 	public ConnectionData createData() {
 		synchronized (getMonitor()) {
 			return new ConnectionData(getKey().getProviderId(), getKey().getProviderUserId(), getDisplayName(), getProfileUrl(), getImageUrl(),
-					accessToken, null, null, expireTime);
+					accessToken, null, refreshToken, expireTime);
 		}
 	}
 
 	// internal helpers
 
-	private void initAccessTokens(String accessToken, Long expireTime) {
+	private void initAccessTokens(String accessToken, String refreshToken, Long expireTime) {
 		this.accessToken = accessToken;
+		this.refreshToken = refreshToken;
 		this.expireTime = expireTime;
 	}
 
@@ -141,6 +161,7 @@ public class PartnerCenterConnection extends AbstractConnection<PartnerCenter> i
 		int result = super.hashCode();
 		result = prime * result + ((accessToken == null) ? 0 : accessToken.hashCode());
 		result = prime * result + ((expireTime == null) ? 0 : expireTime.hashCode());
+		result = prime * result + ((refreshToken == null) ? 0 : refreshToken.hashCode());
 		return result;
 	}
 
@@ -159,6 +180,10 @@ public class PartnerCenterConnection extends AbstractConnection<PartnerCenter> i
 		if (expireTime == null) {
 			if (other.expireTime != null) return false;
 		} else if (!expireTime.equals(other.expireTime)) return false;
+
+		if (refreshToken == null) {
+			if (other.refreshToken != null) return false;
+		} else if (!refreshToken.equals(other.refreshToken)) return false;
 
 
 		return true;
