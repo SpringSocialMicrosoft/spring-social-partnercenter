@@ -1,5 +1,10 @@
 # Release Notes: Spring Social for Microsoft Partner Center
 
+## 10.6.0
+#### Added
+- Added ability to retrieve refresh token from PartnerCenterConnection
+  class
+
 ## 10.5.0
 #### Added
 - Added some logs to AzureADMultiTenantOAuthTemplate
