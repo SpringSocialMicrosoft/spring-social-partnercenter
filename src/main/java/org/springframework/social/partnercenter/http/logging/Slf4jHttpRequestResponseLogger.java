@@ -42,10 +42,13 @@ public class Slf4jHttpRequestResponseLogger implements HttpRequestResponseLogger
 			} else if (logger.isInfoEnabled() && logLevel.equals(LogLevel.INFO)){
 				requestLogger.logInfo(startTime, request, body);
 				responseLogger.logInfo(endTime, request, response);
+			} else if (logger.isInfoEnabled() && logLevel.equals(LogLevel.WARN)){
+				requestLogger.logWarning(startTime, request, body);
+				responseLogger.logWarning(endTime, request, response);
 			}
 		} else {
-			requestLogger.logWarning(startTime, request, body);
-			responseLogger.logWarning(endTime, request, response);
+			requestLogger.logError(startTime, request, body);
+			responseLogger.logError(endTime, request, response);
 		}
 	}
 }

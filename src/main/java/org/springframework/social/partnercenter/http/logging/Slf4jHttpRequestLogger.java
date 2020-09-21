@@ -38,4 +38,9 @@ public class Slf4jHttpRequestLogger implements HttpRequestLogger {
 	public void logWarning(Instant startTime, HttpRequest request, byte[] body){
 		logger.warn(formatLog(startTime, request, body));
 	}
+
+	@Override
+	public void logError(Instant startTime, HttpRequest request, byte[] body){
+		logger.error(formatLog(startTime, request, body));
+	}
 }

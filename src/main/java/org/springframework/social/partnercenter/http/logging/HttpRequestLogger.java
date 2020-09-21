@@ -10,4 +10,6 @@ public interface HttpRequestLogger {
 	void logInfo(Instant startTime, HttpRequest request, byte[] body);
 
 	void logWarning(Instant startTime, HttpRequest request, byte[] body);
+
+	void logError(Instant startTime, HttpRequest request, byte[] body);
 }

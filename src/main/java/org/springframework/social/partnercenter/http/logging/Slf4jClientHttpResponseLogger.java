@@ -47,4 +47,8 @@ public class Slf4jClientHttpResponseLogger implements ClientHttpResponseLogger {
 		logger.warn(formatLog(dateTime, request, response));
 	}
 
+	@Override
+	public void logError(Instant dateTime, HttpRequest request, ClientHttpResponse response) {
+		logger.error(formatLog(dateTime, request, response));
+	}
 }
