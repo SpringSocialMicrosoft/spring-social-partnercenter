@@ -12,4 +12,6 @@ public interface ClientHttpResponseLogger {
 	void logInfo(Instant dateTime, HttpRequest request, ClientHttpResponse response) throws IOException;
 
 	void logWarning(Instant dateTime, HttpRequest request, ClientHttpResponse response) throws IOException;
+
+	void logError(Instant dateTime, HttpRequest request, ClientHttpResponse response) throws IOException;
 }
