@@ -14,7 +14,7 @@ public class OfferTerm {
 	@JsonProperty("discount")
 	private Double discount;
 	private List<String> excludedMeterIds;
-	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "UTC")
+	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss['Z']", timezone = "UTC")
 	private Instant effectiveDate;
 
 	public String getName() {
