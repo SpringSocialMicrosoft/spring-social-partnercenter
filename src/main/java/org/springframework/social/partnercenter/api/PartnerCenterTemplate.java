@@ -52,7 +52,6 @@ import org.springframework.social.partnercenter.connect.AddHeaderRequestIntercep
 import org.springframework.social.partnercenter.connect.ApiVersionParameterRequestInterceptor;
 import org.springframework.social.partnercenter.http.client.RestClient;
 import org.springframework.social.partnercenter.http.client.RestResource;
-import org.springframework.social.partnercenter.http.logging.HttpRequestResponseLoggerFactory;
 import org.springframework.social.partnercenter.http.logging.LogLevel;
 import org.springframework.social.partnercenter.http.logging.LoggingRequestInterceptor;
 import org.springframework.social.partnercenter.serialization.Json;
@@ -250,7 +249,7 @@ public class PartnerCenterTemplate extends AbstractOAuth2ApiBinding implements P
 	@Override
 	public void enableSlf4j(LogLevel level) {
 		getRestTemplate().getInterceptors().removeIf(LoggingRequestInterceptor.class::isInstance);
-		getRestTemplate().getInterceptors().add(new LoggingRequestInterceptor(HttpRequestResponseLoggerFactory.createSlf4jApiLogger(getClass(), level)));
+		getRestTemplate().getInterceptors().add(new LoggingRequestInterceptor(getClass(), level));
 	}
 
 	@Override
