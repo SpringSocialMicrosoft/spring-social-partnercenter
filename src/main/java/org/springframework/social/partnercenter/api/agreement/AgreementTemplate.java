@@ -30,7 +30,7 @@ public class AgreementTemplate extends PagingResourceTemplate<Agreement> impleme
 		notNull(customerTenantId, "customerTenantId");
 		return restResource.request()
 			.pathSegment("customers", customerTenantId, "agreements")
-			.queryParam("AgreementType", agreementType != null? agreementType.jsonValue() : "")
+			.queryParam("agreementType", agreementType != null? agreementType.jsonValue() : "")
 			.get(new ParameterizedTypeReference<PartnerCenterResponse<Agreement>>() {});
 	}
 }
