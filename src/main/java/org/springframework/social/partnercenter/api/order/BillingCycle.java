@@ -6,7 +6,8 @@ public enum BillingCycle {
 	MONTHLY("monthly"),
 	ANNUAL("annual"),
 	UNKNOWN("unknown"),
-	NONE("none");
+	NONE("none"),
+	ONE_TIME("one_time");
 
 	private String jsonValue;
 
