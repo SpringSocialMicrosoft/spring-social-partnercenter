@@ -6,7 +6,8 @@ public enum SubscriptionStatus {
 	ACTIVE("active"),
 	DELETED("deleted"),
 	NONE("none"),
-	SUSPENDED("suspended");
+	SUSPENDED("suspended"),
+	PENDING("pending");
 
 	private String jsonValue;
 
