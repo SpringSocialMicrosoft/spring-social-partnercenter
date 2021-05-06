@@ -19,6 +19,7 @@ public class Address {
 	private Object addressLine2;
 	private String postalCode;
 	private String firstName;
+	private String middleName;
 	private String lastName;
 	private String phoneNumber;
 	@JsonIgnore
@@ -86,6 +87,14 @@ public class Address {
 
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
+	}
+
+	public String getMiddleName() {
+		return middleName;
+	}
+
+	public void setMiddleName(String middleName) {
+		this.middleName = middleName;
 	}
 
 	public String getLastName() {

@@ -18,6 +18,7 @@ public class CustomerBillingProfile {
 	private String language;
 	private String companyName;
 	private Address defaultAddress;
+	private String organizationRegistrationId;
 	private Map<String, String> attributes;
 	@JsonIgnore
 	private Map<String, Object> additionalProperties = new HashMap<String, Object>();
@@ -84,6 +85,14 @@ public class CustomerBillingProfile {
 
 	public void setDefaultAddress(Address defaultAddress) {
 		this.defaultAddress = defaultAddress;
+	}
+
+	public String getOrganizationRegistrationId() {
+		return organizationRegistrationId;
+	}
+
+	public void setOrganizationRegistrationId(String organizationRegistrationId) {
+		this.organizationRegistrationId = organizationRegistrationId;
 	}
 
 	public Map<String, String> getAttributes() {

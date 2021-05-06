@@ -1,5 +1,9 @@
 # Release Notes: Spring Social for Microsoft Partner Center
 
+## 10.13.0
+#### Added
+- added the new fields for Enhanced Customer Data Collection
+
 ## 10.6.0
 #### Added
 - Added ability to retrieve refresh token from PartnerCenterConnection
