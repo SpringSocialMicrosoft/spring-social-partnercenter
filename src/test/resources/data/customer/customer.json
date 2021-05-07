@@ -21,9 +21,11 @@
 	  "addressLine1": "One Microsoft Way",
 	  "postalCode": "98052",
 	  "firstName": "Test",
+	  "middleName": "TestMiddleName",
 	  "lastName": "Test",
 	  "phoneNumber": ""
 	},
+	"organizationRegistrationId": "TestOrganizationRegistrationId",
 	"attributes": {
 	  "etag": "5920358838484612121",
 	  "objectType": "CustomerBillingProfile"
